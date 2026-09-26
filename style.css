@@ -10,276 +10,518 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #f1f5f9;
-    color: #1e293b;
+    background: #f4f7fb;
+    color: #1f2937;
 }
 
-
-/* =====================================================
-   BERANDA
-===================================================== */
-
-header {
-    background: #ffffff;
-}
-
-.hero {
-    max-width: 1100px;
-    margin: auto;
-    padding: 70px 20px;
-}
-
-.exam-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
-
-
-/* =====================================================
-   TOMBOL UMUM
-===================================================== */
-
-button {
+button,
+input {
     font-family: inherit;
-    cursor: pointer;
-    border: none;
-}
-
-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-.btn-primary,
-.btn-secondary,
-.btn-warning,
-.btn-finish {
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-size: 15px;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.btn-primary {
-    background: #2563eb;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #1d4ed8;
-}
-
-.btn-secondary {
-    background: #e2e8f0;
-    color: #334155;
-}
-
-.btn-secondary:hover {
-    background: #cbd5e1;
-}
-
-.btn-warning {
-    background: #f59e0b;
-    color: white;
-}
-
-.btn-warning:hover {
-    background: #d97706;
-}
-
-.btn-warning.active {
-    background: #dc2626;
-}
-
-.btn-finish {
-    background: #dc2626;
-    color: white;
-}
-
-.btn-finish:hover {
-    background: #b91c1c;
 }
 
 
 /* =====================================================
-   RUANG UJIAN
+   LOGIN
 ===================================================== */
 
-.exam-container {
+.login-page {
     min-height: 100vh;
-    background: #f1f5f9;
-}
-
-
-/* =====================================================
-   HEADER UJIAN
-===================================================== */
-
-.exam-header {
-    width: 100%;
-    background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+    background:
+        linear-gradient(135deg, #eef5ff, #f8fbff);
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 16px 28px;
-
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.exam-header h1 {
-    font-size: 22px;
-    color: #1e3a8a;
-    margin-bottom: 4px;
-}
-
-.exam-header p {
-    font-size: 13px;
-    color: #64748b;
-}
-
-
-/* =====================================================
-   INFORMASI SISWA
-===================================================== */
-
-.exam-info {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.exam-info > div:first-child {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    gap: 3px;
-}
-
-.exam-info strong {
-    font-size: 14px;
-    color: #0f172a;
-}
-
-.exam-info span {
-    font-size: 12px;
-    color: #64748b;
-}
-
-
-/* =====================================================
-   BADGE MODE
-===================================================== */
-
-.mode-badge {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    padding: 9px 13px;
+    padding: 30px 15px;
+}
 
-    border-radius: 999px;
 
+.login-wrapper {
+    width: 100%;
+    max-width: 460px;
+}
+
+
+.login-card {
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 15px 45px rgba(15, 23, 42, 0.10);
+
+    border: 1px solid #e5e7eb;
+}
+
+
+.login-logo {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 38px;
+}
+
+
+.login-card h1 {
+    text-align: center;
+
+    font-size: 28px;
+
+    color: #1d4ed8;
+
+    letter-spacing: 1px;
+}
+
+
+.school-name {
+    text-align: center;
+
+    color: #64748b;
+
+    margin-top: 5px;
+
+    font-size: 15px;
+}
+
+
+.mode-badge {
+    width: fit-content;
+
+    margin: 20px auto;
+
+    padding: 9px 18px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+.mode-gladi {
     background: #dcfce7;
-    color: #166534;
+    color: #15803d;
+}
+
+
+.mode-resmi {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+
+.login-divider {
+    height: 1px;
+
+    background: #e5e7eb;
+
+    margin: 20px 0 25px;
+}
+
+
+.login-card h2 {
+    text-align: center;
+
+    font-size: 22px;
+
+    margin-bottom: 7px;
+}
+
+
+.login-description {
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+    color: #374151;
+}
+
+
+.form-group input {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: #fff;
+
+    transition: 0.2s;
+}
+
+
+.form-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+.btn-login {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+
+    transition: 0.2s;
+}
+
+
+.btn-login:hover {
+    background: #1d4ed8;
+}
+
+
+.btn-back {
+    width: 100%;
+
+    height: 45px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+}
+
+
+.btn-back:hover {
+    color: #2563eb;
+}
+
+
+.login-info {
+    margin-top: 20px;
+
+    padding: 14px;
+
+    background: #f8fafc;
+
+    border-radius: 10px;
 
     font-size: 13px;
+
+    color: #64748b;
+}
+
+
+.login-info strong {
+    color: #374151;
+}
+
+
+.login-info p {
+    margin-top: 5px;
+
+    line-height: 1.5;
+}
+
+
+.copyright {
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    margin-top: 18px;
+}
+
+
+/* =====================================================
+   UJIAN HEADER
+===================================================== */
+
+.ujian-page {
+    min-height: 100vh;
+
+    background: #f3f6fa;
+}
+
+
+.exam-header {
+    min-height: 76px;
+
+    background: white;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    padding: 12px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.exam-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.exam-logo {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+}
+
+
+.exam-brand h1 {
+    font-size: 18px;
+
+    color: #1d4ed8;
+}
+
+
+.exam-brand p {
+    font-size: 12px;
+
+    color: #64748b;
+
+    margin-top: 2px;
+}
+
+
+.exam-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.exam-mode {
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
     font-weight: bold;
+}
+
+
+.student-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    background: #f8fafc;
+
+    border-radius: 10px;
+}
+
+
+.student-info > span {
+    font-size: 18px;
+}
+
+
+.student-info strong {
+    display: block;
+
+    font-size: 13px;
+
+    max-width: 160px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 
     white-space: nowrap;
 }
 
-.mode-badge.mode-resmi {
-    background: #dbeafe;
-    color: #1e40af;
+
+.student-info small {
+    display: block;
+
+    font-size: 11px;
+
+    color: #64748b;
+
+    margin-top: 2px;
 }
 
 
-/* =====================================================
-   TIMER
-===================================================== */
-
 .timer-box {
-    min-width: 105px;
+    min-width: 100px;
 
-    padding: 10px 14px;
+    padding: 10px 13px;
 
-    background: #0f172a;
-    color: #ffffff;
+    background: #f1f5f9;
 
     border-radius: 10px;
 
-    text-align: center;
+    display: flex;
 
-    font-size: 17px;
-    font-weight: bold;
+    align-items: center;
 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    justify-content: center;
+
+    gap: 7px;
 }
 
-.timer-box span {
-    color: white;
+
+.timer-box strong {
     font-size: 17px;
+
+    color: #1f2937;
+}
+
+
+.timer-danger {
+    background: #fee2e2;
+
+    animation: pulseTimer 1s infinite;
+}
+
+
+.timer-danger strong {
+    color: #dc2626;
+}
+
+
+@keyframes pulseTimer {
+    50% {
+        opacity: 0.65;
+    }
 }
 
 
 /* =====================================================
-   INFORMASI MODE
+   MODE WARNING
 ===================================================== */
 
-.mode-notice {
-    max-width: 1200px;
+.mode-warning {
+    max-width: 1250px;
+
     margin: 18px auto 0;
 
-    padding: 14px 18px;
+    padding: 12px 16px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: #ecfdf5;
+    background: #f0fdf4;
+
     border: 1px solid #bbf7d0;
 
     color: #166534;
-}
 
-.mode-notice strong {
-    font-size: 14px;
-}
-
-.mode-notice p {
-    margin-top: 4px;
     font-size: 13px;
 }
 
-.notice-resmi {
+
+.warning-resmi {
     background: #eff6ff;
+
     border-color: #bfdbfe;
+
     color: #1e40af;
 }
 
 
 /* =====================================================
-   LAYOUT UJIAN
+   EXAM CONTAINER
 ===================================================== */
 
-.exam-main {
-    max-width: 1200px;
+.exam-container {
+    max-width: 1250px;
 
-    margin: 18px auto 40px;
+    margin: 18px auto;
 
-    padding: 0 18px;
+    padding: 0 15px;
 
     display: grid;
 
-    grid-template-columns:
-        minmax(0, 1fr)
-        280px;
+    grid-template-columns: minmax(0, 1fr) 300px;
 
     gap: 18px;
 
@@ -288,7 +530,7 @@ button:disabled {
 
 
 /* =====================================================
-   AREA SOAL
+   QUESTION AREA
 ===================================================== */
 
 .question-area {
@@ -296,216 +538,327 @@ button:disabled {
 }
 
 
-/* =====================================================
-   HEADER SOAL
-===================================================== */
+.question-top {
+    background: white;
 
-.question-header {
-    background: #ffffff;
+    border: 1px solid #e5e7eb;
 
-    border: 1px solid #e2e8f0;
+    border-radius: 12px 12px 0 0;
 
-    border-radius: 12px;
-
-    padding: 13px 17px;
+    padding: 15px 18px;
 
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
 
-    margin-bottom: 12px;
-
-    font-size: 14px;
+    justify-content: space-between;
 }
 
-.question-header strong {
-    color: #1d4ed8;
+
+.question-label {
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #64748b;
+
+    margin-right: 7px;
 }
 
-#statusJawaban {
+
+.question-number {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
     font-weight: bold;
 }
 
-.status-belum {
-    color: #dc2626;
+
+.question-total {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin-left: 5px;
 }
 
-.status-sudah {
-    color: #16a34a;
+
+.answer-status {
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+.status-empty {
+    background: #f1f5f9;
+
+    color: #64748b;
+}
+
+
+.status-answered {
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+.status-doubt {
+    background: #fef3c7;
+
+    color: #92400e;
 }
 
 
 /* =====================================================
-   KARTU SOAL
+   QUESTION CARD
 ===================================================== */
 
 .question-card {
-    background: #ffffff;
+    background: white;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e5e7eb;
 
-    border-radius: 16px;
+    border-top: none;
 
-    padding: 28px;
+    padding: 25px;
 
-    box-shadow:
-        0 5px 18px rgba(15, 23, 42, 0.05);
-}
-
-.question-card h2 {
-    font-size: 20px;
-
-    line-height: 1.55;
-
-    color: #0f172a;
-
-    margin-bottom: 28px;
+    min-height: 360px;
 }
 
 
-/* =====================================================
-   PILIHAN JAWABAN
-===================================================== */
+.question-text {
+    font-size: 19px;
 
-.option {
+    font-weight: 600;
+
+    line-height: 1.6;
+
+    color: #111827;
+
+    margin-bottom: 25px;
+}
+
+
+.choices-container {
     display: flex;
-    align-items: center;
 
-    width: 100%;
+    flex-direction: column;
 
+    gap: 12px;
+}
+
+
+.choice {
     min-height: 58px;
 
-    padding: 10px 14px;
+    padding: 10px 15px;
 
-    margin-bottom: 12px;
+    border: 2px solid #e5e7eb;
 
-    border: 2px solid #e2e8f0;
+    border-radius: 11px;
 
-    border-radius: 12px;
+    display: flex;
 
-    background: #ffffff;
+    align-items: center;
+
+    gap: 13px;
 
     cursor: pointer;
 
-    transition:
-        border-color 0.2s,
-        background 0.2s,
-        transform 0.15s;
+    background: white;
+
+    transition: 0.15s;
 }
 
-.option:hover {
+
+.choice:hover {
     border-color: #93c5fd;
-    background: #f8fafc;
+
+    background: #f8fbff;
 }
 
-.option.selected {
+
+.choice.selected {
     border-color: #2563eb;
+
     background: #eff6ff;
 }
 
-.option input {
+
+.choice input {
     display: none;
 }
 
 
-/* =====================================================
-   HURUF A B C D
-===================================================== */
+.choice-letter {
+    width: 34px;
+    height: 34px;
 
-.option-letter {
     flex-shrink: 0;
 
-    width: 36px;
-    height: 36px;
+    border-radius: 8px;
 
-    border-radius: 50%;
-
-    background: #e2e8f0;
-
-    color: #334155;
+    background: #f1f5f9;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     font-weight: bold;
 
-    margin-right: 13px;
+    color: #475569;
 }
 
-.option.selected .option-letter {
+
+.choice.selected .choice-letter {
     background: #2563eb;
-    color: #ffffff;
+
+    color: white;
 }
 
-.option-text {
+
+.choice-text {
     font-size: 15px;
 
-    line-height: 1.45;
-
-    color: #334155;
+    line-height: 1.4;
 }
 
 
 /* =====================================================
-   NAVIGASI
+   NAVIGATION
 ===================================================== */
 
-.navigation-buttons {
-    display: flex;
+.question-navigation {
+    background: white;
 
-    justify-content: space-between;
+    border: 1px solid #e5e7eb;
 
-    align-items: center;
+    border-top: none;
+
+    padding: 15px 18px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
 
     gap: 10px;
 
-    margin-top: 14px;
+    border-radius: 0 0 12px 12px;
+}
+
+
+.btn-nav {
+    min-height: 44px;
+
+    padding: 0 15px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    border: 1px solid #dbe2ea;
+
+    background: white;
+
+    color: #374151;
+}
+
+
+.btn-nav:hover:not(:disabled) {
+    background: #f8fafc;
+}
+
+
+.btn-nav:disabled {
+    opacity: 0.4;
+
+    cursor: not-allowed;
+}
+
+
+.btn-doubt {
+    border-color: #f59e0b;
+
+    color: #92400e;
+
+    background: #fffbeb;
+}
+
+
+.btn-next {
+    background: #2563eb;
+
+    color: white;
+
+    border-color: #2563eb;
+}
+
+
+.btn-next:hover:not(:disabled) {
+    background: #1d4ed8;
 }
 
 
 /* =====================================================
-   PANEL NOMOR
+   QUESTION PANEL
 ===================================================== */
 
 .question-panel {
-    background: #ffffff;
+    background: white;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e5e7eb;
 
-    border-radius: 16px;
+    border-radius: 12px;
 
-    padding: 20px;
+    padding: 18px;
 
     position: sticky;
 
-    top: 92px;
+    top: 15px;
 }
 
-.question-panel h3 {
-    font-size: 17px;
 
-    color: #0f172a;
+.panel-header h3 {
+    font-size: 16px;
 
     margin-bottom: 5px;
 }
 
-.panel-info {
-    font-size: 12px;
 
+.panel-header p {
     color: #64748b;
 
-    line-height: 1.4;
+    font-size: 12px;
 
-    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 
-/* =====================================================
-   GRID NOMOR
-===================================================== */
-
-.number-grid {
+.question-grid {
     display: grid;
 
     grid-template-columns:
@@ -513,62 +866,69 @@ button:disabled {
 
     gap: 8px;
 
-    margin-bottom: 18px;
+    margin-top: 18px;
 }
+
 
 .number-button {
     height: 40px;
 
+    border: 1px solid #dbe2ea;
+
+    background: #f8fafc;
+
     border-radius: 8px;
 
-    background: #f1f5f9;
-
-    border: 1px solid #cbd5e1;
-
-    color: #475569;
+    cursor: pointer;
 
     font-weight: bold;
 
-    font-size: 13px;
+    color: #475569;
 }
+
 
 .number-button:hover {
-    background: #e2e8f0;
+    border-color: #2563eb;
 }
 
+
 .number-button.current {
-    outline: 3px solid #93c5fd;
+    background: #2563eb;
+
+    color: white;
+
+    border-color: #2563eb;
 }
+
 
 .number-button.answered {
     background: #dcfce7;
 
-    border-color: #86efac;
+    color: #15803d;
 
-    color: #166534;
+    border-color: #86efac;
 }
+
 
 .number-button.doubt {
     background: #fef3c7;
 
-    border-color: #f59e0b;
-
     color: #92400e;
-}
 
-.number-button.current.answered {
-    outline: 3px solid #60a5fa;
+    border-color: #fcd34d;
 }
 
 
 /* =====================================================
-   LEGENDA
+   LEGEND
 ===================================================== */
 
-.legend {
-    border-top: 1px solid #e2e8f0;
+.panel-legend {
+    border-top: 1px solid #e5e7eb;
 
-    padding-top: 14px;
+    margin-top: 18px;
+
+    padding-top: 15px;
 
     display: flex;
 
@@ -576,55 +936,73 @@ button:disabled {
 
     gap: 8px;
 
-    margin-bottom: 18px;
+    font-size: 11px;
+
+    color: #64748b;
 }
 
-.legend div {
+
+.panel-legend div {
     display: flex;
 
     align-items: center;
 
-    gap: 8px;
-
-    font-size: 12px;
-
-    color: #475569;
+    gap: 7px;
 }
 
+
 .legend-box {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
 
     border-radius: 4px;
 
     display: inline-block;
-
-    border: 1px solid #cbd5e1;
 }
 
-.legend-box.belum {
-    background: #f1f5f9;
+
+.legend-current {
+    background: #2563eb;
 }
 
-.legend-box.sudah {
-    background: #dcfce7;
-    border-color: #86efac;
+
+.legend-answered {
+    background: #86efac;
 }
 
-.legend-box.raguragu {
-    background: #fef3c7;
-    border-color: #f59e0b;
+
+.legend-doubt {
+    background: #fcd34d;
 }
 
 
 /* =====================================================
-   TOMBOL SELESAI
+   FINISH BUTTON
 ===================================================== */
 
-.question-panel .btn-finish {
+.btn-finish {
     width: 100%;
 
-    padding: 13px 10px;
+    height: 47px;
+
+    margin-top: 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #dc2626;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.btn-finish:hover {
+    background: #b91c1c;
 }
 
 
@@ -642,525 +1020,328 @@ button:disabled {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
-    z-index: 999;
+    z-index: 1000;
 }
+
 
 .modal-overlay.show {
     display: flex;
 }
 
-.modal-box {
+
+.finish-modal {
     width: 100%;
 
-    max-width: 430px;
+    max-width: 420px;
 
-    background: #ffffff;
+    background: white;
 
     border-radius: 18px;
 
-    padding: 28px;
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.2);
+    padding: 30px;
 
     text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-.modal-box h2 {
-    margin-bottom: 12px;
 
-    color: #0f172a;
+.finish-icon {
+    font-size: 42px;
+
+    margin-bottom: 10px;
 }
 
-.modal-box p {
+
+.finish-modal h2 {
+    font-size: 22px;
+
+    margin-bottom: 10px;
+}
+
+
+.finish-modal p {
     color: #64748b;
 
-    line-height: 1.6;
+    line-height: 1.5;
 
     font-size: 14px;
 }
 
-.modal-buttons {
-    display: flex;
 
-    justify-content: center;
+.finish-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
 
     gap: 10px;
 
-    margin-top: 24px;
+    margin-top: 25px;
 }
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-.login-container {
-    min-height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    background: #f1f5f9;
-}
-
-.login-card {
-    width: 100%;
-
-    max-width: 430px;
-
-    background: #ffffff;
-
-    padding: 32px;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 10px 35px rgba(15, 23, 42, 0.1);
-}
-
-.login-card input {
-    width: 100%;
-
-    padding: 13px;
-
-    border: 1px solid #cbd5e1;
+.finish-buttons button {
+    height: 45px;
 
     border-radius: 9px;
 
-    margin-bottom: 14px;
-
-    font-size: 15px;
-
-    outline: none;
-}
-
-.login-card input:focus {
-    border-color: #2563eb;
-}
-
-.login-card button {
-    width: 100%;
-
-    margin-top: 5px;
-}
-
-
-/* =====================================================
-   HASIL
-===================================================== */
-
-.result-container {
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 20px;
-
-    background: #f1f5f9;
-}
-
-.result-card {
-    width: 100%;
-
-    max-width: 520px;
-
-    background: #ffffff;
-
-    border-radius: 20px;
-
-    padding: 35px;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 35px rgba(15, 23, 42, 0.1);
-}
-
-.result-icon {
-    font-size: 48px;
-
-    margin-bottom: 8px;
-}
-
-.result-card h1 {
-    color: #0f172a;
-
-    margin-bottom: 5px;
-}
-
-.school-name {
-    color: #64748b;
-
-    margin-bottom: 18px;
-}
-
-.student-result {
-    margin: 22px 0;
-
-    padding: 15px;
-
-    background: #f8fafc;
-
-    border-radius: 12px;
-
-    text-align: left;
-}
-
-.student-result p {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    padding: 5px 0;
-
-    font-size: 14px;
-}
-
-.score-box {
-    padding: 22px;
-
-    border-radius: 15px;
-
-    background: #eff6ff;
-
-    margin-bottom: 18px;
-}
-
-.score-label {
-    font-size: 13px;
-
-    color: #64748b;
-
     font-weight: bold;
+
+    cursor: pointer;
 }
 
-.score {
-    font-size: 58px;
 
-    font-weight: 800;
+.btn-cancel {
+    background: white;
 
-    color: #2563eb;
+    border: 1px solid #d1d5db;
 
-    line-height: 1.2;
-
-    margin-top: 5px;
+    color: #374151;
 }
 
-.result-detail {
-    display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+.btn-confirm {
+    background: #dc2626;
 
-    gap: 10px;
+    border: none;
 
-    margin-bottom: 20px;
-}
-
-.detail-item {
-    background: #f8fafc;
-
-    padding: 12px 5px;
-
-    border-radius: 10px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    font-size: 12px;
-
-    color: #64748b;
-}
-
-.detail-item strong {
-    font-size: 20px;
-
-    color: #0f172a;
-}
-
-.result-message {
-    margin-bottom: 20px;
-
-    color: #475569;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-}
-
-.result-buttons button {
-    width: 100%;
+    color: white;
 }
 
 
 /* =====================================================
-   RESPONSIVE TABLET
+   MOBILE
 ===================================================== */
 
-@media (max-width: 850px) {
+@media (max-width: 800px) {
 
     .exam-header {
-        padding: 14px 16px;
+        padding: 10px 12px;
+
+        align-items: flex-start;
     }
 
-    .exam-header h1 {
-        font-size: 18px;
-    }
 
     .exam-info {
-        gap: 8px;
+        gap: 6px;
     }
 
-    .exam-info > div:first-child {
+
+    .student-info {
         display: none;
     }
 
-    .exam-main {
-        grid-template-columns: 1fr;
-    }
 
-    .question-panel {
-        position: static;
-
-        order: 2;
-    }
-
-    .number-grid {
-        grid-template-columns:
-            repeat(10, 1fr);
-    }
-
-}
-
-
-/* =====================================================
-   RESPONSIVE HP
-===================================================== */
-
-@media (max-width: 600px) {
-
-    body {
-        background: #f8fafc;
+    .exam-brand h1 {
+        font-size: 15px;
     }
 
 
-    .exam-header {
-        padding: 11px 12px;
-
-        gap: 8px;
-    }
-
-
-    .exam-header h1 {
-        font-size: 16px;
-    }
-
-
-    .exam-header p {
-        font-size: 11px;
-    }
-
-
-    .mode-badge {
-        padding: 7px 9px;
-
+    .exam-brand p {
         font-size: 10px;
+    }
+
+
+    .exam-logo {
+        width: 38px;
+        height: 38px;
+
+        font-size: 20px;
+    }
+
+
+    .exam-mode {
+        font-size: 10px;
+
+        padding: 7px 9px;
     }
 
 
     .timer-box {
         min-width: 78px;
 
-        padding: 8px 7px;
+        padding: 8px 9px;
+    }
 
+
+    .timer-box strong {
         font-size: 14px;
     }
 
 
-    .timer-box span {
-        font-size: 14px;
-    }
-
-
-    .mode-notice {
+    .mode-warning {
         margin: 10px 10px 0;
 
-        padding: 11px 13px;
-    }
-
-
-    .mode-notice strong {
-        font-size: 12px;
-    }
-
-
-    .mode-notice p {
         font-size: 11px;
     }
 
 
-    .exam-main {
-        padding: 0 10px;
+    .exam-container {
+        display: block;
 
         margin-top: 10px;
 
-        gap: 10px;
-    }
-
-
-    .question-header {
-        padding: 11px 13px;
-
-        font-size: 12px;
+        padding: 0 10px;
     }
 
 
     .question-card {
-        padding: 18px 14px;
+        padding: 18px;
 
-        border-radius: 13px;
+        min-height: auto;
     }
 
 
-    .question-card h2 {
+    .question-text {
         font-size: 17px;
-
-        line-height: 1.5;
 
         margin-bottom: 20px;
     }
 
 
-    .option {
-        min-height: 55px;
+    .choice {
+        min-height: 56px;
 
-        padding: 8px 10px;
+        padding: 9px 11px;
 
-        margin-bottom: 9px;
-
-        border-radius: 10px;
+        gap: 10px;
     }
 
 
-    .option-letter {
-        width: 32px;
-        height: 32px;
-
-        margin-right: 10px;
-
-        font-size: 13px;
+    .choice-letter {
+        width: 31px;
+        height: 31px;
     }
 
 
-    .option-text {
+    .choice-text {
         font-size: 14px;
     }
 
 
-    .navigation-buttons {
-        display: grid;
+    .question-navigation {
+        grid-template-columns: 1fr 1fr;
 
-        grid-template-columns:
-            1fr 1fr;
+        padding: 12px;
 
         gap: 8px;
     }
 
 
-    .navigation-buttons button {
-        width: 100%;
+    .btn-doubt {
+        grid-column: 1 / -1;
 
-        font-size: 12px;
+        grid-row: 1;
 
-        padding: 11px 8px;
     }
 
 
-    .navigation-buttons #btnRagu {
-        grid-column: 1 / -1;
+    .btn-prev {
+        grid-column: 1;
 
-        order: -1;
+        grid-row: 2;
+    }
+
+
+    .btn-next {
+        grid-column: 2;
+
+        grid-row: 2;
     }
 
 
     .question-panel {
+        position: static;
+
+        margin-top: 12px;
+
         padding: 15px;
     }
 
 
-    .question-panel h3 {
-        font-size: 15px;
-    }
-
-
-    .number-grid {
+    .question-grid {
         grid-template-columns:
             repeat(5, 1fr);
 
-        gap: 6px;
+        gap: 7px;
     }
 
 
     .number-button {
-        height: 37px;
-
-        font-size: 12px;
+        height: 38px;
     }
 
 
-    .legend {
-        margin-bottom: 13px;
-    }
-
-
-    .modal-box {
-        padding: 22px;
-
-        border-radius: 15px;
-    }
-
-
-    .modal-buttons {
+    .panel-legend {
         display: grid;
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            repeat(3, 1fr);
 
+        gap: 5px;
+
+        font-size: 9px;
     }
 
 
-    /* HASIL */
+    .btn-finish {
+        margin-top: 15px;
+    }
 
-    .result-card {
-        padding: 25px 18px;
+}
+
+
+/* =====================================================
+   LOGIN MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .login-page {
+        padding: 15px;
     }
 
 
-    .score {
-        font-size: 50px;
+    .login-card {
+        padding: 25px 20px;
+
+        border-radius: 18px;
     }
 
 
-    .result-detail {
-        gap: 6px;
+    .login-logo {
+        width: 65px;
+        height: 65px;
+
+        font-size: 32px;
+    }
+
+
+    .login-card h1 {
+        font-size: 24px;
+    }
+
+
+    .login-card h2 {
+        font-size: 20px;
+    }
+
+
+    .form-group input {
+        height: 52px;
+
+        font-size: 16px;
+    }
+
+
+    .btn-login {
+        height: 52px;
     }
 
 }
