@@ -1,6 +1,6 @@
-/* =========================================
+/* =====================================================
    RESET
-========================================= */
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -8,897 +8,698 @@
     padding: 0;
 }
 
-
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f7fb;
-    color: #1f2937;
-    min-height: 100vh;
+    background: #f1f5f9;
+    color: #1e293b;
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* =====================================================
+   BERANDA
+===================================================== */
 
-.header {
-    background: linear-gradient(
-        135deg,
-        #174ea6,
-        #2563eb
-    );
-
-    color: white;
-
-    padding: 22px 20px;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.12);
+header {
+    background: #ffffff;
 }
 
-
-.header-content {
+.hero {
     max-width: 1100px;
-
     margin: auto;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
+    padding: 70px 20px;
 }
-
-
-.logo {
-    width: 58px;
-    height: 58px;
-
-    background: white;
-
-    border-radius: 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 32px;
-}
-
-
-.header h1 {
-    font-size: 25px;
-
-    letter-spacing: 1px;
-}
-
-
-.header p {
-    margin-top: 4px;
-
-    opacity: 0.9;
-
-    font-size: 14px;
-}
-
-
-/* =========================================
-   HOME
-========================================= */
-
-.home {
-    max-width: 1100px;
-
-    margin: auto;
-
-    padding: 45px 20px;
-}
-
-
-/* =========================================
-   WELCOME
-========================================= */
-
-.welcome {
-    text-align: center;
-
-    margin-bottom: 40px;
-}
-
-
-.welcome-icon {
-    font-size: 60px;
-
-    margin-bottom: 12px;
-}
-
-
-.welcome h2 {
-    font-size: 32px;
-
-    color: #1e3a8a;
-
-    margin-bottom: 12px;
-}
-
-
-.welcome h2 span {
-    color: #2563eb;
-}
-
-
-.welcome p {
-    color: #6b7280;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================
-   PILIH UJIAN
-========================================= */
-
-.exam-selection h3 {
-    text-align: center;
-
-    font-size: 23px;
-
-    margin-bottom: 25px;
-
-    color: #374151;
-}
-
-
-.exam-cards {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 25px;
-}
-
 
 .exam-card {
-    background: white;
-
-    border-radius: 22px;
-
-    padding: 28px;
-
-    display: flex;
-
-    gap: 22px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.08);
-
-    transition: 0.2s;
-}
-
-
-.exam-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.12);
-}
-
-
-.card-icon {
-    font-size: 45px;
-}
-
-
-.card-content {
-    flex: 1;
-}
-
-
-.badge {
-    display: inline-block;
-
-    padding: 6px 12px;
-
+    background: #ffffff;
     border-radius: 20px;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    margin-bottom: 10px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 
-.gladi-badge {
-    background: #dcfce7;
+/* =====================================================
+   TOMBOL UMUM
+===================================================== */
 
-    color: #15803d;
-}
-
-
-.resmi-badge {
-    background: #dbeafe;
-
-    color: #1d4ed8;
-}
-
-
-.exam-card h4 {
-    font-size: 22px;
-
-    margin-bottom: 10px;
-}
-
-
-.exam-card p {
-    color: #6b7280;
-
-    line-height: 1.6;
-
-    margin-bottom: 14px;
-}
-
-
-.exam-card ul {
-    list-style: none;
-
-    margin-bottom: 20px;
-}
-
-
-.exam-card li {
-    font-size: 14px;
-
-    margin-bottom: 7px;
-
-    color: #4b5563;
-}
-
-
-/* =========================================
-   BUTTON
-========================================= */
-
-.btn {
-    width: 100%;
-
-    border: none;
-
-    padding: 14px;
-
-    border-radius: 12px;
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
+button {
+    font-family: inherit;
     cursor: pointer;
+    border: none;
+}
 
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-warning,
+.btn-finish {
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: bold;
     transition: 0.2s;
 }
 
-
-.btn-gladi {
-    background: #16a34a;
-}
-
-
-.btn-gladi:hover {
-    background: #15803d;
-}
-
-
-.btn-resmi {
+.btn-primary {
     background: #2563eb;
+    color: white;
 }
 
-
-.btn-resmi:hover {
+.btn-primary:hover {
     background: #1d4ed8;
 }
 
-
-/* =========================================
-   INFO
-========================================= */
-
-.info-box {
-    margin-top: 35px;
-
-    background: white;
-
-    border-radius: 15px;
-
-    padding: 18px 22px;
-
-    display: flex;
-
-    gap: 15px;
-
-    align-items: flex-start;
-
-    box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.06);
+.btn-secondary {
+    background: #e2e8f0;
+    color: #334155;
 }
 
-
-.info-box > div:first-child {
-    font-size: 25px;
+.btn-secondary:hover {
+    background: #cbd5e1;
 }
 
-
-.info-box strong {
-    color: #1e3a8a;
-}
-
-
-.info-box p {
-    margin-top: 5px;
-
-    color: #6b7280;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================
-   FOOTER
-========================================= */
-
-footer {
-    text-align: center;
-
-    padding: 25px;
-
-    color: #9ca3af;
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   LOGIN
-========================================= */
-
-.login-page {
-    min-height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-}
-
-
-.login-card {
-    width: 100%;
-
-    max-width: 450px;
-
-    background: white;
-
-    border-radius: 22px;
-
-    padding: 35px;
-
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.10);
-
-    text-align: center;
-}
-
-
-.login-icon {
-    font-size: 55px;
-
-    margin-bottom: 10px;
-}
-
-
-.login-card h2 {
-    color: #1e3a8a;
-
-    margin-bottom: 6px;
-}
-
-
-.school-name {
-    color: #6b7280;
-
-    margin-bottom: 20px;
-}
-
-
-.mode-badge {
-    display: inline-block;
-
-    padding: 9px 16px;
-
-    border-radius: 30px;
-
-    font-weight: bold;
-
-    margin-bottom: 25px;
-}
-
-
-.mode-gladi {
-    background: #dcfce7;
-
-    color: #15803d;
-}
-
-
-.mode-resmi {
-    background: #dbeafe;
-
-    color: #1d4ed8;
-}
-
-
-.form-group {
-    text-align: left;
-
-    margin-bottom: 18px;
-}
-
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-weight: bold;
-
-    color: #374151;
-}
-
-
-.form-group input {
-    width: 100%;
-
-    padding: 14px;
-
-    border: 1px solid #d1d5db;
-
-    border-radius: 10px;
-
-    font-size: 16px;
-
-    outline: none;
-}
-
-
-.form-group input:focus {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-
-.login-button {
-    width: 100%;
-
-    border: none;
-
-    border-radius: 12px;
-
-    padding: 15px;
-
-    background: #2563eb;
-
+.btn-warning {
+    background: #f59e0b;
     color: white;
+}
 
-    font-size: 16px;
+.btn-warning:hover {
+    background: #d97706;
+}
 
-    font-weight: bold;
+.btn-warning.active {
+    background: #dc2626;
+}
 
-    cursor: pointer;
+.btn-finish {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-finish:hover {
+    background: #b91c1c;
 }
 
 
-.back-button {
-    width: 100%;
+/* =====================================================
+   RUANG UJIAN
+===================================================== */
 
-    border: none;
-
-    background: transparent;
-
-    color: #6b7280;
-
-    padding: 14px;
-
-    cursor: pointer;
+.exam-container {
+    min-height: 100vh;
+    background: #f1f5f9;
 }
 
 
-/* =========================================
-   EXAM
-========================================= */
-
-.exam-page {
-    background: #f3f6fb;
-}
-
+/* =====================================================
+   HEADER UJIAN
+===================================================== */
 
 .exam-header {
-    background: #174ea6;
-
-    color: white;
-
-    padding: 16px 25px;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
 
     display: flex;
-
+    justify-content: space-between;
     align-items: center;
 
-    justify-content: space-between;
+    padding: 16px 28px;
 
-    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-
 
 .exam-header h1 {
     font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 4px;
 }
-
 
 .exam-header p {
     font-size: 13px;
-
-    opacity: 0.9;
+    color: #64748b;
 }
 
 
-.student-info {
+/* =====================================================
+   INFORMASI SISWA
+===================================================== */
+
+.exam-info {
     display: flex;
+    align-items: center;
+    gap: 14px;
+}
 
+.exam-info > div:first-child {
+    display: flex;
     flex-direction: column;
+    text-align: right;
+    gap: 3px;
+}
 
-    text-align: center;
+.exam-info strong {
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.exam-info span {
+    font-size: 12px;
+    color: #64748b;
 }
 
 
-.student-info span {
+/* =====================================================
+   BADGE MODE
+===================================================== */
+
+.mode-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 13px;
+
+    border-radius: 999px;
+
+    background: #dcfce7;
+    color: #166534;
+
     font-size: 13px;
+    font-weight: bold;
 
-    margin-top: 4px;
+    white-space: nowrap;
 }
 
+.mode-badge.mode-resmi {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
 
 .timer-box {
-    background: white;
+    min-width: 105px;
 
-    color: #1e3a8a;
+    padding: 10px 14px;
 
-    padding: 10px 18px;
+    background: #0f172a;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.timer-box span {
+    color: white;
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   INFORMASI MODE
+===================================================== */
+
+.mode-notice {
+    max-width: 1200px;
+    margin: 18px auto 0;
+
+    padding: 14px 18px;
 
     border-radius: 12px;
 
-    text-align: center;
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+
+    color: #166534;
+}
+
+.mode-notice strong {
+    font-size: 14px;
+}
+
+.mode-notice p {
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.notice-resmi {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #1e40af;
 }
 
 
-.timer-box span {
-    display: block;
+/* =====================================================
+   LAYOUT UJIAN
+===================================================== */
 
-    font-size: 11px;
-}
-
-
-.timer-box strong {
-    font-size: 23px;
-}
-
-
-.exam-layout {
+.exam-main {
     max-width: 1200px;
 
-    margin: auto;
+    margin: 18px auto 40px;
 
-    padding: 30px 20px;
+    padding: 0 18px;
 
     display: grid;
 
     grid-template-columns:
-        1fr 280px;
+        minmax(0, 1fr)
+        280px;
 
-    gap: 25px;
+    gap: 18px;
+
+    align-items: start;
 }
 
 
-.question-card {
-    background: white;
+/* =====================================================
+   AREA SOAL
+===================================================== */
 
-    border-radius: 18px;
-
-    padding: 30px;
-
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.07);
+.question-area {
+    min-width: 0;
 }
 
 
-.question-top {
-    display: flex;
+/* =====================================================
+   HEADER SOAL
+===================================================== */
 
-    justify-content: space-between;
+.question-header {
+    background: #ffffff;
 
-    margin-bottom: 25px;
-
-    color: #6b7280;
-}
-
-
-#questionText {
-    font-size: 22px;
-
-    line-height: 1.5;
-
-    margin-bottom: 25px;
-}
-
-
-.options {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-}
-
-
-.option {
-    border: 2px solid #e5e7eb;
+    border: 1px solid #e2e8f0;
 
     border-radius: 12px;
 
-    padding: 15px;
+    padding: 13px 17px;
 
     display: flex;
-
+    justify-content: space-between;
     align-items: center;
 
-    gap: 12px;
+    margin-bottom: 12px;
+
+    font-size: 14px;
+}
+
+.question-header strong {
+    color: #1d4ed8;
+}
+
+#statusJawaban {
+    font-weight: bold;
+}
+
+.status-belum {
+    color: #dc2626;
+}
+
+.status-sudah {
+    color: #16a34a;
+}
+
+
+/* =====================================================
+   KARTU SOAL
+===================================================== */
+
+.question-card {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.question-card h2 {
+    font-size: 20px;
+
+    line-height: 1.55;
+
+    color: #0f172a;
+
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   PILIHAN JAWABAN
+===================================================== */
+
+.option {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 58px;
+
+    padding: 10px 14px;
+
+    margin-bottom: 12px;
+
+    border: 2px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    background: #ffffff;
 
     cursor: pointer;
 
-    transition: 0.15s;
+    transition:
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.15s;
 }
-
 
 .option:hover {
     border-color: #93c5fd;
-
-    background: #eff6ff;
+    background: #f8fafc;
 }
-
 
 .option.selected {
     border-color: #2563eb;
-
     background: #eff6ff;
 }
-
 
 .option input {
     display: none;
 }
 
 
-.option-letter {
-    width: 34px;
+/* =====================================================
+   HURUF A B C D
+===================================================== */
 
-    height: 34px;
+.option-letter {
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
 
     border-radius: 50%;
 
-    background: #e5e7eb;
+    background: #e2e8f0;
+
+    color: #334155;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-weight: bold;
-}
 
+    margin-right: 13px;
+}
 
 .option.selected .option-letter {
     background: #2563eb;
+    color: #ffffff;
+}
 
-    color: white;
+.option-text {
+    font-size: 15px;
+
+    line-height: 1.45;
+
+    color: #334155;
 }
 
 
-.question-actions {
-    margin-top: 25px;
+/* =====================================================
+   NAVIGASI
+===================================================== */
 
+.navigation-buttons {
     display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
 
     gap: 10px;
 
-    justify-content: space-between;
+    margin-top: 14px;
 }
 
 
-.nav-button,
-.doubt-button {
-    border: none;
-
-    padding: 12px 18px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    font-weight: bold;
-}
-
-
-.nav-button {
-    background: #e5e7eb;
-}
-
-
-.doubt-button {
-    background: #fef3c7;
-
-    color: #92400e;
-}
-
-
-.finish-button {
-    width: 100%;
-
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: #dc2626;
-
-    color: white;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
+/* =====================================================
+   PANEL NOMOR
+===================================================== */
 
 .question-panel {
-    background: white;
+    background: #ffffff;
 
-    border-radius: 18px;
+    border: 1px solid #e2e8f0;
 
-    padding: 22px;
+    border-radius: 16px;
 
-    height: fit-content;
+    padding: 20px;
+
+    position: sticky;
+
+    top: 92px;
 }
-
 
 .question-panel h3 {
-    margin-bottom: 18px;
+    font-size: 17px;
+
+    color: #0f172a;
+
+    margin-bottom: 5px;
+}
+
+.panel-info {
+    font-size: 12px;
+
+    color: #64748b;
+
+    line-height: 1.4;
+
+    margin-bottom: 15px;
 }
 
 
-.question-numbers {
+/* =====================================================
+   GRID NOMOR
+===================================================== */
+
+.number-grid {
     display: grid;
 
     grid-template-columns:
         repeat(5, 1fr);
 
     gap: 8px;
+
+    margin-bottom: 18px;
 }
 
-
 .number-button {
-    width: 42px;
-
-    height: 42px;
-
-    border: none;
+    height: 40px;
 
     border-radius: 8px;
 
-    background: #e5e7eb;
+    background: #f1f5f9;
 
-    cursor: pointer;
+    border: 1px solid #cbd5e1;
+
+    color: #475569;
 
     font-weight: bold;
+
+    font-size: 13px;
 }
 
-
-.number-button.answered {
-    background: #22c55e;
-
-    color: white;
+.number-button:hover {
+    background: #e2e8f0;
 }
-
-
-.number-button.doubt {
-    background: #facc15;
-
-    color: #713f12;
-}
-
 
 .number-button.current {
-    outline: 3px solid #2563eb;
+    outline: 3px solid #93c5fd;
 }
 
+.number-button.answered {
+    background: #dcfce7;
+
+    border-color: #86efac;
+
+    color: #166534;
+}
+
+.number-button.doubt {
+    background: #fef3c7;
+
+    border-color: #f59e0b;
+
+    color: #92400e;
+}
+
+.number-button.current.answered {
+    outline: 3px solid #60a5fa;
+}
+
+
+/* =====================================================
+   LEGENDA
+===================================================== */
 
 .legend {
-    margin-top: 25px;
+    border-top: 1px solid #e2e8f0;
 
-    font-size: 12px;
+    padding-top: 14px;
 
-    color: #6b7280;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
 }
 
-
 .legend div {
-    margin-bottom: 8px;
-
     display: flex;
 
     align-items: center;
 
     gap: 8px;
-}
 
+    font-size: 12px;
+
+    color: #475569;
+}
 
 .legend-box {
     width: 15px;
-
     height: 15px;
 
     border-radius: 4px;
 
     display: inline-block;
+
+    border: 1px solid #cbd5e1;
+}
+
+.legend-box.belum {
+    background: #f1f5f9;
+}
+
+.legend-box.sudah {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+.legend-box.raguragu {
+    background: #fef3c7;
+    border-color: #f59e0b;
 }
 
 
-.legend-box.answered {
-    background: #22c55e;
+/* =====================================================
+   TOMBOL SELESAI
+===================================================== */
+
+.question-panel .btn-finish {
+    width: 100%;
+
+    padding: 13px 10px;
 }
 
 
-.legend-box.doubt {
-    background: #facc15;
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 999;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+
+    max-width: 430px;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.2);
+
+    text-align: center;
+}
+
+.modal-box h2 {
+    margin-bottom: 12px;
+
+    color: #0f172a;
+}
+
+.modal-box p {
+    color: #64748b;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+.modal-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 24px;
 }
 
 
-.legend-box.current {
-    background: white;
+/* =====================================================
+   LOGIN
+===================================================== */
 
-    outline: 2px solid #2563eb;
-}
-
-
-.legend-box.empty {
-    background: #e5e7eb;
-}
-
-
-/* =========================================
-   RESULT
-========================================= */
-
-.result-page {
+.login-container {
     min-height: 100vh;
 
     display: flex;
@@ -909,156 +710,457 @@ footer {
 
     padding: 20px;
 
-    background: #f3f6fb;
+    background: #f1f5f9;
 }
 
+.login-card {
+    width: 100%;
+
+    max-width: 430px;
+
+    background: #ffffff;
+
+    padding: 32px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(15, 23, 42, 0.1);
+}
+
+.login-card input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 9px;
+
+    margin-bottom: 14px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.login-card input:focus {
+    border-color: #2563eb;
+}
+
+.login-card button {
+    width: 100%;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   HASIL
+===================================================== */
+
+.result-container {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background: #f1f5f9;
+}
 
 .result-card {
     width: 100%;
 
-    max-width: 500px;
+    max-width: 520px;
 
-    background: white;
+    background: #ffffff;
 
-    padding: 40px;
+    border-radius: 20px;
 
-    border-radius: 22px;
+    padding: 35px;
 
     text-align: center;
 
     box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.10);
+        0 10px 35px rgba(15, 23, 42, 0.1);
 }
-
 
 .result-icon {
-    font-size: 70px;
+    font-size: 48px;
 
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
-
 
 .result-card h1 {
-    color: #1e3a8a;
+    color: #0f172a;
 
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
+.school-name {
+    color: #64748b;
 
-.result-name {
-    color: #6b7280;
-
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
+.student-result {
+    margin: 22px 0;
 
-.score {
-    font-size: 65px;
+    padding: 15px;
+
+    background: #f8fafc;
+
+    border-radius: 12px;
+
+    text-align: left;
+}
+
+.student-result p {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 5px 0;
+
+    font-size: 14px;
+}
+
+.score-box {
+    padding: 22px;
+
+    border-radius: 15px;
+
+    background: #eff6ff;
+
+    margin-bottom: 18px;
+}
+
+.score-label {
+    font-size: 13px;
+
+    color: #64748b;
 
     font-weight: bold;
+}
+
+.score {
+    font-size: 58px;
+
+    font-weight: 800;
 
     color: #2563eb;
 
-    margin: 20px 0;
+    line-height: 1.2;
+
+    margin-top: 5px;
 }
 
+.result-detail {
+    display: grid;
 
-.result-info {
-    padding: 15px;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    background: #f3f4f6;
-
-    border-radius: 12px;
+    gap: 10px;
 
     margin-bottom: 20px;
 }
 
+.detail-item {
+    background: #f8fafc;
 
-.home-button {
-    display: block;
+    padding: 12px 5px;
 
-    text-decoration: none;
+    border-radius: 10px;
 
-    background: #2563eb;
+    display: flex;
 
-    color: white;
+    flex-direction: column;
 
-    padding: 14px;
+    gap: 5px;
 
-    border-radius: 12px;
+    font-size: 12px;
 
-    font-weight: bold;
+    color: #64748b;
+}
+
+.detail-item strong {
+    font-size: 20px;
+
+    color: #0f172a;
+}
+
+.result-message {
+    margin-bottom: 20px;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+.result-buttons button {
+    width: 100%;
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =====================================================
+   RESPONSIVE TABLET
+===================================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
 
-    .exam-cards {
+    .exam-header {
+        padding: 14px 16px;
+    }
+
+    .exam-header h1 {
+        font-size: 18px;
+    }
+
+    .exam-info {
+        gap: 8px;
+    }
+
+    .exam-info > div:first-child {
+        display: none;
+    }
+
+    .exam-main {
         grid-template-columns: 1fr;
     }
 
+    .question-panel {
+        position: static;
 
-    .exam-layout {
-        grid-template-columns: 1fr;
+        order: 2;
+    }
+
+    .number-grid {
+        grid-template-columns:
+            repeat(10, 1fr);
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE HP
+===================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        background: #f8fafc;
     }
 
 
     .exam-header {
-        flex-direction: column;
+        padding: 11px 12px;
 
-        text-align: center;
-    }
-
-}
-
-
-@media (max-width: 500px) {
-
-    .home {
-        padding: 30px 14px;
+        gap: 8px;
     }
 
 
-    .welcome h2 {
-        font-size: 25px;
+    .exam-header h1 {
+        font-size: 16px;
     }
 
 
-    .exam-card {
-        padding: 20px;
+    .exam-header p {
+        font-size: 11px;
+    }
 
-        flex-direction: column;
 
-        text-align: center;
+    .mode-badge {
+        padding: 7px 9px;
+
+        font-size: 10px;
+    }
+
+
+    .timer-box {
+        min-width: 78px;
+
+        padding: 8px 7px;
+
+        font-size: 14px;
+    }
+
+
+    .timer-box span {
+        font-size: 14px;
+    }
+
+
+    .mode-notice {
+        margin: 10px 10px 0;
+
+        padding: 11px 13px;
+    }
+
+
+    .mode-notice strong {
+        font-size: 12px;
+    }
+
+
+    .mode-notice p {
+        font-size: 11px;
+    }
+
+
+    .exam-main {
+        padding: 0 10px;
+
+        margin-top: 10px;
+
+        gap: 10px;
+    }
+
+
+    .question-header {
+        padding: 11px 13px;
+
+        font-size: 12px;
     }
 
 
     .question-card {
-        padding: 20px;
+        padding: 18px 14px;
+
+        border-radius: 13px;
     }
 
 
-    #questionText {
-        font-size: 18px;
+    .question-card h2 {
+        font-size: 17px;
+
+        line-height: 1.5;
+
+        margin-bottom: 20px;
     }
 
 
-    .question-actions {
-        flex-direction: column;
+    .option {
+        min-height: 55px;
+
+        padding: 8px 10px;
+
+        margin-bottom: 9px;
+
+        border-radius: 10px;
     }
 
 
-    .question-panel {
+    .option-letter {
+        width: 32px;
+        height: 32px;
+
+        margin-right: 10px;
+
+        font-size: 13px;
+    }
+
+
+    .option-text {
+        font-size: 14px;
+    }
+
+
+    .navigation-buttons {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+    }
+
+
+    .navigation-buttons button {
+        width: 100%;
+
+        font-size: 12px;
+
+        padding: 11px 8px;
+    }
+
+
+    .navigation-buttons #btnRagu {
+        grid-column: 1 / -1;
+
         order: -1;
     }
 
 
-    .login-card {
-        padding: 28px 20px;
+    .question-panel {
+        padding: 15px;
+    }
+
+
+    .question-panel h3 {
+        font-size: 15px;
+    }
+
+
+    .number-grid {
+        grid-template-columns:
+            repeat(5, 1fr);
+
+        gap: 6px;
+    }
+
+
+    .number-button {
+        height: 37px;
+
+        font-size: 12px;
+    }
+
+
+    .legend {
+        margin-bottom: 13px;
+    }
+
+
+    .modal-box {
+        padding: 22px;
+
+        border-radius: 15px;
+    }
+
+
+    .modal-buttons {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    /* HASIL */
+
+    .result-card {
+        padding: 25px 18px;
+    }
+
+
+    .score {
+        font-size: 50px;
+    }
+
+
+    .result-detail {
+        gap: 6px;
     }
 
 }
