@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -375,17 +374,20 @@ let hasilImport = [];
    EVENT PILIH FILE
 ========================================================= */
 
-document.getElementById("wordFile").addEventListener("change", function () {
+document.getElementById("wordFile").addEventListener(
+    "change",
+    function () {
 
-    const file = this.files[0];
+        const file = this.files[0];
 
-    if (!file) {
-        return;
+        if (!file) {
+            return;
+        }
+
+        bacaFileWord(file);
+
     }
-
-    bacaFileWord(file);
-
-});
+);
 
 
 /* =========================================================
@@ -402,7 +404,8 @@ async function bacaFileWord(file) {
     const fileInfo =
         document.getElementById("fileInfo");
 
-    fileInfo.style.display = "block";
+    fileInfo.style.display =
+        "block";
 
     fileInfo.innerHTML =
         "📄 <strong>File:</strong> " +
@@ -411,7 +414,8 @@ async function bacaFileWord(file) {
         "📦 <strong>Ukuran:</strong> " +
         formatBytes(file.size);
 
-    loading.style.display = "block";
+    loading.style.display =
+        "block";
 
 
     try {
@@ -420,22 +424,33 @@ async function bacaFileWord(file) {
             await file.arrayBuffer();
 
         const zip =
-            await JSZip.loadAsync(arrayBuffer);
+            await JSZip.loadAsync(
+                arrayBuffer
+            );
 
         const documentFile =
-            zip.file("word/document.xml");
+            zip.file(
+                "word/document.xml"
+            );
 
         if (!documentFile) {
+
             throw new Error(
                 "Dokumen Word tidak memiliki document.xml."
             );
+
         }
 
+
         const documentXmlText =
-            await documentFile.async("text");
+            await documentFile.async(
+                "text"
+            );
+
 
         const parser =
             new DOMParser();
+
 
         const xml =
             parser.parseFromString(
@@ -443,13 +458,19 @@ async function bacaFileWord(file) {
                 "application/xml"
             );
 
+
         const parserError =
-            xml.querySelector("parsererror");
+            xml.querySelector(
+                "parsererror"
+            );
+
 
         if (parserError) {
+
             throw new Error(
                 "Struktur XML Word tidak dapat dibaca."
             );
+
         }
 
 
@@ -464,10 +485,14 @@ async function bacaFileWord(file) {
                 "word/_rels/document.xml.rels"
             );
 
+
         if (relsFile) {
 
             const relsText =
-                await relsFile.async("text");
+                await relsFile.async(
+                    "text"
+                );
+
 
             const relsXml =
                 parser.parseFromString(
@@ -475,20 +500,28 @@ async function bacaFileWord(file) {
                     "application/xml"
                 );
 
+
             const relationshipNodes =
                 relsXml.getElementsByTagName(
                     "Relationship"
                 );
+
 
             for (
                 const rel of relationshipNodes
             ) {
 
                 const id =
-                    rel.getAttribute("Id");
+                    rel.getAttribute(
+                        "Id"
+                    );
+
 
                 const target =
-                    rel.getAttribute("Target");
+                    rel.getAttribute(
+                        "Target"
+                    );
+
 
                 if (id && target) {
 
@@ -511,8 +544,11 @@ async function bacaFileWord(file) {
 
         const images = {};
 
+
         for (
-            const filename of Object.keys(zip.files)
+            const filename of Object.keys(
+                zip.files
+            )
         ) {
 
             if (
@@ -520,21 +556,34 @@ async function bacaFileWord(file) {
                     "word/media/"
                 )
             ) {
+
                 continue;
+
             }
 
+
             const imageFile =
-                zip.file(filename);
+                zip.file(
+                    filename
+                );
+
 
             if (!imageFile) {
                 continue;
             }
 
+
             const blob =
-                await imageFile.async("blob");
+                await imageFile.async(
+                    "blob"
+                );
+
 
             const mime =
-                getImageMime(filename);
+                getImageMime(
+                    filename
+                );
+
 
             const dataUrl =
                 await blobToDataUrl(
@@ -542,11 +591,13 @@ async function bacaFileWord(file) {
                     mime
                 );
 
+
             const shortName =
                 filename.replace(
                     "word/media/",
                     ""
                 );
+
 
             images[shortName] =
                 dataUrl;
@@ -556,9 +607,9 @@ async function bacaFileWord(file) {
 
         /* =====================================================
            AMBIL SEMUA PARAGRAF
-           BAGIAN INI DIKEMBALIKAN SEPERTI VERSI
-           YANG SEBELUMNYA SUDAH BERHASIL MEMBACA
-           SEMUA NOMOR DAN GAMBAR.
+
+           BAGIAN INI TETAP DIPERTAHANKAN
+           AGAR PEMBACAAN GAMBAR TIDAK RUSAK.
         ===================================================== */
 
         const paragraphs =
@@ -568,7 +619,9 @@ async function bacaFileWord(file) {
                 )
             );
 
+
         const data = [];
+
 
         for (
             const paragraph of paragraphs
@@ -581,25 +634,30 @@ async function bacaFileWord(file) {
                     images
                 );
 
+
             if (
                 item.text.trim() !== "" ||
                 item.images.length > 0
             ) {
 
-                data.push(item);
+                data.push(
+                    item
+                );
 
             }
 
         }
 
 
-        loading.style.display = "none";
+        loading.style.display =
+            "none";
 
 
-        /*
-         * PARSER LAMA TETAP DIGUNAKAN SEBAGAI
-         * DASAR PEMBACAAN NOMOR SOAL.
-         */
+        /* =====================================================
+           PARSER BARU
+
+           HANYA BAGIAN SOAL YANG DIBACA.
+        ===================================================== */
 
         const questions =
             parseSoalDariParagraf(
@@ -626,14 +684,19 @@ async function bacaFileWord(file) {
 
     } catch (error) {
 
-        loading.style.display = "none";
+        loading.style.display =
+            "none";
+
 
         tampilkanError(
             "Gagal membaca file Word: " +
             error.message
         );
 
-        console.error(error);
+
+        console.error(
+            error
+        );
 
     }
 
@@ -652,10 +715,12 @@ async function prosesParagraf(
 
     let text = "";
 
+
     const textNodes =
         paragraph.getElementsByTagName(
             "w:t"
         );
+
 
     for (
         const node of textNodes
@@ -669,10 +734,12 @@ async function prosesParagraf(
 
     const imageElements = [];
 
+
     const blips =
         paragraph.getElementsByTagName(
             "a:blip"
         );
+
 
     for (
         const blip of blips
@@ -683,16 +750,20 @@ async function prosesParagraf(
                 "r:embed"
             );
 
+
         if (!relationId) {
             continue;
         }
 
+
         const filename =
             rels[relationId];
+
 
         if (!filename) {
             continue;
         }
+
 
         if (images[filename]) {
 
@@ -706,8 +777,13 @@ async function prosesParagraf(
 
 
     return {
-        text: text,
-        images: imageElements
+
+        text:
+            text,
+
+        images:
+            imageElements
+
     };
 
 }
@@ -715,14 +791,40 @@ async function prosesParagraf(
 
 /* =========================================================
    PARSER SOAL
-   DASARNYA SAMA SEPERTI VERSI AWAL
+   VERSI BARU
+
+   ATURAN:
+
+   KOP / IDENTITAS
+   → DIABAIKAN
+
+   PETUNJUK / PERATURAN
+   → DIABAIKAN
+
+   I. PILIHAN GANDA
+   → MULAI SOAL
+
+   II. ISIAN
+   → SOAL
+
+   III. URAIAN
+   → SOAL
+
+   KUNCI JAWABAN
+   → BERHENTI MEMBACA SOAL
 ========================================================= */
 
-function parseSoalDariParagraf(data) {
+function parseSoalDariParagraf(
+    data
+) {
 
-    let nomor = 0;
+    let bagianAktif =
+        null;
 
-    let currentQuestion = null;
+
+    let currentQuestion =
+        null;
+
 
     const questions = [];
 
@@ -731,14 +833,134 @@ function parseSoalDariParagraf(data) {
         const item of data
     ) {
 
-        let text =
+        const text =
             normalisasiSpasi(
                 item.text
             );
 
 
+        const upperText =
+            text.toUpperCase();
+
+
+        /* =====================================================
+           KUNCI JAWABAN
+
+           Begitu menemukan bagian ini,
+           SEMUA nomor setelahnya tidak boleh
+           dianggap sebagai soal.
+        ===================================================== */
+
+        if (
+            /^KUNCI\s+JAWABAN\b/i.test(
+                text
+            )
+        ) {
+
+            bagianAktif =
+                "KEY";
+
+            currentQuestion =
+                null;
+
+            continue;
+
+        }
+
+
+        /* =====================================================
+           BAGIAN I - PILIHAN GANDA
+        ===================================================== */
+
+        if (
+            /^I\.\s*PILIHAN\s+GANDA\b/i.test(
+                upperText
+            )
+        ) {
+
+            bagianAktif =
+                "I";
+
+            currentQuestion =
+                null;
+
+            continue;
+
+        }
+
+
+        /* =====================================================
+           BAGIAN II - ISIAN
+        ===================================================== */
+
+        if (
+            /^II\.\s*IS[Iİ]L?AH\b/i.test(
+                upperText
+            ) ||
+            /^II\.\s*ISIAN\b/i.test(
+                upperText
+            )
+        ) {
+
+            bagianAktif =
+                "II";
+
+            currentQuestion =
+                null;
+
+            continue;
+
+        }
+
+
+        /* =====================================================
+           BAGIAN III - URAIAN
+        ===================================================== */
+
+        if (
+            /^III\.\s*JAWABLAH\b/i.test(
+                upperText
+            ) ||
+            /^III\.\s*URAIAN\b/i.test(
+                upperText
+            )
+        ) {
+
+            bagianAktif =
+                "III";
+
+            currentQuestion =
+                null;
+
+            continue;
+
+        }
+
+
+        /* =====================================================
+           SEBELUM BAGIAN SOAL
+
+           KOP, IDENTITAS, PETUNJUK,
+           PERATURAN, DLL DIABAIKAN.
+        ===================================================== */
+
+        if (
+            bagianAktif === null ||
+            bagianAktif === "KEY"
+        ) {
+
+            continue;
+
+        }
+
+
         /* =====================================================
            DETEKSI NOMOR SOAL
+
+           Hanya aktif pada:
+           I
+           II
+           III
         ===================================================== */
 
         const match =
@@ -749,12 +971,77 @@ function parseSoalDariParagraf(data) {
 
         if (match) {
 
-            nomor++;
+            const nomorSoal =
+                Number(
+                    match[1]
+                );
+
+
+            /*
+             * Nomor 1–25 untuk bagian I
+             * Nomor 1–5 untuk bagian II
+             * Nomor 1–5 untuk bagian III
+             */
+
+            let nomorValid =
+                false;
+
+
+            if (
+                bagianAktif === "I" &&
+                nomorSoal >= 1 &&
+                nomorSoal <= 25
+            ) {
+
+                nomorValid =
+                    true;
+
+            }
+
+
+            if (
+                bagianAktif === "II" &&
+                nomorSoal >= 1 &&
+                nomorSoal <= 5
+            ) {
+
+                nomorValid =
+                    true;
+
+            }
+
+
+            if (
+                bagianAktif === "III" &&
+                nomorSoal >= 1 &&
+                nomorSoal <= 5
+            ) {
+
+                nomorValid =
+                    true;
+
+            }
+
+
+            /*
+             * Jika nomor tidak sesuai dengan
+             * batas bagian, jangan membuat soal.
+             */
+
+            if (!nomorValid) {
+
+                continue;
+
+            }
+
 
             currentQuestion = {
 
                 nomor:
-                    match[1],
+                    nomorSoal,
+
+                bagian:
+                    bagianAktif,
 
                 text:
                     "",
@@ -777,12 +1064,8 @@ function parseSoalDariParagraf(data) {
 
 
             /*
-             * Bagian setelah nomor langsung diproses.
-             * Ini yang membuat soal seperti:
-             *
-             * 1. Pertanyaan...
-             *
-             * tetap terbaca.
+             * Isi setelah nomor langsung
+             * dimasukkan ke soal.
              */
 
             prosesIsiParagraf(
@@ -799,6 +1082,9 @@ function parseSoalDariParagraf(data) {
 
         /* =====================================================
            PARAGRAF LANJUTAN
+
+           Hanya dimasukkan jika memang
+           sudah berada di dalam sebuah soal.
         ===================================================== */
 
         if (!currentQuestion) {
@@ -830,13 +1116,21 @@ function prosesIsiParagraf(
     question
 ) {
 
-    if (!text && images.length === 0) {
+    if (
+        !text &&
+        images.length === 0
+    ) {
+
         return;
+
     }
 
 
     /* =====================================================
-       CARI KUNCI JAWABAN
+       KUNCI JAWABAN INLINE
+
+       Contoh:
+       Kunci Jawaban: A
     ===================================================== */
 
     const keyMatch =
@@ -850,11 +1144,6 @@ function prosesIsiParagraf(
         question.kunci =
             keyMatch[1].toUpperCase();
 
-
-        /*
-         * Hapus bagian "Kunci Jawaban: A"
-         * dari teks.
-         */
 
         text =
             text.replace(
@@ -873,6 +1162,17 @@ function prosesIsiParagraf(
 
     /* =====================================================
        CARI PILIHAN A-D
+
+       Bisa membaca:
+
+       A. Jawaban
+       B. Jawaban
+       C. Jawaban
+       D. Jawaban
+
+       maupun:
+
+       A. Jawaban B. Jawaban C. Jawaban D. Jawaban
     ===================================================== */
 
     const optionRegex =
@@ -881,13 +1181,17 @@ function prosesIsiParagraf(
 
     const matches = [];
 
+
     let match;
 
 
     while (
-        (match =
-            optionRegex.exec(text))
-        !== null
+        (
+            match =
+                optionRegex.exec(
+                    text
+                )
+        ) !== null
     ) {
 
         matches.push({
@@ -912,9 +1216,9 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       TIDAK ADA A-D
-       → PARAGRAF INI ADALAH TEKS SOAL
-       ATAU LANJUTAN SOAL
+       TIDAK ADA PILIHAN
+
+       → MASUK SEBAGAI TEKS SOAL
     ===================================================== */
 
     if (
@@ -945,7 +1249,8 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       TEKS SEBELUM A = PERTANYAAN
+       TEKS SEBELUM PILIHAN A
+       = TEKS PERTANYAAN
     ===================================================== */
 
     const beforeOptions =
@@ -969,9 +1274,9 @@ function prosesIsiParagraf(
 
 
     /*
-     * Jika gambar ada di paragraf yang sama
-     * dengan pertanyaan + pilihan, tetap
-     * dianggap gambar pertanyaan.
+     * Gambar yang terdapat pada
+     * paragraf yang sama tetap dianggap
+     * sebagai gambar pertanyaan.
      */
 
     question.images.push(
@@ -980,7 +1285,7 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       PECAH PILIHAN
+       PECAH PILIHAN A-D
     ===================================================== */
 
     for (
@@ -991,6 +1296,7 @@ function prosesIsiParagraf(
 
         const current =
             matches[i];
+
 
         const next =
             matches[i + 1];
@@ -1009,10 +1315,9 @@ function prosesIsiParagraf(
             ).trim();
 
 
-        /*
-         * Kalau Kunci Jawaban berada di akhir,
-         * hapus sisa teks tersebut.
-         */
+        /* =================================================
+           HAPUS TEKS KUNCI JIKA ADA
+        ================================================= */
 
         optionText =
             optionText.replace(
@@ -1020,11 +1325,6 @@ function prosesIsiParagraf(
                 ""
             ).trim();
 
-
-        /*
-         * Jika pilihan belum ada,
-         * masukkan.
-         */
 
         const existing =
             question.options.find(
@@ -1069,10 +1369,12 @@ function tampilkanPreview(
             "previewSection"
         );
 
+
     const content =
         document.getElementById(
             "previewContent"
         );
+
 
     const count =
         document.getElementById(
@@ -1098,13 +1400,22 @@ function tampilkanPreview(
             "Tidak ada soal yang berhasil dibaca." +
             "</div>";
 
+
         count.textContent =
             "0 Soal";
+
 
         return;
 
     }
 
+
+    /* =====================================================
+       JUMLAH SOAL
+
+       SEKARANG HANYA QUESTIONS YANG
+       BERHASIL DIBUAT OLEH PARSER.
+    ===================================================== */
 
     count.textContent =
         questions.length +
@@ -1112,12 +1423,16 @@ function tampilkanPreview(
 
 
     questions.forEach(
-        question => {
+        (
+            question,
+            index
+        ) => {
 
             const box =
                 document.createElement(
                     "div"
                 );
+
 
             box.className =
                 "question";
@@ -1128,18 +1443,51 @@ function tampilkanPreview(
                     "div"
                 );
 
+
             title.className =
                 "question-title";
 
+
+            let namaBagian =
+                "";
+
+
+            if (
+                question.bagian === "I"
+            ) {
+
+                namaBagian =
+                    "Pilihan Ganda";
+
+            } else if (
+                question.bagian === "II"
+            ) {
+
+                namaBagian =
+                    "Isian Singkat";
+
+            } else if (
+                question.bagian === "III"
+            ) {
+
+                namaBagian =
+                    "Uraian";
+
+            }
+
+
             title.textContent =
                 "Soal " +
-                question.nomor;
+                (index + 1) +
+                " • " +
+                namaBagian;
 
 
             const body =
                 document.createElement(
                     "div"
                 );
+
 
             body.className =
                 "question-body";
@@ -1149,6 +1497,7 @@ function tampilkanPreview(
                 document.createElement(
                     "div"
                 );
+
 
             questionText.className =
                 "question-text";
@@ -1175,8 +1524,10 @@ function tampilkanPreview(
                             "img"
                         );
 
+
                     img.src =
                         src;
+
 
                     questionText.appendChild(
                         img
@@ -1198,6 +1549,7 @@ function tampilkanPreview(
                             "div"
                         );
 
+
                     optionDiv.className =
                         "option";
 
@@ -1207,8 +1559,10 @@ function tampilkanPreview(
                             "span"
                         );
 
+
                     label.className =
                         "option-label";
+
 
                     label.textContent =
                         option.label +
@@ -1224,6 +1578,7 @@ function tampilkanPreview(
                         document.createElement(
                             "span"
                         );
+
 
                     textSpan.textContent =
                         " " +
@@ -1243,8 +1598,10 @@ function tampilkanPreview(
                                     "img"
                                 );
 
+
                             img.src =
                                 src;
+
 
                             optionDiv.appendChild(
                                 img
@@ -1263,34 +1620,45 @@ function tampilkanPreview(
 
 
             /* =================================================
-               KUNCI
-               Hanya ditampilkan kalau memang ada.
+               KUNCI INLINE
+
+               Tetap dipertahankan jika memang
+               berada pada data soal.
             ================================================= */
 
-            if (question.kunci) {
+            if (
+                question.kunci
+            ) {
 
                 const keyInfo =
                     document.createElement(
                         "div"
                     );
 
+
                 keyInfo.style.marginTop =
                     "14px";
+
 
                 keyInfo.style.padding =
                     "10px 12px";
 
+
                 keyInfo.style.borderRadius =
                     "8px";
+
 
                 keyInfo.style.background =
                     "#f0fdf4";
 
+
                 keyInfo.style.color =
                     "#166534";
 
+
                 keyInfo.style.fontWeight =
                     "bold";
+
 
                 keyInfo.textContent =
                     "🔑 Kunci Jawaban: " +
@@ -1308,9 +1676,11 @@ function tampilkanPreview(
                 title
             );
 
+
             box.appendChild(
                 body
             );
+
 
             content.appendChild(
                 box
@@ -1663,4 +2033,3 @@ function escapeHtml(
 
 </body>
 </html>
-```
