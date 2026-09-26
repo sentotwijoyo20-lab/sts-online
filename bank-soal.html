@@ -323,12 +323,15 @@
 
 
     <!-- ========================================= -->
-    <!-- IMPORT WORD -->
+    <!-- IMPORT -->
     <!-- ========================================= -->
 
     <section class="card">
 
-        <h2>📄 Import Soal dari Word</h2>
+        <h2>
+            📄 Import Soal dari Word
+        </h2>
+
 
         <div class="upload-area">
 
@@ -345,6 +348,7 @@
                 secara otomatis.
             </p>
 
+
             <label
                 class="upload-button"
                 for="wordFile">
@@ -352,6 +356,7 @@
                 📂 PILIH FILE WORD
 
             </label>
+
 
             <input
                 type="file"
@@ -448,6 +453,7 @@
                 👀 Preview Soal
             </h2>
 
+
             <button
                 id="saveButton"
                 class="save-button"
@@ -532,6 +538,7 @@ wordFile.addEventListener(
         const file =
             this.files[0];
 
+
         if (!file) {
             return;
         }
@@ -542,6 +549,7 @@ wordFile.addEventListener(
 
         fileInfo.style.display =
             "block";
+
 
         fileInfo.innerHTML =
             "📄 <strong>" +
@@ -562,9 +570,9 @@ wordFile.addEventListener(
         } catch (error) {
 
             console.error(
-                "IMPORT ERROR:",
                 error
             );
+
 
             tampilkanError(
                 error.message ||
@@ -603,7 +611,9 @@ function resetPesan() {
 /* UKURAN FILE */
 /* ================================================= */
 
-function formatUkuran(bytes) {
+function formatUkuran(
+    bytes
+) {
 
     if (
         bytes < 1024
@@ -637,10 +647,12 @@ function formatUkuran(bytes) {
 
 
 /* ================================================= */
-/* BACA FILE WORD */
+/* BACA WORD */
 /* ================================================= */
 
-async function bacaFileWord(file) {
+async function bacaFileWord(
+    file
+) {
 
     const buffer =
         await file.arrayBuffer();
@@ -661,7 +673,7 @@ async function bacaFileWord(file) {
     if (!documentFile) {
 
         throw new Error(
-            "Dokumen Word tidak memiliki document.xml yang valid."
+            "document.xml tidak ditemukan."
         );
 
     }
@@ -673,7 +685,8 @@ async function bacaFileWord(file) {
         );
 
 
-    let relsXml = "";
+    let relsXml =
+        "";
 
 
     const relsFile =
@@ -705,20 +718,59 @@ async function bacaFileWord(file) {
         );
 
 
-    console.log(
-        "Jumlah paragraf:",
-        paragraphs.length
-    );
-
-
     bankSoal =
         parseSoal(
             paragraphs
         );
 
 
+    /*
+     * ============================================
+     * FILTER AKHIR
+     *
+     * INI SANGAT PENTING.
+     *
+     * PG HARUS MEMILIKI PILIHAN A-D.
+     * ============================================
+     */
+
+    bankSoal =
+        bankSoal.filter(
+            function (soal) {
+
+                if (
+                    soal.jenis ===
+                    "pg"
+                ) {
+
+                    const jumlahPilihan =
+                        Object.keys(
+                            soal.pilihan
+                        ).length;
+
+
+                    return (
+                        jumlahPilihan >= 4
+                    );
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    /*
+     * Nomor dibuat ulang setelah filter.
+     */
+
+    penomoranUlang();
+
+
     console.log(
-        "HASIL AKHIR:",
+        "BANK SOAL FINAL:",
         bankSoal
     );
 
@@ -728,7 +780,7 @@ async function bacaFileWord(file) {
     ) {
 
         throw new Error(
-            "Tidak ditemukan soal pada dokumen."
+            "Tidak ditemukan soal yang valid."
         );
 
     }
@@ -844,7 +896,7 @@ async function ambilGambar(
 
 
 /* ================================================= */
-/* EKSTRAK PARAGRAF */
+/* EKSTRAK PARAGRAF WORD */
 /* ================================================= */
 
 function ekstrakParagraphWord(
@@ -876,21 +928,20 @@ function ekstrakParagraphWord(
             let text = "";
 
 
-            const allChildren =
+            const elements =
                 Array.from(
-                    p.getElementsByTagName("*")
+                    p.getElementsByTagName(
+                        "*"
+                    )
                 );
 
 
-            allChildren.forEach(
+            elements.forEach(
                 function (element) {
 
-                    const localName =
-                        element.localName;
-
-
                     if (
-                        localName === "t"
+                        element.localName ===
+                        "t"
                     ) {
 
                         text +=
@@ -901,7 +952,8 @@ function ekstrakParagraphWord(
 
 
                     if (
-                        localName === "br"
+                        element.localName ===
+                        "br"
                     ) {
 
                         text +=
@@ -911,7 +963,8 @@ function ekstrakParagraphWord(
 
 
                     if (
-                        localName === "tab"
+                        element.localName ===
+                        "tab"
                     ) {
 
                         text +=
@@ -926,8 +979,10 @@ function ekstrakParagraphWord(
             let hasNumbering =
                 false;
 
+
             let numId =
                 null;
+
 
             let ilvl =
                 null;
@@ -982,7 +1037,7 @@ function ekstrakParagraphWord(
             const images = [];
 
 
-            allChildren.forEach(
+            elements.forEach(
                 function (element) {
 
                     const embed =
@@ -1043,7 +1098,7 @@ function ekstrakParagraphWord(
 
 
 /* ================================================= */
-/* NORMALISASI TEKS */
+/* NORMALISASI */
 /* ================================================= */
 
 function normalisasiText(
@@ -1093,18 +1148,8 @@ function deteksiBagian(
         .toUpperCase();
 
 
-    /*
-     * ============================================
-     * KUNCI JAWABAN
-     * ============================================
-     */
-
     if (
         t.includes(
-            "KUNCI JAWABAN"
-        ) ||
-        t === "KUNCI" ||
-        t.startsWith(
             "KUNCI JAWABAN"
         )
     ) {
@@ -1113,12 +1158,6 @@ function deteksiBagian(
 
     }
 
-
-    /*
-     * ============================================
-     * PILIHAN GANDA
-     * ============================================
-     */
 
     if (
         t === "PILIHAN GANDA" ||
@@ -1132,12 +1171,6 @@ function deteksiBagian(
     }
 
 
-    /*
-     * ============================================
-     * ISIAN
-     * ============================================
-     */
-
     if (
         t === "ISIAN SINGKAT" ||
         t.includes(
@@ -1149,12 +1182,6 @@ function deteksiBagian(
 
     }
 
-
-    /*
-     * ============================================
-     * URAIAN
-     * ============================================
-     */
 
     if (
         t === "URAIAN" ||
@@ -1175,7 +1202,7 @@ function deteksiBagian(
 
 
 /* ================================================= */
-/* NOMOR TERTULIS */
+/* NOMOR */
 /* ================================================= */
 
 function deteksiNomor(
@@ -1215,7 +1242,7 @@ function deteksiNomor(
 
 
 /* ================================================= */
-/* PILIHAN A-D */
+/* PILIHAN */
 /* ================================================= */
 
 function deteksiPilihan(
@@ -1252,7 +1279,7 @@ function deteksiPilihan(
 
 
 /* ================================================= */
-/* CEK APAKAH PARAGRAF ADALAH NOMOR OTOMATIS */
+/* NUMBERING OTOMATIS */
 /* ================================================= */
 
 function adalahNomorOtomatisSoal(
@@ -1321,84 +1348,7 @@ function adalahNomorOtomatisSoal(
 
 
 /* ================================================= */
-/* CEK SOAL PG VALID */
-/* ================================================= */
-
-function pgSudahLengkap(
-    soal
-) {
-
-    if (!soal) {
-        return false;
-    }
-
-
-    const jumlahPilihan =
-        Object.keys(
-            soal.pilihan
-        ).length;
-
-
-    return (
-        jumlahPilihan >= 4
-    );
-
-}
-
-
-
-/* ================================================= */
-/* CEK KUNCI PG */
-/* ================================================= */
-
-function adalahKunciPG(
-    text,
-    soalAktif
-) {
-
-    const t =
-        normalisasiText(
-            text
-        );
-
-
-    /*
-     * Kunci PG biasanya:
-     *
-     * A
-     * B
-     * C
-     * D
-     *
-     * dan tidak memiliki isi
-     */
-
-    if (
-        !/^[A-Da-d]$/.test(t)
-    ) {
-
-        return false;
-
-    }
-
-
-    /*
-     * Kalau soal sebelumnya
-     * sudah mempunyai A-D lengkap,
-     * maka A-D berikutnya sangat
-     * mungkin merupakan kunci.
-     */
-
-    return pgSudahLengkap(
-        soalAktif
-    );
-
-}
-
-
-
-/* ================================================= */
-/* PARSER SOAL */
+/* PARSER */
 /* ================================================= */
 
 function parseSoal(
@@ -1417,7 +1367,7 @@ function parseSoal(
 
 
     /*
-     * Menyimpan soal aktif
+     * Menyimpan soal aktif.
      */
 
     function simpanSoalAktif() {
@@ -1437,45 +1387,34 @@ function parseSoal(
             );
 
 
-        /*
-         * Jangan simpan soal yang
-         * hanya berupa kunci jawaban.
-         */
-
         if (
-            !pertanyaan &&
-            soalAktif.images.length === 0
+            pertanyaan ||
+            soalAktif.images.length > 0
         ) {
 
-            soalAktif =
-                null;
+            hasil.push({
 
-            return;
+                nomor:
+                    soalAktif.nomor,
+
+                jenis:
+                    soalAktif.jenis,
+
+                pertanyaan:
+                    pertanyaan,
+
+                pilihan:
+                    soalAktif.pilihan,
+
+                images:
+                    soalAktif.images,
+
+                pilihanImages:
+                    soalAktif.pilihanImages
+
+            });
 
         }
-
-
-        hasil.push({
-
-            nomor:
-                soalAktif.nomor,
-
-            jenis:
-                soalAktif.jenis,
-
-            pertanyaan:
-                pertanyaan,
-
-            pilihan:
-                soalAktif.pilihan,
-
-            images:
-                soalAktif.images,
-
-            pilihanImages:
-                soalAktif.pilihanImages
-
-        });
 
 
         soalAktif =
@@ -1484,12 +1423,6 @@ function parseSoal(
     }
 
 
-
-    /*
-     * ============================================
-     * LOOP SEMUA PARAGRAF
-     * ============================================
-     */
 
     paragraphs.forEach(
         function (paragraph) {
@@ -1500,7 +1433,7 @@ function parseSoal(
 
             /*
              * =====================================
-             * DETEKSI HEADING
+             * HEADING
              * =====================================
              */
 
@@ -1539,12 +1472,8 @@ function parseSoal(
 
 
             /*
-             * =====================================
-             * JIKA SUDAH MASUK KUNCI
-             * =====================================
-             *
-             * Heading KUNCI JAWABAN normal:
-             * seluruh bagian setelahnya dibuang.
+             * Jika benar-benar ada heading
+             * KUNCI JAWABAN, abaikan sisanya.
              */
 
             if (
@@ -1554,7 +1483,6 @@ function parseSoal(
                 return;
 
             }
-
 
 
             /*
@@ -1580,204 +1508,6 @@ function parseSoal(
                     paragraph,
                     bagian
                 );
-
-
-            /*
-             * =====================================
-             * CEK KUNCI PG YANG TERBACA
-             *
-             * Kasus:
-             *
-             * 26. D
-             * 27. C
-             * 28. B
-             *
-             * Karena Word menyimpan nomor
-             * secara otomatis, kita mendeteksi
-             * isi "D", "C", "B", dst.
-             *
-             * HANYA dianggap kunci jika soal
-             * sebelumnya sudah mempunyai
-             * pilihan A-D.
-             * =====================================
-             */
-
-            if (
-                bagian === "pg" &&
-                soalAktif &&
-                (nomor || otomatis)
-            ) {
-
-                const isiNomor =
-                    nomor
-                        ? nomor.isi
-                        : text;
-
-
-                if (
-                    adalahKunciPG(
-                        isiNomor,
-                        soalAktif
-                    )
-                ) {
-
-                    /*
-                     * Jangan simpan soal aktif
-                     * karena sudah disimpan sebelumnya.
-                     */
-
-                    simpanSoalAktif();
-
-
-                    /*
-                     * Mulai mode kunci PG.
-                     *
-                     * Kita tidak bisa sekadar
-                     * memakai "kunci" karena setelah
-                     * kunci PG masih mungkin ada
-                     * bagian ISIAN / URAIAN.
-                     *
-                     * Jadi gunakan status khusus.
-                     */
-
-                    bagian =
-                        "kunci_pg";
-
-                    return;
-
-                }
-
-            }
-
-
-
-            /*
-             * =====================================
-             * MODE KUNCI PG
-             * =====================================
-             *
-             * Abaikan seluruh jawaban PG.
-             *
-             * Tetapi jika muncul heading ISIAN
-             * atau URAIAN, deteksiBagian di atas
-             * sudah menangani sebelum bagian ini.
-             * =====================================
-             */
-
-            if (
-                bagian === "kunci_pg"
-            ) {
-
-                return;
-
-            }
-
-
-
-            /*
-             * =====================================
-             * JIKA ADA NOMOR SOAL
-             * =====================================
-             */
-
-            if (
-                nomor
-            ) {
-
-                simpanSoalAktif();
-
-
-                soalAktif = {
-
-                    nomor:
-                        nomor.nomor,
-
-                    jenis:
-                        bagian,
-
-                    pertanyaan:
-                        nomor.isi,
-
-                    pilihan:
-                        {},
-
-                    images:
-                        [
-                            ...paragraph.images
-                        ],
-
-                    pilihanImages:
-                        {}
-
-                };
-
-
-                return;
-
-            }
-
-
-
-            /*
-             * =====================================
-             * JIKA NUMBERING OTOMATIS
-             * =====================================
-             */
-
-            if (
-                otomatis
-            ) {
-
-                simpanSoalAktif();
-
-
-                /*
-                 * Nomor dibuat berdasarkan
-                 * urutan soal pada jenis tersebut.
-                 */
-
-                const jumlahSebelumnya =
-                    hasil.filter(
-                        function (item) {
-
-                            return (
-                                item.jenis ===
-                                bagian
-                            );
-
-                        }
-                    ).length;
-
-
-                soalAktif = {
-
-                    nomor:
-                        jumlahSebelumnya + 1,
-
-                    jenis:
-                        bagian,
-
-                    pertanyaan:
-                        text,
-
-                    pilihan:
-                        {},
-
-                    images:
-                        [
-                            ...paragraph.images
-                        ],
-
-                    pilihanImages:
-                        {}
-
-                };
-
-
-                return;
-
-            }
-
 
 
             /*
@@ -1829,10 +1559,182 @@ function parseSoal(
             }
 
 
+            /*
+             * =====================================
+             * NOMOR SOAL TERTULIS
+             * =====================================
+             */
+
+            if (
+                nomor
+            ) {
+
+                /*
+                 * Jangan membuat soal baru
+                 * jika nomor tersebut ternyata
+                 * adalah kunci PG.
+                 *
+                 * Kunci PG seperti:
+                 *
+                 * 26. D
+                 *
+                 * tidak mempunyai pilihan A-D.
+                 */
+
+                if (
+                    bagian === "pg" &&
+                    /^[A-Da-d]$/.test(
+                        nomor.isi
+                    )
+                ) {
+
+                    /*
+                     * Abaikan kunci.
+                     */
+
+                    return;
+
+                }
+
+
+                /*
+                 * Untuk Isian/Uraian, kita
+                 * gunakan nomor dan isi.
+                 */
+
+                simpanSoalAktif();
+
+
+                soalAktif = {
+
+                    nomor:
+                        nomor.nomor,
+
+                    jenis:
+                        bagian,
+
+                    pertanyaan:
+                        nomor.isi,
+
+                    pilihan:
+                        {},
+
+                    images:
+                        [
+                            ...paragraph.images
+                        ],
+
+                    pilihanImages:
+                        {}
+
+                };
+
+
+                return;
+
+            }
+
 
             /*
              * =====================================
-             * TEKS LANJUTAN
+             * NOMOR OTOMATIS
+             * =====================================
+             */
+
+            if (
+                otomatis
+            ) {
+
+                /*
+                 * Jika PG dan isi hanya
+                 * A-D, itu kunci jawaban.
+                 */
+
+                if (
+                    bagian === "pg" &&
+                    /^[A-Da-d]$/.test(
+                        text
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Kalau PG aktif sudah
+                 * mempunyai A-D lengkap,
+                 * lalu muncul paragraf otomatis
+                 * berisi satu huruf A-D,
+                 * abaikan.
+                 */
+
+                if (
+                    bagian === "pg" &&
+                    soalAktif &&
+                    Object.keys(
+                        soalAktif.pilihan
+                    ).length >= 4 &&
+                    /^[A-Da-d]$/.test(
+                        text
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                simpanSoalAktif();
+
+
+                const jumlahSebelumnya =
+                    hasil.filter(
+                        function (item) {
+
+                            return (
+                                item.jenis ===
+                                bagian
+                            );
+
+                        }
+                    ).length;
+
+
+                soalAktif = {
+
+                    nomor:
+                        jumlahSebelumnya + 1,
+
+                    jenis:
+                        bagian,
+
+                    pertanyaan:
+                        text,
+
+                    pilihan:
+                        {},
+
+                    images:
+                        [
+                            ...paragraph.images
+                        ],
+
+                    pilihanImages:
+                        {}
+
+                };
+
+
+                return;
+
+            }
+
+
+            /*
+             * =====================================
+             * LANJUTAN TEKS SOAL
              * =====================================
              */
 
@@ -1867,30 +1769,32 @@ function parseSoal(
     );
 
 
-    /*
-     * Simpan soal terakhir.
-     */
-
     simpanSoalAktif();
 
 
-    /*
-     * ============================================
-     * FILTER AKHIR
-     * ============================================
-     *
-     * Jangan pernah membiarkan hasil parser
-     * yang bukan jenis soal.
-     */
+    return hasil;
 
-    return hasil.filter(
+}
+
+
+
+/* ================================================= */
+/* PENOMORAN ULANG */
+/* ================================================= */
+
+function penomoranUlang() {
+
+    let nomor =
+        1;
+
+
+    bankSoal.forEach(
         function (soal) {
 
-            return (
-                soal.jenis === "pg" ||
-                soal.jenis === "isian" ||
-                soal.jenis === "uraian"
-            );
+            soal.nomor =
+                nomor;
+
+            nomor++;
 
         }
     );
@@ -1907,29 +1811,6 @@ function tampilkanPreview() {
 
     preview.innerHTML =
         "";
-
-
-    if (
-        bankSoal.length === 0
-    ) {
-
-        preview.innerHTML =
-            '<div class="empty-preview">' +
-            'Tidak ada soal yang ditemukan.' +
-            '</div>';
-
-
-        saveButton.style.display =
-            "none";
-
-
-        summary.style.display =
-            "none";
-
-
-        return;
-
-    }
 
 
     const jumlahPG =
@@ -2203,7 +2084,7 @@ function tampilkanPreview() {
 
 
                     /*
-                     * PILIHAN A-D
+                     * PILIHAN
                      */
 
                     if (
@@ -2285,7 +2166,6 @@ function tampilkanPreview() {
                                 );
 
 
-
                                 /*
                                  * GAMBAR PILIHAN
                                  */
@@ -2353,10 +2233,9 @@ function tampilkanPreview() {
     );
 
 
-
     /*
      * ============================================
-     * PESAN BERHASIL
+     * PESAN
      * ============================================
      */
 
@@ -2368,7 +2247,7 @@ function tampilkanPreview() {
         "✅ Berhasil membaca <strong>" +
         bankSoal.length +
         " soal</strong> dari file Word. " +
-        "Kop, petunjuk, dan bagian kunci jawaban " +
+        "Kop, petunjuk, dan kunci jawaban " +
         "tidak dimasukkan ke preview.";
 
 }
@@ -2417,7 +2296,7 @@ function labelJenis(
 
 
 /* ================================================= */
-/* SIMPAN BANK SOAL */
+/* SIMPAN */
 /* ================================================= */
 
 function simpanBankSoal() {
