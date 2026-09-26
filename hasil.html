@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,62 +8,506 @@
     <title>Hasil Ujian - STS Online</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           RESET KHUSUS HALAMAN HASIL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(30, 136, 229, 0.12), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(0, 188, 212, 0.12), transparent 35%),
+                linear-gradient(135deg, #eef6ff, #f8fbff);
+        }
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .hasil-page {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+
+        /* =====================================================
+           KARTU HASIL
+        ===================================================== */
+
+        .hasil-card {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 42px 45px;
+            box-shadow:
+                0 20px 50px rgba(30, 60, 90, 0.14),
+                0 5px 15px rgba(30, 60, 90, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           ICON
+        ===================================================== */
+
+        .hasil-icon {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #f1f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.10);
+        }
+
+
+        /* =====================================================
+           JUDUL
+        ===================================================== */
+
+        .hasil-card h1 {
+            margin: 0;
+            font-size: 36px;
+            line-height: 1.2;
+            color: #172b4d;
+            font-weight: 800;
+        }
+
+        .hasil-school {
+            margin: 10px 0 22px;
+            color: #60758f;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           BADGE MODE
+        ===================================================== */
+
+        .hasil-mode {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #e8f7ed;
+            color: #218838;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .hasil-mode.mode-resmi {
+            background: #e7f1ff;
+            color: #1769aa;
+        }
+
+
+        /* =====================================================
+           PEMBATAS
+        ===================================================== */
+
+        .hasil-divider {
+            width: 100%;
+            height: 1px;
+            background: #e8edf3;
+            margin: 0 0 24px;
+        }
+
+
+        /* =====================================================
+           DATA SISWA
+        ===================================================== */
+
+        .hasil-siswa {
+            background: #f7faff;
+            border: 1px solid #e5edf7;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .siswa-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 8px 0;
+        }
+
+        .siswa-label {
+            color: #718096;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .siswa-value {
+            color: #172b4d;
+            font-size: 17px;
+            font-weight: 800;
+            text-align: right;
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           BOX NILAI
+        ===================================================== */
+
+        .hasil-score-box {
+            background: linear-gradient(135deg, #f1f8ff, #ffffff);
+            border: 2px solid #dbeeff;
+            border-radius: 22px;
+            padding: 24px 20px 28px;
+            margin-bottom: 25px;
+        }
+
+        .hasil-score-label {
+            color: #58708c;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .hasil-score {
+            color: #1769aa;
+            font-size: 92px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin: 5px 0;
+        }
+
+
+        /* =====================================================
+           DETAIL
+        ===================================================== */
+
+        .hasil-detail {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .hasil-detail-item {
+            background: #f8fafc;
+            border: 1px solid #e8edf3;
+            border-radius: 16px;
+            padding: 18px 8px;
+        }
+
+        .hasil-detail-label {
+            display: block;
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.3;
+            margin-bottom: 9px;
+            font-weight: 600;
+        }
+
+        .hasil-detail-number {
+            display: block;
+            color: #172b4d;
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           PESAN
+        ===================================================== */
+
+        .hasil-pesan {
+            background: #fffaf0;
+            border: 1px solid #f5e6bd;
+            border-radius: 15px;
+            padding: 17px 15px;
+            margin-bottom: 25px;
+            color: #725c20;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           TOMBOL
+        ===================================================== */
+
+        .hasil-button {
+            width: 100%;
+            min-height: 56px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1769aa, #2186d4);
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(23, 105, 170, 0.20);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .hasil-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 11px 24px rgba(23, 105, 170, 0.25);
+        }
+
+        .hasil-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .hasil-footer {
+            margin-top: 22px;
+            color: #8a9aab;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .hasil-page {
+                padding: 20px 14px;
+            }
+
+            .hasil-card {
+                max-width: 100%;
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .hasil-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 38px;
+                margin-bottom: 15px;
+            }
+
+            .hasil-card h1 {
+                font-size: 29px;
+            }
+
+            .hasil-school {
+                font-size: 16px;
+                margin-bottom: 18px;
+            }
+
+            .hasil-mode {
+                font-size: 13px;
+                padding: 9px 15px;
+                margin-bottom: 21px;
+            }
+
+            .hasil-siswa {
+                padding: 15px 17px;
+            }
+
+            .siswa-row {
+                gap: 12px;
+            }
+
+            .siswa-label {
+                font-size: 14px;
+            }
+
+            .siswa-value {
+                font-size: 15px;
+            }
+
+            .hasil-score-box {
+                padding: 21px 15px 25px;
+            }
+
+            .hasil-score {
+                font-size: 78px;
+            }
+
+            .hasil-detail {
+                gap: 8px;
+            }
+
+            .hasil-detail-item {
+                padding: 15px 5px;
+            }
+
+            .hasil-detail-label {
+                font-size: 11px;
+            }
+
+            .hasil-detail-number {
+                font-size: 26px;
+            }
+
+            .hasil-pesan {
+                font-size: 14px;
+            }
+
+            .hasil-button {
+                font-size: 16px;
+            }
+        }
+
+
+        /* =====================================================
+           HP SANGAT KECIL
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            .hasil-card {
+                padding: 26px 15px;
+            }
+
+            .hasil-card h1 {
+                font-size: 26px;
+            }
+
+            .hasil-score {
+                font-size: 68px;
+            }
+
+            .siswa-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 3px;
+            }
+
+            .siswa-value {
+                text-align: left;
+            }
+
+            .hasil-detail-label {
+                font-size: 10px;
+            }
+
+            .hasil-detail-number {
+                font-size: 23px;
+            }
+        }
+    </style>
 </head>
+
 
 <body>
 
-<div class="result-container">
+<div class="hasil-page">
 
-    <div class="result-card">
+    <div class="hasil-card">
 
-        <div class="result-icon">
+        <!-- ICON -->
+
+        <div class="hasil-icon">
             🎉
         </div>
 
+
+        <!-- JUDUL -->
+
         <h1>Hasil Ujian</h1>
 
-        <p class="school-name">
+        <div class="hasil-school">
             SD Negeri 1 Jatipayak
-        </p>
+        </div>
 
 
         <!-- MODE -->
 
         <div
             id="modeHasil"
-            class="mode-badge">
+            class="hasil-mode">
             🟢 GLADI / SIMULASI
         </div>
 
 
+        <div class="hasil-divider"></div>
+
+
         <!-- DATA SISWA -->
 
-        <div class="student-result">
+        <div class="hasil-siswa">
 
-            <p>
-                <strong>Nama</strong>
-                <span id="namaHasil">-</span>
-            </p>
+            <div class="siswa-row">
 
-            <p>
-                <strong>NIS</strong>
-                <span id="nisHasil">-</span>
-            </p>
+                <span class="siswa-label">
+                    Nama
+                </span>
+
+                <span
+                    id="namaHasil"
+                    class="siswa-value">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="siswa-row">
+
+                <span class="siswa-label">
+                    NIS / Nomor Peserta
+                </span>
+
+                <span
+                    id="nisHasil"
+                    class="siswa-value">
+                    -
+                </span>
+
+            </div>
 
         </div>
 
 
         <!-- NILAI -->
 
-        <div class="score-box">
+        <div class="hasil-score-box">
 
-            <div class="score-label">
-                NILAI
+            <div class="hasil-score-label">
+                NILAI AKHIR
             </div>
 
             <div
                 id="nilaiHasil"
-                class="score">
+                class="hasil-score">
                 0
             </div>
 
@@ -71,35 +516,47 @@
 
         <!-- DETAIL -->
 
-        <div class="result-detail">
+        <div class="hasil-detail">
 
-            <div class="detail-item">
+            <div class="hasil-detail-item">
 
-                <span>Jumlah Soal</span>
+                <span class="hasil-detail-label">
+                    Jumlah Soal
+                </span>
 
-                <strong id="jumlahSoalHasil">
+                <strong
+                    id="jumlahSoalHasil"
+                    class="hasil-detail-number">
                     0
                 </strong>
 
             </div>
 
 
-            <div class="detail-item">
+            <div class="hasil-detail-item">
 
-                <span>Jawaban Benar</span>
+                <span class="hasil-detail-label">
+                    Jawaban Benar
+                </span>
 
-                <strong id="benarHasil">
+                <strong
+                    id="benarHasil"
+                    class="hasil-detail-number">
                     0
                 </strong>
 
             </div>
 
 
-            <div class="detail-item">
+            <div class="hasil-detail-item">
 
-                <span>Jawaban Salah</span>
+                <span class="hasil-detail-label">
+                    Jawaban Salah
+                </span>
 
-                <strong id="salahHasil">
+                <strong
+                    id="salahHasil"
+                    class="hasil-detail-number">
                     0
                 </strong>
 
@@ -112,20 +569,23 @@
 
         <div
             id="pesanHasil"
-            class="result-message">
+            class="hasil-pesan">
         </div>
 
 
         <!-- TOMBOL -->
 
-        <div class="result-buttons">
+        <button
+            onclick="kembaliKeBeranda()"
+            class="hasil-button">
+            🏠 Kembali ke Beranda
+        </button>
 
-            <button
-                onclick="kembaliKeBeranda()"
-                class="btn-primary">
-                🏠 Kembali ke Beranda
-            </button>
 
+        <!-- FOOTER -->
+
+        <div class="hasil-footer">
+            STS ONLINE • SD Negeri 1 Jatipayak
         </div>
 
     </div>
@@ -173,8 +633,6 @@ let jumlahSoal;
 
 
 /*
-   PENTING:
-
    Nilai Gladi dan STS Resmi
    memiliki penyimpanan berbeda.
 */
@@ -328,3 +786,4 @@ function kembaliKeBeranda() {
 
 </body>
 </html>
+```
