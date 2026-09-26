@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Bank Soal - STS Online</title>
 
-    <!-- Library untuk membaca file DOCX -->
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -22,9 +27,9 @@
         }
 
         .header {
-            background: #ffffff;
+            background: white;
+            padding: 25px 20px;
             border-bottom: 1px solid #e5e7eb;
-            padding: 20px 30px;
         }
 
         .header-inner {
@@ -34,13 +39,13 @@
 
         .header h1 {
             margin: 0;
-            font-size: 26px;
-            color: #1e3a8a;
+            color: #173b7a;
+            font-size: 28px;
         }
 
         .header p {
             margin: 6px 0 0;
-            color: #64748b;
+            color: #6b7280;
         }
 
         .container {
@@ -50,841 +55,1045 @@
         }
 
         .card {
-            background: #ffffff;
+            background: white;
             border-radius: 18px;
             padding: 25px;
-            margin-bottom: 22px;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.07);
         }
 
         .card h2 {
             margin-top: 0;
-            color: #1e3a8a;
+            color: #173b7a;
         }
 
         .upload-area {
-            border: 2px dashed #94a3b8;
-            border-radius: 16px;
-            padding: 40px 20px;
+            border: 2px dashed #93c5fd;
+            border-radius: 15px;
+            padding: 35px 20px;
             text-align: center;
-            background: #f8fafc;
-            transition: 0.2s;
-        }
-
-        .upload-area:hover {
-            border-color: #2563eb;
             background: #eff6ff;
         }
 
         .upload-icon {
-            font-size: 50px;
-            margin-bottom: 12px;
-        }
-
-        .upload-area h3 {
-            margin: 5px 0 10px;
-            font-size: 21px;
+            font-size: 45px;
+            margin-bottom: 10px;
         }
 
         .upload-area p {
-            color: #64748b;
-            margin-bottom: 20px;
+            color: #6b7280;
         }
 
-        .file-input {
-            display: none;
-        }
-
-        .btn {
-            border: none;
-            border-radius: 10px;
-            padding: 13px 20px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-primary {
+        .upload-button {
+            display: inline-block;
+            padding: 13px 22px;
             background: #2563eb;
             color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        .btn-primary:hover {
+        .upload-button:hover {
             background: #1d4ed8;
         }
 
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #334155;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e1;
+        #wordFile {
+            display: none;
         }
 
         .file-info {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #eff6ff;
             display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f3f4f6;
         }
 
         .loading {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
             border-radius: 10px;
-            background: #fff7ed;
-            color: #9a3412;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: bold;
         }
 
         .error {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
             border-radius: 10px;
             background: #fef2f2;
-            color: #991b1b;
+            color: #b91c1c;
         }
 
         .success {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
             border-radius: 10px;
             background: #f0fdf4;
-            color: #166534;
+            color: #15803d;
         }
 
-        .preview {
+        .summary {
             display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .preview-header {
+        .summary-box {
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+        }
+
+        .summary-box strong {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: #173b7a;
+        }
+
+        .summary-box span {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .preview-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
         }
 
-        .preview-header h2 {
+        .preview-title h2 {
             margin: 0;
         }
 
-        .question-count {
-            background: #dbeafe;
-            color: #1d4ed8;
-            padding: 8px 13px;
-            border-radius: 20px;
+        .save-button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: #16a34a;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background: #15803d;
+        }
+
+        .section-title {
+            margin: 30px 0 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: #173b7a;
+            font-size: 18px;
             font-weight: bold;
         }
 
-        .question {
-            border: 1px solid #e2e8f0;
+        .question-card {
+            border: 1px solid #e5e7eb;
             border-radius: 14px;
-            margin-bottom: 18px;
-            overflow: hidden;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: white;
         }
 
-        .question-title {
-            background: #f8fafc;
-            padding: 16px;
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
             font-weight: bold;
-            border-bottom: 1px solid #e2e8f0;
+            color: #173b7a;
         }
 
-        .question-body {
-            padding: 16px;
+        .question-type {
+            font-size: 13px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #4338ca;
         }
 
         .question-text {
-            line-height: 1.6;
-            margin-bottom: 14px;
+            line-height: 1.7;
+            font-size: 16px;
+            white-space: pre-wrap;
         }
 
-        .question-text img {
+        .question-image {
             max-width: 100%;
-            height: auto;
+            max-height: 350px;
             display: block;
-            margin: 12px 0;
-        }
-
-        .option {
-            padding: 10px 12px;
-            margin: 7px 0;
-            background: #f8fafc;
+            margin: 15px auto;
+            object-fit: contain;
             border-radius: 8px;
         }
 
-        .option-label {
-            font-weight: bold;
-            margin-right: 6px;
-        }
-
-        .option img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin-top: 8px;
-        }
-
-        .empty {
-            text-align: center;
-            color: #64748b;
-            padding: 30px;
-        }
-
-        .bottom-actions {
+        .option {
             display: flex;
+            align-items: flex-start;
             gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            padding: 11px 13px;
+            margin-top: 8px;
+            border-radius: 10px;
+            background: #f8fafc;
+            line-height: 1.5;
         }
 
-        @media (max-width: 600px) {
-            .header {
-                padding: 18px;
-            }
+        .option-letter {
+            font-weight: bold;
+            min-width: 25px;
+        }
+
+        .empty-preview {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        @media (max-width: 700px) {
 
             .container {
+                margin: 20px auto;
                 padding: 0 12px;
-                margin-top: 20px;
             }
 
             .card {
                 padding: 18px;
-                border-radius: 14px;
             }
 
-            .upload-area {
-                padding: 30px 15px;
+            .summary {
+                grid-template-columns: 1fr;
             }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .question-card {
+                padding: 16px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <header class="header">
+
     <div class="header-inner">
+
         <h1>📚 BANK SOAL</h1>
-        <p>STS Online • SD Negeri 1 Jatipayak</p>
+
+        <p>
+            STS Online • SD Negeri 1 Jatipayak
+        </p>
+
     </div>
+
 </header>
+
+
 
 <main class="container">
 
-    <!-- IMPORT WORD -->
+
+    <!-- UPLOAD -->
+
     <section class="card">
 
         <h2>📄 Import Soal dari Word</h2>
 
         <div class="upload-area">
 
-            <div class="upload-icon">📄</div>
+            <div class="upload-icon">
+                📘
+            </div>
 
-            <h3>Pilih File Word</h3>
+            <h3>
+                Pilih file Word (.docx)
+            </h3>
 
             <p>
-                Pilih file Microsoft Word (.docx) dari komputer Anda.
-                <br>
-                File akan dibaca langsung di browser.
+                Import dokumen Word untuk membaca soal secara otomatis.
             </p>
+
+            <label
+                class="upload-button"
+                for="wordFile">
+
+                📂 PILIH FILE WORD
+
+            </label>
 
             <input
                 type="file"
                 id="wordFile"
-                class="file-input"
-                accept=".docx"
-            >
-
-            <button
-                class="btn btn-primary"
-                onclick="document.getElementById('wordFile').click()"
-            >
-                📂 PILIH FILE WORD
-            </button>
+                accept=".docx">
 
         </div>
 
-        <div id="fileInfo" class="file-info"></div>
 
-        <div id="loading" class="loading">
-            ⏳ Sedang membaca file Word...
+        <div
+            id="fileInfo"
+            class="file-info">
         </div>
 
-        <div id="error" class="error"></div>
 
-        <div id="success" class="success"></div>
+        <div
+            id="loading"
+            class="loading">
 
-    </section>
+            ⏳ Sedang membaca dan memproses soal Word...
+
+        </div>
 
 
-    <!-- PREVIEW -->
-    <section id="previewSection" class="card preview">
+        <div
+            id="error"
+            class="error">
+        </div>
 
-        <div class="preview-header">
 
-            <h2>👁️ Preview Soal</h2>
+        <div
+            id="success"
+            class="success">
+        </div>
 
-            <div id="questionCount" class="question-count">
-                0 Soal
+
+        <div
+            id="summary"
+            class="summary">
+
+            <div class="summary-box">
+
+                <strong id="jumlahPG">
+                    0
+                </strong>
+
+                <span>
+                    Pilihan Ganda
+                </span>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <strong id="jumlahIsian">
+                    0
+                </strong>
+
+                <span>
+                    Isian Singkat
+                </span>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <strong id="jumlahUraian">
+                    0
+                </strong>
+
+                <span>
+                    Uraian
+                </span>
+
             </div>
 
         </div>
 
-        <div id="previewContent"></div>
+    </section>
 
-        <div class="bottom-actions">
+
+
+    <!-- PREVIEW -->
+
+    <section class="card">
+
+        <div class="preview-title">
+
+            <h2>
+                👀 Preview Soal
+            </h2>
 
             <button
-                class="btn btn-primary"
-                onclick="simpanBankSoal()"
-            >
-                💾 SIMPAN KE BANK SOAL
+                id="saveButton"
+                class="save-button"
+                style="display:none"
+                onclick="simpanBankSoal()">
+
+                💾 SIMPAN BANK SOAL
+
             </button>
 
-            <button
-                class="btn btn-secondary"
-                onclick="resetImport()"
-            >
-                🔄 PILIH FILE LAIN
-            </button>
+        </div>
+
+
+        <div
+            id="preview">
+
+            <div class="empty-preview">
+
+                Belum ada soal yang diimport.
+
+            </div>
 
         </div>
 
     </section>
 
+
 </main>
+
 
 
 <script>
 
-/* =========================================================
-   VARIABEL
-========================================================= */
+/* ================================================= */
+/* VARIABEL GLOBAL */
+/* ================================================= */
 
-let hasilImport = [];
+let bankSoal = [];
+
+let gambarWord = {};
 
 
-/* =========================================================
-   EVENT PILIH FILE
-========================================================= */
 
-document.getElementById("wordFile").addEventListener(
+/* ================================================= */
+/* ELEMEN HTML */
+/* ================================================= */
+
+const wordFile =
+    document.getElementById("wordFile");
+
+const fileInfo =
+    document.getElementById("fileInfo");
+
+const loading =
+    document.getElementById("loading");
+
+const errorBox =
+    document.getElementById("error");
+
+const successBox =
+    document.getElementById("success");
+
+const preview =
+    document.getElementById("preview");
+
+const summary =
+    document.getElementById("summary");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+
+
+/* ================================================= */
+/* UPLOAD FILE */
+/* ================================================= */
+
+wordFile.addEventListener(
     "change",
-    function () {
+    async function() {
 
-        const file = this.files[0];
+        const file =
+            this.files[0];
 
         if (!file) {
             return;
         }
 
-        bacaFileWord(file);
+
+        resetPesan();
+
+
+        fileInfo.style.display =
+            "block";
+
+        fileInfo.innerHTML =
+            "📄 <strong>" +
+            escapeHtml(file.name) +
+            "</strong>";
+
+
+        loading.style.display =
+            "block";
+
+
+        try {
+
+            await bacaFileWord(file);
+
+        } catch (error) {
+
+            console.error(error);
+
+            tampilkanError(
+                "File Word tidak dapat diproses. Pastikan file berformat .docx yang valid."
+            );
+
+        } finally {
+
+            loading.style.display =
+                "none";
+
+        }
 
     }
 );
 
 
-/* =========================================================
-   BACA FILE DOCX
-========================================================= */
+
+/* ================================================= */
+/* RESET PESAN */
+/* ================================================= */
+
+function resetPesan() {
+
+    errorBox.style.display =
+        "none";
+
+    successBox.style.display =
+        "none";
+
+    loading.style.display =
+        "none";
+
+}
+
+
+
+/* ================================================= */
+/* BACA WORD */
+/* ================================================= */
 
 async function bacaFileWord(file) {
 
-    sembunyikanPesan();
+    if (
+        !file.name
+            .toLowerCase()
+            .endsWith(".docx")
+    ) {
 
-    const loading =
-        document.getElementById("loading");
+        throw new Error(
+            "File bukan DOCX."
+        );
 
-    const fileInfo =
-        document.getElementById("fileInfo");
-
-    fileInfo.style.display =
-        "block";
-
-    fileInfo.innerHTML =
-        "📄 <strong>File:</strong> " +
-        escapeHtml(file.name) +
-        "<br>" +
-        "📦 <strong>Ukuran:</strong> " +
-        formatBytes(file.size);
-
-    loading.style.display =
-        "block";
+    }
 
 
-    try {
+    const arrayBuffer =
+        await file.arrayBuffer();
 
-        const arrayBuffer =
-            await file.arrayBuffer();
 
-        const zip =
-            await JSZip.loadAsync(
-                arrayBuffer
+    const zip =
+        await JSZip.loadAsync(
+            arrayBuffer
+        );
+
+
+    const documentXml =
+        await zip
+            .file("word/document.xml")
+            .async("string");
+
+
+    let relsXml = "";
+
+    const relsFile =
+        zip.file(
+            "word/_rels/document.xml.rels"
+        );
+
+
+    if (relsFile) {
+
+        relsXml =
+            await relsFile.async(
+                "string"
             );
 
-        const documentFile =
-            zip.file(
-                "word/document.xml"
+    }
+
+
+    gambarWord =
+        await ambilGambar(
+            zip,
+            relsXml
+        );
+
+
+    const paragraphs =
+        ekstrakParagraphWord(
+            documentXml,
+            relsXml
+        );
+
+
+    bankSoal =
+        parseSoal(paragraphs);
+
+
+    if (
+        bankSoal.length === 0
+    ) {
+
+        throw new Error(
+            "Tidak ditemukan soal. Pastikan dokumen menggunakan format PILIHAN GANDA / ISIAN SINGKAT / URAIAN."
+        );
+
+    }
+
+
+    tampilkanPreview();
+
+}
+
+
+
+/* ================================================= */
+/* AMBIL GAMBAR DARI WORD */
+/* ================================================= */
+
+async function ambilGambar(
+    zip,
+    relsXml
+) {
+
+    const hasil = {};
+
+    if (!relsXml) {
+        return hasil;
+    }
+
+
+    const parser =
+        new DOMParser();
+
+    const xml =
+        parser.parseFromString(
+            relsXml,
+            "application/xml"
+        );
+
+
+    const rels =
+        Array.from(
+            xml.getElementsByTagName(
+                "Relationship"
+            )
+        );
+
+
+    for (
+        const rel of rels
+    ) {
+
+        const id =
+            rel.getAttribute(
+                "Id"
             );
 
-        if (!documentFile) {
-
-            throw new Error(
-                "Dokumen Word tidak memiliki document.xml."
-            );
-
-        }
-
-
-        const documentXmlText =
-            await documentFile.async(
-                "text"
+        const target =
+            rel.getAttribute(
+                "Target"
             );
 
 
-        const parser =
-            new DOMParser();
-
-
-        const xml =
-            parser.parseFromString(
-                documentXmlText,
-                "application/xml"
-            );
-
-
-        const parserError =
-            xml.querySelector(
-                "parsererror"
-            );
-
-
-        if (parserError) {
-
-            throw new Error(
-                "Struktur XML Word tidak dapat dibaca."
-            );
-
-        }
-
-
-        /* =====================================================
-           RELASI GAMBAR
-        ===================================================== */
-
-        const rels = {};
-
-        const relsFile =
-            zip.file(
-                "word/_rels/document.xml.rels"
-            );
-
-
-        if (relsFile) {
-
-            const relsText =
-                await relsFile.async(
-                    "text"
-                );
-
-
-            const relsXml =
-                parser.parseFromString(
-                    relsText,
-                    "application/xml"
-                );
-
-
-            const relationshipNodes =
-                relsXml.getElementsByTagName(
-                    "Relationship"
-                );
-
-
-            for (
-                const rel of relationshipNodes
-            ) {
-
-                const id =
-                    rel.getAttribute(
-                        "Id"
-                    );
-
-
-                const target =
-                    rel.getAttribute(
-                        "Target"
-                    );
-
-
-                if (id && target) {
-
-                    rels[id] =
-                        target.replace(
-                            /^.*media\//,
-                            ""
-                        );
-
-                }
-
-            }
-
-        }
-
-
-        /* =====================================================
-           BACA GAMBAR
-        ===================================================== */
-
-        const images = {};
-
-
-        for (
-            const filename of Object.keys(
-                zip.files
+        if (
+            !id ||
+            !target ||
+            !target.includes(
+                "media/"
             )
         ) {
 
-            if (
-                !filename.startsWith(
-                    "word/media/"
-                )
-            ) {
-
-                continue;
-
-            }
-
-
-            const imageFile =
-                zip.file(
-                    filename
-                );
-
-
-            if (!imageFile) {
-                continue;
-            }
-
-
-            const blob =
-                await imageFile.async(
-                    "blob"
-                );
-
-
-            const mime =
-                getImageMime(
-                    filename
-                );
-
-
-            const dataUrl =
-                await blobToDataUrl(
-                    blob,
-                    mime
-                );
-
-
-            const shortName =
-                filename.replace(
-                    "word/media/",
-                    ""
-                );
-
-
-            images[shortName] =
-                dataUrl;
+            continue;
 
         }
 
 
-        /* =====================================================
-           AMBIL SEMUA PARAGRAF
-        ===================================================== */
+        const namaFile =
+            target
+                .split("/")
+                .pop();
 
-        const paragraphs =
-            Array.from(
-                xml.getElementsByTagName(
-                    "w:p"
-                )
+
+        const file =
+            zip.file(
+                "word/media/" +
+                namaFile
             );
 
 
-        const data = [];
-
-
-        for (
-            const paragraph of paragraphs
-        ) {
-
-            const item =
-                await prosesParagraf(
-                    paragraph,
-                    rels,
-                    images
-                );
-
-
-            if (
-                item.text.trim() !== "" ||
-                item.images.length > 0
-            ) {
-
-                data.push(
-                    item
-                );
-
-            }
-
+        if (!file) {
+            continue;
         }
 
 
-        loading.style.display =
-            "none";
-
-
-        /* =====================================================
-           PARSER SOAL
-        ===================================================== */
-
-        const questions =
-            parseSoalDariParagraf(
-                data
+        const blob =
+            await file.async(
+                "blob"
             );
 
 
-        hasilImport =
-            questions;
-
-
-        tampilkanPreview(
-            questions
-        );
-
-
-        tampilkanSukses(
-            "File Word berhasil dibaca. " +
-            "Ditemukan " +
-            questions.length +
-            " soal."
-        );
-
-
-    } catch (error) {
-
-        loading.style.display =
-            "none";
-
-
-        tampilkanError(
-            "Gagal membaca file Word: " +
-            error.message
-        );
-
-
-        console.error(
-            error
-        );
+        hasil[id] =
+            URL.createObjectURL(
+                blob
+            );
 
     }
+
+
+    return hasil;
 
 }
 
 
-/* =========================================================
-   PROSES PARAGRAF
-========================================================= */
 
-async function prosesParagraf(
-    paragraph,
-    rels,
-    images
+/* ================================================= */
+/* EKSTRAK PARAGRAF WORD */
+/* ================================================= */
+
+function ekstrakParagraphWord(
+    xmlText,
+    relsXml
 ) {
 
-    let text = "";
+    const parser =
+        new DOMParser();
 
-
-    const textNodes =
-        paragraph.getElementsByTagName(
-            "w:t"
+    const xml =
+        parser.parseFromString(
+            xmlText,
+            "application/xml"
         );
 
 
-    for (
-        const node of textNodes
-    ) {
-
-        text +=
-            node.textContent || "";
-
-    }
-
-
-    const imageElements = [];
-
-
-    const blips =
-        paragraph.getElementsByTagName(
-            "a:blip"
+    const paragraphs =
+        Array.from(
+            xml.getElementsByTagName(
+                "w:p"
+            )
         );
 
 
-    for (
-        const blip of blips
-    ) {
+    return paragraphs.map(
+        function(p) {
 
-        const relationId =
-            blip.getAttribute(
-                "r:embed"
+            const textParts = [];
+
+            const images = [];
+
+
+            /*
+             * Ambil seluruh teks
+             */
+
+            const textNodes =
+                Array.from(
+                    p.getElementsByTagName(
+                        "w:t"
+                    )
+                );
+
+
+            textNodes.forEach(
+                function(node) {
+
+                    textParts.push(
+                        node.textContent || ""
+                    );
+
+                }
             );
 
 
-        if (!relationId) {
-            continue;
-        }
+            /*
+             * Cari ID gambar
+             */
+
+            const blips =
+                Array.from(
+                    p.getElementsByTagName(
+                        "a:blip"
+                    )
+                );
 
 
-        const filename =
-            rels[relationId];
+            blips.forEach(
+                function(blip) {
+
+                    const rid =
+                        blip.getAttribute(
+                            "r:embed"
+                        );
 
 
-        if (!filename) {
-            continue;
-        }
+                    if (
+                        rid &&
+                        gambarWord[rid]
+                    ) {
 
+                        images.push(
+                            gambarWord[rid]
+                        );
 
-        if (images[filename]) {
+                    }
 
-            imageElements.push(
-                images[filename]
+                }
             );
 
+
+            /*
+             * Beberapa dokumen Word
+             * menggunakan namespace tanpa
+             * prefix yang sama.
+             */
+
+            if (
+                images.length === 0
+            ) {
+
+                const allElements =
+                    Array.from(
+                        p.getElementsByTagName("*")
+                    );
+
+
+                allElements.forEach(
+                    function(element) {
+
+                        const embed =
+                            element.getAttribute(
+                                "r:embed"
+                            );
+
+
+                        if (
+                            embed &&
+                            gambarWord[embed]
+                        ) {
+
+                            if (
+                                !images.includes(
+                                    gambarWord[embed]
+                                )
+                            ) {
+
+                                images.push(
+                                    gambarWord[embed]
+                                );
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            return {
+
+                text:
+                    normalisasiText(
+                        textParts.join("")
+                    ),
+
+                images:
+                    images
+
+            };
+
         }
-
-    }
-
-
-    return {
-
-        text:
-            text,
-
-        images:
-            imageElements
-
-    };
+    );
 
 }
 
 
-/* =========================================================
-   DETEKSI BAGIAN SOAL
-========================================================= */
+
+/* ================================================= */
+/* NORMALISASI TEKS */
+/* ================================================= */
+
+function normalisasiText(text) {
+
+    return text
+
+        .replace(
+            /\u00A0/g,
+            " "
+        )
+
+        .replace(
+            /\u200B/g,
+            ""
+        )
+
+        .replace(
+            /\r/g,
+            ""
+        )
+
+        .replace(
+            /[ \t]+/g,
+            " "
+        )
+
+        .trim();
+
+}
+
+
+
+/* ================================================= */
+/* DETEKSI BAGIAN */
+/* ================================================= */
 
 function deteksiBagian(text) {
 
-    const upper =
-        normalisasiSpasi(
-            text
-        ).toUpperCase();
+    const t =
+        normalisasiText(text)
+            .toUpperCase();
 
 
     /*
-     * BAGIAN I
-     *
-     * Bisa berbentuk:
-     * I. PILIHAN GANDA
-     * I. PILIHLAH JAWABAN...
-     * PILIHLAH JAWABAN YANG PALING TEPAT
+     * KUNCI JAWABAN
+     * Harus diperiksa paling awal.
      */
 
     if (
-        /^I[\.\)]\s*/i.test(upper) &&
-        !/^II[\.\)]/i.test(upper) &&
-        !/^III[\.\)]/i.test(upper)
+        t.includes("KUNCI JAWABAN")
     ) {
 
-        return "I";
-
-    }
-
-
-    if (
-        (
-            upper.includes("PILIHLAH") ||
-            upper.includes("PILIHAN GANDA") ||
-            upper.includes("PILIH JAWABAN")
-        ) &&
-        (
-            upper.includes("JAWABAN") ||
-            upper.includes("PALING TEPAT")
-        )
-    ) {
-
-        return "I";
+        return "kunci";
 
     }
 
 
     /*
-     * BAGIAN II
-     *
-     * Bisa berbentuk:
-     * II. ISIAN
-     * II. ISILAH TITIK-TITIK BERIKUT
-     * ISIAN SINGKAT
+     * PILIHAN GANDA
      */
 
     if (
-        /^II[\.\)]\s*/i.test(upper)
+        t === "PILIHAN GANDA" ||
+        t.includes("PILIHAN GANDA")
     ) {
 
-        return "II";
-
-    }
-
-
-    if (
-        upper.includes("ISIAN SINGKAT") ||
-        upper.includes("ISILAH TITIK") ||
-        upper.includes("ISILAH")
-    ) {
-
-        return "II";
+        return "pg";
 
     }
 
 
     /*
-     * BAGIAN III
-     *
-     * Bisa berbentuk:
-     * III. URAIAN
-     * III. JAWABLAH PERTANYAAN
+     * ISIAN
      */
 
     if (
-        /^III[\.\)]\s*/i.test(upper)
+        t === "ISIAN SINGKAT" ||
+        t.includes("ISIAN SINGKAT")
     ) {
 
-        return "III";
+        return "isian";
+
+    }
+
+
+    /*
+     * URAIAN
+     */
+
+    if (
+        t === "URAIAN" ||
+        t.includes("SOAL URAIAN")
+    ) {
+
+        return "uraian";
+
+    }
+
+
+    /*
+     * Heading otomatis Word
+     * seperti:
+     * I. Pilihan Ganda
+     * II. Isian Singkat
+     * III. Uraian
+     */
+
+    if (
+        /^I[\.\):\-]\s*/.test(t) &&
+        !/^II/.test(t) &&
+        !/^III/.test(t)
+    ) {
+
+        if (
+            t.includes("PILIH")
+        ) {
+
+            return "pg";
+
+        }
 
     }
 
 
     if (
-        upper.includes("JAWABLAH PERTANYAAN") ||
-        upper.includes("URAIAN")
+        /^II[\.\):\-]\s*/.test(t)
     ) {
 
-        return "III";
+        if (
+            t.includes("ISI")
+        ) {
+
+            return "isian";
+
+        }
+
+    }
+
+
+    if (
+        /^III[\.\):\-]\s*/.test(t)
+    ) {
+
+        if (
+            t.includes("URAI")
+        ) {
+
+            return "uraian";
+
+        }
 
     }
 
@@ -894,632 +1103,529 @@ function deteksiBagian(text) {
 }
 
 
-/* =========================================================
-   PARSER SOAL
-========================================================= */
 
-function parseSoalDariParagraf(
-    data
-) {
+/* ================================================= */
+/* DETEKSI NOMOR SOAL */
+/* ================================================= */
 
-    let bagianAktif =
+function deteksiNomor(text) {
+
+    const hasil =
+        text.match(
+            /^\s*(\d+)[\.\)\-]\s+(.+)$/s
+        );
+
+
+    if (!hasil) {
+        return null;
+    }
+
+
+    return {
+
+        nomor:
+            parseInt(
+                hasil[1],
+                10
+            ),
+
+        isi:
+            hasil[2].trim()
+
+    };
+
+}
+
+
+
+/* ================================================= */
+/* DETEKSI PILIHAN */
+/* ================================================= */
+
+function deteksiPilihan(text) {
+
+    const hasil =
+        text.match(
+            /^\s*([A-Da-d])[\.\)\:\-]\s*(.*)$/s
+        );
+
+
+    if (!hasil) {
+        return null;
+    }
+
+
+    return {
+
+        huruf:
+            hasil[1].toUpperCase(),
+
+        isi:
+            hasil[2].trim()
+
+    };
+
+}
+
+
+
+/* ================================================= */
+/* PARSER SOAL */
+/* ================================================= */
+
+function parseSoal(paragraphs) {
+
+    const hasil = [];
+
+    let bagian =
+        null;
+
+    let soalAktif =
+        null;
+
+    let nomorTerakhir =
         null;
 
 
-    let urutanBagian =
-        0;
+    function simpanSoalAktif() {
+
+        if (!soalAktif) {
+            return;
+        }
 
 
-    let currentQuestion =
-        null;
+        /*
+         * Jangan simpan paragraf kosong
+         * sebagai soal.
+         */
 
+        const teks =
+            soalAktif.pertanyaan
+                .trim();
 
-    const questions = [];
-
-
-    for (
-        const item of data
-    ) {
-
-        const text =
-            normalisasiSpasi(
-                item.text
-            );
-
-
-        const upperText =
-            text.toUpperCase();
-
-
-        /* =====================================================
-           LEWATI PARAGRAF KOSONG
-        ===================================================== */
 
         if (
-            !text &&
-            item.images.length === 0
+            teks ||
+            soalAktif.images.length > 0
         ) {
 
-            continue;
+            hasil.push(
+                soalAktif
+            );
 
         }
 
 
-        /* =====================================================
-           DETEKSI KUNCI JAWABAN
+        soalAktif =
+            null;
 
-           Tidak peduli apakah:
-           KUNCI JAWABAN
-           Kunci Jawaban:
-           KUNCI JAWABAN :
-           KUNCI JAWABAN I. PILIHAN GANDA
-
-           Semua dihentikan.
-        ===================================================== */
-
-        if (
-            upperText.includes("KUNCI") &&
-            upperText.includes("JAWABAN")
-        ) {
-
-            break;
-
-        }
+    }
 
 
-        /* =====================================================
-           DETEKSI BAGIAN
-        ===================================================== */
 
-        const bagianBaru =
-            deteksiBagian(
-                text
-            );
+    paragraphs.forEach(
+        function(paragraph) {
 
-
-        if (bagianBaru) {
-
-            const urutanBaru =
-                bagianBaru === "I"
-                    ? 1
-                    : bagianBaru === "II"
-                        ? 2
-                        : 3;
+            const text =
+                paragraph.text;
 
 
             /*
-             * Jika bagian sudah berjalan lalu
-             * muncul bagian dengan nomor lebih kecil,
-             * berarti kemungkinan besar kita sudah
-             * masuk ke BAGIAN KUNCI JAWABAN.
+             * 1. Cek heading bagian
+             */
+
+            const bagianBaru =
+                deteksiBagian(text);
+
+
+            if (
+                bagianBaru === "kunci"
+            ) {
+
+                /*
+                 * Kunci jawaban adalah
+                 * batas akhir soal.
+                 */
+
+                simpanSoalAktif();
+
+                bagian =
+                    "kunci";
+
+                return;
+
+            }
+
+
+            if (
+                bagianBaru
+            ) {
+
+                simpanSoalAktif();
+
+                bagian =
+                    bagianBaru;
+
+                nomorTerakhir =
+                    null;
+
+                return;
+
+            }
+
+
+            /*
+             * Kalau sudah masuk kunci,
+             * jangan baca apa pun lagi.
+             */
+
+            if (
+                bagian === "kunci"
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Belum menemukan jenis soal.
+             */
+
+            if (!bagian) {
+                return;
+            }
+
+
+            /*
+             * 2. Cek nomor soal
+             */
+
+            const nomor =
+                deteksiNomor(text);
+
+
+            if (nomor) {
+
+                /*
+                 * Nomor baru berarti
+                 * soal baru.
+                 */
+
+                simpanSoalAktif();
+
+
+                soalAktif = {
+
+                    nomor:
+                        nomor.nomor,
+
+                    jenis:
+                        bagian,
+
+                    pertanyaan:
+                        nomor.isi,
+
+                    pilihan: {},
+
+                    images:
+                        [...paragraph.images]
+
+                };
+
+
+                nomorTerakhir =
+                    nomor.nomor;
+
+
+                return;
+
+            }
+
+
+            /*
+             * 3. Cek pilihan A-D
+             */
+
+            if (
+                soalAktif &&
+                bagian === "pg"
+            ) {
+
+                const pilihan =
+                    deteksiPilihan(
+                        text
+                    );
+
+
+                if (pilihan) {
+
+                    soalAktif.pilihan[
+                        pilihan.huruf
+                    ] =
+                        pilihan.isi;
+
+
+                    /*
+                     * Jika paragraf pilihan
+                     * memiliki gambar,
+                     * simpan sebagai gambar
+                     * pilihan.
+                     */
+
+                    if (
+                        paragraph.images.length
+                    ) {
+
+                        if (
+                            !soalAktif
+                                .pilihanImages
+                        ) {
+
+                            soalAktif
+                                .pilihanImages =
+                                {};
+
+                        }
+
+
+                        soalAktif
+                            .pilihanImages[
+                                pilihan.huruf
+                            ] =
+                            [
+                                ...paragraph.images
+                            ];
+
+                    }
+
+
+                    return;
+
+                }
+
+            }
+
+
+            /*
+             * 4. Teks lanjutan
              *
              * Contoh:
              *
-             * I → II → III
+             * 2. Perhatikan gambar berikut!
              *
-             * kemudian:
+             * [gambar]
              *
-             * I. Pilihan Ganda
+             * Harga yang tertera pada
+             * gambar di atas dibaca ....
              *
-             * Itu bukan soal baru.
+             * Semua tetap menjadi satu soal.
              */
 
-            if (
-                urutanBagian > 0 &&
-                urutanBaru <= urutanBagian
-            ) {
+            if (soalAktif) {
 
-                break;
+                if (text) {
+
+                    soalAktif.pertanyaan +=
+                        "\n" +
+                        text;
+
+                }
+
+
+                if (
+                    paragraph.images.length
+                ) {
+
+                    soalAktif.images.push(
+                        ...paragraph.images
+                    );
+
+                }
 
             }
 
-
-            bagianAktif =
-                bagianBaru;
-
-
-            urutanBagian =
-                urutanBaru;
-
-
-            currentQuestion =
-                null;
-
-
-            continue;
-
         }
-
-
-        /* =====================================================
-           SEBELUM BAGIAN SOAL
-
-           KOP
-           IDENTITAS
-           PETUNJUK
-           PERATURAN
-
-           SEMUANYA DIABAIKAN.
-        ===================================================== */
-
-        if (
-            bagianAktif === null
-        ) {
-
-            continue;
-
-        }
-
-
-        /* =====================================================
-           DETEKSI NOMOR SOAL
-
-           Format:
-           1. Soal
-           2. Soal
-
-           atau:
-           1) Soal
-           2) Soal
-        ===================================================== */
-
-        const match =
-            text.match(
-                /^(\d+)[\.\)]\s*(.*)$/
-            );
-
-
-        if (match) {
-
-            const nomorSoal =
-                Number(
-                    match[1]
-                );
-
-
-            let nomorValid =
-                false;
-
-
-            /*
-             * Bagian I:
-             * 1 - 25
-             */
-
-            if (
-                bagianAktif === "I" &&
-                nomorSoal >= 1 &&
-                nomorSoal <= 25
-            ) {
-
-                nomorValid =
-                    true;
-
-            }
-
-
-            /*
-             * Bagian II:
-             * 1 - 5
-             */
-
-            if (
-                bagianAktif === "II" &&
-                nomorSoal >= 1 &&
-                nomorSoal <= 5
-            ) {
-
-                nomorValid =
-                    true;
-
-            }
-
-
-            /*
-             * Bagian III:
-             * 1 - 5
-             */
-
-            if (
-                bagianAktif === "III" &&
-                nomorSoal >= 1 &&
-                nomorSoal <= 5
-            ) {
-
-                nomorValid =
-                    true;
-
-            }
-
-
-            /*
-             * Jika bukan nomor yang valid
-             * untuk bagian tersebut,
-             * jangan dibuat menjadi soal.
-             */
-
-            if (!nomorValid) {
-
-                continue;
-
-            }
-
-
-            currentQuestion = {
-
-                nomor:
-                    nomorSoal,
-
-                bagian:
-                    bagianAktif,
-
-                text:
-                    "",
-
-                images:
-                    [...item.images],
-
-                options:
-                    [],
-
-                kunci:
-                    ""
-
-            };
-
-
-            questions.push(
-                currentQuestion
-            );
-
-
-            /*
-             * Jika setelah nomor langsung
-             * ada teks, proses sebagai isi soal.
-             */
-
-            prosesIsiParagraf(
-                match[2],
-                [],
-                currentQuestion
-            );
-
-
-            continue;
-
-        }
-
-
-        /* =====================================================
-           PARAGRAF LANJUTAN
-        ===================================================== */
-
-        if (
-            !currentQuestion
-        ) {
-
-            continue;
-
-        }
-
-
-        prosesIsiParagraf(
-            text,
-            item.images,
-            currentQuestion
-        );
-
-    }
-
-
-    return questions;
-
-}
-
-
-/* =========================================================
-   PROSES ISI PARAGRAF
-========================================================= */
-
-function prosesIsiParagraf(
-    text,
-    images,
-    question
-) {
-
-    if (
-        !text &&
-        images.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       KUNCI JAWABAN INLINE
-    ===================================================== */
-
-    const keyMatch =
-        text.match(
-            /Kunci\s+Jawaban\s*:\s*([A-D])(?:[\.\)]|\b)/i
-        );
-
-
-    if (keyMatch) {
-
-        question.kunci =
-            keyMatch[1].toUpperCase();
-
-
-        text =
-            text.replace(
-                /Kunci\s+Jawaban\s*:\s*[A-D](?:[\.\)]|\b)/i,
-                ""
-            );
-
-
-        text =
-            normalisasiSpasi(
-                text
-            );
-
-    }
-
-
-    /* =====================================================
-       DETEKSI PILIHAN A-D
-    ===================================================== */
-
-    const optionRegex =
-        /(?:^|\s)([A-D])[\.\)]\s*/gi;
-
-
-    const matches = [];
-
-
-    let match;
-
-
-    while (
-        (
-            match =
-                optionRegex.exec(
-                    text
-                )
-        ) !== null
-    ) {
-
-        matches.push({
-
-            label:
-                match[1].toUpperCase(),
-
-            start:
-                match.index +
-                (
-                    match[0].startsWith(" ")
-                        ? 1
-                        : 0
-                ),
-
-            contentStart:
-                optionRegex.lastIndex
-
-        });
-
-    }
-
-
-    /* =====================================================
-       JIKA TIDAK ADA PILIHAN
-       → TEKS MASUK KE SOAL
-    ===================================================== */
-
-    if (
-        matches.length === 0
-    ) {
-
-        if (text) {
-
-            question.text +=
-                (
-                    question.text
-                        ? " "
-                        : ""
-                ) +
-                text;
-
-        }
-
-
-        question.images.push(
-            ...images
-        );
-
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       TEKS SEBELUM A
-       → TEKS PERTANYAAN
-    ===================================================== */
-
-    const beforeOptions =
-        text.substring(
-            0,
-            matches[0].start
-        ).trim();
-
-
-    if (beforeOptions) {
-
-        question.text +=
-            (
-                question.text
-                    ? " "
-                    : ""
-            ) +
-            beforeOptions;
-
-    }
-
-
-    /*
-     * Gambar pada paragraf pilihan
-     * tetap diproses.
-     */
-
-    question.images.push(
-        ...images
     );
 
 
-    /* =====================================================
-       PECAH PILIHAN A-D
-    ===================================================== */
+    /*
+     * Simpan soal terakhir.
+     */
 
-    for (
-        let i = 0;
-        i < matches.length;
-        i++
-    ) {
-
-        const current =
-            matches[i];
+    simpanSoalAktif();
 
 
-        const next =
-            matches[i + 1];
+    /*
+     * Bersihkan data pilihan
+     * dan buang soal yang tidak valid.
+     */
 
+    return hasil
+        .filter(
+            function(soal) {
 
-        const end =
-            next
-                ? next.start
-                : text.length;
+                return (
+                    soal.pertanyaan.trim() !== ""
+                );
 
+            }
+        )
+        .map(
+            function(soal) {
 
-        let optionText =
-            text.substring(
-                current.contentStart,
-                end
-            ).trim();
+                return {
 
+                    nomor:
+                        soal.nomor,
 
-        optionText =
-            optionText.replace(
-                /Kunci\s+Jawaban\s*:?.*$/i,
-                ""
-            ).trim();
+                    jenis:
+                        soal.jenis,
 
+                    pertanyaan:
+                        soal.pertanyaan.trim(),
 
-        const existing =
-            question.options.find(
-                option =>
-                    option.label ===
-                    current.label
-            );
+                    pilihan:
+                        soal.pilihan || {},
 
+                    images:
+                        soal.images || [],
 
-        if (!existing) {
+                    pilihanImages:
+                        soal.pilihanImages || {}
 
-            question.options.push({
+                };
 
-                label:
-                    current.label,
-
-                text:
-                    optionText,
-
-                images:
-                    []
-
-            });
-
-        }
-
-    }
+            }
+        );
 
 }
 
 
-/* =========================================================
-   TAMPILKAN PREVIEW
-========================================================= */
 
-function tampilkanPreview(
-    questions
-) {
+/* ================================================= */
+/* PREVIEW */
+/* ================================================= */
 
-    const section =
-        document.getElementById(
-            "previewSection"
-        );
+function tampilkanPreview() {
 
-
-    const content =
-        document.getElementById(
-            "previewContent"
-        );
-
-
-    const count =
-        document.getElementById(
-            "questionCount"
-        );
-
-
-    section.style.display =
-        "block";
-
-
-    content.innerHTML =
+    preview.innerHTML =
         "";
 
 
     if (
-        !questions ||
-        questions.length === 0
+        bankSoal.length === 0
     ) {
 
-        content.innerHTML =
-            '<div class="empty">' +
-            "Tidak ada soal yang berhasil dibaca." +
-            "</div>";
+        preview.innerHTML =
+            '<div class="empty-preview">' +
+            'Tidak ada soal yang ditemukan.' +
+            '</div>';
 
+        saveButton.style.display =
+            "none";
 
-        count.textContent =
-            "0 Soal";
-
+        summary.style.display =
+            "none";
 
         return;
 
     }
 
 
-    count.textContent =
-        questions.length +
-        " Soal";
+    const jumlahPG =
+        bankSoal.filter(
+            soal =>
+                soal.jenis === "pg"
+        ).length;
 
 
-    questions.forEach(
-        (
-            question,
-            index
-        ) => {
+    const jumlahIsian =
+        bankSoal.filter(
+            soal =>
+                soal.jenis === "isian"
+        ).length;
 
-            const box =
-                document.createElement(
-                    "div"
+
+    const jumlahUraian =
+        bankSoal.filter(
+            soal =>
+                soal.jenis === "uraian"
+        ).length;
+
+
+    document.getElementById(
+        "jumlahPG"
+    ).textContent =
+        jumlahPG;
+
+
+    document.getElementById(
+        "jumlahIsian"
+    ).textContent =
+        jumlahIsian;
+
+
+    document.getElementById(
+        "jumlahUraian"
+    ).textContent =
+        jumlahUraian;
+
+
+    summary.style.display =
+        "grid";
+
+
+    saveButton.style.display =
+        "inline-block";
+
+
+    /*
+     * Kelompokkan berdasarkan jenis.
+     */
+
+    const kelompok =
+        [
+            {
+                jenis: "pg",
+                judul: "PILIHAN GANDA"
+            },
+            {
+                jenis: "isian",
+                judul: "ISIAN SINGKAT"
+            },
+            {
+                jenis: "uraian",
+                judul: "URAIAN"
+            }
+        ];
+
+
+    let nomorGlobal =
+        0;
+
+
+    kelompok.forEach(
+        function(kelompokData) {
+
+            const daftar =
+                bankSoal.filter(
+                    function(soal) {
+
+                        return soal.jenis ===
+                            kelompokData.jenis;
+
+                    }
                 );
 
 
-            box.className =
-                "question";
+            if (
+                daftar.length === 0
+            ) {
+
+                return;
+
+            }
 
 
             const title =
@@ -1529,153 +1635,122 @@ function tampilkanPreview(
 
 
             title.className =
-                "question-title";
-
-
-            let namaBagian =
-                "";
-
-
-            if (
-                question.bagian === "I"
-            ) {
-
-                namaBagian =
-                    "Pilihan Ganda";
-
-            } else if (
-                question.bagian === "II"
-            ) {
-
-                namaBagian =
-                    "Isian Singkat";
-
-            } else if (
-                question.bagian === "III"
-            ) {
-
-                namaBagian =
-                    "Uraian";
-
-            }
+                "section-title";
 
 
             title.textContent =
-                "Soal " +
-                (index + 1) +
+                kelompokData.judul +
                 " • " +
-                namaBagian;
+                daftar.length +
+                " soal";
 
 
-            const body =
-                document.createElement(
-                    "div"
-                );
-
-
-            body.className =
-                "question-body";
-
-
-            const questionText =
-                document.createElement(
-                    "div"
-                );
-
-
-            questionText.className =
-                "question-text";
-
-
-            questionText.textContent =
-                question.text;
-
-
-            body.appendChild(
-                questionText
+            preview.appendChild(
+                title
             );
 
 
-            /* =================================================
-               GAMBAR PERTANYAAN
-            ================================================= */
+            daftar.forEach(
+                function(soal) {
 
-            question.images.forEach(
-                src => {
-
-                    const img =
-                        document.createElement(
-                            "img"
-                        );
+                    nomorGlobal++;
 
 
-                    img.src =
-                        src;
-
-
-                    questionText.appendChild(
-                        img
-                    );
-
-                }
-            );
-
-
-            /* =================================================
-               PILIHAN
-            ================================================= */
-
-            question.options.forEach(
-                option => {
-
-                    const optionDiv =
+                    const card =
                         document.createElement(
                             "div"
                         );
 
 
-                    optionDiv.className =
-                        "option";
+                    card.className =
+                        "question-card";
 
 
-                    const label =
+                    const header =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    header.className =
+                        "question-header";
+
+
+                    const nomor =
                         document.createElement(
                             "span"
                         );
 
 
-                    label.className =
-                        "option-label";
+                    nomor.className =
+                        "question-number";
 
 
-                    label.textContent =
-                        option.label +
-                        ".";
+                    nomor.textContent =
+                        "Soal " +
+                        nomorGlobal;
 
 
-                    optionDiv.appendChild(
-                        label
-                    );
-
-
-                    const textSpan =
+                    const type =
                         document.createElement(
                             "span"
                         );
 
 
-                    textSpan.textContent =
-                        " " +
-                        option.text;
+                    type.className =
+                        "question-type";
 
 
-                    optionDiv.appendChild(
-                        textSpan
+                    type.textContent =
+                        labelJenis(
+                            soal.jenis
+                        );
+
+
+                    header.appendChild(
+                        nomor
                     );
 
 
-                    option.images.forEach(
-                        src => {
+                    header.appendChild(
+                        type
+                    );
+
+
+                    card.appendChild(
+                        header
+                    );
+
+
+                    /*
+                     * Pertanyaan
+                     */
+
+                    const questionText =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    questionText.className =
+                        "question-text";
+
+
+                    questionText.textContent =
+                        soal.pertanyaan;
+
+
+                    card.appendChild(
+                        questionText
+                    );
+
+
+                    /*
+                     * Gambar pertanyaan
+                     */
+
+                    soal.images.forEach(
+                        function(src) {
 
                             const img =
                                 document.createElement(
@@ -1686,8 +1761,14 @@ function tampilkanPreview(
                             img.src =
                                 src;
 
+                            img.className =
+                                "question-image";
 
-                            optionDiv.appendChild(
+                            img.alt =
+                                "Gambar soal";
+
+
+                            card.appendChild(
                                 img
                             );
 
@@ -1695,97 +1776,222 @@ function tampilkanPreview(
                     );
 
 
-                    body.appendChild(
-                        optionDiv
+                    /*
+                     * Pilihan
+                     */
+
+                    if (
+                        soal.jenis ===
+                        "pg"
+                    ) {
+
+                        [
+                            "A",
+                            "B",
+                            "C",
+                            "D"
+                        ].forEach(
+                            function(huruf) {
+
+                                if (
+                                    !Object
+                                        .prototype
+                                        .hasOwnProperty
+                                        .call(
+                                            soal.pilihan,
+                                            huruf
+                                        )
+                                ) {
+
+                                    return;
+
+                                }
+
+
+                                const option =
+                                    document.createElement(
+                                        "div"
+                                    );
+
+
+                                option.className =
+                                    "option";
+
+
+                                const letter =
+                                    document.createElement(
+                                        "span"
+                                    );
+
+
+                                letter.className =
+                                    "option-letter";
+
+
+                                letter.textContent =
+                                    huruf + ".";
+
+
+                                const text =
+                                    document.createElement(
+                                        "span"
+                                    );
+
+
+                                text.textContent =
+                                    soal.pilihan[
+                                        huruf
+                                    ];
+
+
+                                option.appendChild(
+                                    letter
+                                );
+
+
+                                option.appendChild(
+                                    text
+                                );
+
+
+                                card.appendChild(
+                                    option
+                                );
+
+
+                                /*
+                                 * Gambar pilihan
+                                 */
+
+                                const optionImages =
+                                    soal
+                                        .pilihanImages &&
+                                    soal
+                                        .pilihanImages[
+                                            huruf
+                                        ];
+
+
+                                if (
+                                    optionImages
+                                ) {
+
+                                    optionImages
+                                        .forEach(
+                                            function(
+                                                src
+                                            ) {
+
+                                                const img =
+                                                    document
+                                                        .createElement(
+                                                            "img"
+                                                        );
+
+
+                                                img.src =
+                                                    src;
+
+                                                img.className =
+                                                    "question-image";
+
+                                                img.alt =
+                                                    "Gambar pilihan";
+
+
+                                                card
+                                                    .appendChild(
+                                                        img
+                                                    );
+
+                                            }
+                                        );
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+
+                    preview.appendChild(
+                        card
                     );
 
                 }
             );
 
-
-            /* =================================================
-               KUNCI INLINE
-            ================================================= */
-
-            if (
-                question.kunci
-            ) {
-
-                const keyInfo =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                keyInfo.style.marginTop =
-                    "14px";
-
-
-                keyInfo.style.padding =
-                    "10px 12px";
-
-
-                keyInfo.style.borderRadius =
-                    "8px";
-
-
-                keyInfo.style.background =
-                    "#f0fdf4";
-
-
-                keyInfo.style.color =
-                    "#166534";
-
-
-                keyInfo.style.fontWeight =
-                    "bold";
-
-
-                keyInfo.textContent =
-                    "🔑 Kunci Jawaban: " +
-                    question.kunci;
-
-
-                body.appendChild(
-                    keyInfo
-                );
-
-            }
-
-
-            box.appendChild(
-                title
-            );
-
-
-            box.appendChild(
-                body
-            );
-
-
-            content.appendChild(
-                box
-            );
-
         }
     );
+
+
+
+    successBox.style.display =
+        "block";
+
+
+    successBox.innerHTML =
+        "✅ Berhasil membaca <strong>" +
+        bankSoal.length +
+        " soal</strong> dari file Word. " +
+        "Kop, petunjuk, dan bagian setelah KUNCI JAWABAN tidak dimasukkan ke preview.";
 
 }
 
 
-/* =========================================================
-   SIMPAN BANK SOAL
-========================================================= */
+
+/* ================================================= */
+/* LABEL JENIS */
+/* ================================================= */
+
+function labelJenis(jenis) {
+
+    if (
+        jenis === "pg"
+    ) {
+
+        return "Pilihan Ganda";
+
+    }
+
+
+    if (
+        jenis === "isian"
+    ) {
+
+        return "Isian Singkat";
+
+    }
+
+
+    if (
+        jenis === "uraian"
+    ) {
+
+        return "Uraian";
+
+    }
+
+
+    return "Soal";
+
+}
+
+
+
+/* ================================================= */
+/* SIMPAN BANK SOAL */
+/* ================================================= */
 
 function simpanBankSoal() {
 
     if (
-        !hasilImport ||
-        hasilImport.length === 0
+        bankSoal.length === 0
     ) {
 
         alert(
-            "Belum ada soal yang dapat disimpan."
+            "Belum ada soal untuk disimpan."
         );
 
         return;
@@ -1796,321 +2002,91 @@ function simpanBankSoal() {
     localStorage.setItem(
         "bankSoal",
         JSON.stringify(
-            hasilImport
+            bankSoal
         )
-    );
-
-
-    tampilkanSukses(
-        "✅ Soal berhasil disimpan ke Bank Soal browser."
     );
 
 
     alert(
-        "Soal berhasil disimpan ke Bank Soal."
+        "Bank soal berhasil disimpan.\n\n" +
+        "Jumlah soal: " +
+        bankSoal.length
     );
 
 }
 
 
-/* =========================================================
-   RESET
-========================================================= */
 
-function resetImport() {
+/* ================================================= */
+/* ERROR */
+/* ================================================= */
 
-    hasilImport = [];
+function tampilkanError(message) {
 
-
-    document.getElementById(
-        "wordFile"
-    ).value =
-        "";
+    errorBox.style.display =
+        "block";
 
 
-    document.getElementById(
-        "previewSection"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "fileInfo"
-    ).style.display =
-        "none";
-
-
-    sembunyikanPesan();
-
-}
-
-
-/* =========================================================
-   PESAN
-========================================================= */
-
-function sembunyikanPesan() {
-
-    document.getElementById(
-        "loading"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "error"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "success"
-    ).style.display =
-        "none";
-
-}
-
-
-function tampilkanError(
-    message
-) {
-
-    const element =
-        document.getElementById(
-            "error"
-        );
-
-
-    element.textContent =
+    errorBox.textContent =
         "❌ " +
         message;
 
 
-    element.style.display =
-        "block";
+    preview.innerHTML =
+        '<div class="empty-preview">' +
+        'Tidak ada soal yang ditampilkan.' +
+        '</div>';
+
+
+    summary.style.display =
+        "none";
+
+
+    saveButton.style.display =
+        "none";
 
 }
 
 
-function tampilkanSukses(
-    message
-) {
 
-    const element =
-        document.getElementById(
-            "success"
-        );
+/* ================================================= */
+/* ESCAPE HTML */
+/* ================================================= */
 
+function escapeHtml(text) {
 
-    element.textContent =
-        message;
+    return String(text)
 
-
-    element.style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   IMAGE MIME
-========================================================= */
-
-function getImageMime(
-    filename
-) {
-
-    const extension =
-        filename
-            .split(".")
-            .pop()
-            .toLowerCase();
-
-
-    const mimeTypes = {
-
-        jpg:
-            "image/jpeg",
-
-        jpeg:
-            "image/jpeg",
-
-        png:
-            "image/png",
-
-        gif:
-            "image/gif",
-
-        bmp:
-            "image/bmp",
-
-        webp:
-            "image/webp",
-
-        svg:
-            "image/svg+xml"
-
-    };
-
-
-    return (
-        mimeTypes[extension] ||
-        "application/octet-stream"
-    );
-
-}
-
-
-/* =========================================================
-   BLOB → DATA URL
-========================================================= */
-
-function blobToDataUrl(
-    blob,
-    mime
-) {
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                () => {
-
-                    resolve(
-                        reader.result
-                    );
-
-                };
-
-
-            reader.onerror =
-                reject;
-
-
-            reader.readAsDataURL(
-                new Blob(
-                    [blob],
-                    {
-                        type: mime
-                    }
-                )
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   FORMAT UKURAN FILE
-========================================================= */
-
-function formatBytes(
-    bytes
-) {
-
-    if (
-        bytes === 0
-    ) {
-
-        return "0 Bytes";
-
-    }
-
-
-    const units = [
-        "Bytes",
-        "KB",
-        "MB",
-        "GB"
-    ];
-
-
-    const i =
-        Math.floor(
-            Math.log(bytes) /
-            Math.log(1024)
-        );
-
-
-    return (
-
-        parseFloat(
-
-            (
-                bytes /
-                Math.pow(
-                    1024,
-                    i
-                )
-            ).toFixed(2)
-
-        ) +
-
-        " " +
-
-        units[i]
-
-    );
-
-}
-
-
-/* =========================================================
-   NORMALISASI SPASI
-========================================================= */
-
-function normalisasiSpasi(
-    text
-) {
-
-    return String(
-        text || ""
-    )
         .replace(
-            /\u00A0/g,
-            " "
+            /&/g,
+            "&amp;"
         )
+
         .replace(
-            /\s+/g,
-            " "
+            /</g,
+            "&lt;"
         )
-        .trim();
 
-}
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    text
-) {
-
-    const div =
-        document.createElement(
-            "div"
+        .replace(
+            /'/g,
+            "&#039;"
         );
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
 
 }
 
 </script>
 
+
 </body>
+
 </html>
