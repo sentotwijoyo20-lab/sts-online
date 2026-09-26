@@ -4,39 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ruang Ujian - STS Online</title>
+    <title>Ujian - STS Online</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="ujian-page">
 
-<div class="exam-container">
-
-    <!-- ==============================
-         HEADER
-    =============================== -->
+    <!-- ================= HEADER ================= -->
 
     <header class="exam-header">
 
-        <div>
-            <h1>🏫 STS ONLINE</h1>
-            <p>SD Negeri 1 Jatipayak</p>
+        <div class="exam-brand">
+            <div class="exam-logo">🏫</div>
+
+            <div>
+                <h1>STS ONLINE</h1>
+                <p>SD Negeri 1 Jatipayak</p>
+            </div>
         </div>
 
         <div class="exam-info">
 
-            <div>
-                <strong id="namaTampil">Siswa</strong>
-                <span id="nisTampil"></span>
+            <div id="modeTampil" class="exam-mode">
+                🟢 GLADI
             </div>
 
-            <div id="modeTampil" class="mode-badge">
-                🟢 GLADI / SIMULASI
+            <div class="student-info">
+                <span>👤</span>
+                <div>
+                    <strong id="namaTampil">Peserta</strong>
+                    <small id="nisTampil">NIS</small>
+                </div>
             </div>
 
             <div class="timer-box">
-                ⏱️ <span id="timer">30:00</span>
+                <span>⏱️</span>
+                <strong id="timer">30:00</strong>
             </div>
 
         </div>
@@ -44,83 +48,81 @@
     </header>
 
 
-    <!-- ==============================
-         INFORMASI MODE
-    =============================== -->
+    <!-- ================= PERINGATAN MODE ================= -->
 
-    <div id="peringatanMode" class="mode-notice">
-
-        <strong>🟢 MODE GLADI / SIMULASI</strong>
-
-        <p>
-            Ini adalah latihan sebelum STS resmi.
-            Nilai dari Gladi tidak masuk ke nilai STS.
-        </p>
-
+    <div id="peringatanMode" class="mode-warning">
+        🟢 <strong>GLADI / SIMULASI</strong>
+        — Hasil simulasi tidak dihitung sebagai nilai STS resmi.
     </div>
 
 
-    <!-- ==============================
-         AREA UTAMA
-    =============================== -->
+    <!-- ================= MAIN ================= -->
 
-    <main class="exam-main">
+    <main class="exam-container">
 
         <!-- AREA SOAL -->
 
         <section class="question-area">
 
-            <div class="question-header">
+            <div class="question-top">
 
-                <span>
-                    Soal
-                    <strong id="nomorSoal">1</strong>
-                    dari
-                    <strong id="jumlahSoal">5</strong>
-                </span>
+                <div>
+                    <span class="question-label">SOAL</span>
 
-                <span id="statusJawaban">
+                    <span id="nomorSoal" class="question-number">
+                        1
+                    </span>
+
+                    <span class="question-total">
+                        dari <span id="jumlahSoal">5</span>
+                    </span>
+                </div>
+
+                <div id="statusJawaban" class="answer-status">
                     Belum dijawab
-                </span>
+                </div>
 
             </div>
 
 
+            <!-- PERTANYAAN -->
+
             <div class="question-card">
 
-                <h2 id="pertanyaan">
+                <div id="pertanyaan" class="question-text">
                     Memuat soal...
-                </h2>
+                </div>
 
-                <div id="pilihanContainer"></div>
+                <div
+                    id="pilihanContainer"
+                    class="choices-container">
+                </div>
 
             </div>
 
 
             <!-- NAVIGASI -->
 
-            <div class="navigation-buttons">
+            <div class="question-navigation">
 
                 <button
                     id="btnSebelumnya"
-                    onclick="soalSebelumnya()"
-                    class="btn-secondary">
+                    class="btn-nav btn-prev"
+                    onclick="soalSebelumnya()">
                     ← Sebelumnya
                 </button>
 
-
                 <button
                     id="btnRagu"
-                    onclick="toggleRagu()"
-                    class="btn-warning">
+                    class="btn-nav btn-doubt"
+                    onclick="toggleRagu()">
                     ⭐ Ragu-ragu
                 </button>
 
-
                 <button
                     id="btnBerikutnya"
-                    onclick="soalBerikutnya()"
-                    class="btn-primary">
+                    class="btn-nav btn-next"
+                    onclick="soalBerikutnya()">
                     Berikutnya →
                 </button>
 
@@ -129,721 +131,506 @@
         </section>
 
 
-        <!-- ==============================
-             PANEL NOMOR SOAL
-        =============================== -->
+        <!-- ================= PANEL SOAL ================= -->
 
         <aside class="question-panel">
 
-            <h3>📋 Daftar Soal</h3>
-
-            <p class="panel-info">
-                Klik nomor untuk berpindah soal.
-            </p>
-
+            <div class="panel-header">
+                <h3>📋 Daftar Soal</h3>
+                <p>Klik nomor untuk berpindah soal</p>
+            </div>
 
             <div
                 id="panelSoal"
-                class="number-grid">
+                class="question-grid">
             </div>
 
-
-            <div class="legend">
+            <div class="panel-legend">
 
                 <div>
-                    <span class="legend-box belum"></span>
-                    Belum dijawab
+                    <span class="legend-box legend-current"></span>
+                    Soal aktif
                 </div>
 
                 <div>
-                    <span class="legend-box sudah"></span>
+                    <span class="legend-box legend-answered"></span>
                     Sudah dijawab
                 </div>
 
                 <div>
-                    <span class="legend-box raguragu"></span>
+                    <span class="legend-box legend-doubt"></span>
                     Ragu-ragu
                 </div>
 
             </div>
 
-
             <button
-                onclick="selesaiUjian()"
-                class="btn-finish">
-                🏁 Selesai Ujian
+                class="btn-finish"
+                onclick="selesaiUjian()">
+                🏁 SELESAI UJIAN
             </button>
 
         </aside>
 
     </main>
 
-</div>
 
+    <!-- ================= MODAL SELESAI ================= -->
 
-<!-- ==============================
-     MODAL SELESAI
-=============================== -->
+    <div id="modalSelesai" class="modal-overlay">
 
-<div
-    id="modalSelesai"
-    class="modal-overlay">
+        <div class="finish-modal">
 
-    <div class="modal-box">
+            <div class="finish-icon">
+                🏁
+            </div>
 
-        <h2>🏁 Selesaikan Ujian?</h2>
+            <h2>Sudah Selesai?</h2>
 
-        <p id="pesanSelesai">
-            Apakah kamu yakin ingin mengakhiri ujian?
-        </p>
+            <p id="pesanSelesai">
+                Pastikan semua soal sudah diperiksa sebelum mengakhiri ujian.
+            </p>
 
+            <div class="finish-buttons">
 
-        <div class="modal-buttons">
+                <button
+                    class="btn-cancel"
+                    onclick="tutupModal()">
+                    Kembali
+                </button>
 
-            <button
-                onclick="tutupModal()"
-                class="btn-secondary">
-                Kembali
-            </button>
+                <button
+                    class="btn-confirm"
+                    onclick="konfirmasiSelesai()">
+                    Ya, Selesai
+                </button>
 
-
-            <button
-                onclick="konfirmasiSelesai()"
-                class="btn-finish">
-                Ya, Selesaikan
-            </button>
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
 
 <script>
 
-/* =====================================================
-   1. DATA SOAL GLADI
-===================================================== */
-
-const soalGladi = [
-
-    {
-        pertanyaan: "Lambang negara Indonesia adalah ...",
-
-        pilihan: [
-            "Garuda Pancasila",
-            "Burung Merpati",
-            "Pohon Beringin",
-            "Bendera Merah Putih"
-        ],
-
-        jawaban: 0
-    },
-
-
-    {
-        pertanyaan: "Bunyi sila pertama Pancasila adalah ...",
-
-        pilihan: [
-            "Persatuan Indonesia",
-            "Ketuhanan Yang Maha Esa",
-            "Keadilan Sosial",
-            "Kemanusiaan yang Adil dan Beradab"
-        ],
-
-        jawaban: 1
-    },
-
-
-    {
-        pertanyaan: "Contoh menjaga persatuan di sekolah adalah ...",
-
-        pilihan: [
-            "Mengejek teman",
-            "Bertengkar",
-            "Bermain bersama tanpa membeda-bedakan",
-            "Memilih-milih teman"
-        ],
-
-        jawaban: 2
-    },
-
-
-    {
-        pertanyaan: "Sebelum makan sebaiknya kita ...",
-
-        pilihan: [
-            "Bermain",
-            "Mencuci tangan",
-            "Tidur",
-            "Berlari"
-        ],
-
-        jawaban: 1
-    },
-
-
-    {
-        pertanyaan: "Jika mendapat bantuan dari teman, kita sebaiknya mengatakan ...",
-
-        pilihan: [
-            "Pergi!",
-            "Jangan!",
-            "Terima kasih",
-            "Tidak mau!"
-        ],
-
-        jawaban: 2
-    }
-
-];
-
-
-/* =====================================================
-   2. DATA SOAL STS RESMI
-===================================================== */
-
-const soalResmi = [
-
-    {
-        pertanyaan: "Pancasila terdiri atas ... sila.",
-
-        pilihan: [
-            "3",
-            "4",
-            "5",
-            "6"
-        ],
-
-        jawaban: 2
-    },
-
-
-    {
-        pertanyaan: "Simbol sila pertama Pancasila adalah ...",
-
-        pilihan: [
-            "Bintang",
-            "Rantai",
-            "Pohon beringin",
-            "Kepala banteng"
-        ],
-
-        jawaban: 0
-    },
-
-
-    {
-        pertanyaan: "Sikap yang sesuai dengan sila kedua Pancasila adalah ...",
-
-        pilihan: [
-            "Menolong teman yang membutuhkan",
-            "Mengejek teman",
-            "Memaksakan kehendak",
-            "Bertengkar"
-        ],
-
-        jawaban: 0
-    },
-
-
-    {
-        pertanyaan: "Bunyi sila ketiga Pancasila adalah ...",
-
-        pilihan: [
-            "Ketuhanan Yang Maha Esa",
-            "Persatuan Indonesia",
-            "Keadilan Sosial bagi Seluruh Rakyat Indonesia",
-            "Kemanusiaan yang Adil dan Beradab"
-        ],
-
-        jawaban: 1
-    },
-
-
-    {
-        pertanyaan: "Contoh sikap yang mencerminkan persatuan di sekolah adalah ...",
-
-        pilihan: [
-            "Bekerja sama membersihkan kelas",
-            "Memilih teman berdasarkan suku",
-            "Mengejek teman",
-            "Tidak mau bekerja sama"
-        ],
-
-        jawaban: 0
-    }
-
-];
-
-
-/* =====================================================
-   3. AMBIL MODE
-===================================================== */
-
-const params =
-    new URLSearchParams(window.location.search);
-
-
-const mode =
-    localStorage.getItem("modeUjian")
-    || params.get("mode")
-    || "gladi";
-
-
-/* =====================================================
-   4. DATA SISWA
-===================================================== */
-
-const nama =
-    localStorage.getItem("namaSiswa")
-    || "Siswa";
-
-
-const nis =
-    localStorage.getItem("nisSiswa")
-    || "";
-
-
-/* =====================================================
-   5. PILIH KUMPULAN SOAL
-===================================================== */
-
-let soal;
-
-if (mode === "resmi") {
-
-    soal = soalResmi;
-
-} else {
-
-    soal = soalGladi;
-
-}
-
-
-/* =====================================================
-   6. VARIABEL UJIAN
-===================================================== */
-
-let sekarang = 0;
-
-
-/*
-   null = belum menjawab
-
-   0 = pilihan A
-   1 = pilihan B
-   2 = pilihan C
-   3 = pilihan D
-*/
-
-let jawaban =
-    new Array(soal.length).fill(null);
-
-
-let ragu =
-    new Array(soal.length).fill(false);
-
-
-/* =====================================================
-   7. WAKTU
-===================================================== */
-
-let waktu;
-
-if (mode === "resmi") {
-
-    waktu = 60 * 60;
-
-} else {
-
-    waktu = 30 * 60;
-
-}
-
-
-let timerInterval;
-
-
-/* =====================================================
-   8. TAMPILKAN DATA SISWA
-===================================================== */
-
-document.getElementById("namaTampil").textContent =
-    nama;
-
-
-document.getElementById("nisTampil").textContent =
-    "NIS: " + nis;
-
-
-/* =====================================================
-   9. TAMPILKAN MODE
-===================================================== */
-
-const modeTampil =
-    document.getElementById("modeTampil");
-
-
-const peringatanMode =
-    document.getElementById("peringatanMode");
-
-
-if (mode === "resmi") {
-
-    modeTampil.textContent =
-        "🔵 STS RESMI";
-
-
-    modeTampil.classList.add("mode-resmi");
-
-
-    peringatanMode.innerHTML = `
-
-        <strong>🔵 STS RESMI</strong>
-
-        <p>
-            Ini adalah ujian resmi STS.
-            Pastikan semua jawaban sudah diperiksa
-            sebelum mengakhiri ujian.
-        </p>
-
-    `;
-
-} else {
-
-    modeTampil.textContent =
-        "🟢 GLADI / SIMULASI";
-
-}
-
-
-/* =====================================================
-   10. JUMLAH SOAL
-===================================================== */
-
-document.getElementById("jumlahSoal").textContent =
-    soal.length;
-
-
-/* =====================================================
-   11. TAMPILKAN SOAL
-===================================================== */
-
-function tampilkanSoal() {
-
-    const data =
-        soal[sekarang];
-
-
-    document.getElementById("nomorSoal").textContent =
-        sekarang + 1;
-
-
-    document.getElementById("pertanyaan").textContent =
-        data.pertanyaan;
-
-
-    const container =
-        document.getElementById("pilihanContainer");
-
-
-    container.innerHTML = "";
-
-
-    data.pilihan.forEach(function(pilihan, index) {
-
-        const label =
-            document.createElement("label");
-
-
-        label.className =
-            "option";
-
-
-        if (jawaban[sekarang] === index) {
-
-            label.classList.add("selected");
-
+    /* =====================================================
+       DATA SOAL
+    ===================================================== */
+
+    const soalGladi = [
+        {
+            pertanyaan: "Lambang negara Indonesia adalah ...",
+            pilihan: [
+                "Garuda Pancasila",
+                "Burung Merpati",
+                "Pohon Beringin",
+                "Bendera Merah Putih"
+            ],
+            jawaban: 0
+        },
+
+        {
+            pertanyaan: "Bunyi sila pertama Pancasila adalah ...",
+            pilihan: [
+                "Persatuan Indonesia",
+                "Ketuhanan Yang Maha Esa",
+                "Keadilan Sosial",
+                "Kemanusiaan yang Adil dan Beradab"
+            ],
+            jawaban: 1
+        },
+
+        {
+            pertanyaan: "Simbol sila kedua Pancasila adalah ...",
+            pilihan: [
+                "Bintang",
+                "Pohon Beringin",
+                "Rantai",
+                "Kepala Banteng"
+            ],
+            jawaban: 2
+        },
+
+        {
+            pertanyaan: "Contoh sikap yang sesuai dengan sila pertama adalah ...",
+            pilihan: [
+                "Menghormati teman yang sedang beribadah",
+                "Bertengkar dengan teman",
+                "Mengejek teman",
+                "Tidak mau berbagi"
+            ],
+            jawaban: 0
+        },
+
+        {
+            pertanyaan: "Bunyi sila ketiga Pancasila adalah ...",
+            pilihan: [
+                "Keadilan Sosial bagi Seluruh Rakyat Indonesia",
+                "Persatuan Indonesia",
+                "Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan",
+                "Ketuhanan Yang Maha Esa"
+            ],
+            jawaban: 1
         }
+    ];
 
 
-        /*
-           PENTING:
+    const soalResmi = [
+        {
+            pertanyaan: "Hasil dari 25 + 15 adalah ...",
+            pilihan: [
+                "30",
+                "35",
+                "40",
+                "45"
+            ],
+            jawaban: 2
+        },
 
-           value menggunakan INDEX pilihan,
-           bukan teks jawaban.
-        */
+        {
+            pertanyaan: "Hasil dari 50 - 25 adalah ...",
+            pilihan: [
+                "15",
+                "20",
+                "25",
+                "30"
+            ],
+            jawaban: 2
+        },
 
-        label.innerHTML = `
+        {
+            pertanyaan: "Bilangan yang lebih besar dari 35 adalah ...",
+            pilihan: [
+                "25",
+                "30",
+                "34",
+                "40"
+            ],
+            jawaban: 3
+        },
 
-            <input
-                type="radio"
-                name="jawaban"
-                value="${index}"
-                ${jawaban[sekarang] === index ? "checked" : ""}
-            >
+        {
+            pertanyaan: "Satu minggu terdiri dari ... hari.",
+            pilihan: [
+                "5",
+                "6",
+                "7",
+                "8"
+            ],
+            jawaban: 2
+        },
 
-            <span class="option-letter">
-                ${String.fromCharCode(65 + index)}
-            </span>
-
-            <span class="option-text">
-                ${pilihan}
-            </span>
-
-        `;
-
-
-        const radio =
-            label.querySelector("input");
-
-
-        radio.addEventListener(
-            "change",
-            function() {
-
-                /*
-                   Simpan INDEX pilihan siswa.
-                */
-
-                jawaban[sekarang] =
-                    Number(this.value);
+        {
+            pertanyaan: "Hewan yang berkembang biak dengan bertelur adalah ...",
+            pilihan: [
+                "Ayam",
+                "Kucing",
+                "Sapi",
+                "Kambing"
+            ],
+            jawaban: 0
+        }
+    ];
 
 
-                /*
-                   Jika menjawab,
-                   otomatis tidak ragu.
-                */
+    /* =====================================================
+       MODE UJIAN
+    ===================================================== */
 
-                ragu[sekarang] =
-                    false;
+    const params = new URLSearchParams(window.location.search);
 
+    const mode = params.get("mode") || localStorage.getItem("modeUjian") || "gladi";
+
+    const soal = mode === "resmi"
+        ? soalResmi
+        : soalGladi;
+
+
+    /* =====================================================
+       DATA PESERTA
+    ===================================================== */
+
+    const nama = localStorage.getItem("namaSiswa") || "Peserta";
+    const nis = localStorage.getItem("nisSiswa") || "-";
+
+
+    document.getElementById("namaTampil").textContent = nama;
+    document.getElementById("nisTampil").textContent = nis;
+
+    document.getElementById("jumlahSoal").textContent = soal.length;
+
+
+    /* =====================================================
+       TAMPILAN MODE
+    ===================================================== */
+
+    const modeTampil = document.getElementById("modeTampil");
+    const peringatanMode = document.getElementById("peringatanMode");
+
+    if (mode === "resmi") {
+
+        modeTampil.textContent = "🔵 STS RESMI";
+        modeTampil.classList.add("mode-resmi");
+
+        peringatanMode.innerHTML =
+            "🔵 <strong>STS RESMI</strong> — Kerjakan soal dengan teliti.";
+
+        peringatanMode.classList.add("warning-resmi");
+
+    } else {
+
+        modeTampil.textContent = "🟢 GLADI";
+        modeTampil.classList.add("mode-gladi");
+
+        peringatanMode.innerHTML =
+            "🟢 <strong>GLADI / SIMULASI</strong> — Hasil simulasi tidak dihitung sebagai nilai STS resmi.";
+
+    }
+
+
+    /* =====================================================
+       VARIABEL UJIAN
+    ===================================================== */
+
+    let sekarang = 0;
+
+    let jawaban = new Array(soal.length).fill(null);
+
+    let ragu = new Array(soal.length).fill(false);
+
+    let waktu;
+
+    let waktuTersisa = mode === "resmi"
+        ? 60 * 60
+        : 30 * 60;
+
+
+    /* =====================================================
+       TAMPILKAN SOAL
+    ===================================================== */
+
+    function tampilkanSoal() {
+
+        const data = soal[sekarang];
+
+        document.getElementById("nomorSoal").textContent =
+            sekarang + 1;
+
+        document.getElementById("pertanyaan").textContent =
+            data.pertanyaan;
+
+        const container =
+            document.getElementById("pilihanContainer");
+
+        container.innerHTML = "";
+
+
+        data.pilihan.forEach((pilihan, index) => {
+
+            const label = document.createElement("label");
+
+            label.className = "choice";
+
+            if (jawaban[sekarang] === index) {
+                label.classList.add("selected");
+            }
+
+            label.innerHTML = `
+                <input
+                    type="radio"
+                    name="jawaban"
+                    value="${index}"
+                    ${jawaban[sekarang] === index ? "checked" : ""}
+                >
+
+                <span class="choice-letter">
+                    ${String.fromCharCode(65 + index)}
+                </span>
+
+                <span class="choice-text">
+                    ${pilihan}
+                </span>
+            `;
+
+
+            const radio = label.querySelector("input");
+
+            radio.addEventListener("change", function () {
+
+                jawaban[sekarang] = Number(this.value);
 
                 simpanJawaban();
 
-
                 tampilkanSoal();
 
+            });
+
+
+            container.appendChild(label);
+
+        });
+
+
+        updateStatus();
+
+        updateButtons();
+
+        updatePanel();
+
+    }
+
+
+    /* =====================================================
+       STATUS JAWABAN
+    ===================================================== */
+
+    function updateStatus() {
+
+        const status =
+            document.getElementById("statusJawaban");
+
+        if (ragu[sekarang]) {
+
+            status.textContent = "⭐ Ragu-ragu";
+            status.className =
+                "answer-status status-doubt";
+
+        } else if (jawaban[sekarang] !== null) {
+
+            status.textContent = "✓ Sudah dijawab";
+            status.className =
+                "answer-status status-answered";
+
+        } else {
+
+            status.textContent = "Belum dijawab";
+            status.className =
+                "answer-status status-empty";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       TOMBOL
+    ===================================================== */
+
+    function updateButtons() {
+
+        const sebelumnya =
+            document.getElementById("btnSebelumnya");
+
+        const berikutnya =
+            document.getElementById("btnBerikutnya");
+
+        sebelumnya.disabled =
+            sekarang === 0;
+
+        if (sekarang === soal.length - 1) {
+
+            berikutnya.textContent =
+                "Soal Terakhir";
+
+        } else {
+
+            berikutnya.textContent =
+                "Berikutnya →";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SOAL SEBELUMNYA
+    ===================================================== */
+
+    function soalSebelumnya() {
+
+        if (sekarang > 0) {
+
+            sekarang--;
+
+            tampilkanSoal();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SOAL BERIKUTNYA
+    ===================================================== */
+
+    function soalBerikutnya() {
+
+        if (sekarang < soal.length - 1) {
+
+            sekarang++;
+
+            tampilkanSoal();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RAGU-RAGU
+    ===================================================== */
+
+    function toggleRagu() {
+
+        ragu[sekarang] =
+            !ragu[sekarang];
+
+        tampilkanSoal();
+
+    }
+
+
+    /* =====================================================
+       PANEL NOMOR SOAL
+    ===================================================== */
+
+    function updatePanel() {
+
+        const panel =
+            document.getElementById("panelSoal");
+
+        panel.innerHTML = "";
+
+
+        soal.forEach((_, index) => {
+
+            const tombol =
+                document.createElement("button");
+
+            tombol.textContent =
+                index + 1;
+
+            tombol.className =
+                "number-button";
+
+
+            if (index === sekarang) {
+
+                tombol.classList.add("current");
+
+            } else if (ragu[index]) {
+
+                tombol.classList.add("doubt");
+
+            } else if (jawaban[index] !== null) {
+
+                tombol.classList.add("answered");
+
             }
-        );
 
 
-        container.appendChild(label);
-
-    });
-
-
-    updateStatus();
-
-    updateButtons();
-
-    updatePanel();
-
-}
-
-
-/* =====================================================
-   12. STATUS JAWABAN
-===================================================== */
-
-function updateStatus() {
-
-    const status =
-        document.getElementById("statusJawaban");
-
-
-    if (jawaban[sekarang] !== null) {
-
-        status.textContent =
-            "Sudah dijawab";
-
-
-        status.className =
-            "status-sudah";
-
-    } else {
-
-        status.textContent =
-            "Belum dijawab";
-
-
-        status.className =
-            "status-belum";
-
-    }
-
-}
-
-
-/* =====================================================
-   13. TOMBOL NAVIGASI
-===================================================== */
-
-function updateButtons() {
-
-    const sebelumnya =
-        document.getElementById("btnSebelumnya");
-
-
-    const berikutnya =
-        document.getElementById("btnBerikutnya");
-
-
-    const raguButton =
-        document.getElementById("btnRagu");
-
-
-    if (sekarang === 0) {
-
-        sebelumnya.disabled = true;
-
-    } else {
-
-        sebelumnya.disabled = false;
-
-    }
-
-
-    if (sekarang === soal.length - 1) {
-
-        berikutnya.textContent =
-            "Soal Terakhir";
-
-    } else {
-
-        berikutnya.textContent =
-            "Berikutnya →";
-
-    }
-
-
-    if (ragu[sekarang]) {
-
-        raguButton.textContent =
-            "❌ Hapus Ragu";
-
-
-        raguButton.classList.add("active");
-
-    } else {
-
-        raguButton.textContent =
-            "⭐ Ragu-ragu";
-
-
-        raguButton.classList.remove("active");
-
-    }
-
-}
-
-
-/* =====================================================
-   14. SOAL SEBELUMNYA
-===================================================== */
-
-function soalSebelumnya() {
-
-    if (sekarang > 0) {
-
-        sekarang--;
-
-        tampilkanSoal();
-
-    }
-
-}
-
-
-/* =====================================================
-   15. SOAL BERIKUTNYA
-===================================================== */
-
-function soalBerikutnya() {
-
-    if (sekarang < soal.length - 1) {
-
-        sekarang++;
-
-        tampilkanSoal();
-
-    }
-
-}
-
-
-/* =====================================================
-   16. RAGU-RAGU
-===================================================== */
-
-function toggleRagu() {
-
-    ragu[sekarang] =
-        !ragu[sekarang];
-
-
-    simpanJawaban();
-
-    updateButtons();
-
-    updatePanel();
-
-}
-
-
-/* =====================================================
-   17. PANEL NOMOR
-===================================================== */
-
-function updatePanel() {
-
-    const panel =
-        document.getElementById("panelSoal");
-
-
-    panel.innerHTML = "";
-
-
-    soal.forEach(function(_, index) {
-
-        const button =
-            document.createElement("button");
-
-
-        button.textContent =
-            index + 1;
-
-
-        button.className =
-            "number-button";
-
-
-        if (jawaban[index] !== null) {
-
-            button.classList.add("answered");
-
-        }
-
-
-        if (ragu[index]) {
-
-            button.classList.add("doubt");
-
-        }
-
-
-        if (index === sekarang) {
-
-            button.classList.add("current");
-
-        }
-
-
-        button.onclick =
-            function() {
+            tombol.onclick = function () {
 
                 sekarang = index;
 
@@ -852,68 +639,48 @@ function updatePanel() {
             };
 
 
-        panel.appendChild(button);
+            panel.appendChild(tombol);
 
-    });
+        });
 
-}
-
-
-/* =====================================================
-   18. SIMPAN JAWABAN
-===================================================== */
-
-function simpanJawaban() {
-
-    const key =
-        mode === "resmi"
-            ? "jawabanSTSResmi"
-            : "jawabanGladi";
+    }
 
 
-    localStorage.setItem(
-        key,
-        JSON.stringify(jawaban)
-    );
+    /* =====================================================
+       SIMPAN JAWABAN
+    ===================================================== */
+
+    function simpanJawaban() {
+
+        localStorage.setItem(
+            "jawabanUjian",
+            JSON.stringify(jawaban)
+        );
+
+    }
 
 
-    const raguKey =
-        mode === "resmi"
-            ? "raguSTSResmi"
-            : "raguGladi";
+    /* =====================================================
+       TIMER
+    ===================================================== */
 
+    function mulaiTimer() {
 
-    localStorage.setItem(
-        raguKey,
-        JSON.stringify(ragu)
-    );
+        tampilkanTimer();
 
-}
+        waktu = setInterval(function () {
 
-
-/* =====================================================
-   19. TIMER
-===================================================== */
-
-function mulaiTimer() {
-
-    timerInterval =
-        setInterval(function() {
-
-            waktu--;
+            waktuTersisa--;
 
             tampilkanTimer();
 
+            if (waktuTersisa <= 0) {
 
-            if (waktu <= 0) {
-
-                clearInterval(timerInterval);
-
+                clearInterval(waktu);
 
                 alert(
-                    "⏰ Waktu ujian telah habis. Jawaban akan dikumpulkan otomatis."
+                    "Waktu ujian telah habis. Jawaban akan diperiksa."
                 );
-
 
                 hitungNilai();
 
@@ -921,264 +688,167 @@ function mulaiTimer() {
 
         }, 1000);
 
-}
+    }
 
 
-/* =====================================================
-   20. TAMPILKAN TIMER
-===================================================== */
+    function tampilkanTimer() {
 
-function tampilkanTimer() {
+        const menit =
+            Math.floor(waktuTersisa / 60);
 
-    const menit =
-        Math.floor(waktu / 60);
+        const detik =
+            waktuTersisa % 60;
 
-
-    const detik =
-        waktu % 60;
-
-
-    document.getElementById("timer").textContent =
-
-        String(menit).padStart(2, "0")
-        + ":"
-        + String(detik).padStart(2, "0");
-
-}
+        document.getElementById("timer").textContent =
+            String(menit).padStart(2, "0")
+            + ":" +
+            String(detik).padStart(2, "0");
 
 
-/* =====================================================
-   21. TOMBOL SELESAI
-===================================================== */
-
-function selesaiUjian() {
-
-    let belumDijawab = 0;
+        const timerBox =
+            document.querySelector(".timer-box");
 
 
-    jawaban.forEach(function(item) {
+        if (waktuTersisa <= 60) {
 
-        if (item === null) {
-
-            belumDijawab++;
+            timerBox.classList.add("timer-danger");
 
         }
-
-    });
-
-
-    const pesan =
-        document.getElementById("pesanSelesai");
-
-
-    if (belumDijawab > 0) {
-
-        pesan.innerHTML = `
-
-            Masih ada
-            <strong>${belumDijawab}</strong>
-            soal yang belum dijawab.
-
-            <br><br>
-
-            Apakah kamu tetap ingin
-            mengakhiri ujian?
-
-        `;
-
-    } else {
-
-        pesan.innerHTML = `
-
-            Semua soal sudah dijawab.
-
-            <br><br>
-
-            Apakah kamu yakin ingin
-            mengakhiri ujian?
-
-        `;
 
     }
 
 
-    document.getElementById("modalSelesai")
-        .classList.add("show");
+    /* =====================================================
+       SELESAI UJIAN
+    ===================================================== */
 
-}
+    function selesaiUjian() {
 
-
-/* =====================================================
-   22. TUTUP MODAL
-===================================================== */
-
-function tutupModal() {
-
-    document.getElementById("modalSelesai")
-        .classList.remove("show");
-
-}
+        const belum =
+            jawaban.filter(x => x === null).length;
 
 
-/* =====================================================
-   23. KONFIRMASI SELESAI
-===================================================== */
+        if (belum > 0) {
 
-function konfirmasiSelesai() {
+            document.getElementById("pesanSelesai").textContent =
+                `Masih ada ${belum} soal yang belum dijawab. Apakah kamu yakin ingin mengakhiri ujian?`;
 
-    clearInterval(timerInterval);
+        } else {
 
-    hitungNilai();
-
-}
-
-
-/* =====================================================
-   24. HITUNG NILAI
-===================================================== */
-
-function hitungNilai() {
-
-    let benar = 0;
-
-
-    /*
-       DEBUG / PEMERIKSAAN:
-
-       Kita periksa SATU PER SATU
-       jawaban siswa dengan jawaban benar.
-    */
-
-    soal.forEach(function(data, index) {
-
-        const jawabanSiswa =
-            jawaban[index];
-
-
-        const jawabanBenar =
-            data.jawaban;
-
-
-        console.log(
-            "Soal " + (index + 1),
-            "Jawaban siswa:",
-            jawabanSiswa,
-            "Jawaban benar:",
-            jawabanBenar
-        );
-
-
-        /*
-           HANYA jika index sama,
-           maka dianggap benar.
-        */
-
-        if (
-            jawabanSiswa !== null
-            &&
-            jawabanSiswa === jawabanBenar
-        ) {
-
-            benar++;
+            document.getElementById("pesanSelesai").textContent =
+                "Semua soal sudah dijawab. Apakah kamu yakin ingin mengakhiri ujian?";
 
         }
 
-    });
 
-
-    const jumlahSoal =
-        soal.length;
-
-
-    const nilai =
-        Math.round(
-            (benar / jumlahSoal) * 100
-        );
-
-
-    console.log("================================");
-
-    console.log("MODE:", mode);
-
-    console.log("JUMLAH SOAL:", jumlahSoal);
-
-    console.log("BENAR:", benar);
-
-    console.log("NILAI:", nilai);
-
-    console.log("================================");
-
-
-    /* =================================================
-       SIMPAN HASIL
-    ================================================= */
-
-    if (mode === "resmi") {
-
-        localStorage.setItem(
-            "nilaiSTSResmi",
-            nilai
-        );
-
-
-        localStorage.setItem(
-            "jumlahBenarSTSResmi",
-            benar
-        );
-
-
-        localStorage.setItem(
-            "jumlahSoalSTSResmi",
-            jumlahSoal
-        );
-
-    } else {
-
-        localStorage.setItem(
-            "nilaiGladi",
-            nilai
-        );
-
-
-        localStorage.setItem(
-            "jumlahBenarGladi",
-            benar
-        );
-
-
-        localStorage.setItem(
-            "jumlahSoalGladi",
-            jumlahSoal
-        );
+        document
+            .getElementById("modalSelesai")
+            .classList.add("show");
 
     }
 
 
-    localStorage.setItem(
-        "hasilMode",
-        mode
-    );
+    function tutupModal() {
+
+        document
+            .getElementById("modalSelesai")
+            .classList.remove("show");
+
+    }
 
 
-    /*
-       PINDAH KE HALAMAN HASIL
-    */
+    function konfirmasiSelesai() {
 
-    window.location.href =
-        "hasil.html?mode=" + mode;
+        clearInterval(waktu);
 
-}
+        hitungNilai();
+
+    }
 
 
-/* =====================================================
-   25. MULAI UJIAN
-===================================================== */
+    /* =====================================================
+       HITUNG NILAI
+    ===================================================== */
 
-tampilkanSoal();
+    function hitungNilai() {
 
-tampilkanTimer();
+        let benar = 0;
 
-mulaiTimer();
+
+        soal.forEach((data, index) => {
+
+            if (
+                jawaban[index] !== null &&
+                jawaban[index] === data.jawaban
+            ) {
+
+                benar++;
+
+            }
+
+        });
+
+
+        const nilai =
+            Math.round((benar / soal.length) * 100);
+
+
+        if (mode === "gladi") {
+
+            localStorage.setItem(
+                "nilaiGladi",
+                nilai
+            );
+
+            localStorage.setItem(
+                "jumlahBenarGladi",
+                benar
+            );
+
+            localStorage.setItem(
+                "jumlahSoalGladi",
+                soal.length
+            );
+
+        } else {
+
+            localStorage.setItem(
+                "nilaiSTSResmi",
+                nilai
+            );
+
+            localStorage.setItem(
+                "jumlahBenarSTSResmi",
+                benar
+            );
+
+            localStorage.setItem(
+                "jumlahSoalSTSResmi",
+                soal.length
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "modeUjian",
+            mode
+        );
+
+
+        window.location.href =
+            "hasil.html?mode=" + mode;
+
+    }
+
+
+    /* =====================================================
+       MULAI
+    ===================================================== */
+
+    tampilkanSoal();
+
+    mulaiTimer();
 
 </script>
 
