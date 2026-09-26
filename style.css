@@ -1,11 +1,11 @@
 /* =========================================================
-   STS ONLINE - GLOBAL CSS
+   STS ONLINE
    SD NEGERI 1 JATIPAYAK
+   STYLE.CSS - VERSI BARU
    ========================================================= */
 
-
 /* =========================================================
-   RESET & GLOBAL
+   RESET
    ========================================================= */
 
 * {
@@ -19,29 +19,15 @@ html {
 }
 
 body {
-    font-family:
-        "Segoe UI",
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: #172033;
-    background: #f5f7fb;
-    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+    line-height: 1.6;
 }
 
 button,
 input {
     font-family: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.container {
-    width: min(1120px, calc(100% - 40px));
-    margin: 0 auto;
 }
 
 
@@ -50,31 +36,39 @@ button {
    ========================================================= */
 
 .home-page {
-    background: #f5f7fb;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 35%),
+        radial-gradient(circle at top right, rgba(16, 185, 129, 0.10), transparent 35%),
+        #f4f7fb;
 }
 
 
-/* ---------- HEADER ---------- */
+/* =========================================================
+   HEADER BERANDA
+   ========================================================= */
 
 .site-header {
     background: #ffffff;
-    border-bottom: 1px solid #e5e9f0;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 3px 15px rgba(15, 23, 42, 0.06);
 }
 
 .header-content {
-    min-height: 76px;
+    width: min(1120px, 92%);
+    min-height: 78px;
+    margin: auto;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 20px;
 }
 
 .school-brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
 }
 
 .school-logo {
@@ -85,85 +79,100 @@ button {
     align-items: center;
     justify-content: center;
 
-    background: #eef4ff;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-radius: 14px;
 
     font-size: 25px;
+
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
 }
 
 .brand-title {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 800;
-    letter-spacing: .4px;
-    color: #14213d;
+    color: #111827;
+    letter-spacing: 0.3px;
 }
 
 .brand-school {
-    margin-top: 3px;
-
     font-size: 13px;
-    font-weight: 500;
-
     color: #6b7280;
+    margin-top: 1px;
 }
 
 .header-status {
-    padding: 8px 14px;
+    padding: 7px 13px;
 
-    border: 1px solid #dfe5ef;
-    border-radius: 20px;
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
 
-    font-size: 11px;
+    color: #15803d;
+    font-size: 12px;
     font-weight: 700;
-
-    letter-spacing: .8px;
-    color: #667085;
-
-    background: #fafbfc;
 }
 
 
-/* ---------- HERO ---------- */
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero-section {
-    padding: 54px 0 36px;
+    width: min(1120px, 92%);
+    margin: 42px auto 35px;
 }
 
 .hero-card {
     position: relative;
-
     overflow: hidden;
 
     display: flex;
     align-items: center;
-
     gap: 30px;
 
-    padding: 48px;
+    padding: 42px 45px;
 
-    background: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #1d4ed8 0%,
+        #2563eb 55%,
+        #3b82f6 100%
+    );
 
-    border: 1px solid #e5e9f0;
-    border-radius: 20px;
+    border-radius: 25px;
+
+    color: #ffffff;
 
     box-shadow:
-        0 12px 35px rgba(31, 41, 55, .06);
+        0 18px 40px rgba(37, 99, 235, 0.22);
 }
 
-.hero-card::after {
+.hero-card::before {
     content: "";
-
     position: absolute;
 
     width: 220px;
     height: 220px;
 
-    right: -90px;
-    top: -90px;
+    right: -70px;
+    top: -80px;
 
+    background: rgba(255, 255, 255, 0.10);
     border-radius: 50%;
+}
 
-    background: #eef4ff;
+.hero-card::after {
+    content: "";
+    position: absolute;
+
+    width: 160px;
+    height: 160px;
+
+    right: 100px;
+    bottom: -110px;
+
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
 }
 
 .hero-icon {
@@ -172,18 +181,21 @@ button {
 
     flex-shrink: 0;
 
-    width: 82px;
-    height: 82px;
+    width: 90px;
+    height: 90px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.22);
 
-    background: #eef4ff;
+    border-radius: 22px;
 
-    font-size: 42px;
+    font-size: 45px;
+
+    backdrop-filter: blur(5px);
 }
 
 .hero-content {
@@ -194,300 +206,329 @@ button {
 .hero-small-title {
     margin-bottom: 5px;
 
-    font-size: 12px;
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 700;
 
-    letter-spacing: 1.5px;
-
-    color: #64748b;
+    letter-spacing: 2px;
+    opacity: 0.85;
 }
 
 .hero-content h1 {
-    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 5px;
+
+    font-size: 40px;
     line-height: 1.1;
-
-    font-weight: 850;
-
-    color: #14213d;
+    font-weight: 900;
 }
 
 .hero-content h2 {
-    margin-top: 7px;
+    margin-bottom: 14px;
 
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 700;
-
-    color: #315aa8;
 }
 
 .hero-content p {
     max-width: 680px;
 
-    margin-top: 15px;
-
     font-size: 15px;
     line-height: 1.7;
 
-    color: #667085;
+    color: rgba(255, 255, 255, 0.90);
 }
 
 
-/* ---------- EXAM SECTION ---------- */
+/* =========================================================
+   JUDUL PILIH UJIAN
+   ========================================================= */
 
 .exam-section {
-    padding: 10px 0 45px;
+    width: min(1120px, 92%);
+    margin: 0 auto 40px;
 }
 
 .section-heading {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
 
-    margin-bottom: 25px;
-}
-
-.section-heading h3 {
-    white-space: nowrap;
-
-    font-size: 13px;
-    font-weight: 800;
-
-    letter-spacing: 1.3px;
-
-    color: #475467;
+    margin-bottom: 22px;
 }
 
 .heading-line {
-    height: 1px;
-    flex: 1;
+    width: 5px;
+    height: 32px;
 
-    background: #dfe4ec;
+    background: #2563eb;
+    border-radius: 10px;
 }
+
+.section-heading h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+}
+
+
+/* =========================================================
+   KARTU UJIAN
+   ========================================================= */
 
 .exam-grid {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
-    gap: 24px;
+    gap: 25px;
 }
 
 .exam-card {
-    display: flex;
-    flex-direction: column;
-
-    min-height: 410px;
-
+    position: relative;
     overflow: hidden;
 
     background: #ffffff;
 
-    border: 1px solid #e2e7ef;
-    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 22px;
 
-    box-shadow:
-        0 8px 25px rgba(31, 41, 55, .05);
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
 
     transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .exam-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 
     box-shadow:
-        0 15px 35px rgba(31, 41, 55, .09);
+        0 15px 35px rgba(15, 23, 42, 0.12);
 }
 
 .card-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 15px;
 
-    padding: 24px 25px 10px;
+    padding: 24px 25px 20px;
 }
 
 .exam-icon {
-    width: 54px;
-    height: 54px;
+    width: 55px;
+    height: 55px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
     font-size: 27px;
 }
 
 .gladi-card .exam-icon {
-    background: #eefaf3;
+    background: #ecfdf5;
 }
 
 .resmi-card .exam-icon {
-    background: #eef4ff;
+    background: #eff6ff;
 }
 
 .exam-label {
-    padding: 7px 11px;
+    display: inline-block;
 
-    border-radius: 20px;
+    margin-bottom: 3px;
 
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
-
-    letter-spacing: .5px;
+    letter-spacing: 1px;
 }
 
 .gladi-label {
-    color: #167347;
-    background: #eaf8f0;
+    color: #16a34a;
 }
 
 .resmi-label {
-    color: #2856a5;
-    background: #eaf1ff;
+    color: #2563eb;
 }
+
+.card-header h3 {
+    font-size: 21px;
+    font-weight: 850;
+    color: #111827;
+}
+
+
+/* =========================================================
+   ISI KARTU
+   ========================================================= */
 
 .card-body {
-    flex: 1;
-
-    padding: 12px 25px 20px;
-}
-
-.card-body h2 {
-    font-size: 22px;
-    font-weight: 800;
-
-    color: #172033;
+    padding: 0 25px 24px;
 }
 
 .card-description {
-    margin-top: 10px;
+    min-height: 65px;
+
+    margin-bottom: 18px;
 
     font-size: 14px;
+    color: #6b7280;
     line-height: 1.65;
-
-    color: #667085;
 }
 
 .feature-list {
+    list-style: none;
+
     display: flex;
     flex-direction: column;
+    gap: 9px;
 
-    gap: 10px;
-
-    margin-top: 22px;
-
-    list-style: none;
+    margin-bottom: 23px;
 }
 
 .feature-list li {
     display: flex;
     align-items: center;
-
-    gap: 10px;
+    gap: 8px;
 
     font-size: 13px;
-
-    color: #475467;
+    color: #4b5563;
 }
 
-.feature-list li span {
-    width: 21px;
-    height: 21px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    font-size: 11px;
+.feature-list li::first-letter {
     font-weight: 800;
 }
 
-.gladi-card .feature-list li span {
-    color: #167347;
-    background: #eaf8f0;
-}
 
-.resmi-card .feature-list li span {
-    color: #2856a5;
-    background: #eaf1ff;
-}
+/* =========================================================
+   FOOTER KARTU
+   ========================================================= */
 
 .card-footer {
     padding: 0 25px 25px;
 }
 
+
+/* =========================================================
+   TOMBOL UTAMA
+   ========================================================= */
+
 .exam-button {
     width: 100%;
-
-    min-height: 52px;
+    min-height: 55px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    gap: 12px;
-
     border: none;
-    border-radius: 11px;
+    border-radius: 14px;
 
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
 
-    letter-spacing: .3px;
+    color: #ffffff !important;
+
+    cursor: pointer;
+    text-decoration: none;
 
     transition:
-        transform .15s ease,
-        filter .15s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
 
-.exam-button:hover {
-    filter: brightness(.96);
-}
 
-.exam-button:active {
-    transform: scale(.98);
-}
+/* =========================================================
+   TOMBOL GLADI - HIJAU
+   ========================================================= */
 
 .gladi-button {
-    background: #238653;
-    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #15803d,
+        #22c55e
+    ) !important;
+
+    box-shadow:
+        0 8px 18px rgba(34, 197, 94, 0.30);
 }
+
+.gladi-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+    box-shadow:
+        0 12px 25px rgba(34, 197, 94, 0.40);
+}
+
+.gladi-button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 12px rgba(34, 197, 94, 0.25);
+}
+
+
+/* =========================================================
+   TOMBOL STS RESMI - BIRU
+   ========================================================= */
 
 .resmi-button {
-    background: #315aa8;
-    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #1d4ed8,
+        #3b82f6
+    ) !important;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.30);
+}
+
+.resmi-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+    box-shadow:
+        0 12px 25px rgba(37, 99, 235, 0.40);
+}
+
+.resmi-button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.25);
 }
 
 
-/* ---------- INFORMATION ---------- */
+/* =========================================================
+   INFORMASI
+   ========================================================= */
 
 .information-section {
-    padding: 0 0 50px;
+    width: min(1120px, 92%);
+    margin: 0 auto 45px;
 }
 
 .information-card {
     display: flex;
     align-items: center;
+    gap: 18px;
 
-    gap: 16px;
-
-    padding: 20px 24px;
+    padding: 20px 23px;
 
     background: #ffffff;
 
-    border: 1px solid #e2e7ef;
-    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 17px;
+
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
 }
 
 .information-icon {
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
 
     flex-shrink: 0;
 
@@ -495,60 +536,43 @@ button {
     align-items: center;
     justify-content: center;
 
-    border-radius: 11px;
+    background: #fff7ed;
+    border-radius: 13px;
 
-    background: #fff7df;
-
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .information-card h3 {
-    font-size: 14px;
-    font-weight: 800;
+    margin-bottom: 2px;
 
-    color: #273044;
+    font-size: 15px;
+    font-weight: 800;
+    color: #111827;
 }
 
 .information-card p {
-    margin-top: 4px;
-
     font-size: 13px;
-    line-height: 1.5;
-
-    color: #667085;
+    color: #6b7280;
 }
 
 
-/* ---------- FOOTER ---------- */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .site-footer {
-    padding: 25px 0;
+    padding: 25px 15px;
 
-    border-top: 1px solid #e2e7ef;
-
-    background: #ffffff;
+    background: #111827;
 
     text-align: center;
 
-    font-size: 12px;
-
-    color: #667085;
-}
-
-.site-footer strong {
-    color: #273044;
-}
-
-.site-footer span {
-    margin: 0 5px;
+    color: #ffffff;
 }
 
 .copyright {
-    margin-top: 7px;
-
-    font-size: 11px;
-
-    color: #98a2b3;
+    font-size: 13px;
+    color: #d1d5db;
 }
 
 
@@ -560,28 +584,30 @@ button {
     min-height: 100vh;
 
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    background: #f5f7fb;
+    padding: 30px 15px;
+
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 35%),
+        #f4f7fb;
 }
 
 .login-container {
-    width: min(460px, calc(100% - 32px));
-    margin: auto;
-
-    padding: 35px 0;
+    width: 100%;
+    max-width: 470px;
 }
 
 .login-card {
-    padding: 35px;
-
     background: #ffffff;
 
-    border: 1px solid #e2e7ef;
-    border-radius: 18px;
+    border-radius: 22px;
+
+    padding: 35px;
 
     box-shadow:
-        0 12px 35px rgba(31, 41, 55, .07);
+        0 18px 45px rgba(15, 23, 42, 0.10);
 }
 
 .login-header {
@@ -594,49 +620,49 @@ button {
     width: 65px;
     height: 65px;
 
-    margin: 0 auto 15px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 17px;
+    margin: 0 auto 15px;
 
-    background: #eef4ff;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+    border-radius: 18px;
 
     font-size: 32px;
 }
 
 .login-header h1 {
-    font-size: 24px;
-    font-weight: 800;
+    margin-bottom: 5px;
 
-    color: #172033;
+    font-size: 25px;
+    font-weight: 850;
+    color: #111827;
 }
 
 .login-header p {
-    margin-top: 6px;
-
     font-size: 13px;
-
-    color: #667085;
+    color: #6b7280;
 }
 
 .mode-badge {
     display: inline-block;
 
-    margin-top: 15px;
-
+    margin-top: 12px;
     padding: 7px 13px;
 
-    border-radius: 20px;
+    border-radius: 999px;
 
-    font-size: 11px;
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 12px;
     font-weight: 800;
 }
 
 .form-group {
-    margin-bottom: 17px;
+    margin-bottom: 18px;
 }
 
 .form-group label {
@@ -646,117 +672,131 @@ button {
 
     font-size: 13px;
     font-weight: 700;
-
-    color: #344054;
+    color: #374151;
 }
 
 .form-group input {
     width: 100%;
 
-    height: 48px;
+    padding: 13px 14px;
 
-    padding: 0 14px;
-
-    border: 1px solid #d7dde7;
-    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 11px;
 
     outline: none;
 
-    background: #ffffff;
-
     font-size: 14px;
 
-    color: #172033;
-
     transition:
-        border-color .15s ease,
-        box-shadow .15s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .form-group input:focus {
-    border-color: #315aa8;
+    border-color: #2563eb;
 
     box-shadow:
-        0 0 0 3px rgba(49, 90, 168, .10);
+        0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
 .login-button {
     width: 100%;
 
-    height: 50px;
+    min-height: 52px;
 
     margin-top: 5px;
 
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
 
-    background: #315aa8;
+    background: linear-gradient(
+        135deg,
+        #1d4ed8,
+        #3b82f6
+    );
 
     color: #ffffff;
 
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.25);
+
+    transition: 0.2s ease;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(37, 99, 235, 0.35);
 }
 
 .back-button {
     width: 100%;
 
-    height: 46px;
+    margin-top: 11px;
+    padding: 12px;
 
-    margin-top: 10px;
-
-    border: 1px solid #d7dde7;
-    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 11px;
 
     background: #ffffff;
 
-    color: #475467;
+    color: #4b5563;
 
     font-size: 13px;
     font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.back-button:hover {
+    background: #f9fafb;
 }
 
 .login-info {
     margin-top: 20px;
-
-    padding: 13px 15px;
-
-    border-radius: 10px;
+    padding: 13px;
 
     background: #f8fafc;
 
-    font-size: 12px;
-    line-height: 1.6;
+    border-radius: 11px;
 
-    color: #667085;
+    font-size: 12px;
+    color: #64748b;
+
+    text-align: center;
 }
 
 
 /* =========================================================
-   UJIAN
+   HALAMAN UJIAN
    ========================================================= */
 
 .exam-page {
     min-height: 100vh;
-
-    background: #f5f7fb;
+    background: #f4f7fb;
 }
 
 .exam-header {
     background: #ffffff;
 
-    border-bottom: 1px solid #e2e7ef;
+    border-bottom: 1px solid #e5e7eb;
 
-    position: sticky;
-    top: 0;
-
-    z-index: 20;
+    box-shadow:
+        0 3px 15px rgba(15, 23, 42, 0.06);
 }
 
 .exam-header-inner {
+    width: min(1200px, 94%);
     min-height: 72px;
 
-    width: min(1200px, calc(100% - 32px));
     margin: auto;
 
     display: flex;
@@ -766,19 +806,9 @@ button {
     gap: 20px;
 }
 
-.exam-brand h1 {
-    font-size: 17px;
+.exam-brand {
     font-weight: 800;
-
-    color: #172033;
-}
-
-.exam-brand p {
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    color: #667085;
+    color: #111827;
 }
 
 .exam-student {
@@ -786,45 +816,35 @@ button {
 }
 
 .exam-student-name {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
-
-    color: #344054;
+    color: #111827;
 }
 
 .exam-mode {
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    color: #667085;
+    font-size: 12px;
+    color: #6b7280;
 }
 
 .exam-timer {
-    min-width: 105px;
+    padding: 10px 17px;
 
-    padding: 9px 13px;
-
-    border-radius: 9px;
-
-    background: #172033;
-
+    background: #111827;
     color: #ffffff;
 
-    text-align: center;
+    border-radius: 12px;
 
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 800;
 }
 
 .exam-layout {
-    width: min(1200px, calc(100% - 32px));
+    width: min(1200px, 94%);
 
-    margin: 25px auto;
+    margin: 28px auto;
 
     display: grid;
-
-    grid-template-columns: minmax(0, 1fr) 280px;
+    grid-template-columns: 1fr 280px;
 
     gap: 22px;
 }
@@ -834,99 +854,84 @@ button {
 }
 
 .mode-warning {
-    padding: 12px 15px;
+    padding: 13px 16px;
 
     margin-bottom: 15px;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
-    background: #eef4ff;
+    background: #eff6ff;
+    color: #1d4ed8;
 
-    border: 1px solid #d7e3fb;
-
-    font-size: 12px;
-
-    color: #315aa8;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .question-card {
-    padding: 28px;
-
     background: #ffffff;
 
-    border: 1px solid #e2e7ef;
+    border-radius: 18px;
 
-    border-radius: 16px;
+    padding: 28px;
 
     box-shadow:
-        0 7px 22px rgba(31, 41, 55, .05);
+        0 7px 22px rgba(15, 23, 42, 0.07);
 }
 
 .question-number {
-    font-size: 12px;
-    font-weight: 800;
-
-    color: #315aa8;
-
     margin-bottom: 12px;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 800;
 }
 
 .question-text {
-    font-size: 18px;
+    margin-bottom: 25px;
+
+    font-size: 19px;
+    font-weight: 750;
+    color: #111827;
     line-height: 1.55;
-
-    font-weight: 700;
-
-    color: #172033;
 }
 
 .choices {
     display: flex;
     flex-direction: column;
-
-    gap: 11px;
-
-    margin-top: 25px;
+    gap: 12px;
 }
 
 .choice {
-    position: relative;
-
     display: flex;
     align-items: center;
-
     gap: 13px;
 
-    min-height: 54px;
+    padding: 15px;
 
-    padding: 11px 15px;
-
-    border: 1px solid #dfe4ec;
-    border-radius: 11px;
+    border: 1px solid #dbe1e8;
+    border-radius: 12px;
 
     background: #ffffff;
 
     cursor: pointer;
 
-    transition:
-        border-color .15s ease,
-        background .15s ease;
+    transition: 0.2s ease;
 }
 
 .choice:hover {
-    border-color: #aebbd0;
-
-    background: #f9fbff;
+    border-color: #93c5fd;
+    background: #f8fbff;
 }
 
-.choice input {
-    position: absolute;
-    opacity: 0;
+.choice.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
 }
 
 .choice-letter {
-    width: 31px;
-    height: 31px;
+    width: 35px;
+    height: 35px;
 
     flex-shrink: 0;
 
@@ -934,169 +939,159 @@ button {
     align-items: center;
     justify-content: center;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    background: #eef1f5;
+    background: #f3f4f6;
 
-    font-size: 12px;
     font-weight: 800;
+    color: #374151;
+}
 
-    color: #475467;
+.choice.selected .choice-letter {
+    background: #2563eb;
+    color: #ffffff;
 }
 
 .choice-text {
     font-size: 14px;
-    line-height: 1.45;
-
-    color: #344054;
+    color: #374151;
 }
 
-.choice.selected {
-    border-color: #315aa8;
 
-    background: #f2f6ff;
-}
-
-.choice.selected .choice-letter {
-    background: #315aa8;
-    color: #ffffff;
-}
+/* =========================================================
+   NAVIGASI UJIAN
+   ========================================================= */
 
 .exam-navigation {
     display: flex;
     justify-content: space-between;
+    gap: 12px;
 
-    gap: 10px;
-
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .nav-button {
     min-width: 120px;
 
-    height: 45px;
+    padding: 12px 18px;
 
-    padding: 0 15px;
+    border: none;
+    border-radius: 11px;
 
-    border-radius: 9px;
-
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 800;
+
+    cursor: pointer;
 }
 
 .previous-button {
-    border: 1px solid #d7dde7;
-
-    background: #ffffff;
-
-    color: #475467;
+    background: #e5e7eb;
+    color: #374151;
 }
 
 .next-button {
-    border: none;
-
-    background: #315aa8;
-
+    background: #2563eb;
     color: #ffffff;
 }
 
 .doubt-button {
-    border: 1px solid #e2c76d;
-
-    background: #fffaf0;
-
-    color: #8a6d1d;
+    background: #fef3c7;
+    color: #92400e;
 }
 
+
+/* =========================================================
+   PANEL NOMOR SOAL
+   ========================================================= */
+
 .question-panel {
-    align-self: start;
+    background: #ffffff;
 
     padding: 20px;
 
-    background: #ffffff;
+    border-radius: 18px;
 
-    border: 1px solid #e2e7ef;
+    box-shadow:
+        0 7px 22px rgba(15, 23, 42, 0.07);
 
-    border-radius: 15px;
+    height: fit-content;
 }
 
 .question-panel h3 {
-    font-size: 13px;
-    font-weight: 800;
-
-    color: #344054;
-
     margin-bottom: 15px;
+
+    font-size: 15px;
+    color: #111827;
 }
 
 .question-numbers {
     display: grid;
-
     grid-template-columns: repeat(5, 1fr);
-
     gap: 7px;
 }
 
 .question-number-button {
-    height: 35px;
+    min-height: 38px;
 
-    border: 1px solid #dfe4ec;
-
-    border-radius: 7px;
+    border: 1px solid #dbe1e8;
+    border-radius: 8px;
 
     background: #ffffff;
 
-    color: #667085;
+    color: #374151;
 
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
+
+    cursor: pointer;
 }
 
 .question-number-button.current {
-    background: #315aa8;
-
-    border-color: #315aa8;
-
+    background: #2563eb;
+    border-color: #2563eb;
     color: #ffffff;
 }
 
 .question-number-button.answered {
-    background: #eaf8f0;
-
-    border-color: #bfe6ce;
-
-    color: #167347;
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
 }
 
 .question-number-button.doubt {
-    background: #fff8e7;
-
-    border-color: #f0d889;
-
-    color: #8a6d1d;
+    background: #fef3c7;
+    border-color: #fcd34d;
+    color: #92400e;
 }
 
 .finish-button {
     width: 100%;
 
-    height: 45px;
-
     margin-top: 18px;
 
+    padding: 13px;
+
     border: none;
-    border-radius: 9px;
+    border-radius: 11px;
 
-    background: #172033;
-
+    background: #dc2626;
     color: #ffffff;
 
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.finish-button:hover {
+    background: #b91c1c;
 }
 
 
 /* =========================================================
-   HASIL
+   HALAMAN HASIL
    ========================================================= */
 
 .result-page {
@@ -1108,154 +1103,165 @@ button {
 
     padding: 30px 15px;
 
-    background: #f5f7fb;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 35%),
+        #f4f7fb;
 }
 
 .result-card {
-    width: min(520px, 100%);
+    width: 100%;
+    max-width: 550px;
 
-    padding: 38px;
+    padding: 40px;
 
     background: #ffffff;
 
-    border: 1px solid #e2e7ef;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 12px 35px rgba(31, 41, 55, .07);
+    border-radius: 22px;
 
     text-align: center;
+
+    box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.10);
 }
 
 .result-icon {
-    width: 70px;
-    height: 70px;
-
-    margin: 0 auto 18px;
+    width: 75px;
+    height: 75px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 18px;
+    margin: 0 auto 18px;
 
-    background: #eefaf3;
+    background: #ecfdf5;
 
-    font-size: 35px;
+    border-radius: 50%;
+
+    font-size: 38px;
 }
 
 .result-card h1 {
-    font-size: 26px;
-    font-weight: 800;
+    margin-bottom: 7px;
 
-    color: #172033;
+    font-size: 27px;
+    font-weight: 850;
+
+    color: #111827;
 }
 
 .result-student {
-    margin-top: 8px;
+    margin-bottom: 25px;
 
-    font-size: 13px;
-
-    color: #667085;
+    font-size: 14px;
+    color: #6b7280;
 }
 
 .result-score {
-    margin: 28px 0;
-
+    margin-bottom: 25px;
     padding: 22px;
 
-    border-radius: 13px;
+    background: #eff6ff;
 
-    background: #f8fafc;
+    border-radius: 16px;
 }
 
 .result-score-label {
-    font-size: 11px;
-    font-weight: 800;
-
-    letter-spacing: .8px;
-
-    color: #667085;
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
 }
 
 .result-score-value {
-    margin-top: 5px;
+    margin-top: 3px;
 
     font-size: 48px;
-    line-height: 1;
+    font-weight: 900;
 
-    font-weight: 850;
-
-    color: #315aa8;
+    color: #2563eb;
 }
 
 .result-detail {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
 
-    gap: 10px;
+    gap: 12px;
 
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .result-detail-item {
     padding: 14px;
 
-    border: 1px solid #e2e7ef;
+    background: #f8fafc;
 
-    border-radius: 10px;
-}
+    border-radius: 12px;
 
-.result-detail-item strong {
-    display: block;
-
-    font-size: 19px;
-
-    color: #172033;
-}
-
-.result-detail-item span {
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    color: #667085;
+    font-size: 13px;
+    color: #475569;
 }
 
 .result-home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
 
-    height: 48px;
+    min-height: 50px;
 
-    border: none;
+    border-radius: 12px;
 
-    border-radius: 10px;
-
-    background: #315aa8;
+    background: #2563eb;
 
     color: #ffffff;
 
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
+
+    text-decoration: none;
 }
 
 
 /* =========================================================
-   MOBILE
+   RESPONSIVE TABLET
    ========================================================= */
 
 @media (max-width: 800px) {
 
-    .exam-grid {
-        grid-template-columns: 1fr;
+    .header-content {
+        min-height: 70px;
+    }
+
+    .header-status {
+        display: none;
+    }
+
+    .hero-section {
+        margin-top: 25px;
     }
 
     .hero-card {
-        padding: 35px;
+        padding: 30px;
+        gap: 20px;
+    }
+
+    .hero-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 34px;
+    }
+
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-content h2 {
+        font-size: 18px;
+    }
+
+    .exam-grid {
+        grid-template-columns: 1fr;
     }
 
     .exam-layout {
@@ -1263,34 +1269,29 @@ button {
     }
 
     .question-panel {
-        order: 2;
+        order: -1;
     }
 
+    .question-numbers {
+        grid-template-columns: repeat(10, 1fr);
+    }
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   RESPONSIVE HP
    ========================================================= */
 
 @media (max-width: 600px) {
 
-    .container {
-        width: min(100% - 24px, 1120px);
-    }
-
-
-    /* BERANDA */
-
     .header-content {
-        min-height: 68px;
+        width: 90%;
     }
 
     .school-logo {
         width: 42px;
         height: 42px;
-
-        font-size: 21px;
+        font-size: 22px;
     }
 
     .brand-title {
@@ -1301,12 +1302,9 @@ button {
         font-size: 11px;
     }
 
-    .header-status {
-        display: none;
-    }
-
     .hero-section {
-        padding: 24px 0 28px;
+        width: 90%;
+        margin-top: 20px;
     }
 
     .hero-card {
@@ -1314,24 +1312,20 @@ button {
 
         align-items: flex-start;
 
-        gap: 20px;
-
         padding: 28px 24px;
 
-        border-radius: 16px;
+        border-radius: 20px;
     }
 
     .hero-icon {
-        width: 62px;
-        height: 62px;
+        width: 60px;
+        height: 60px;
 
-        border-radius: 15px;
-
-        font-size: 31px;
+        font-size: 29px;
     }
 
     .hero-content h1 {
-        font-size: 34px;
+        font-size: 29px;
     }
 
     .hero-content h2 {
@@ -1342,78 +1336,48 @@ button {
         font-size: 13px;
     }
 
-    .section-heading {
-        gap: 10px;
+    .exam-section,
+    .information-section {
+        width: 90%;
     }
 
-    .section-heading h3 {
-        font-size: 11px;
+    .section-heading h2 {
+        font-size: 19px;
     }
 
     .exam-card {
-        min-height: 0;
+        border-radius: 18px;
     }
 
     .card-header {
-        padding: 20px 20px 8px;
+        padding: 21px 20px 17px;
     }
 
     .card-body {
-        padding: 10px 20px 20px;
+        padding: 0 20px 20px;
     }
 
     .card-footer {
         padding: 0 20px 20px;
     }
 
-    .card-body h2 {
-        font-size: 20px;
-    }
-
     .card-description {
-        font-size: 13px;
-    }
-
-    .feature-list li {
-        font-size: 12px;
+        min-height: auto;
     }
 
     .information-card {
         align-items: flex-start;
-
-        padding: 17px;
     }
 
-
-    /* LOGIN */
-
-    .login-container {
-        width: min(100% - 24px, 460px);
-
-        padding: 20px 0;
-    }
-
-    .login-card {
+    .login-card,
+    .result-card {
         padding: 27px 21px;
     }
 
-
-    /* UJIAN */
-
     .exam-header-inner {
-        width: calc(100% - 24px);
+        flex-wrap: wrap;
 
-        min-height: 65px;
-
-        gap: 8px;
-    }
-
-    .exam-brand h1 {
-        font-size: 14px;
-    }
-
-    .exam-brand p {
-        font-size: 9px;
+        padding: 12px 0;
     }
 
     .exam-student {
@@ -1421,19 +1385,8 @@ button {
     }
 
     .exam-timer {
-        min-width: 82px;
-
-        padding: 8px 9px;
-
-        font-size: 13px;
-    }
-
-    .exam-layout {
-        width: calc(100% - 24px);
-
-        margin: 15px auto;
-
-        gap: 15px;
+        font-size: 14px;
+        padding: 8px 12px;
     }
 
     .question-card {
@@ -1441,17 +1394,7 @@ button {
     }
 
     .question-text {
-        font-size: 16px;
-    }
-
-    .choice {
-        min-height: 50px;
-
-        padding: 9px 11px;
-    }
-
-    .choice-text {
-        font-size: 13px;
+        font-size: 17px;
     }
 
     .exam-navigation {
@@ -1459,28 +1402,19 @@ button {
     }
 
     .nav-button {
-        min-width: 0;
-
         flex: 1;
+        min-width: 0;
     }
 
-    .question-panel {
-        padding: 17px;
-    }
-
-
-    /* HASIL */
-
-    .result-card {
-        padding: 28px 20px;
-    }
-
-    .result-card h1 {
-        font-size: 23px;
+    .question-numbers {
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .result-score-value {
         font-size: 42px;
     }
 
+    .result-detail {
+        grid-template-columns: 1fr;
+    }
 }
