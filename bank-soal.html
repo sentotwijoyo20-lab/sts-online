@@ -22,87 +22,161 @@
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f1f5f9;
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+            background: #f5f7fb;
             color: #1e293b;
         }
 
+
+        /* ========================================= */
+        /* HEADER */
+        /* ========================================= */
+
         .header {
-            background: #173b7a;
+            background:
+                linear-gradient(
+                    135deg,
+                    #173b7a,
+                    #2563eb
+                );
+
             color: white;
-            padding: 22px;
+
+            padding: 30px 20px;
+
             text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(23, 59, 122, 0.18);
         }
 
         .header h1 {
-            margin: 0 0 6px;
+            margin: 0 0 7px;
+
             font-size: 28px;
+
+            letter-spacing: 0.3px;
         }
 
         .header p {
             margin: 0;
+
             opacity: 0.9;
-        }
 
-        .container {
-            width: 95%;
-            max-width: 1200px;
-            margin: 25px auto;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: #173b7a;
+            font-size: 14px;
         }
 
 
         /* ========================================= */
-        /* UPLOAD FILE WORD */
+        /* CONTAINER */
+        /* ========================================= */
+
+        .container {
+            width: 94%;
+
+            max-width: 1200px;
+
+            margin: 30px auto 50px;
+        }
+
+
+        /* ========================================= */
+        /* CARD */
+        /* ========================================= */
+
+        .card {
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            margin-bottom: 22px;
+
+            border: 1px solid #e8edf5;
+
+            box-shadow:
+                0 8px 30px rgba(15, 23, 42, 0.06);
+        }
+
+        .card h2 {
+            margin: 0 0 8px;
+
+            color: #173b7a;
+
+            font-size: 21px;
+        }
+
+        .card > p {
+            margin-top: 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ========================================= */
+        /* UPLOAD AREA PROFESIONAL */
         /* ========================================= */
 
         .upload-box {
 
-            border: 2px dashed #2563eb;
+            position: relative;
 
-            border-radius: 18px;
+            margin-top: 22px;
 
-            padding: 35px 25px;
+            padding: 42px 30px;
+
+            border-radius: 20px;
+
+            border: 2px dashed #93c5fd;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #f8fbff 0%,
+                    #eff6ff 100%
+                );
 
             text-align: center;
 
-            background: #eff6ff;
-
-            transition: 0.2s ease;
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
 
         }
 
 
         .upload-box:hover {
 
-            background: #dbeafe;
+            border-color: #2563eb;
 
-            border-color: #1d4ed8;
+            background:
+                linear-gradient(
+                    180deg,
+                    #f8fbff 0%,
+                    #eaf2ff 100%
+                );
 
         }
 
 
         .upload-icon {
 
-            width: 70px;
+            width: 76px;
 
-            height: 70px;
+            height: 76px;
 
-            margin: 0 auto 15px;
-
-            border-radius: 18px;
+            margin: 0 auto 18px;
 
             display: flex;
 
@@ -110,40 +184,56 @@
 
             justify-content: center;
 
+            border-radius: 20px;
+
             background: white;
 
-            border: 1px solid #bfdbfe;
+            border: 1px solid #dbeafe;
 
-            font-size: 38px;
+            font-size: 40px;
 
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.10);
+            box-shadow:
+                0 8px 22px rgba(
+                    37,
+                    99,
+                    235,
+                    0.12
+                );
 
         }
 
 
         .upload-title {
 
-            font-size: 18px;
-
-            font-weight: bold;
+            margin-bottom: 7px;
 
             color: #173b7a;
 
-            margin-bottom: 6px;
+            font-size: 20px;
+
+            font-weight: 700;
 
         }
 
 
         .upload-description {
 
-            font-size: 14px;
+            max-width: 500px;
+
+            margin: 0 auto 23px;
 
             color: #64748b;
 
-            margin-bottom: 20px;
+            font-size: 14px;
+
+            line-height: 1.6;
 
         }
 
+
+        /* ========================================= */
+        /* CUSTOM FILE BUTTON */
+        /* ========================================= */
 
         .file-label {
 
@@ -155,25 +245,36 @@
 
             justify-content: center;
 
-            gap: 8px;
+            gap: 9px;
 
-            min-width: 220px;
+            min-width: 225px;
 
-            padding: 13px 22px;
+            padding: 14px 24px;
 
-            border-radius: 11px;
+            border-radius: 12px;
 
             background: #2563eb;
 
             color: white;
 
-            font-weight: bold;
+            font-size: 14px;
+
+            font-weight: 700;
 
             cursor: pointer;
 
-            box-shadow: 0 5px 12px rgba(37, 99, 235, 0.20);
+            box-shadow:
+                0 7px 18px rgba(
+                    37,
+                    99,
+                    235,
+                    0.25
+                );
 
-            transition: 0.2s ease;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
 
             overflow: hidden;
 
@@ -186,6 +287,21 @@
 
             transform: translateY(-1px);
 
+            box-shadow:
+                0 9px 22px rgba(
+                    37,
+                    99,
+                    235,
+                    0.30
+                );
+
+        }
+
+
+        .file-label:active {
+
+            transform: translateY(0);
+
         }
 
 
@@ -193,38 +309,48 @@
 
             position: absolute;
 
-            inset: 0;
+            width: 1px;
 
-            width: 100%;
-
-            height: 100%;
+            height: 1px;
 
             opacity: 0;
 
-            cursor: pointer;
+            pointer-events: none;
 
         }
 
 
+        /* ========================================= */
+        /* FILE NAME */
+        /* ========================================= */
+
         .file-name {
 
-            margin-top: 15px;
+            max-width: 650px;
 
-            padding: 10px 14px;
+            margin: 18px auto 0;
 
-            border-radius: 10px;
+            padding: 12px 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            border-radius: 12px;
 
             background: white;
 
-            border: 1px solid #bfdbfe;
+            border: 1px solid #dbeafe;
 
-            color: #475569;
+            color: #334155;
 
-            font-size: 14px;
+            font-size: 13px;
 
-            display: inline-block;
-
-            max-width: 100%;
+            line-height: 1.4;
 
             word-break: break-word;
 
@@ -237,6 +363,13 @@
 
             border-style: dashed;
 
+            background: rgba(
+                255,
+                255,
+                255,
+                0.65
+            );
+
         }
 
 
@@ -244,141 +377,357 @@
 
             margin-top: 15px;
 
-            font-size: 12px;
-
             color: #64748b;
 
-        }
-
-
-        .summary {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .summary-box {
-            padding: 20px;
-            border-radius: 14px;
-            text-align: center;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-        }
-
-        .summary-box strong {
-            display: block;
-            font-size: 30px;
-            margin-bottom: 5px;
-            color: #173b7a;
-        }
-
-        .preview-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 15px;
-            background: #fff;
-        }
-
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 20px;
             font-size: 12px;
-            font-weight: bold;
+
         }
 
-        .badge-pg {
-            background: #dbeafe;
-            color: #1d4ed8;
+
+        .upload-note strong {
+
+            color: #2563eb;
+
         }
 
-        .badge-isian {
-            background: #dcfce7;
-            color: #15803d;
-        }
 
-        .badge-uraian {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .question-text {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .options {
-            display: grid;
-            gap: 7px;
-        }
-
-        .option {
-            padding: 9px 12px;
-            background: #f8fafc;
-            border-radius: 8px;
-        }
-
-        .answer {
-            margin-top: 12px;
-            padding: 10px;
-            background: #f0fdf4;
-            border-radius: 8px;
-            color: #166534;
-            font-weight: bold;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 30px;
-            color: #64748b;
-        }
+        /* ========================================= */
+        /* STATUS NOTIFICATION */
+        /* ========================================= */
 
         .status {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
+
+            max-width: 700px;
+
+            margin: 22px auto 0;
+
+            padding: 14px 17px;
+
+            border-radius: 12px;
+
             display: none;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            text-align: left;
+
         }
+
 
         .status.success {
+
             display: block;
-            background: #dcfce7;
+
+            background: #ecfdf5;
+
+            border: 1px solid #bbf7d0;
+
             color: #166534;
+
         }
+
 
         .status.error {
+
             display: block;
-            background: #fee2e2;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
             color: #991b1b;
+
         }
+
+
+        /* ========================================= */
+        /* SUMMARY */
+        /* ========================================= */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .summary-box {
+
+            position: relative;
+
+            padding: 22px 15px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .summary-box strong {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-size: 32px;
+
+            color: #173b7a;
+
+        }
+
+
+        .summary-box {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ========================================= */
+        /* PREVIEW */
+        /* ========================================= */
+
+        .preview-item {
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            transition:
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+
+        }
+
+
+        .preview-item:hover {
+
+            border-color: #cbd5e1;
+
+            box-shadow:
+                0 5px 18px rgba(
+                    15,
+                    23,
+                    42,
+                    0.05
+                );
+
+        }
+
+
+        .preview-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .preview-header strong {
+
+            color: #334155;
+
+            font-size: 14px;
+
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .badge-pg {
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+        }
+
+
+        .badge-isian {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+        }
+
+
+        .badge-uraian {
+
+            background: #fef3c7;
+
+            color: #b45309;
+
+        }
+
+
+        .question-text {
+
+            margin-bottom: 13px;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            color: #334155;
+
+        }
+
+
+        .options {
+
+            display: grid;
+
+            gap: 8px;
+
+        }
+
+
+        .option {
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            background: #f8fafc;
+
+            border: 1px solid #eef2f7;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .answer {
+
+            margin-top: 12px;
+
+            padding: 10px 12px;
+
+            border-radius: 9px;
+
+            background: #f0fdf4;
+
+            color: #166534;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .empty {
+
+            padding: 45px 20px;
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ========================================= */
+        /* BUTTON SIMPAN */
+        /* ========================================= */
 
         .btn {
+
             border: none;
-            border-radius: 10px;
-            padding: 13px 20px;
-            font-weight: bold;
+
+            border-radius: 11px;
+
+            padding: 13px 21px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
             cursor: pointer;
+
             margin-top: 15px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+
         }
+
 
         .btn-success {
+
             background: #16a34a;
+
             color: white;
+
+            box-shadow:
+                0 6px 16px rgba(
+                    22,
+                    163,
+                    74,
+                    0.20
+                );
+
         }
 
+
         .btn-success:hover {
+
             background: #15803d;
+
+            transform: translateY(-1px);
+
         }
 
 
@@ -386,10 +735,13 @@
         /* RESPONSIVE */
         /* ========================================= */
 
-        @media (max-width: 700px) {
+        @media (max-width: 800px) {
 
             .summary {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
             }
 
         }
@@ -397,43 +749,118 @@
 
         @media (max-width: 500px) {
 
+            .header {
+
+                padding: 24px 15px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 22px;
+
+            }
+
+
             .container {
+
                 width: 94%;
-                margin: 15px auto;
+
+                margin: 18px auto 35px;
+
             }
 
 
             .card {
-                padding: 18px;
-                border-radius: 15px;
+
+                padding: 19px;
+
+                border-radius: 16px;
+
+            }
+
+
+            .card h2 {
+
+                font-size: 19px;
+
             }
 
 
             .upload-box {
-                padding: 28px 15px;
+
+                padding: 30px 16px;
+
+                border-radius: 16px;
+
             }
 
 
             .upload-icon {
-                width: 62px;
-                height: 62px;
-                font-size: 32px;
+
+                width: 65px;
+
+                height: 65px;
+
+                font-size: 34px;
+
             }
 
 
             .upload-title {
-                font-size: 16px;
+
+                font-size: 17px;
+
+            }
+
+
+            .upload-description {
+
+                font-size: 13px;
+
             }
 
 
             .file-label {
+
                 width: 100%;
+
                 min-width: 0;
+
             }
 
 
             .file-name {
+
                 display: block;
+
+                text-align: center;
+
+            }
+
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 10px;
+
+            }
+
+
+            .summary-box {
+
+                padding: 17px 10px;
+
+            }
+
+
+            .summary-box strong {
+
+                font-size: 27px;
+
             }
 
         }
@@ -470,7 +897,7 @@
 
         <p>
             Import dokumen Word untuk membaca soal
-            secara otomatis.
+            secara otomatis dan memasukkannya ke Bank Soal.
         </p>
 
 
@@ -483,49 +910,60 @@
 
 
             <div class="upload-title">
-                Pilih Dokumen Soal
+                Upload Dokumen Soal
             </div>
 
 
             <div class="upload-description">
-                Upload file Word untuk memasukkan soal
-                ke dalam Bank Soal STS.
+                Pilih file Word berformat
+                <strong>.DOCX</strong>
+                untuk diproses secara otomatis.
             </div>
 
 
-            <label class="file-label">
+            <label
+                class="file-label"
+                for="wordFile">
 
                 📂 PILIH FILE WORD
 
-                <input
-                    type="file"
-                    id="wordFile"
-                    accept=".docx">
-
             </label>
+
+
+            <input
+                type="file"
+                id="wordFile"
+                accept=".docx"
+                style="display:none;">
 
 
             <div
                 id="fileName"
                 class="file-name empty">
 
-                Belum ada file yang dipilih
+                📄 Belum ada file yang dipilih
 
             </div>
 
 
             <div class="upload-note">
-                Format yang didukung: <strong>.DOCX</strong>
-            </div>
 
+                Format yang didukung:
+                <strong>.DOCX</strong>
 
-            <div
-                id="status"
-                class="status">
             </div>
 
 
         </div>
+
+
+        <!-- STATUS DIPISAH DARI AREA UPLOAD -->
+
+        <div
+            id="status"
+            class="status">
+        </div>
+
 
     </div>
 
@@ -771,12 +1209,6 @@ async function bacaFileWord(file) {
             );
 
 
-        /*
-         * MEMBERSIHKAN SOAL
-         *
-         * Ini bagian penting.
-         */
-
         bankSoal =
             bersihkanSoal(
                 bankSoal
@@ -793,6 +1225,9 @@ async function bacaFileWord(file) {
 
         status.className =
             "status success";
+
+        status.style.display =
+            "block";
 
         status.textContent =
             "✅ Berhasil membaca " +
@@ -817,6 +1252,9 @@ async function bacaFileWord(file) {
 
         status.className =
             "status error";
+
+        status.style.display =
+            "block";
 
 
         status.textContent =
@@ -865,10 +1303,6 @@ function ekstrakBlokWord(xmlText) {
     ) {
 
 
-        /* ----------------------------------------- */
-        /* PARAGRAF */
-        /* ----------------------------------------- */
-
         if (
             node.localName === "p"
         ) {
@@ -916,10 +1350,6 @@ function ekstrakBlokWord(xmlText) {
 
         }
 
-
-        /* ----------------------------------------- */
-        /* TABEL */
-        /* ----------------------------------------- */
 
         else if (
             node.localName === "tbl"
@@ -1394,10 +1824,6 @@ function parseSoal(blok) {
         }
 
 
-        /* ----------------------------------------- */
-        /* BAGIAN */
-        /* ----------------------------------------- */
-
         const bagianBaru =
             deteksiBagian(
                 text
@@ -1442,10 +1868,6 @@ function parseSoal(blok) {
 
         }
 
-
-        /* ----------------------------------------- */
-        /* NOMOR SOAL */
-        /* ----------------------------------------- */
 
         const nomor =
             deteksiNomorSoal(
@@ -1524,10 +1946,6 @@ function parseSoal(blok) {
         }
 
 
-        /* ----------------------------------------- */
-        /* PILIHAN A-D */
-        /* ----------------------------------------- */
-
         const pilihan =
             deteksiPilihan(
                 text
@@ -1549,10 +1967,6 @@ function parseSoal(blok) {
 
         }
 
-
-        /* ----------------------------------------- */
-        /* TEKS LANJUTAN */
-        /* ----------------------------------------- */
 
         aktif.pertanyaan +=
             (
@@ -1591,16 +2005,6 @@ function deteksiNomorSoal(
     blok
 ) {
 
-
-    /*
-     * Nomor literal:
-     *
-     * 1.
-     * 1)
-     * 1 -
-     * 1:
-     */
-
     const literal =
         text.match(
             /^(\d{1,3})\s*[\.\)\-:]\s*/
@@ -1618,10 +2022,6 @@ function deteksiNomorSoal(
     }
 
 
-    /*
-     * Numbering otomatis Word.
-     */
-
     if (
         blok.numId !== null &&
         blok.ilvl !== null
@@ -1631,11 +2031,6 @@ function deteksiNomorSoal(
         const bersih =
             text.trim();
 
-
-        /*
-         * Jawaban tunggal A/B/C/D
-         * bukan soal.
-         */
 
         if (
             /^[ABCD]$/i.test(
@@ -1648,10 +2043,6 @@ function deteksiNomorSoal(
         }
 
 
-        /*
-         * Pilihan A-D bukan soal.
-         */
-
         if (
             /^[ABCD][\.\)\:\-]\s+/i.test(
                 bersih
@@ -1662,10 +2053,6 @@ function deteksiNomorSoal(
 
         }
 
-
-        /*
-         * Teks terlalu pendek bukan soal.
-         */
 
         if (
             bersih.length < 8
@@ -1748,14 +2135,6 @@ function bersihkanSoal(
     daftar
 ) {
 
-
-    /*
-     * ------------------------------------------------
-     * LANGKAH 1
-     * Bersihkan teks.
-     * ------------------------------------------------
-     */
-
     for (
         const soal of daftar
     ) {
@@ -1770,17 +2149,6 @@ function bersihkanSoal(
 
     }
 
-
-
-    /*
-     * ------------------------------------------------
-     * LANGKAH 2
-     *
-     * PILIHAN GANDA
-     *
-     * Wajib memiliki A, B, C, D.
-     * ------------------------------------------------
-     */
 
     const pg =
         daftar.filter(
@@ -1831,22 +2199,6 @@ function bersihkanSoal(
     }
 
 
-
-    /*
-     * ------------------------------------------------
-     * LANGKAH 3
-     *
-     * ISIAN
-     *
-     * Cari soal yang benar-benar berbentuk
-     * pertanyaan/perintah.
-     *
-     * Begitu ditemukan blok yang jelas-jelas
-     * merupakan jawaban, sisa blok setelahnya
-     * dibuang.
-     * ------------------------------------------------
-     */
-
     const isian =
         daftar.filter(
             soal =>
@@ -1860,15 +2212,6 @@ function bersihkanSoal(
         );
 
 
-
-    /*
-     * ------------------------------------------------
-     * LANGKAH 4
-     *
-     * URAIAN
-     * ------------------------------------------------
-     */
-
     const uraian =
         daftar.filter(
             soal =>
@@ -1881,12 +2224,6 @@ function bersihkanSoal(
             uraian
         );
 
-
-
-    /*
-     * ------------------------------------------------
-     * GABUNGKAN
-     * ------------------------------------------------ */
 
     return [
 
@@ -1910,7 +2247,6 @@ function potongBagianJawaban(
     daftar
 ) {
 
-
     const hasil = [];
 
 
@@ -1929,12 +2265,6 @@ function potongBagianJawaban(
             soal.pertanyaan
                 .trim();
 
-
-        /*
-         * Kalau teks jelas bukan pertanyaan,
-         * maka kita menganggap mulai dari sini
-         * adalah blok kunci jawaban.
-         */
 
         if (
             !terlihatSepertiPertanyaan(
@@ -1968,7 +2298,6 @@ function terlihatSepertiPertanyaan(
     text
 ) {
 
-
     const t =
         text
             .trim();
@@ -1978,18 +2307,6 @@ function terlihatSepertiPertanyaan(
         return false;
     }
 
-
-    /*
-     * ---------------------------------------------
-     * JAWABAN ANGKA MURNI
-     * ---------------------------------------------
-     *
-     * Contoh:
-     * 79.380
-     * 231
-     * 1, 2, 3, 4, 6, 12
-     * 2² × 7
-     */
 
     if (
         /^[\d\s.,+\-*\/²³⁴⁵^×÷=]+$/.test(
@@ -2002,18 +2319,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * JAWABAN YANG DIMULAI DENGAN
-     * a. / b. / c.
-     *
-     * Contoh:
-     *
-     * a. 5 paket
-     * b. Kue merah...
-     * ---------------------------------------------
-     */
-
     if (
         /^[a-d]\.\s+/i.test(
             t
@@ -2024,17 +2329,6 @@ function terlihatSepertiPertanyaan(
 
     }
 
-
-    /*
-     * ---------------------------------------------
-     * JAWABAN TUNGGAL PENDEK
-     *
-     * Contoh:
-     * D
-     * C
-     * Ribuan
-     * ---------------------------------------------
-     */
 
     if (
         t.length <= 3
@@ -2056,14 +2350,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * Satu kata pendek seperti:
-     *
-     * Ribuan
-     *
-     * adalah jawaban, bukan soal.
-     */
-
     const jumlahKata =
         t.split(/\s+/).length;
 
@@ -2079,12 +2365,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * SOAL YANG BERAKHIR TANDA TANYA
-     * ---------------------------------------------
-     */
-
     if (
         /[?!…]$/.test(t)
     ) {
@@ -2094,12 +2374,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * SOAL YANG BERAKHIR "...."
-     * ---------------------------------------------
-     */
-
     if (
         /\.{2,}$/.test(t)
     ) {
@@ -2108,21 +2382,6 @@ function terlihatSepertiPertanyaan(
 
     }
 
-
-    /*
-     * ---------------------------------------------
-     * KALIMAT PERINTAH
-     *
-     * Contoh:
-     * Tuliskan...
-     * Bacalah...
-     * Hitunglah...
-     * Tentukan...
-     * Jelaskan...
-     * Sebutkan...
-     * Perhatikan...
-     * ---------------------------------------------
-     */
 
     const kataPerintah =
         /^(tuliskan|bacalah|hitunglah|hitung|tentukan|jelaskan|sebutkan|perhatikan|lengkapilah|isilah|uraikan|kerjakan|carilah|nyatakan|bandingkan|urutkan|tentukanlah)\b/i;
@@ -2137,12 +2396,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * SOAL DENGAN KATA TANYA
-     * ---------------------------------------------
-     */
-
     const kataTanya =
         /\b(berapa|apakah|bagaimana|mengapa|kapan|siapa|mana|dimana|di mana)\b/i;
 
@@ -2156,16 +2409,6 @@ function terlihatSepertiPertanyaan(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * SOAL DENGAN POLA "ADALAH ..."
-     *
-     * Contoh:
-     *
-     * Faktor persekutuan ... adalah ....
-     * ---------------------------------------------
-     */
-
     if (
         /\badalah\b/i.test(t) &&
         (
@@ -2178,14 +2421,6 @@ function terlihatSepertiPertanyaan(
 
     }
 
-
-    /*
-     * ---------------------------------------------
-     * KALIMAT PANJANG
-     *
-     * Digunakan sebagai cadangan.
-     * ---------------------------------------------
-     */
 
     if (
         t.length >= 35 &&
@@ -2421,12 +2656,6 @@ function tampilkanPreview() {
                 '</div>';
 
 
-            /*
-             * -----------------------------------------
-             * PILIHAN GANDA
-             * -----------------------------------------
-             */
-
             if (
                 soal.jenis === "pg"
             ) {
@@ -2466,12 +2695,6 @@ function tampilkanPreview() {
 
             }
 
-
-            /*
-             * -----------------------------------------
-             * KUNCI
-             * -----------------------------------------
-             */
 
             if (
                 soal.jawaban
