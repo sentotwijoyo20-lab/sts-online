@@ -1,97 +1,173 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>STS Online - SD Negeri 1 Jatipayak</title>
 
-    <title>STS Online - SDN 1 Jatipayak</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="container">
 
-        <div class="login-card">
-
+        <!-- HEADER -->
+        <header class="header">
             <div class="logo">
-                🎓
+                🏫
             </div>
 
-            <h1>
-                STS ONLINE
-            </h1>
-
-            <p class="school">
-                SD Negeri 1 Jatipayak
-            </p>
-
-            <p class="subtitle">
-                Sistem Sumatif Tengah Semester
-            </p>
+            <div>
+                <h1>STS ONLINE</h1>
+                <p>SD Negeri 1 Jatipayak</p>
+            </div>
+        </header>
 
 
-            <form id="loginForm">
+        <!-- WELCOME -->
+        <main>
 
-                <label for="nama">
-                    Nama Peserta Didik
-                </label>
+            <section class="welcome">
+                <h2>Selamat Datang 👋</h2>
 
-                <input
-                    type="text"
-                    id="nama"
-                    placeholder="Masukkan nama lengkap"
-                >
+                <p>
+                    Sistem Sumatif Tengah Semester
+                </p>
 
-
-                <label for="nomor">
-                    Nomor Peserta
-                </label>
-
-                <input
-                    type="text"
-                    id="nomor"
-                    placeholder="Masukkan nomor peserta"
-                >
+                <p class="welcome-small">
+                    Silakan pilih jenis ujian yang akan Anda ikuti.
+                </p>
+            </section>
 
 
-                <label for="token">
-                    Token Ujian
-                </label>
+            <!-- PILIHAN UJIAN -->
+            <section class="exam-selection">
 
-                <input
-                    type="text"
-                    id="token"
-                    placeholder="Masukkan token ujian"
-                >
+                <!-- GLADI -->
+                <div class="exam-card gladi">
+
+                    <div class="exam-icon">
+                        🟢
+                    </div>
+
+                    <h3>GLADI / SIMULASI</h3>
+
+                    <p>
+                        Latihan menggunakan sistem STS Online
+                        sebelum mengikuti ujian resmi.
+                    </p>
+
+                    <ul>
+                        <li>✓ Tidak memengaruhi nilai STS</li>
+                        <li>✓ Bisa digunakan untuk belajar</li>
+                        <li>✓ Mengenal cara mengerjakan soal</li>
+                    </ul>
+
+                    <button
+                        class="btn btn-gladi"
+                        onclick="pilihUjian('gladi')">
+                        MULAI GLADI
+                    </button>
+
+                </div>
 
 
-                <button type="submit">
-                    MASUK UJIAN
-                </button>
+                <!-- STS RESMI -->
+                <div class="exam-card resmi">
 
-            </form>
+                    <div class="exam-icon">
+                        🔵
+                    </div>
+
+                    <h3>STS RESMI</h3>
+
+                    <p>
+                        Ujian Sumatif Tengah Semester
+                        yang dilaksanakan sesuai jadwal.
+                    </p>
+
+                    <ul>
+                        <li>✓ Ujian resmi</li>
+                        <li>✓ Jawaban tersimpan</li>
+                        <li>✓ Nilai masuk ke sistem</li>
+                    </ul>
+
+                    <button
+                        class="btn btn-resmi"
+                        onclick="pilihUjian('resmi')">
+                        MULAI STS RESMI
+                    </button>
+
+                </div>
+
+            </section>
 
 
-            <div class="footer">
+            <!-- INFORMASI -->
+            <section class="info-box">
+
+                <h3>📢 Informasi</h3>
+
+                <p>
+                    Pastikan perangkat Anda memiliki koneksi internet
+                    yang stabil selama mengikuti ujian.
+                </p>
+
+                <p>
+                    Untuk latihan, gunakan menu
+                    <strong>GLADI / SIMULASI</strong>.
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <p>
                 © 2026 SD Negeri 1 Jatipayak
-            </div>
+            </p>
 
-        </div>
+            <p>
+                STS Online
+            </p>
+
+        </footer>
 
     </div>
 
-</body>
 
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function pilihUjian(jenis) {
+
+            if (jenis === "gladi") {
+
+                alert(
+                    "Anda memilih GLADI / SIMULASI.\n\n" +
+                    "Mode ini hanya untuk latihan dan " +
+                    "tidak memengaruhi nilai STS RESMI."
+                );
+
+            } else {
+
+                alert(
+                    "Anda memilih STS RESMI.\n\n" +
+                    "Pastikan Anda sudah siap mengikuti ujian."
+                );
+
+            }
+
+        }
+
+    </script>
+
+</body>
 </html>
+```
