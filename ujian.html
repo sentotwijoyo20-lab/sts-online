@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,6 +50,14 @@
             z-index: 100;
 
             width: 100%;
+
+            padding: 12px 3%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
 
             background: rgba(255, 255, 255, 0.96);
 
@@ -425,6 +434,29 @@
             line-height: 1.65;
 
             color: #172033;
+
+            white-space: pre-line;
+        }
+
+
+        /* =====================================================
+           GAMBAR SOAL
+           ===================================================== */
+
+        .question-image {
+            max-width: 100%;
+
+            max-height: 320px;
+
+            display: block;
+
+            margin: 0 auto 22px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+
+            object-fit: contain;
         }
 
 
@@ -513,6 +545,8 @@
             line-height: 1.5;
 
             color: #334155;
+
+            white-space: pre-line;
         }
 
         .choice.selected {
@@ -538,7 +572,6 @@
             font-weight: 700;
         }
 
-        /* Pilihan dikunci setelah waktu habis */
         .choice.locked {
             cursor: not-allowed;
             opacity: 0.72;
@@ -549,6 +582,77 @@
             border-color: #dbe3ec;
             transform: none;
             box-shadow: none;
+        }
+
+
+        /* =====================================================
+           JAWABAN ISIAN / URAIAN
+           ===================================================== */
+
+        .text-answer {
+            width: 100%;
+
+            min-height: 125px;
+
+            padding: 14px 15px;
+
+            border: 1px solid #dbe3ec;
+
+            border-radius: 13px;
+
+            outline: none;
+
+            resize: vertical;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            color: #334155;
+
+            background: #ffffff;
+
+            transition:
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .text-answer:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .text-answer.locked {
+            background: #f1f5f9;
+
+            cursor: not-allowed;
+
+            opacity: 0.75;
+        }
+
+        .answer-type-label {
+            display: inline-block;
+
+            margin-bottom: 10px;
+
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            background: #f1f5f9;
+
+            color: #64748b;
+
+            font-size: 10px;
+
+            font-weight: 800;
         }
 
 
@@ -711,6 +815,12 @@
                 repeat(5, 1fr);
 
             gap: 7px;
+
+            max-height: 420px;
+
+            overflow-y: auto;
+
+            padding-right: 2px;
         }
 
         .number-button {
@@ -1025,6 +1135,10 @@
 
             .exam-header {
                 position: relative;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
             }
 
             .exam-container {
@@ -1040,6 +1154,8 @@
             .question-grid {
                 grid-template-columns:
                     repeat(10, 1fr);
+
+                max-height: none;
             }
 
             .panel-legend {
@@ -1090,6 +1206,8 @@
                 justify-content: center;
 
                 gap: 7px;
+
+                flex-wrap: wrap;
             }
 
             .exam-mode {
@@ -1195,6 +1313,12 @@
             }
 
             .choice-text {
+                font-size: 13px;
+            }
+
+            .text-answer {
+                min-height: 110px;
+
                 font-size: 13px;
             }
 
@@ -1319,13 +1443,7 @@
 
     <main class="exam-container">
 
-
-        <!-- =================================================
-             AREA SOAL
-             ================================================= -->
-
         <section class="question-area">
-
 
             <div class="question-top">
 
@@ -1345,7 +1463,7 @@
                     <span class="question-total">
                         dari
                         <span id="jumlahSoal">
-                            5
+                            0
                         </span>
                     </span>
 
@@ -1362,8 +1480,6 @@
             </div>
 
 
-            <!-- PERTANYAAN -->
-
             <div class="question-card">
 
                 <div
@@ -1375,6 +1491,12 @@
 
 
                 <div
+                    id="gambarSoal"
+                >
+                </div>
+
+
+                <div
                     id="pilihanContainer"
                     class="choices-container"
                 >
@@ -1382,8 +1504,6 @@
 
             </div>
 
-
-            <!-- NAVIGASI -->
 
             <div class="question-navigation">
 
@@ -1417,10 +1537,6 @@
 
         </section>
 
-
-        <!-- =================================================
-             PANEL SOAL
-             ================================================= -->
 
         <aside class="question-panel">
 
@@ -1544,162 +1660,8 @@
     <script>
 
         /* =====================================================
-           DATA SOAL
-        ===================================================== */
-
-        const soalGladi = [
-
-            {
-                pertanyaan:
-                    "Lambang negara Indonesia adalah ...",
-
-                pilihan: [
-                    "Garuda Pancasila",
-                    "Burung Merpati",
-                    "Pohon Beringin",
-                    "Bendera Merah Putih"
-                ],
-
-                jawaban: 0
-            },
-
-            {
-                pertanyaan:
-                    "Bunyi sila pertama Pancasila adalah ...",
-
-                pilihan: [
-                    "Persatuan Indonesia",
-                    "Ketuhanan Yang Maha Esa",
-                    "Keadilan Sosial",
-                    "Kemanusiaan yang Adil dan Beradab"
-                ],
-
-                jawaban: 1
-            },
-
-            {
-                pertanyaan:
-                    "Simbol sila kedua Pancasila adalah ...",
-
-                pilihan: [
-                    "Bintang",
-                    "Pohon Beringin",
-                    "Rantai",
-                    "Kepala Banteng"
-                ],
-
-                jawaban: 2
-            },
-
-            {
-                pertanyaan:
-                    "Contoh sikap yang sesuai dengan sila pertama adalah ...",
-
-                pilihan: [
-                    "Menghormati teman yang sedang beribadah",
-                    "Bertengkar dengan teman",
-                    "Mengejek teman",
-                    "Tidak mau berbagi"
-                ],
-
-                jawaban: 0
-            },
-
-            {
-                pertanyaan:
-                    "Bunyi sila ketiga Pancasila adalah ...",
-
-                pilihan: [
-                    "Keadilan Sosial bagi Seluruh Rakyat Indonesia",
-                    "Persatuan Indonesia",
-                    "Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan",
-                    "Ketuhanan Yang Maha Esa"
-                ],
-
-                jawaban: 1
-            }
-
-        ];
-
-
-        const soalResmi = [
-
-            {
-                pertanyaan:
-                    "Hasil dari 25 + 15 adalah ...",
-
-                pilihan: [
-                    "30",
-                    "35",
-                    "40",
-                    "45"
-                ],
-
-                jawaban: 2
-            },
-
-            {
-                pertanyaan:
-                    "Hasil dari 50 - 25 adalah ...",
-
-                pilihan: [
-                    "15",
-                    "20",
-                    "25",
-                    "30"
-                ],
-
-                jawaban: 2
-            },
-
-            {
-                pertanyaan:
-                    "Bilangan yang lebih besar dari 35 adalah ...",
-
-                pilihan: [
-                    "25",
-                    "30",
-                    "34",
-                    "40"
-                ],
-
-                jawaban: 3
-            },
-
-            {
-                pertanyaan:
-                    "Satu minggu terdiri dari ... hari.",
-
-                pilihan: [
-                    "5",
-                    "6",
-                    "7",
-                    "8"
-                ],
-
-                jawaban: 2
-            },
-
-            {
-                pertanyaan:
-                    "Hewan yang berkembang biak dengan bertelur adalah ...",
-
-                pilihan: [
-                    "Ayam",
-                    "Kucing",
-                    "Sapi",
-                    "Kambing"
-                ],
-
-                jawaban: 0
-            }
-
-        ];
-
-
-        /* =====================================================
            MODE UJIAN
-        ===================================================== */
+           ===================================================== */
 
         const params =
             new URLSearchParams(window.location.search);
@@ -1709,15 +1671,16 @@
             localStorage.getItem("modeUjian") ||
             "gladi";
 
-        const soal =
-            mode === "resmi"
-                ? soalResmi
-                : soalGladi;
+
+        localStorage.setItem(
+            "modeUjian",
+            mode
+        );
 
 
         /* =====================================================
            DATA PESERTA
-        ===================================================== */
+           ===================================================== */
 
         const nama =
             localStorage.getItem("namaSiswa") ||
@@ -1738,14 +1701,9 @@
         ).textContent = nis;
 
 
-        document.getElementById(
-            "jumlahSoal"
-        ).textContent = soal.length;
-
-
         /* =====================================================
            TAMPILAN MODE
-        ===================================================== */
+           ===================================================== */
 
         const modeTampil =
             document.getElementById("modeTampil");
@@ -1786,6 +1744,98 @@
 
 
         /* =====================================================
+           MEMBACA BANK SOAL
+        ===================================================== */
+
+        let bankSoal = [];
+
+        try {
+
+            const dataTersimpan =
+                localStorage.getItem(
+                    "bankSoalSTS"
+                );
+
+            if (dataTersimpan) {
+
+                const data =
+                    JSON.parse(
+                        dataTersimpan
+                    );
+
+                if (Array.isArray(data)) {
+
+                    bankSoal = data;
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Gagal membaca Bank Soal:",
+                error
+            );
+
+        }
+
+
+        /*
+         * Hanya soal yang valid yang digunakan.
+         */
+        const soal =
+            bankSoal.filter(
+                item => {
+
+                    return item &&
+                        typeof item === "object" &&
+                        (
+                            item.pertanyaan ||
+                            item.question
+                        );
+
+                }
+            );
+
+
+        /* =====================================================
+           JIKA BANK SOAL KOSONG
+           ===================================================== */
+
+        if (soal.length === 0) {
+
+            document.getElementById(
+                "pertanyaan"
+            ).textContent =
+                "Bank Soal belum tersedia.";
+
+
+            document.getElementById(
+                "jumlahSoal"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "panelSoal"
+            ).innerHTML = "";
+
+
+            document.getElementById(
+                "btnSelesai"
+            ).disabled = true;
+
+        }
+
+
+        document.getElementById(
+            "jumlahSoal"
+        ).textContent =
+            soal.length;
+
+
+        /* =====================================================
            VARIABEL UJIAN
            ===================================================== */
 
@@ -1804,11 +1854,407 @@
                 ? 60 * 60
                 : 30 * 60;
 
-        /* Status apakah ujian sudah selesai karena waktu habis */
         let waktuHabis = false;
 
-        /* Mencegah proses selesai dijalankan dua kali */
         let ujianSelesai = false;
+
+
+        /* =====================================================
+           FUNGSI MENGENALI JENIS SOAL
+           ===================================================== */
+
+        function jenisSoal(data) {
+
+            const jenis =
+                String(
+                    data.jenis ||
+                    data.tipe ||
+                    data.type ||
+                    data.kategori ||
+                    ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            if (
+                jenis.includes("isian") ||
+                jenis.includes("uraian") ||
+                jenis.includes("essay") ||
+                jenis.includes("esai")
+            ) {
+
+                return "text";
+
+            }
+
+
+            if (
+                Array.isArray(
+                    data.pilihan
+                ) &&
+                data.pilihan.length > 0
+            ) {
+
+                return "pg";
+
+            }
+
+
+            if (
+                Array.isArray(
+                    data.options
+                ) &&
+                data.options.length > 0
+            ) {
+
+                return "pg";
+
+            }
+
+
+            return "text";
+
+        }
+
+
+        /* =====================================================
+           MENGAMBIL TEKS PERTANYAAN
+           ===================================================== */
+
+        function ambilPertanyaan(data) {
+
+            return String(
+                data.pertanyaan ||
+                data.question ||
+                data.soal ||
+                ""
+            );
+
+        }
+
+
+        /* =====================================================
+           MENGAMBIL PILIHAN
+           ===================================================== */
+
+        function ambilPilihan(data) {
+
+            if (
+                Array.isArray(
+                    data.pilihan
+                )
+            ) {
+
+                return data.pilihan;
+
+            }
+
+
+            if (
+                Array.isArray(
+                    data.options
+                )
+            ) {
+
+                return data.options;
+
+            }
+
+
+            return [];
+
+        }
+
+
+        /* =====================================================
+           MENGAMBIL KUNCI JAWABAN
+           ===================================================== */
+
+        function ambilKunci(data) {
+
+            if (
+                data.jawaban !== undefined &&
+                data.jawaban !== null
+            ) {
+
+                return data.jawaban;
+
+            }
+
+
+            if (
+                data.kunci !== undefined &&
+                data.kunci !== null
+            ) {
+
+                return data.kunci;
+
+            }
+
+
+            if (
+                data.answer !== undefined &&
+                data.answer !== null
+            ) {
+
+                return data.answer;
+
+            }
+
+
+            return null;
+
+        }
+
+
+        /* =====================================================
+           MENGAMBIL GAMBAR
+           ===================================================== */
+
+        function ambilGambar(data) {
+
+            return (
+                data.gambar ||
+                data.image ||
+                data.gambarUrl ||
+                data.imageUrl ||
+                null
+            );
+
+        }
+
+
+        /* =====================================================
+           NORMALISASI KUNCI PG
+           ===================================================== */
+
+        function kunciPilihanKeIndex(
+            data
+        ) {
+
+            const pilihan =
+                ambilPilihan(data);
+
+            const kunci =
+                ambilKunci(data);
+
+
+            if (
+                kunci === null ||
+                kunci === undefined
+            ) {
+
+                return null;
+
+            }
+
+
+            /*
+             * Jika parser menyimpan index,
+             * langsung gunakan index.
+             */
+            if (
+                typeof kunci === "number"
+            ) {
+
+                if (
+                    kunci >= 0 &&
+                    kunci < pilihan.length
+                ) {
+
+                    return kunci;
+
+                }
+
+                /*
+                 * Jika nomor jawaban 1,2,3,4
+                 */
+                if (
+                    kunci >= 1 &&
+                    kunci <= pilihan.length
+                ) {
+
+                    return kunci - 1;
+
+                }
+
+            }
+
+
+            const teksKunci =
+                String(kunci)
+                    .trim();
+
+
+            /*
+             * Jika berupa A/B/C/D.
+             */
+            if (
+                /^[A-Za-z]$/.test(
+                    teksKunci
+                )
+            ) {
+
+                const index =
+                    teksKunci
+                        .toUpperCase()
+                        .charCodeAt(0) -
+                    65;
+
+
+                if (
+                    index >= 0 &&
+                    index < pilihan.length
+                ) {
+
+                    return index;
+
+                }
+
+            }
+
+
+            /*
+             * Jika kunci berupa teks jawaban.
+             */
+            const indexTeks =
+                pilihan.findIndex(
+                    pilihanItem =>
+                        String(
+                            pilihanItem
+                        )
+                        .trim()
+                        .toLowerCase() ===
+                        teksKunci
+                            .toLowerCase()
+                );
+
+
+            if (
+                indexTeks !== -1
+            ) {
+
+                return indexTeks;
+
+            }
+
+
+            /*
+             * Coba cari teks kunci
+             * sebagai bagian dari pilihan.
+             */
+            const indexSebagian =
+                pilihan.findIndex(
+                    pilihanItem =>
+                        String(
+                            pilihanItem
+                        )
+                        .toLowerCase()
+                        .includes(
+                            teksKunci
+                                .toLowerCase()
+                        )
+                );
+
+
+            if (
+                indexSebagian !== -1
+            ) {
+
+                return indexSebagian;
+
+            }
+
+
+            return null;
+
+        }
+
+
+        /* =====================================================
+           NORMALISASI TEKS
+           ===================================================== */
+
+        function normalisasiTeks(
+            teks
+        ) {
+
+            return String(
+                teks ?? ""
+            )
+            .trim()
+            .toLowerCase()
+            .replace(
+                /\s+/g,
+                " "
+            );
+
+        }
+
+
+        /* =====================================================
+           CEK JAWABAN TEKS
+        ===================================================== */
+
+        function cekJawabanTeks(
+            data,
+            jawabanSiswa
+        ) {
+
+            const kunci =
+                ambilKunci(data);
+
+
+            if (
+                kunci === null ||
+                kunci === undefined
+            ) {
+
+                return false;
+
+            }
+
+
+            const jawaban =
+                normalisasiTeks(
+                    jawabanSiswa
+                );
+
+
+            if (!jawaban) {
+
+                return false;
+
+            }
+
+
+            /*
+             * Jika kunci berbentuk array,
+             * salah satu jawaban yang cocok
+             * dianggap benar.
+             */
+            if (
+                Array.isArray(kunci)
+            ) {
+
+                return kunci.some(
+                    item =>
+                        normalisasiTeks(
+                            item
+                        ) === jawaban
+                );
+
+            }
+
+
+            return (
+                normalisasiTeks(
+                    kunci
+                ) === jawaban
+            );
+
+        }
 
 
         /* =====================================================
@@ -1816,6 +2262,15 @@
            ===================================================== */
 
         function tampilkanSoal() {
+
+            if (
+                soal.length === 0
+            ) {
+
+                return;
+
+            }
+
 
             const data =
                 soal[sekarang];
@@ -1830,9 +2285,60 @@
             document.getElementById(
                 "pertanyaan"
             ).textContent =
-                data.pertanyaan;
+                ambilPertanyaan(data);
 
 
+            /*
+             * GAMBAR
+             */
+            const gambarContainer =
+                document.getElementById(
+                    "gambarSoal"
+                );
+
+            gambarContainer.innerHTML = "";
+
+
+            const gambar =
+                ambilGambar(data);
+
+
+            if (gambar) {
+
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+                img.className =
+                    "question-image";
+
+                img.src =
+                    gambar;
+
+                img.alt =
+                    "Gambar soal";
+
+
+                img.onerror =
+                    function () {
+
+                        this.style.display =
+                            "none";
+
+                    };
+
+
+                gambarContainer.appendChild(
+                    img
+                );
+
+            }
+
+
+            /*
+             * CONTAINER JAWABAN
+             */
             const container =
                 document.getElementById(
                     "pilihanContainer"
@@ -1842,8 +2348,56 @@
             container.innerHTML = "";
 
 
-            data.pilihan.forEach(
-                (pilihan, index) => {
+            const tipe =
+                jenisSoal(data);
+
+
+            if (
+                tipe === "pg"
+            ) {
+
+                tampilkanPilihanGanda(
+                    data,
+                    container
+                );
+
+            } else {
+
+                tampilkanJawabanTeks(
+                    data,
+                    container
+                );
+
+            }
+
+
+            updateStatus();
+
+            updateButtons();
+
+            updatePanel();
+
+        }
+
+
+        /* =====================================================
+           PILIHAN GANDA
+           ===================================================== */
+
+        function tampilkanPilihanGanda(
+            data,
+            container
+        ) {
+
+            const pilihan =
+                ambilPilihan(data);
+
+
+            pilihan.forEach(
+                (
+                    pilihanItem,
+                    index
+                ) => {
 
                     const label =
                         document.createElement(
@@ -1866,7 +2420,7 @@
 
                     }
 
-                    /* Jika waktu habis, pilihan dikunci */
+
                     if (waktuHabis) {
 
                         label.classList.add(
@@ -1901,7 +2455,11 @@
                         </span>
 
                         <span class="choice-text">
-                            ${pilihan}
+                            ${escapeHtml(
+                                String(
+                                    pilihanItem
+                                )
+                            )}
                         </span>
 
                     `;
@@ -1917,7 +2475,6 @@
                         "change",
                         function () {
 
-                            /* Jangan izinkan perubahan setelah waktu habis */
                             if (waktuHabis) {
                                 return;
                             }
@@ -1928,7 +2485,9 @@
                                     this.value
                                 );
 
+
                             simpanJawaban();
+
 
                             tampilkanSoal();
 
@@ -1943,12 +2502,120 @@
                 }
             );
 
+        }
 
-            updateStatus();
 
-            updateButtons();
+        /* =====================================================
+           ISIAN / URAIAN
+           ===================================================== */
 
-            updatePanel();
+        function tampilkanJawabanTeks(
+            data,
+            container
+        ) {
+
+            const tipe =
+                String(
+                    data.jenis ||
+                    data.tipe ||
+                    data.kategori ||
+                    ""
+                )
+                .toLowerCase();
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+
+            label.className =
+                "answer-type-label";
+
+
+            if (
+                tipe.includes("uraian") ||
+                tipe.includes("essay") ||
+                tipe.includes("esai")
+            ) {
+
+                label.textContent =
+                    "✍️ JAWABAN URAIAN";
+
+            } else {
+
+                label.textContent =
+                    "✏️ JAWABAN ISIAN SINGKAT";
+
+            }
+
+
+            container.appendChild(
+                label
+            );
+
+
+            const textarea =
+                document.createElement(
+                    "textarea"
+                );
+
+
+            textarea.className =
+                "text-answer";
+
+
+            textarea.placeholder =
+                tipe.includes("uraian") ||
+                tipe.includes("essay") ||
+                tipe.includes("esai")
+                    ? "Tuliskan jawaban uraian Anda..."
+                    : "Tuliskan jawaban Anda...";
+
+
+            textarea.value =
+                jawaban[sekarang] || "";
+
+
+            if (waktuHabis) {
+
+                textarea.disabled =
+                    true;
+
+                textarea.classList.add(
+                    "locked"
+                );
+
+            }
+
+
+            textarea.addEventListener(
+                "input",
+                function () {
+
+                    if (waktuHabis) {
+                        return;
+                    }
+
+
+                    jawaban[sekarang] =
+                        this.value;
+
+
+                    simpanJawaban();
+
+                    updateStatus();
+
+                    updatePanel();
+
+                }
+            );
+
+
+            container.appendChild(
+                textarea
+            );
 
         }
 
@@ -1978,6 +2645,13 @@
             }
 
 
+            const sudahDijawab =
+                jawaban[sekarang] !== null &&
+                String(
+                    jawaban[sekarang]
+                ).trim() !== "";
+
+
             if (ragu[sekarang]) {
 
                 status.textContent =
@@ -1987,7 +2661,7 @@
                     "answer-status status-doubt";
 
             } else if (
-                jawaban[sekarang] !== null
+                sudahDijawab
             ) {
 
                 status.textContent =
@@ -2053,7 +2727,6 @@
             }
 
 
-            /* Setelah waktu habis, navigasi dan ragu-ragu dikunci */
             if (waktuHabis) {
 
                 sebelumnya.disabled = true;
@@ -2078,7 +2751,9 @@
             }
 
 
-            if (sekarang > 0) {
+            if (
+                sekarang > 0
+            ) {
 
                 sekarang--;
 
@@ -2128,7 +2803,13 @@
             ragu[sekarang] =
                 !ragu[sekarang];
 
-            tampilkanSoal();
+
+            simpanRagu();
+
+
+            updateStatus();
+
+            updatePanel();
 
         }
 
@@ -2165,6 +2846,13 @@
                         "number-button";
 
 
+                    const sudahDijawab =
+                        jawaban[index] !== null &&
+                        String(
+                            jawaban[index]
+                        ).trim() !== "";
+
+
                     if (
                         index === sekarang
                     ) {
@@ -2182,7 +2870,7 @@
                         );
 
                     } else if (
-                        jawaban[index] !== null
+                        sudahDijawab
                     ) {
 
                         tombol.classList.add(
@@ -2192,13 +2880,10 @@
                     }
 
 
-                    /*
-                     * Jika waktu habis,
-                     * nomor soal juga dikunci.
-                     */
                     if (waktuHabis) {
 
-                        tombol.disabled = true;
+                        tombol.disabled =
+                            true;
 
                     } else {
 
@@ -2233,7 +2918,25 @@
 
             localStorage.setItem(
                 "jawabanUjian",
-                JSON.stringify(jawaban)
+                JSON.stringify(
+                    jawaban
+                )
+            );
+
+        }
+
+
+        /* =====================================================
+           SIMPAN RAGU
+           ===================================================== */
+
+        function simpanRagu() {
+
+            localStorage.setItem(
+                "raguUjian",
+                JSON.stringify(
+                    ragu
+                )
             );
 
         }
@@ -2268,9 +2971,11 @@
 
                             waktuTersisa = 0;
 
+
                             clearInterval(
                                 waktu
                             );
+
 
                             waktuHabis = true;
 
@@ -2278,10 +2983,6 @@
                             tampilkanTimer();
 
 
-                            /*
-                             * Kunci seluruh halaman ujian
-                             * sebelum menghitung nilai.
-                             */
                             kunciUjian();
 
 
@@ -2348,7 +3049,7 @@
 
 
         /* =====================================================
-           KUNCI UJIAN SETELAH WAKTU HABIS
+           KUNCI UJIAN
            ===================================================== */
 
         function kunciUjian() {
@@ -2356,27 +3057,38 @@
             waktuHabis = true;
 
 
-            /*
-             * Kunci semua input jawaban
-             */
-            const semuaRadio =
+            const semuaInput =
                 document.querySelectorAll(
-                    '#pilihanContainer input[type="radio"]'
+                    "#pilihanContainer input, #pilihanContainer textarea"
                 );
 
 
-            semuaRadio.forEach(
-                radio => {
+            semuaInput.forEach(
+                input => {
 
-                    radio.disabled = true;
+                    input.disabled = true;
 
                 }
             );
 
 
-            /*
-             * Kunci tombol navigasi
-             */
+            const semuaChoice =
+                document.querySelectorAll(
+                    ".choice"
+                );
+
+
+            semuaChoice.forEach(
+                choice => {
+
+                    choice.classList.add(
+                        "locked"
+                    );
+
+                }
+            );
+
+
             document.getElementById(
                 "btnSebelumnya"
             ).disabled = true;
@@ -2392,9 +3104,6 @@
             ).disabled = true;
 
 
-            /*
-             * Kunci tombol selesai
-             */
             const btnSelesai =
                 document.getElementById(
                     "btnSelesai"
@@ -2408,9 +3117,6 @@
                 "🔒 UJIAN SELESAI";
 
 
-            /*
-             * Perbarui tampilan
-             */
             tampilkanSoal();
 
         }
@@ -2422,27 +3128,38 @@
 
         function selesaiUjian() {
 
-            /*
-             * Jika waktu sudah habis,
-             * jangan izinkan proses manual.
-             */
-            if (waktuHabis || ujianSelesai) {
+            if (
+                waktuHabis ||
+                ujianSelesai
+            ) {
+
                 return;
+
+            }
+
+
+            if (
+                soal.length === 0
+            ) {
+
+                return;
+
             }
 
 
             const belum =
                 jawaban.filter(
-                    x => x === null
+                    x =>
+                        x === null ||
+                        String(
+                            x
+                        ).trim() === ""
                 ).length;
 
 
-            /*
-             * PENTING:
-             * Jika masih ada soal kosong,
-             * ujian TIDAK boleh diselesaikan.
-             */
-            if (belum > 0) {
+            if (
+                belum > 0
+            ) {
 
                 document.getElementById(
                     "pesanSelesai"
@@ -2450,29 +3167,27 @@
 
                     `Masih ada ${belum} soal yang belum dijawab. Silakan jawab semua soal terlebih dahulu sebelum menyelesaikan ujian.`;
 
+
                 document
                     .getElementById(
                         "modalSelesai"
                     )
-                    .classList.add("show");
+                    .classList.add(
+                        "show"
+                    );
 
-                /*
-                 * Tombol konfirmasi disembunyikan
-                 * karena belum boleh selesai.
-                 */
+
                 document.querySelector(
                     ".btn-confirm"
-                ).style.display = "none";
+                ).style.display =
+                    "none";
+
 
                 return;
 
             }
 
 
-            /*
-             * Semua soal sudah dijawab.
-             * Sekarang baru boleh konfirmasi.
-             */
             document.getElementById(
                 "pesanSelesai"
             ).textContent =
@@ -2482,14 +3197,17 @@
 
             document.querySelector(
                 ".btn-confirm"
-            ).style.display = "block";
+            ).style.display =
+                "block";
 
 
             document
                 .getElementById(
                     "modalSelesai"
                 )
-                .classList.add("show");
+                .classList.add(
+                    "show"
+                );
 
         }
 
@@ -2504,16 +3222,15 @@
                 .getElementById(
                     "modalSelesai"
                 )
-                .classList.remove("show");
+                .classList.remove(
+                    "show"
+                );
 
 
-            /*
-             * Pastikan tombol konfirmasi
-             * kembali normal untuk penggunaan berikutnya.
-             */
             document.querySelector(
                 ".btn-confirm"
-            ).style.display = "block";
+            ).style.display =
+                "block";
 
         }
 
@@ -2524,17 +3241,19 @@
 
         function konfirmasiSelesai() {
 
-            /*
-             * Jika masih ada soal kosong,
-             * tetap tidak boleh selesai.
-             */
             const belum =
                 jawaban.filter(
-                    x => x === null
+                    x =>
+                        x === null ||
+                        String(
+                            x
+                        ).trim() === ""
                 ).length;
 
 
-            if (belum > 0) {
+            if (
+                belum > 0
+            ) {
 
                 document.getElementById(
                     "pesanSelesai"
@@ -2542,24 +3261,35 @@
 
                     `Masih ada ${belum} soal yang belum dijawab. Silakan jawab semua soal terlebih dahulu.`;
 
+
                 document.querySelector(
                     ".btn-confirm"
-                ).style.display = "none";
+                ).style.display =
+                    "none";
+
 
                 return;
 
             }
 
 
-            if (waktuHabis || ujianSelesai) {
+            if (
+                waktuHabis ||
+                ujianSelesai
+            ) {
+
                 return;
+
             }
 
 
             ujianSelesai = true;
 
 
-            clearInterval(waktu);
+            clearInterval(
+                waktu
+            );
+
 
             hitungNilai();
 
@@ -2572,10 +3302,12 @@
 
         function hitungNilai() {
 
-            if (ujianSelesai && !waktuHabis) {
-                /*
-                 * Sudah pernah diselesaikan manual.
-                 */
+            if (
+                soal.length === 0
+            ) {
+
+                return;
+
             }
 
 
@@ -2586,15 +3318,59 @@
 
 
             soal.forEach(
-                (data, index) => {
+                (
+                    data,
+                    index
+                ) => {
 
+                    const tipe =
+                        jenisSoal(data);
+
+
+                    /*
+                     * PILIHAN GANDA
+                     */
                     if (
-                        jawaban[index] !== null &&
-                        jawaban[index] ===
-                        data.jawaban
+                        tipe === "pg"
                     ) {
 
-                        benar++;
+                        const kunciIndex =
+                            kunciPilihanKeIndex(
+                                data
+                            );
+
+
+                        if (
+                            kunciIndex !== null &&
+                            jawaban[index] !== null &&
+                            Number(
+                                jawaban[index]
+                            ) ===
+                            kunciIndex
+                        ) {
+
+                            benar++;
+
+                        }
+
+                    }
+
+
+                    /*
+                     * ISIAN / URAIAN
+                     */
+                    else {
+
+                        if (
+                            cekJawabanTeks(
+                                data,
+                                jawaban[index]
+                            )
+                        ) {
+
+                            benar++;
+
+                        }
 
                     }
 
@@ -2604,12 +3380,17 @@
 
             const nilai =
                 Math.round(
-                    (benar / soal.length) *
+                    (
+                        benar /
+                        soal.length
+                    ) *
                     100
                 );
 
 
-            if (mode === "gladi") {
+            if (
+                mode === "gladi"
+            ) {
 
                 localStorage.setItem(
                     "nilaiGladi",
@@ -2652,6 +3433,15 @@
             );
 
 
+            /*
+             * Tandai bahwa ujian telah selesai.
+             */
+            localStorage.setItem(
+                "ujianSelesai",
+                "true"
+            );
+
+
             window.location.href =
                 "hasil.html?mode=" +
                 mode;
@@ -2660,14 +3450,54 @@
 
 
         /* =====================================================
+           ESCAPE HTML
+           ===================================================== */
+
+        function escapeHtml(teks) {
+
+            return String(
+                teks
+            )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+        }
+
+
+        /* =====================================================
            MULAI UJIAN
            ===================================================== */
 
-        tampilkanSoal();
+        if (
+            soal.length > 0
+        ) {
 
-        mulaiTimer();
+            tampilkanSoal();
+
+            mulaiTimer();
+
+        }
 
     </script>
 
 </body>
 </html>
+```
