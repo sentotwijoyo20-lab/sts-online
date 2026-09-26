@@ -1,4 +1,4 @@
-```html
+﻿```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -551,7 +551,7 @@
             <div class="hasil-detail-item">
 
                 <span class="hasil-detail-label">
-                    Jawaban Salah
+                    Belum Dinilai
                 </span>
 
                 <strong
@@ -594,7 +594,6 @@
 
 
 <script>
-
 /* =====================================================
    DATA SISWA
 ===================================================== */
@@ -602,7 +601,6 @@
 const nama =
     localStorage.getItem("namaSiswa")
     || "Siswa";
-
 
 const nis =
     localStorage.getItem("nisSiswa")
@@ -616,74 +614,53 @@ const nis =
 const params =
     new URLSearchParams(window.location.search);
 
-
 const mode =
-    localStorage.getItem("hasilMode")
-    || params.get("mode")
+    params.get("mode")
+    || localStorage.getItem("modeUjian")
     || "gladi";
 
 
 /* =====================================================
-   AMBIL NILAI
+   AMBIL HASIL UJIAN
 ===================================================== */
 
-let nilai;
-let benar;
-let jumlahSoal;
+const nilai =
+    Number(
+        localStorage.getItem("nilaiSTS")
+        || 0
+    );
 
+const benar =
+    Number(
+        localStorage.getItem("jumlahBenar")
+        || 0
+    );
 
-/*
-   Nilai Gladi dan STS Resmi
-   memiliki penyimpanan berbeda.
-*/
+const jumlahPG =
+    Number(
+        localStorage.getItem("jumlahSoalPG")
+        || 0
+    );
 
-if (mode === "resmi") {
+const jumlahIsian =
+    Number(
+        localStorage.getItem("jumlahSoalIsian")
+        || 0
+    );
 
-    nilai =
-        Number(
-            localStorage.getItem("nilaiSTSResmi")
-        );
+const jumlahUraian =
+    Number(
+        localStorage.getItem("jumlahSoalUraian")
+        || 0
+    );
 
+const jumlahSoal =
+    jumlahPG +
+    jumlahIsian +
+    jumlahUraian;
 
-    benar =
-        Number(
-            localStorage.getItem("jumlahBenarSTSResmi")
-        );
-
-
-    jumlahSoal =
-        Number(
-            localStorage.getItem("jumlahSoalSTSResmi")
-        );
-
-} else {
-
-    nilai =
-        Number(
-            localStorage.getItem("nilaiGladi")
-        );
-
-
-    benar =
-        Number(
-            localStorage.getItem("jumlahBenarGladi")
-        );
-
-
-    jumlahSoal =
-        Number(
-            localStorage.getItem("jumlahSoalGladi")
-        );
-
-}
-
-
-/* =====================================================
-   HITUNG SALAH
-===================================================== */
-
-const salah =
-    jumlahSoal - benar;
+const belumDinilai =
+    jumlahUraian;
 
 
 /* =====================================================
@@ -693,25 +670,20 @@ const salah =
 document.getElementById("namaHasil")
     .textContent = nama;
 
-
 document.getElementById("nisHasil")
     .textContent = nis;
-
 
 document.getElementById("nilaiHasil")
     .textContent = nilai;
 
-
 document.getElementById("jumlahSoalHasil")
     .textContent = jumlahSoal;
-
 
 document.getElementById("benarHasil")
     .textContent = benar;
 
-
 document.getElementById("salahHasil")
-    .textContent = salah;
+    .textContent = belumDinilai;
 
 
 /* =====================================================
@@ -721,12 +693,10 @@ document.getElementById("salahHasil")
 const modeHasil =
     document.getElementById("modeHasil");
 
-
 if (mode === "resmi") {
 
     modeHasil.textContent =
-        "🔵 STS RESMI";
-
+        "?? STS RESMI";
 
     modeHasil.classList.add(
         "mode-resmi"
@@ -735,7 +705,7 @@ if (mode === "resmi") {
 } else {
 
     modeHasil.textContent =
-        "🟢 GLADI / SIMULASI";
+        "?? GLADI / SIMULASI";
 
 }
 
@@ -747,26 +717,25 @@ if (mode === "resmi") {
 const pesan =
     document.getElementById("pesanHasil");
 
-
 if (nilai === 100) {
 
     pesan.innerHTML =
-        "🌟 Luar biasa! Semua jawaban benar.";
+        "?? Luar biasa! Semua soal otomatis berhasil dijawab.";
 
 } else if (nilai >= 80) {
 
     pesan.innerHTML =
-        "👏 Bagus! Terus pertahankan hasil belajarmu.";
+        "?? Bagus! Terus pertahankan hasil belajarmu.";
 
 } else if (nilai >= 60) {
 
     pesan.innerHTML =
-        "💪 Sudah cukup baik. Mari belajar lagi.";
+        "?? Sudah cukup baik. Mari belajar lagi.";
 
 } else {
 
     pesan.innerHTML =
-        "📚 Jangan menyerah. Tetap semangat belajar!";
+        "?? Jangan menyerah. Tetap semangat belajar!";
 
 }
 
@@ -781,9 +750,9 @@ function kembaliKeBeranda() {
         "index.html";
 
 }
-
 </script>
 
 </body>
 </html>
 ```
+
