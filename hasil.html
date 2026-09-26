@@ -1,90 +1,132 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Hasil Ujian - STS Online</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<div class="result-page">
-
+<div class="result-container">
 
     <div class="result-card">
-
 
         <div class="result-icon">
             🎉
         </div>
 
+        <h1>Hasil Ujian</h1>
 
-        <h1>
-            Ujian Selesai!
-        </h1>
-
-
-        <p
-            id="namaHasil"
-            class="result-name">
-
-            Siswa
-
+        <p class="school-name">
+            SD Negeri 1 Jatipayak
         </p>
 
 
+        <!-- MODE -->
+
         <div
             id="modeHasil"
-            class="mode-badge mode-gladi">
-
+            class="mode-badge">
             🟢 GLADI / SIMULASI
-
         </div>
 
 
-        <div
-            id="nilai"
-            class="score">
+        <!-- DATA SISWA -->
 
-            0
-
-        </div>
-
-
-        <div class="result-info">
+        <div class="student-result">
 
             <p>
-                Jawaban benar:
+                <strong>Nama</strong>
+                <span id="namaHasil">-</span>
             </p>
 
-            <strong id="benar">
-                0 dari 0 soal
-            </strong>
+            <p>
+                <strong>NIS</strong>
+                <span id="nisHasil">-</span>
+            </p>
 
         </div>
 
 
-        <a
-            href="index.html"
-            class="home-button">
+        <!-- NILAI -->
 
-            🏠 KEMBALI KE BERANDA
+        <div class="score-box">
 
-        </a>
+            <div class="score-label">
+                NILAI
+            </div>
 
+            <div
+                id="nilaiHasil"
+                class="score">
+                0
+            </div>
+
+        </div>
+
+
+        <!-- DETAIL -->
+
+        <div class="result-detail">
+
+            <div class="detail-item">
+
+                <span>Jumlah Soal</span>
+
+                <strong id="jumlahSoalHasil">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>Jawaban Benar</span>
+
+                <strong id="benarHasil">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>Jawaban Salah</span>
+
+                <strong id="salahHasil">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- PESAN -->
+
+        <div
+            id="pesanHasil"
+            class="result-message">
+        </div>
+
+
+        <!-- TOMBOL -->
+
+        <div class="result-buttons">
+
+            <button
+                onclick="kembaliKeBeranda()"
+                class="btn-primary">
+                🏠 Kembali ke Beranda
+            </button>
+
+        </div>
 
     </div>
 
@@ -93,62 +135,133 @@
 
 <script>
 
+/* =====================================================
+   DATA SISWA
+===================================================== */
 
 const nama =
-    localStorage.getItem(
-        "namaSiswa"
-    ) || "Siswa";
+    localStorage.getItem("namaSiswa")
+    || "Siswa";
+
+
+const nis =
+    localStorage.getItem("nisSiswa")
+    || "-";
+
+
+/* =====================================================
+   MODE
+===================================================== */
+
+const params =
+    new URLSearchParams(window.location.search);
 
 
 const mode =
-    localStorage.getItem(
-        "modeUjian"
-    ) || "gladi";
+    localStorage.getItem("hasilMode")
+    || params.get("mode")
+    || "gladi";
 
 
-const nilai =
-    localStorage.getItem(
-        "nilaiSTS"
-    ) || "0";
+/* =====================================================
+   AMBIL NILAI
+===================================================== */
+
+let nilai;
+let benar;
+let jumlahSoal;
 
 
-const benar =
-    localStorage.getItem(
-        "jumlahBenar"
-    ) || "0";
+/*
+   PENTING:
+
+   Nilai Gladi dan STS Resmi
+   memiliki penyimpanan berbeda.
+*/
+
+if (mode === "resmi") {
+
+    nilai =
+        Number(
+            localStorage.getItem("nilaiSTSResmi")
+        );
 
 
-const jumlah =
-    localStorage.getItem(
-        "jumlahSoal"
-    ) || "0";
+    benar =
+        Number(
+            localStorage.getItem("jumlahBenarSTSResmi")
+        );
 
 
-document.getElementById(
-    "namaHasil"
-).textContent =
-    nama;
+    jumlahSoal =
+        Number(
+            localStorage.getItem("jumlahSoalSTSResmi")
+        );
+
+} else {
+
+    nilai =
+        Number(
+            localStorage.getItem("nilaiGladi")
+        );
 
 
-document.getElementById(
-    "nilai"
-).textContent =
-    nilai;
+    benar =
+        Number(
+            localStorage.getItem("jumlahBenarGladi")
+        );
 
 
-document.getElementById(
-    "benar"
-).textContent =
-    benar +
-    " dari " +
-    jumlah +
-    " soal";
+    jumlahSoal =
+        Number(
+            localStorage.getItem("jumlahSoalGladi")
+        );
 
+}
+
+
+/* =====================================================
+   HITUNG SALAH
+===================================================== */
+
+const salah =
+    jumlahSoal - benar;
+
+
+/* =====================================================
+   TAMPILKAN DATA
+===================================================== */
+
+document.getElementById("namaHasil")
+    .textContent = nama;
+
+
+document.getElementById("nisHasil")
+    .textContent = nis;
+
+
+document.getElementById("nilaiHasil")
+    .textContent = nilai;
+
+
+document.getElementById("jumlahSoalHasil")
+    .textContent = jumlahSoal;
+
+
+document.getElementById("benarHasil")
+    .textContent = benar;
+
+
+document.getElementById("salahHasil")
+    .textContent = salah;
+
+
+/* =====================================================
+   TAMPILKAN MODE
+===================================================== */
 
 const modeHasil =
-    document.getElementById(
-        "modeHasil"
-    );
+    document.getElementById("modeHasil");
 
 
 if (mode === "resmi") {
@@ -156,22 +269,62 @@ if (mode === "resmi") {
     modeHasil.textContent =
         "🔵 STS RESMI";
 
-    modeHasil.className =
-        "mode-badge mode-resmi";
+
+    modeHasil.classList.add(
+        "mode-resmi"
+    );
 
 } else {
 
     modeHasil.textContent =
         "🟢 GLADI / SIMULASI";
 
-    modeHasil.className =
-        "mode-badge mode-gladi";
+}
+
+
+/* =====================================================
+   PESAN NILAI
+===================================================== */
+
+const pesan =
+    document.getElementById("pesanHasil");
+
+
+if (nilai === 100) {
+
+    pesan.innerHTML =
+        "🌟 Luar biasa! Semua jawaban benar.";
+
+} else if (nilai >= 80) {
+
+    pesan.innerHTML =
+        "👏 Bagus! Terus pertahankan hasil belajarmu.";
+
+} else if (nilai >= 60) {
+
+    pesan.innerHTML =
+        "💪 Sudah cukup baik. Mari belajar lagi.";
+
+} else {
+
+    pesan.innerHTML =
+        "📚 Jangan menyerah. Tetap semangat belajar!";
+
+}
+
+
+/* =====================================================
+   KEMBALI
+===================================================== */
+
+function kembaliKeBeranda() {
+
+    window.location.href =
+        "index.html";
 
 }
 
 </script>
 
-
 </body>
-
 </html>
