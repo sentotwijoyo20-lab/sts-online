@@ -1,0 +1,202 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Login Siswa - STS Online</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-icon">
+                👨‍🎓
+            </div>
+
+            <h1>LOGIN SISWA</h1>
+
+            <p class="school-name">
+                SD Negeri 1 Jatipayak
+            </p>
+
+
+            <div class="mode-badge" id="modeBadge">
+                🟢 GLADI / SIMULASI
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nama">
+                    Nama Lengkap
+                </label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama lengkap"
+                    autocomplete="name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nis">
+                    NIS / Nomor Peserta
+                </label>
+
+                <input
+                    type="text"
+                    id="nis"
+                    placeholder="Masukkan NIS / nomor peserta">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="token">
+                    Token Ujian
+                </label>
+
+                <input
+                    type="text"
+                    id="token"
+                    placeholder="Masukkan token ujian"
+                    autocomplete="off">
+
+            </div>
+
+
+            <button
+                class="login-button"
+                onclick="mulaiUjian()">
+
+                MASUK KE UJIAN
+
+            </button>
+
+
+            <button
+                class="back-button"
+                onclick="kembali()">
+
+                ← Kembali
+
+            </button>
+
+
+            <p class="login-info">
+                Pastikan data yang Anda masukkan sudah benar.
+            </p>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+    // Membaca jenis ujian dari URL
+    const parameter =
+        new URLSearchParams(window.location.search);
+
+    const mode =
+        parameter.get("mode");
+
+
+    // Menampilkan jenis ujian
+    if (mode === "resmi") {
+
+        document.getElementById("modeBadge").innerHTML =
+            "🔵 STS RESMI";
+
+    } else {
+
+        document.getElementById("modeBadge").innerHTML =
+            "🟢 GLADI / SIMULASI";
+
+    }
+
+
+    function mulaiUjian() {
+
+        const nama =
+            document.getElementById("nama").value.trim();
+
+        const nis =
+            document.getElementById("nis").value.trim();
+
+        const token =
+            document.getElementById("token").value.trim();
+
+
+        if (nama === "") {
+
+            alert("Silakan masukkan nama lengkap.");
+
+            return;
+        }
+
+
+        if (nis === "") {
+
+            alert("Silakan masukkan NIS / nomor peserta.");
+
+            return;
+        }
+
+
+        if (token === "") {
+
+            alert("Silakan masukkan token ujian.");
+
+            return;
+        }
+
+
+        // Menyimpan data sementara
+        localStorage.setItem("namaSiswa", nama);
+
+        localStorage.setItem("nisSiswa", nis);
+
+        localStorage.setItem("tokenUjian", token);
+
+        localStorage.setItem("modeUjian", mode);
+
+
+        // Masuk ke halaman ujian
+        window.location.href =
+            "ujian.html?mode=" +
+            (mode === "resmi" ? "resmi" : "gladi");
+
+    }
+
+
+    function kembali() {
+
+        window.location.href = "index.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>
+```
