@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,153 +9,235 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="home-page">
 
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">🏫</div>
+    <!-- ================= HEADER ================= -->
 
-            <div>
-                <h1>STS ONLINE</h1>
-                <p>SD Negeri 1 Jatipayak</p>
+    <header class="home-header">
+
+        <div class="header-inner">
+
+            <div class="school-brand">
+
+                <div class="school-icon">
+                    🏫
+                </div>
+
+                <div class="school-brand-text">
+                    <div class="brand-title">
+                        STS ONLINE
+                    </div>
+
+                    <div class="brand-school">
+                        SD Negeri 1 Jatipayak
+                    </div>
+                </div>
+
             </div>
+
+            <div class="header-label">
+                SISTEM UJIAN ONLINE
+            </div>
+
         </div>
+
     </header>
 
 
-    <main class="home">
+    <!-- ================= MAIN ================= -->
 
-        <section class="welcome">
+    <main class="home-main">
+
+        <!-- HERO -->
+
+        <section class="welcome-section">
 
             <div class="welcome-icon">
-                📚
+                📝
             </div>
 
-            <h2>
-                Selamat Datang di
-                <span>STS Online</span>
-            </h2>
+            <div class="welcome-content">
 
-            <p>
-                Sistem Sumatif Tengah Semester
-                <br>
-                SD Negeri 1 Jatipayak
-            </p>
-
-        </section>
-
-
-        <section class="exam-selection">
-
-            <h3>
-                Pilih Jenis Ujian
-            </h3>
-
-            <div class="exam-cards">
-
-
-                <!-- GLADI -->
-
-                <div class="exam-card gladi">
-
-                    <div class="card-icon">
-                        🟢
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="badge gladi-badge">
-                            LATIHAN
-                        </span>
-
-                        <h4>
-                            GLADI / SIMULASI
-                        </h4>
-
-                        <p>
-                            Digunakan untuk latihan
-                            sebelum mengikuti STS resmi.
-                        </p>
-
-                        <ul>
-                            <li>✓ Tidak memengaruhi nilai STS</li>
-                            <li>✓ Mengenal sistem ujian</li>
-                            <li>✓ Bisa digunakan untuk latihan</li>
-                        </ul>
-
-                        <button
-                            onclick="pilihUjian('gladi')"
-                            class="btn btn-gladi">
-
-                            🟢 MULAI GLADI
-
-                        </button>
-
-                    </div>
-
+                <div class="welcome-small">
+                    SELAMAT DATANG DI
                 </div>
 
+                <h1>
+                    STS ONLINE
+                </h1>
 
-                <!-- STS RESMI -->
+                <h2>
+                    SD Negeri 1 Jatipayak
+                </h2>
 
-                <div class="exam-card resmi">
-
-                    <div class="card-icon">
-                        🔵
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="badge resmi-badge">
-                            UJIAN RESMI
-                        </span>
-
-                        <h4>
-                            STS RESMI
-                        </h4>
-
-                        <p>
-                            Ujian Sumatif Tengah Semester
-                            yang dilaksanakan secara resmi.
-                        </p>
-
-                        <ul>
-                            <li>✓ Nilai tercatat sebagai hasil STS</li>
-                            <li>✓ Menggunakan token ujian</li>
-                            <li>✓ Dikerjakan sesuai jadwal</li>
-                        </ul>
-
-                        <button
-                            onclick="pilihUjian('resmi')"
-                            class="btn btn-resmi">
-
-                            🔵 MULAI STS RESMI
-
-                        </button>
-
-                    </div>
-
-                </div>
+                <p>
+                    Sumatif Tengah Semester berbasis online.
+                    Silakan pilih jenis ujian yang akan diikuti.
+                </p>
 
             </div>
 
         </section>
 
 
-        <section class="info-box">
+        <!-- PEMISAH -->
 
-            <div>
+        <div class="section-divider">
+
+            <span></span>
+
+            <strong>
+                PILIH JENIS UJIAN
+            </strong>
+
+            <span></span>
+
+        </div>
+
+
+        <!-- ================= PILIHAN UJIAN ================= -->
+
+        <section class="exam-options">
+
+
+            <!-- GLADI -->
+
+            <article class="exam-card gladi-card">
+
+                <div class="card-top">
+
+                    <div class="exam-icon gladi-icon">
+                        🎯
+                    </div>
+
+                    <div class="exam-badge gladi-badge">
+                        🟢 LATIHAN
+                    </div>
+
+                </div>
+
+
+                <div class="exam-card-content">
+
+                    <h3>
+                        GLADI / SIMULASI
+                    </h3>
+
+                    <p>
+                        Gunakan mode ini untuk mencoba sistem
+                        ujian sebelum mengikuti STS resmi.
+                    </p>
+
+                    <ul>
+                        <li>✓ Tidak memengaruhi nilai STS</li>
+                        <li>✓ Mengenal tampilan ujian</li>
+                        <li>✓ Bisa digunakan untuk latihan</li>
+                    </ul>
+
+                </div>
+
+
+                <div class="card-action">
+
+                    <button
+                        class="exam-button gladi-button"
+                        onclick="pilihUjian('gladi')">
+
+                        <span>
+                            MULAI GLADI
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- STS RESMI -->
+
+            <article class="exam-card resmi-card">
+
+                <div class="card-top">
+
+                    <div class="exam-icon resmi-icon">
+                        📚
+                    </div>
+
+                    <div class="exam-badge resmi-badge">
+                        🔵 RESMI
+                    </div>
+
+                </div>
+
+
+                <div class="exam-card-content">
+
+                    <h3>
+                        STS RESMI
+                    </h3>
+
+                    <p>
+                        Mode ujian resmi Sumatif Tengah Semester.
+                        Pastikan sudah mendapatkan token dari guru.
+                    </p>
+
+                    <ul>
+                        <li>✓ Ujian resmi</li>
+                        <li>✓ Waktu ujian terbatas</li>
+                        <li>✓ Nilai dicatat sebagai hasil ujian</li>
+                    </ul>
+
+                </div>
+
+
+                <div class="card-action">
+
+                    <button
+                        class="exam-button resmi-button"
+                        onclick="pilihUjian('resmi')">
+
+                        <span>
+                            MULAI STS RESMI
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- ================= INFORMASI ================= -->
+
+        <section class="home-information">
+
+            <div class="information-icon">
                 💡
             </div>
 
-            <div>
-                <strong>Perhatian</strong>
+            <div class="information-text">
+
+                <strong>
+                    Sebelum memulai
+                </strong>
 
                 <p>
-                    Silakan gunakan GLADI / SIMULASI
-                    terlebih dahulu untuk mengenal
-                    cara menggunakan sistem ujian.
+                    Pastikan nama, nomor peserta, token,
+                    dan koneksi internet sudah siap.
                 </p>
+
             </div>
 
         </section>
@@ -164,15 +245,21 @@
     </main>
 
 
-    <footer>
+    <!-- ================= FOOTER ================= -->
 
-        <p>
-            © 2026 SD Negeri 1 Jatipayak
-        </p>
+    <footer class="home-footer">
 
-        <p>
-            STS Online
-        </p>
+        <div>
+            <strong>
+                STS ONLINE
+            </strong>
+            <span>•</span>
+            SD Negeri 1 Jatipayak
+        </div>
+
+        <div class="footer-year">
+            © 2026
+        </div>
 
     </footer>
 
@@ -180,5 +267,4 @@
     <script src="script.js"></script>
 
 </body>
-
 </html>
