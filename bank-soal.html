@@ -32,11 +32,6 @@
             color: #1e293b;
         }
 
-
-        /* ========================================= */
-        /* HEADER */
-        /* ========================================= */
-
         .header {
             background:
                 linear-gradient(
@@ -44,154 +39,94 @@
                     #173b7a,
                     #2563eb
                 );
-
             color: white;
-
             padding: 30px 20px;
-
             text-align: center;
-
             box-shadow:
                 0 5px 20px rgba(23, 59, 122, 0.18);
         }
 
         .header h1 {
             margin: 0 0 7px;
-
             font-size: 28px;
-
             letter-spacing: 0.3px;
         }
 
         .header p {
             margin: 0;
-
             opacity: 0.9;
-
             font-size: 14px;
         }
 
-
-        /* ========================================= */
-        /* CONTAINER */
-        /* ========================================= */
-
         .container {
             width: 94%;
-
             max-width: 1200px;
-
             margin: 30px auto 50px;
         }
 
-
-        /* ========================================= */
-        /* CARD */
-        /* ========================================= */
-
         .card {
             background: white;
-
             border-radius: 20px;
-
             padding: 28px;
-
             margin-bottom: 22px;
-
             border: 1px solid #e8edf5;
-
             box-shadow:
                 0 8px 30px rgba(15, 23, 42, 0.06);
         }
 
         .card h2 {
             margin: 0 0 8px;
-
             color: #173b7a;
-
             font-size: 21px;
         }
 
         .card > p {
             margin-top: 0;
-
             color: #64748b;
-
             font-size: 14px;
-
             line-height: 1.6;
         }
 
-
-        /* ========================================= */
-        /* UPLOAD AREA PROFESIONAL */
-        /* ========================================= */
-
         .upload-box {
-
             position: relative;
-
             margin-top: 22px;
-
             padding: 42px 30px;
-
             border-radius: 20px;
-
             border: 2px dashed #93c5fd;
-
             background:
                 linear-gradient(
                     180deg,
                     #f8fbff 0%,
                     #eff6ff 100%
                 );
-
             text-align: center;
-
             transition:
                 border-color 0.2s ease,
                 background 0.2s ease,
                 transform 0.2s ease;
-
         }
 
-
         .upload-box:hover {
-
             border-color: #2563eb;
-
             background:
                 linear-gradient(
                     180deg,
                     #f8fbff 0%,
                     #eaf2ff 100%
                 );
-
         }
 
-
         .upload-icon {
-
             width: 76px;
-
             height: 76px;
-
             margin: 0 auto 18px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             border-radius: 20px;
-
             background: white;
-
             border: 1px solid #dbeafe;
-
             font-size: 40px;
-
             box-shadow:
                 0 8px 22px rgba(
                     37,
@@ -199,70 +134,37 @@
                     235,
                     0.12
                 );
-
         }
-
 
         .upload-title {
-
             margin-bottom: 7px;
-
             color: #173b7a;
-
             font-size: 20px;
-
             font-weight: 700;
-
         }
-
 
         .upload-description {
-
             max-width: 500px;
-
             margin: 0 auto 23px;
-
             color: #64748b;
-
             font-size: 14px;
-
             line-height: 1.6;
-
         }
 
-
-        /* ========================================= */
-        /* CUSTOM FILE BUTTON */
-        /* ========================================= */
-
         .file-label {
-
             position: relative;
-
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 9px;
-
             min-width: 225px;
-
             padding: 14px 24px;
-
             border-radius: 12px;
-
             background: #2563eb;
-
             color: white;
-
             font-size: 14px;
-
             font-weight: 700;
-
             cursor: pointer;
-
             box-shadow:
                 0 7px 18px rgba(
                     37,
@@ -270,23 +172,16 @@
                     235,
                     0.25
                 );
-
             transition:
                 background 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
-
             overflow: hidden;
-
         }
 
-
         .file-label:hover {
-
             background: #1d4ed8;
-
             transform: translateY(-1px);
-
             box-shadow:
                 0 9px 22px rgba(
                     37,
@@ -294,240 +189,115 @@
                     235,
                     0.30
                 );
-
         }
-
 
         .file-label:active {
-
             transform: translateY(0);
-
         }
-
-
-        .file-label input {
-
-            position: absolute;
-
-            width: 1px;
-
-            height: 1px;
-
-            opacity: 0;
-
-            pointer-events: none;
-
-        }
-
-
-        /* ========================================= */
-        /* FILE NAME */
-        /* ========================================= */
 
         .file-name {
-
             max-width: 650px;
-
             margin: 18px auto 0;
-
             padding: 12px 16px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 8px;
-
             border-radius: 12px;
-
             background: white;
-
             border: 1px solid #dbeafe;
-
             color: #334155;
-
             font-size: 13px;
-
             line-height: 1.4;
-
             word-break: break-word;
-
         }
 
-
         .file-name.empty {
-
             color: #94a3b8;
-
             border-style: dashed;
-
             background: rgba(
                 255,
                 255,
                 255,
                 0.65
             );
-
         }
-
 
         .upload-note {
-
             margin-top: 15px;
-
             color: #64748b;
-
             font-size: 12px;
-
         }
-
 
         .upload-note strong {
-
             color: #2563eb;
-
         }
-
-
-        /* ========================================= */
-        /* STATUS NOTIFICATION */
-        /* ========================================= */
 
         .status {
-
             max-width: 700px;
-
             margin: 22px auto 0;
-
             padding: 14px 17px;
-
             border-radius: 12px;
-
             display: none;
-
             font-size: 14px;
-
             line-height: 1.5;
-
             text-align: left;
-
         }
-
 
         .status.success {
-
             display: block;
-
             background: #ecfdf5;
-
             border: 1px solid #bbf7d0;
-
             color: #166534;
-
         }
-
 
         .status.error {
-
             display: block;
-
             background: #fef2f2;
-
             border: 1px solid #fecaca;
-
             color: #991b1b;
-
         }
-
-
-        /* ========================================= */
-        /* SUMMARY */
-        /* ========================================= */
 
         .summary {
-
             display: grid;
-
             grid-template-columns:
                 repeat(4, 1fr);
-
             gap: 15px;
-
             margin-top: 20px;
-
         }
-
 
         .summary-box {
-
             position: relative;
-
             padding: 22px 15px;
-
             border-radius: 15px;
-
             text-align: center;
-
             background: #f8fafc;
-
             border: 1px solid #e2e8f0;
-
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
         }
-
 
         .summary-box strong {
-
             display: block;
-
             margin-bottom: 6px;
-
             font-size: 32px;
-
             color: #173b7a;
-
         }
-
-
-        .summary-box {
-
-            color: #64748b;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        /* ========================================= */
-        /* PREVIEW */
-        /* ========================================= */
 
         .preview-item {
-
             padding: 20px;
-
             margin-bottom: 15px;
-
             border-radius: 15px;
-
             background: white;
-
             border: 1px solid #e2e8f0;
-
             transition:
                 box-shadow 0.2s ease,
                 border-color 0.2s ease;
-
         }
 
-
         .preview-item:hover {
-
             border-color: #cbd5e1;
-
             box-shadow:
                 0 5px 18px rgba(
                     15,
@@ -535,182 +305,120 @@
                     42,
                     0.05
                 );
-
         }
-
 
         .preview-header {
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 10px;
-
             margin-bottom: 12px;
-
             flex-wrap: wrap;
-
         }
-
 
         .preview-header strong {
-
             color: #334155;
-
             font-size: 14px;
-
         }
-
 
         .badge {
-
             display: inline-block;
-
             padding: 6px 11px;
-
             border-radius: 20px;
-
             font-size: 11px;
-
             font-weight: 700;
-
         }
-
 
         .badge-pg {
-
             background: #dbeafe;
-
             color: #1d4ed8;
-
         }
-
 
         .badge-isian {
-
             background: #dcfce7;
-
             color: #15803d;
-
         }
-
 
         .badge-uraian {
-
             background: #fef3c7;
-
             color: #b45309;
-
         }
-
 
         .question-text {
-
             margin-bottom: 13px;
-
             font-size: 15px;
-
             line-height: 1.7;
-
             color: #334155;
-
         }
 
+        /* GAMBAR SOAL */
+
+        .question-images {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 12px 0 16px;
+        }
+
+        .question-images img {
+            display: block;
+            max-width: 100%;
+            width: auto;
+            max-height: 420px;
+            object-fit: contain;
+            margin: 0 auto;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: white;
+        }
 
         .options {
-
             display: grid;
-
             gap: 8px;
-
         }
-
 
         .option {
-
             padding: 10px 13px;
-
             border-radius: 9px;
-
             background: #f8fafc;
-
             border: 1px solid #eef2f7;
-
             font-size: 14px;
-
             line-height: 1.5;
-
         }
-
 
         .answer {
-
             margin-top: 12px;
-
             padding: 10px 12px;
-
             border-radius: 9px;
-
             background: #f0fdf4;
-
             color: #166534;
-
             font-size: 13px;
-
             font-weight: 700;
-
         }
-
 
         .empty {
-
             padding: 45px 20px;
-
             text-align: center;
-
             color: #94a3b8;
-
             font-size: 14px;
-
         }
 
-
-        /* ========================================= */
-        /* BUTTON SIMPAN */
-        /* ========================================= */
-
         .btn {
-
             border: none;
-
             border-radius: 11px;
-
             padding: 13px 21px;
-
             font-size: 14px;
-
             font-weight: 700;
-
             cursor: pointer;
-
             margin-top: 15px;
-
             transition:
                 background 0.2s ease,
                 transform 0.2s ease;
-
         }
 
-
         .btn-success {
-
             background: #16a34a;
-
             color: white;
-
             box-shadow:
                 0 6px 16px rgba(
                     22,
@@ -718,149 +426,91 @@
                     74,
                     0.20
                 );
-
         }
-
 
         .btn-success:hover {
-
             background: #15803d;
-
             transform: translateY(-1px);
-
         }
-
-
-        /* ========================================= */
-        /* RESPONSIVE */
-        /* ========================================= */
 
         @media (max-width: 800px) {
 
             .summary {
-
                 grid-template-columns:
                     repeat(2, 1fr);
-
             }
 
         }
 
-
         @media (max-width: 500px) {
 
             .header {
-
                 padding: 24px 15px;
-
             }
-
 
             .header h1 {
-
                 font-size: 22px;
-
             }
-
 
             .container {
-
                 width: 94%;
-
                 margin: 18px auto 35px;
-
             }
-
 
             .card {
-
                 padding: 19px;
-
                 border-radius: 16px;
-
             }
-
 
             .card h2 {
-
                 font-size: 19px;
-
             }
-
 
             .upload-box {
-
                 padding: 30px 16px;
-
                 border-radius: 16px;
-
             }
-
 
             .upload-icon {
-
                 width: 65px;
-
                 height: 65px;
-
                 font-size: 34px;
-
             }
-
 
             .upload-title {
-
                 font-size: 17px;
-
             }
-
 
             .upload-description {
-
                 font-size: 13px;
-
             }
-
 
             .file-label {
-
                 width: 100%;
-
                 min-width: 0;
-
             }
-
 
             .file-name {
-
                 display: block;
-
                 text-align: center;
-
             }
-
 
             .summary {
-
                 grid-template-columns:
                     repeat(2, 1fr);
-
                 gap: 10px;
-
             }
-
 
             .summary-box {
-
                 padding: 17px 10px;
-
             }
 
-
             .summary-box strong {
-
                 font-size: 27px;
+            }
 
+            .question-images img {
+                max-height: 300px;
             }
 
         }
@@ -887,10 +537,6 @@
 <div class="container">
 
 
-    <!-- ========================================= -->
-    <!-- UPLOAD -->
-    <!-- ========================================= -->
-
     <div class="card">
 
         <h2>📄 Import Soal dari Word</h2>
@@ -903,23 +549,19 @@
 
         <div class="upload-box">
 
-
             <div class="upload-icon">
                 📘
             </div>
 
-
             <div class="upload-title">
                 Upload Dokumen Soal
             </div>
-
 
             <div class="upload-description">
                 Pilih file Word berformat
                 <strong>.DOCX</strong>
                 untuk diproses secara otomatis.
             </div>
-
 
             <label
                 class="file-label"
@@ -953,25 +595,16 @@
 
             </div>
 
-
         </div>
 
-
-        <!-- STATUS DIPISAH DARI AREA UPLOAD -->
 
         <div
             id="status"
             class="status">
         </div>
 
-
     </div>
 
-
-
-    <!-- ========================================= -->
-    <!-- RINGKASAN -->
-    <!-- ========================================= -->
 
     <div
         id="summaryCard"
@@ -979,7 +612,6 @@
         style="display:none;">
 
         <h2>📊 Hasil Pembacaan</h2>
-
 
         <div class="summary">
 
@@ -1030,11 +662,6 @@
 
     </div>
 
-
-
-    <!-- ========================================= -->
-    <!-- PREVIEW -->
-    <!-- ========================================= -->
 
     <div class="card">
 
@@ -1092,24 +719,20 @@ document
             const file =
                 event.target.files[0];
 
-
             if (!file) {
                 return;
             }
-
 
             document.getElementById(
                 "fileName"
             ).textContent =
                 "📄 " + file.name;
 
-
             document.getElementById(
                 "fileName"
             ).classList.remove(
                 "empty"
             );
-
 
             await bacaFileWord(file);
 
@@ -1126,7 +749,6 @@ async function bacaFileWord(file) {
 
     const status =
         document.getElementById("status");
-
 
     status.className =
         "status";
@@ -1209,6 +831,16 @@ async function bacaFileWord(file) {
             );
 
 
+        /*
+         * PENTING:
+         * Ubah ID gambar dari Word menjadi
+         * Data URL permanen sebelum disimpan
+         * ke localStorage.
+         */
+
+        await simpanGambarKeSoal();
+
+
         bankSoal =
             bersihkanSoal(
                 bankSoal
@@ -1233,8 +865,7 @@ async function bacaFileWord(file) {
             "✅ Berhasil membaca " +
             bankSoal.length +
             " soal dari file Word. " +
-            "Kop, petunjuk, dan kunci jawaban " +
-            "tidak dimasukkan ke preview.";
+            "Gambar ikut disimpan ke Bank Soal.";
 
 
         document.getElementById(
@@ -1249,17 +880,142 @@ async function bacaFileWord(file) {
 
         console.error(error);
 
-
         status.className =
             "status error";
 
         status.style.display =
             "block";
 
-
         status.textContent =
             "❌ Gagal membaca file Word: " +
             error.message;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* KONVERSI BLOB KE DATA URL */
+/* ================================================= */
+
+function blobKeDataURL(blob) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                function() {
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
+
+            reader.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "Gagal membaca gambar."
+                        )
+                    );
+
+                };
+
+            reader.readAsDataURL(blob);
+
+        }
+    );
+
+}
+
+
+
+/* ================================================= */
+/* SIMPAN GAMBAR KE SETIAP SOAL */
+/* ================================================= */
+
+async function simpanGambarKeSoal() {
+
+    const daftarDataURL = {};
+
+
+    /*
+     * Buat mapping:
+     * rId -> data:image/...
+     */
+
+    for (
+        const gambar of gambarBlob
+    ) {
+
+        try {
+
+            const dataURL =
+                await blobKeDataURL(
+                    gambar.blob
+                );
+
+            daftarDataURL[
+                gambar.id
+            ] =
+                dataURL;
+
+        } catch (error) {
+
+            console.error(
+                "Gagal mengubah gambar:",
+                gambar.id,
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Ganti ID gambar pada setiap soal
+     * menjadi Data URL.
+     */
+
+    for (
+        const soal of bankSoal
+    ) {
+
+        if (
+            !Array.isArray(
+                soal.images
+            )
+        ) {
+
+            soal.images = [];
+
+            continue;
+
+        }
+
+
+        soal.images =
+            soal.images
+                .map(
+                    function(id) {
+
+                        return daftarDataURL[
+                            id
+                        ];
+
+                    }
+                )
+                .filter(
+                    Boolean
+                );
 
     }
 
@@ -1276,24 +1032,20 @@ function ekstrakBlokWord(xmlText) {
     const parser =
         new DOMParser();
 
-
     const xml =
         parser.parseFromString(
             xmlText,
             "application/xml"
         );
 
-
     const body =
         xml.getElementsByTagName(
             "w:body"
         )[0];
 
-
     if (!body) {
         return [];
     }
-
 
     const hasil = [];
 
@@ -1302,29 +1054,24 @@ function ekstrakBlokWord(xmlText) {
         const node of body.children
     ) {
 
-
         if (
             node.localName === "p"
         ) {
-
 
             const text =
                 ambilTextParagraph(
                     node
                 );
 
-
             const numbering =
                 ambilNumbering(
                     node
                 );
 
-
             const gambar =
                 ambilGambarDalamParagraph(
                     node
                 );
-
 
             hasil.push({
 
@@ -1347,20 +1094,16 @@ function ekstrakBlokWord(xmlText) {
 
             });
 
-
         }
-
 
         else if (
             node.localName === "tbl"
         ) {
 
-
             const text =
                 ambilTextTabel(
                     node
                 );
-
 
             hasil.push({
 
@@ -1402,12 +1145,10 @@ function ambilTextParagraph(node) {
 
     let hasil = "";
 
-
     const texts =
         node.getElementsByTagName(
             "w:t"
         );
-
 
     for (
         const t of texts
@@ -1417,7 +1158,6 @@ function ambilTextParagraph(node) {
             t.textContent;
 
     }
-
 
     return hasil;
 
@@ -1436,7 +1176,6 @@ function ambilTextTabel(node) {
             "w:tr"
         );
 
-
     const hasil = [];
 
 
@@ -1444,12 +1183,10 @@ function ambilTextTabel(node) {
         const row of rows
     ) {
 
-
         const cells =
             row.getElementsByTagName(
                 "w:tc"
             );
-
 
         const isiBaris = [];
 
@@ -1499,12 +1236,10 @@ function ambilNumbering(node) {
 
     if (numPr) {
 
-
         const numIdNode =
             numPr.getElementsByTagName(
                 "w:numId"
             )[0];
-
 
         const ilvlNode =
             numPr.getElementsByTagName(
@@ -1552,7 +1287,7 @@ function ambilNumbering(node) {
 
 
 /* ================================================= */
-/* GAMBAR */
+/* GAMBAR DARI WORD */
 /* ================================================= */
 
 async function ambilGambar(
@@ -1592,12 +1327,10 @@ async function ambilGambar(
         const rel of relationships
     ) {
 
-
         const id =
             rel.getAttribute(
                 "Id"
             );
-
 
         const target =
             rel.getAttribute(
@@ -1612,7 +1345,6 @@ async function ambilGambar(
                 "media/"
             )
         ) {
-
 
             mapping[id] =
                 "word/" +
@@ -1632,7 +1364,6 @@ async function ambilGambar(
             mapping
         )
     ) {
-
 
         const file =
             zip.file(path);
@@ -1688,7 +1419,6 @@ function ambilGambarDalamParagraph(
     for (
         const blip of blips
     ) {
-
 
         const id =
             blip.getAttribute(
@@ -1805,10 +1535,8 @@ function parseSoal(blok) {
         i++
     ) {
 
-
         const b =
             blok[i];
-
 
         const text =
             b.text.trim();
@@ -1831,7 +1559,6 @@ function parseSoal(blok) {
 
 
         if (bagianBaru) {
-
 
             if (
                 bagianBaru === "kunci"
@@ -1879,7 +1606,6 @@ function parseSoal(blok) {
         if (
             nomor !== null
         ) {
-
 
             aktif = {
 
@@ -1956,12 +1682,10 @@ function parseSoal(blok) {
             pilihan
         ) {
 
-
             aktif.pilihan[
                 pilihan.huruf
             ] =
                 pilihan.teks;
-
 
             continue;
 
@@ -2026,7 +1750,6 @@ function deteksiNomorSoal(
         blok.numId !== null &&
         blok.ilvl !== null
     ) {
-
 
         const bersih =
             text.trim();
@@ -2128,7 +1851,7 @@ function deteksiPilihan(
 
 
 /* ================================================= */
-/* PEMBERSIHAN UTAMA */
+/* PEMBERSIHAN */
 /* ================================================= */
 
 function bersihkanSoal(
@@ -2163,7 +1886,6 @@ function bersihkanSoal(
     for (
         const soal of pg
     ) {
-
 
         const lengkap =
             ["A", "B", "C", "D"]
@@ -2240,7 +1962,7 @@ function bersihkanSoal(
 
 
 /* ================================================= */
-/* POTONG BLOK KUNCI JAWABAN */
+/* POTONG BLOK JAWABAN */
 /* ================================================= */
 
 function potongBagianJawaban(
@@ -2256,10 +1978,8 @@ function potongBagianJawaban(
         i++
     ) {
 
-
         const soal =
             daftar[i];
-
 
         const teks =
             soal.pertanyaan
@@ -2291,7 +2011,7 @@ function potongBagianJawaban(
 
 
 /* ================================================= */
-/* CEK SOAL ATAU JAWABAN */
+/* CEK SOAL */
 /* ================================================= */
 
 function terlihatSepertiPertanyaan(
@@ -2299,8 +2019,7 @@ function terlihatSepertiPertanyaan(
 ) {
 
     const t =
-        text
-            .trim();
+        text.trim();
 
 
     if (!t) {
@@ -2340,9 +2059,7 @@ function terlihatSepertiPertanyaan(
 
 
     if (
-        /^[ABCD]$/i.test(
-            t
-        )
+        /^[ABCD]$/i.test(t)
     ) {
 
         return false;
@@ -2439,7 +2156,7 @@ function terlihatSepertiPertanyaan(
 
 
 /* ================================================= */
-/* PENOMORAN ULANG */
+/* PENOMORAN */
 /* ================================================= */
 
 function penomoranUlang() {
@@ -2454,7 +2171,6 @@ function penomoranUlang() {
     bankSoal.forEach(
         function(soal) {
 
-
             if (
                 soal.jenis === "pg"
             ) {
@@ -2464,7 +2180,6 @@ function penomoranUlang() {
 
             }
 
-
             else if (
                 soal.jenis === "isian"
             ) {
@@ -2473,7 +2188,6 @@ function penomoranUlang() {
                     nomorIsian++;
 
             }
-
 
             else if (
                 soal.jenis === "uraian"
@@ -2580,7 +2294,6 @@ function tampilkanPreview() {
     bankSoal.forEach(
         function(soal) {
 
-
             const item =
                 document.createElement(
                     "div"
@@ -2644,8 +2357,43 @@ function tampilkanPreview() {
 
                     '</span>' +
 
-                '</div>' +
+                '</div>';
 
+
+            /*
+             * GAMBAR DITAMPILKAN
+             * DI ANTARA NOMOR DAN PERTANYAAN
+             */
+
+            if (
+                Array.isArray(soal.images) &&
+                soal.images.length > 0
+            ) {
+
+                html +=
+                    '<div class="question-images">';
+
+
+                soal.images.forEach(
+                    function(imageData) {
+
+                        html +=
+                            '<img src="' +
+                            imageData +
+                            '" ' +
+                            'alt="Gambar soal">';
+
+                    }
+                );
+
+
+                html +=
+                    '</div>';
+
+            }
+
+
+            html +=
 
                 '<div class="question-text">' +
 
@@ -2660,7 +2408,6 @@ function tampilkanPreview() {
                 soal.jenis === "pg"
             ) {
 
-
                 html +=
                     '<div class="options">';
 
@@ -2668,7 +2415,6 @@ function tampilkanPreview() {
                 ["A","B","C","D"]
                     .forEach(
                         function(huruf) {
-
 
                             html +=
 
@@ -2777,43 +2523,61 @@ function escapeHtml(
 
 function simpanBankSoal() {
 
-    localStorage.setItem(
-        "bankSoalSTS",
-        JSON.stringify(
-            bankSoal
-        )
-    );
+    try {
+
+        const data =
+            JSON.stringify(
+                bankSoal
+            );
 
 
-    alert(
+        localStorage.setItem(
+            "bankSoalSTS",
+            data
+        );
 
-        "✅ Bank soal berhasil disimpan.\n\n" +
 
-        "Pilihan Ganda: " +
+        alert(
 
-        bankSoal.filter(
-            s => s.jenis === "pg"
-        ).length +
+            "✅ Bank soal berhasil disimpan.\n\n" +
 
-        "\nIsian Singkat: " +
+            "Pilihan Ganda: " +
 
-        bankSoal.filter(
-            s => s.jenis === "isian"
-        ).length +
+            bankSoal.filter(
+                s => s.jenis === "pg"
+            ).length +
 
-        "\nUraian: " +
+            "\nIsian Singkat: " +
 
-        bankSoal.filter(
-            s => s.jenis === "uraian"
-        ).length +
+            bankSoal.filter(
+                s => s.jenis === "isian"
+            ).length +
 
-        "\n\nTotal: " +
+            "\nUraian: " +
 
-        bankSoal.length +
+            bankSoal.filter(
+                s => s.jenis === "uraian"
+            ).length +
 
-        " soal."
+            "\n\nTotal: " +
 
-    );
+            bankSoal.length +
+
+            " soal."
+
+        );
+
+    } catch (error) {
+
+        alert(
+            "❌ Bank soal gagal disimpan.\n\n" +
+            "Kemungkinan ukuran gambar terlalu besar.\n\n" +
+            "Silakan gunakan gambar dengan ukuran lebih kecil."
+        );
+
+        console.error(error);
+
+    }
 
 }
 
