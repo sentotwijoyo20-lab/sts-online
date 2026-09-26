@@ -1,187 +1,184 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Hasil Ujian - STS Online</title>
+    <title>STS Online - SD Negeri 1 Jatipayak</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🏫</div>
 
-<div class="result-container">
-
-    <div class="result-card">
-
-
-        <div class="result-icon">
-            🎉
+            <div>
+                <h1>STS ONLINE</h1>
+                <p>SD Negeri 1 Jatipayak</p>
+            </div>
         </div>
+    </header>
 
 
-        <h1>
-            Ujian Selesai!
-        </h1>
+    <main class="home">
 
+        <section class="welcome">
 
-        <p class="school-name">
-            SD Negeri 1 Jatipayak
-        </p>
+            <div class="welcome-icon">
+                📚
+            </div>
 
-
-        <div class="result-mode" id="mode">
-            🟢 GLADI / SIMULASI
-        </div>
-
-
-        <div class="student-result">
+            <h2>
+                Selamat Datang di
+                <span>STS Online</span>
+            </h2>
 
             <p>
-                Nama Siswa
+                Sistem Sumatif Tengah Semester
+                <br>
+                SD Negeri 1 Jatipayak
             </p>
 
-            <strong id="nama">
-                -
-            </strong>
-
-        </div>
+        </section>
 
 
-        <div class="score-box">
+        <section class="exam-selection">
 
-            <span>
-                Nilai Anda
-            </span>
+            <h3>
+                Pilih Jenis Ujian
+            </h3>
 
-            <strong id="nilai">
-                0
-            </strong>
-
-        </div>
+            <div class="exam-cards">
 
 
-        <div class="correct-box">
+                <!-- GLADI -->
 
-            Jawaban benar:
-            <strong id="benar">
-                0
-            </strong>
-            dari
-            <strong>
-                5
-            </strong>
-            soal
+                <div class="exam-card gladi">
 
-        </div>
+                    <div class="card-icon">
+                        🟢
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="badge gladi-badge">
+                            LATIHAN
+                        </span>
+
+                        <h4>
+                            GLADI / SIMULASI
+                        </h4>
+
+                        <p>
+                            Digunakan untuk latihan
+                            sebelum mengikuti STS resmi.
+                        </p>
+
+                        <ul>
+                            <li>✓ Tidak memengaruhi nilai STS</li>
+                            <li>✓ Mengenal sistem ujian</li>
+                            <li>✓ Bisa digunakan untuk latihan</li>
+                        </ul>
+
+                        <button
+                            onclick="pilihUjian('gladi')"
+                            class="btn btn-gladi">
+
+                            🟢 MULAI GLADI
+
+                        </button>
+
+                    </div>
+
+                </div>
 
 
-        <p class="result-message">
+                <!-- STS RESMI -->
 
-            Terima kasih telah mengikuti ujian.
-            Tetap semangat belajar! 💪
+                <div class="exam-card resmi">
 
+                    <div class="card-icon">
+                        🔵
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="badge resmi-badge">
+                            UJIAN RESMI
+                        </span>
+
+                        <h4>
+                            STS RESMI
+                        </h4>
+
+                        <p>
+                            Ujian Sumatif Tengah Semester
+                            yang dilaksanakan secara resmi.
+                        </p>
+
+                        <ul>
+                            <li>✓ Nilai tercatat sebagai hasil STS</li>
+                            <li>✓ Menggunakan token ujian</li>
+                            <li>✓ Dikerjakan sesuai jadwal</li>
+                        </ul>
+
+                        <button
+                            onclick="pilihUjian('resmi')"
+                            class="btn btn-resmi">
+
+                            🔵 MULAI STS RESMI
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="info-box">
+
+            <div>
+                💡
+            </div>
+
+            <div>
+                <strong>Perhatian</strong>
+
+                <p>
+                    Silakan gunakan GLADI / SIMULASI
+                    terlebih dahulu untuk mengenal
+                    cara menggunakan sistem ujian.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 SD Negeri 1 Jatipayak
         </p>
 
+        <p>
+            STS Online
+        </p>
 
-        <button
-            class="home-button"
-            onclick="kembali()">
-
-            🏠 KEMBALI KE HALAMAN UTAMA
-
-        </button>
+    </footer>
 
 
-    </div>
-
-</div>
-
-
-
-<script>
-
-
-const nama =
-    localStorage.getItem(
-        "namaSiswa"
-    ) || "Siswa";
-
-
-const nilai =
-    localStorage.getItem(
-        "nilaiSTS"
-    ) || 0;
-
-
-const benar =
-    localStorage.getItem(
-        "jumlahBenar"
-    ) || 0;
-
-
-const mode =
-    localStorage.getItem(
-        "modeUjian"
-    ) || "gladi";
-
-
-document.getElementById(
-    "nama"
-).textContent =
-    nama;
-
-
-document.getElementById(
-    "nilai"
-).textContent =
-    nilai;
-
-
-document.getElementById(
-    "benar"
-).textContent =
-    benar;
-
-
-if (mode === "resmi") {
-
-    document.getElementById(
-        "mode"
-    ).textContent =
-        "🔵 STS RESMI";
-
-} else {
-
-    document.getElementById(
-        "mode"
-    ).textContent =
-        "🟢 GLADI / SIMULASI";
-
-}
-
-
-function kembali() {
-
-    window.location.href =
-        "index.html";
-
-}
-
-</script>
-
+    <script src="script.js"></script>
 
 </body>
 
 </html>
-```
