@@ -1,42 +1,129 @@
+```javascript
 function pilihUjian(mode) {
+
     if (mode !== "gladi" && mode !== "resmi") {
         return;
     }
 
-    window.location.href = "login.html?mode=" + mode;
+    window.location.href =
+        "login.html?mode=" + mode;
 }
+
 
 function mulaiLogin() {
-    const nama = document.getElementById("nama").value.trim();
-    const nis = document.getElementById("nis").value.trim();
-    const token = document.getElementById("token").value.trim();
+
+    const nama =
+        document.getElementById("nama").value.trim();
+
+    const nis =
+        document.getElementById("nis").value.trim();
+
+    const token =
+        document.getElementById("token").value.trim();
+
 
     if (nama === "") {
+
         alert("Silakan masukkan Nama Lengkap.");
+
         return;
     }
+
 
     if (nis === "") {
+
         alert("Silakan masukkan NIS / Nomor Peserta.");
+
         return;
     }
+
 
     if (token === "") {
+
         alert("Silakan masukkan Token Ujian.");
+
         return;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const mode = params.get("mode") || "gladi";
 
-    localStorage.setItem("namaSiswa", nama);
-    localStorage.setItem("nisSiswa", nis);
-    localStorage.setItem("tokenUjian", token);
-    localStorage.setItem("modeUjian", mode);
+    /* ================================= */
+    /* MULAI SESI UJIAN BARU */
+    /* ================================= */
 
-    window.location.href = "ujian.html?mode=" + mode;
+    // Hapus jawaban ujian sebelumnya
+    localStorage.removeItem("jawabanPG");
+    localStorage.removeItem("jawabanIsian");
+    localStorage.removeItem("jawabanUraian");
+
+
+    // Hapus status ragu-ragu sebelumnya
+    localStorage.removeItem("raguPG");
+    localStorage.removeItem("raguIsian");
+    localStorage.removeItem("raguUraian");
+
+
+    // Hapus hasil ujian sebelumnya
+    localStorage.removeItem("nilaiSTS");
+    localStorage.removeItem("jumlahBenar");
+    localStorage.removeItem("jumlahBenarPG");
+    localStorage.removeItem("jumlahBenarIsian");
+
+    localStorage.removeItem("jumlahSoalPG");
+    localStorage.removeItem("jumlahSoalIsian");
+    localStorage.removeItem("jumlahSoalUraian");
+
+    localStorage.removeItem("nilaiOtomatisSTS");
+
+
+    /* ================================= */
+    /* SIMPAN DATA PESERTA BARU */
+    /* ================================= */
+
+    localStorage.setItem(
+        "namaSiswa",
+        nama
+    );
+
+    localStorage.setItem(
+        "nisSiswa",
+        nis
+    );
+
+    localStorage.setItem(
+        "tokenUjian",
+        token
+    );
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const mode =
+        params.get("mode") || "gladi";
+
+
+    localStorage.setItem(
+        "modeUjian",
+        mode
+    );
+
+
+    /* ================================= */
+    /* MASUK KE UJIAN */
+    /* ================================= */
+
+    window.location.href =
+        "ujian.html?mode=" + mode;
+
 }
+
 
 function kembaliKeBeranda() {
-    window.location.href = "index.html";
+
+    window.location.href =
+        "index.html";
+
 }
+```
