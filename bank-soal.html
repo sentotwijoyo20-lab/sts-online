@@ -322,7 +322,9 @@
 <main class="container">
 
 
-    <!-- UPLOAD -->
+    <!-- ========================================= -->
+    <!-- IMPORT WORD -->
+    <!-- ========================================= -->
 
     <section class="card">
 
@@ -335,11 +337,12 @@
             </div>
 
             <h3>
-                Pilih file Word (.docx)
+                Pilih File Word
             </h3>
 
             <p>
-                Import dokumen Word untuk membaca soal secara otomatis.
+                Pilih file Microsoft Word (.docx) dari komputer Anda.
+                File akan dibaca langsung di browser.
             </p>
 
             <label
@@ -368,7 +371,7 @@
             id="loading"
             class="loading">
 
-            ⏳ Sedang membaca dan memproses soal Word...
+            ⏳ Sedang membaca dan memproses soal...
 
         </div>
 
@@ -433,14 +436,16 @@
 
 
 
+    <!-- ========================================= -->
     <!-- PREVIEW -->
+    <!-- ========================================= -->
 
     <section class="card">
 
         <div class="preview-title">
 
             <h2>
-                👀 Preview Soal
+                👁️ Preview Soal
             </h2>
 
             <button
@@ -449,15 +454,14 @@
                 style="display:none"
                 onclick="simpanBankSoal()">
 
-                💾 SIMPAN BANK SOAL
+                💾 SIMPAN KE BANK SOAL
 
             </button>
 
         </div>
 
 
-        <div
-            id="preview">
+        <div id="preview">
 
             <div class="empty-preview">
 
@@ -476,8 +480,9 @@
 
 <script>
 
+
 /* ================================================= */
-/* VARIABEL GLOBAL */
+/* VARIABEL */
 /* ================================================= */
 
 let bankSoal = [];
@@ -487,7 +492,7 @@ let gambarWord = {};
 
 
 /* ================================================= */
-/* ELEMEN HTML */
+/* ELEMEN */
 /* ================================================= */
 
 const wordFile =
@@ -517,12 +522,12 @@ const saveButton =
 
 
 /* ================================================= */
-/* UPLOAD FILE */
+/* UPLOAD */
 /* ================================================= */
 
 wordFile.addEventListener(
     "change",
-    async function() {
+    async function () {
 
         const file =
             this.files[0];
@@ -541,7 +546,9 @@ wordFile.addEventListener(
         fileInfo.innerHTML =
             "📄 <strong>" +
             escapeHtml(file.name) +
-            "</strong>";
+            "</strong><br>" +
+            "📦 Ukuran: " +
+            formatUkuran(file.size);
 
 
         loading.style.display =
@@ -554,10 +561,14 @@ wordFile.addEventListener(
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "IMPORT ERROR:",
+                error
+            );
 
             tampilkanError(
-                "File Word tidak dapat diproses. Pastikan file berformat .docx yang valid."
+                error.message ||
+                "File Word tidak dapat diproses."
             );
 
         } finally {
@@ -573,7 +584,7 @@ wordFile.addEventListener(
 
 
 /* ================================================= */
-/* RESET PESAN */
+/* RESET */
 /* ================================================= */
 
 function resetPesan() {
@@ -584,49 +595,86 @@ function resetPesan() {
     successBox.style.display =
         "none";
 
-    loading.style.display =
-        "none";
+}
+
+
+
+/* ================================================= */
+/* UKURAN FILE */
+/* ================================================= */
+
+function formatUkuran(bytes) {
+
+    if (
+        bytes < 1024
+    ) {
+
+        return bytes + " B";
+
+    }
+
+
+    if (
+        bytes < 1024 * 1024
+    ) {
+
+        return (
+            bytes / 1024
+        ).toFixed(2) +
+        " KB";
+
+    }
+
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(2) +
+    " MB";
 
 }
 
 
 
 /* ================================================= */
-/* BACA WORD */
+/* BACA FILE WORD */
 /* ================================================= */
 
 async function bacaFileWord(file) {
 
-    if (
-        !file.name
-            .toLowerCase()
-            .endsWith(".docx")
-    ) {
-
-        throw new Error(
-            "File bukan DOCX."
-        );
-
-    }
-
-
-    const arrayBuffer =
+    const buffer =
         await file.arrayBuffer();
 
 
     const zip =
         await JSZip.loadAsync(
-            arrayBuffer
+            buffer
         );
 
 
+    const documentFile =
+        zip.file(
+            "word/document.xml"
+        );
+
+
+    if (!documentFile) {
+
+        throw new Error(
+            "Dokumen Word tidak memiliki document.xml yang valid."
+        );
+
+    }
+
+
     const documentXml =
-        await zip
-            .file("word/document.xml")
-            .async("string");
+        await documentFile.async(
+            "string"
+        );
 
 
     let relsXml = "";
+
 
     const relsFile =
         zip.file(
@@ -653,13 +701,32 @@ async function bacaFileWord(file) {
 
     const paragraphs =
         ekstrakParagraphWord(
-            documentXml,
-            relsXml
+            documentXml
         );
 
 
+    console.log(
+        "Jumlah paragraf:",
+        paragraphs.length
+    );
+
+
+    console.log(
+        "Contoh paragraf:",
+        paragraphs.slice(0, 20)
+    );
+
+
     bankSoal =
-        parseSoal(paragraphs);
+        parseSoal(
+            paragraphs
+        );
+
+
+    console.log(
+        "SOAL TERBACA:",
+        bankSoal
+    );
 
 
     if (
@@ -667,7 +734,7 @@ async function bacaFileWord(file) {
     ) {
 
         throw new Error(
-            "Tidak ditemukan soal. Pastikan dokumen menggunakan format PILIHAN GANDA / ISIAN SINGKAT / URAIAN."
+            "Tidak ditemukan soal. Pastikan dokumen memiliki bagian PILIHAN GANDA, ISIAN SINGKAT, atau URAIAN."
         );
 
     }
@@ -680,7 +747,7 @@ async function bacaFileWord(file) {
 
 
 /* ================================================= */
-/* AMBIL GAMBAR DARI WORD */
+/* GAMBAR */
 /* ================================================= */
 
 async function ambilGambar(
@@ -690,6 +757,7 @@ async function ambilGambar(
 
     const hasil = {};
 
+
     if (!relsXml) {
         return hasil;
     }
@@ -697,6 +765,7 @@ async function ambilGambar(
 
     const parser =
         new DOMParser();
+
 
     const xml =
         parser.parseFromString(
@@ -721,6 +790,7 @@ async function ambilGambar(
             rel.getAttribute(
                 "Id"
             );
+
 
         const target =
             rel.getAttribute(
@@ -747,20 +817,20 @@ async function ambilGambar(
                 .pop();
 
 
-        const file =
+        const imageFile =
             zip.file(
                 "word/media/" +
                 namaFile
             );
 
 
-        if (!file) {
+        if (!imageFile) {
             continue;
         }
 
 
         const blob =
-            await file.async(
+            await imageFile.async(
                 "blob"
             );
 
@@ -784,12 +854,12 @@ async function ambilGambar(
 /* ================================================= */
 
 function ekstrakParagraphWord(
-    xmlText,
-    relsXml
+    xmlText
 ) {
 
     const parser =
         new DOMParser();
+
 
     const xml =
         parser.parseFromString(
@@ -807,16 +877,7 @@ function ekstrakParagraphWord(
 
 
     return paragraphs.map(
-        function(p) {
-
-            const textParts = [];
-
-            const images = [];
-
-
-            /*
-             * Ambil seluruh teks
-             */
+        function (p) {
 
             const textNodes =
                 Array.from(
@@ -826,112 +887,149 @@ function ekstrakParagraphWord(
                 );
 
 
-            textNodes.forEach(
-                function(node) {
+            let text = "";
 
-                    textParts.push(
-                        node.textContent || ""
-                    );
+
+            textNodes.forEach(
+                function (node) {
+
+                    text +=
+                        node.textContent ||
+                        "";
 
                 }
             );
 
 
             /*
-             * Cari ID gambar
+             * =====================================
+             * CEK NUMBERING OTOMATIS WORD
+             * =====================================
              */
 
-            const blips =
+            let hasNumbering =
+                false;
+
+
+            let numId =
+                null;
+
+
+            let ilvl =
+                null;
+
+
+            const numPr =
+                p.getElementsByTagName(
+                    "w:numPr"
+                )[0];
+
+
+            if (numPr) {
+
+                hasNumbering =
+                    true;
+
+
+                const numIdNode =
+                    numPr.getElementsByTagName(
+                        "w:numId"
+                    )[0];
+
+
+                const ilvlNode =
+                    numPr.getElementsByTagName(
+                        "w:ilvl"
+                    )[0];
+
+
+                if (numIdNode) {
+
+                    numId =
+                        numIdNode.getAttribute(
+                            "w:val"
+                        );
+
+                }
+
+
+                if (ilvlNode) {
+
+                    ilvl =
+                        ilvlNode.getAttribute(
+                            "w:val"
+                        );
+
+                }
+
+            }
+
+
+            /*
+             * =====================================
+             * GAMBAR
+             * =====================================
+             */
+
+            const images = [];
+
+
+            const allElements =
                 Array.from(
-                    p.getElementsByTagName(
-                        "a:blip"
-                    )
+                    p.getElementsByTagName("*")
                 );
 
 
-            blips.forEach(
-                function(blip) {
+            allElements.forEach(
+                function (element) {
 
-                    const rid =
-                        blip.getAttribute(
+                    const embed =
+                        element.getAttribute(
                             "r:embed"
                         );
 
 
                     if (
-                        rid &&
-                        gambarWord[rid]
+                        embed &&
+                        gambarWord[embed]
                     ) {
 
-                        images.push(
-                            gambarWord[rid]
-                        );
+                        if (
+                            !images.includes(
+                                gambarWord[embed]
+                            )
+                        ) {
+
+                            images.push(
+                                gambarWord[embed]
+                            );
+
+                        }
 
                     }
 
                 }
             );
-
-
-            /*
-             * Beberapa dokumen Word
-             * menggunakan namespace tanpa
-             * prefix yang sama.
-             */
-
-            if (
-                images.length === 0
-            ) {
-
-                const allElements =
-                    Array.from(
-                        p.getElementsByTagName("*")
-                    );
-
-
-                allElements.forEach(
-                    function(element) {
-
-                        const embed =
-                            element.getAttribute(
-                                "r:embed"
-                            );
-
-
-                        if (
-                            embed &&
-                            gambarWord[embed]
-                        ) {
-
-                            if (
-                                !images.includes(
-                                    gambarWord[embed]
-                                )
-                            ) {
-
-                                images.push(
-                                    gambarWord[embed]
-                                );
-
-                            }
-
-                        }
-
-                    }
-                );
-
-            }
 
 
             return {
 
                 text:
                     normalisasiText(
-                        textParts.join("")
+                        text
                     ),
 
                 images:
-                    images
+                    images,
+
+                hasNumbering:
+                    hasNumbering,
+
+                numId:
+                    numId,
+
+                ilvl:
+                    ilvl
 
             };
 
@@ -943,12 +1041,12 @@ function ekstrakParagraphWord(
 
 
 /* ================================================= */
-/* NORMALISASI TEKS */
+/* NORMALISASI */
 /* ================================================= */
 
 function normalisasiText(text) {
 
-    return text
+    return String(text)
 
         .replace(
             /\u00A0/g,
@@ -983,17 +1081,20 @@ function normalisasiText(text) {
 function deteksiBagian(text) {
 
     const t =
-        normalisasiText(text)
-            .toUpperCase();
+        normalisasiText(
+            text
+        ).toUpperCase();
 
 
     /*
-     * KUNCI JAWABAN
-     * Harus diperiksa paling awal.
+     * KUNCI HARUS DIPERIKSA
+     * PALING AWAL.
      */
 
     if (
-        t.includes("KUNCI JAWABAN")
+        t.includes(
+            "KUNCI JAWABAN"
+        )
     ) {
 
         return "kunci";
@@ -1007,7 +1108,9 @@ function deteksiBagian(text) {
 
     if (
         t === "PILIHAN GANDA" ||
-        t.includes("PILIHAN GANDA")
+        t.includes(
+            "PILIHAN GANDA"
+        )
     ) {
 
         return "pg";
@@ -1016,12 +1119,14 @@ function deteksiBagian(text) {
 
 
     /*
-     * ISIAN
+     * ISIAN SINGKAT
      */
 
     if (
         t === "ISIAN SINGKAT" ||
-        t.includes("ISIAN SINGKAT")
+        t.includes(
+            "ISIAN SINGKAT"
+        )
     ) {
 
         return "isian";
@@ -1035,7 +1140,9 @@ function deteksiBagian(text) {
 
     if (
         t === "URAIAN" ||
-        t.includes("SOAL URAIAN")
+        t.includes(
+            "SOAL URAIAN"
+        )
     ) {
 
         return "uraian";
@@ -1044,11 +1151,9 @@ function deteksiBagian(text) {
 
 
     /*
-     * Heading otomatis Word
-     * seperti:
-     * I. Pilihan Ganda
-     * II. Isian Singkat
-     * III. Uraian
+     * Heading Word:
+     *
+     * I. PILIHAN GANDA
      */
 
     if (
@@ -1058,7 +1163,9 @@ function deteksiBagian(text) {
     ) {
 
         if (
-            t.includes("PILIH")
+            t.includes(
+                "PILIH"
+            )
         ) {
 
             return "pg";
@@ -1068,12 +1175,18 @@ function deteksiBagian(text) {
     }
 
 
+    /*
+     * II. ISIAN
+     */
+
     if (
         /^II[\.\):\-]\s*/.test(t)
     ) {
 
         if (
-            t.includes("ISI")
+            t.includes(
+                "ISI"
+            )
         ) {
 
             return "isian";
@@ -1083,12 +1196,18 @@ function deteksiBagian(text) {
     }
 
 
+    /*
+     * III. URAIAN
+     */
+
     if (
         /^III[\.\):\-]\s*/.test(t)
     ) {
 
         if (
-            t.includes("URAI")
+            t.includes(
+                "URAI"
+            )
         ) {
 
             return "uraian";
@@ -1105,19 +1224,23 @@ function deteksiBagian(text) {
 
 
 /* ================================================= */
-/* DETEKSI NOMOR SOAL */
+/* NOMOR TERTULIS */
 /* ================================================= */
 
 function deteksiNomor(text) {
 
     const hasil =
-        text.match(
-            /^\s*(\d+)[\.\)\-]\s+(.+)$/s
+        normalisasiText(
+            text
+        ).match(
+            /^(\d+)[\.\)\-:]\s+(.+)$/s
         );
 
 
     if (!hasil) {
+
         return null;
+
     }
 
 
@@ -1139,19 +1262,23 @@ function deteksiNomor(text) {
 
 
 /* ================================================= */
-/* DETEKSI PILIHAN */
+/* PILIHAN A-D */
 /* ================================================= */
 
 function deteksiPilihan(text) {
 
     const hasil =
-        text.match(
-            /^\s*([A-Da-d])[\.\)\:\-]\s*(.*)$/s
+        normalisasiText(
+            text
+        ).match(
+            /^([A-Da-d])[\.\)\:\-]\s*(.*)$/s
         );
 
 
     if (!hasil) {
+
         return null;
+
     }
 
 
@@ -1170,48 +1297,171 @@ function deteksiPilihan(text) {
 
 
 /* ================================================= */
-/* PARSER SOAL */
+/* CEK NOMOR OTOMATIS WORD */
 /* ================================================= */
 
-function parseSoal(paragraphs) {
+function adalahNomorOtomatisSoal(
+    paragraph,
+    bagian
+) {
+
+    /*
+     * Kalau tidak punya numbering,
+     * jelas bukan numbering otomatis.
+     */
+
+    if (
+        !paragraph.hasNumbering
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Untuk soal kita gunakan
+     * level pertama.
+     *
+     * ilvl biasanya 0.
+     */
+
+    if (
+        paragraph.ilvl !== null &&
+        paragraph.ilvl !== "0"
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Harus memiliki isi teks.
+     */
+
+    if (
+        !paragraph.text.trim()
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Jangan pernah menganggap
+     * pilihan A-D sebagai soal.
+     */
+
+    if (
+        deteksiPilihan(
+            paragraph.text
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Heading tidak boleh menjadi soal.
+     */
+
+    if (
+        deteksiBagian(
+            paragraph.text
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Untuk semua jenis soal,
+     * numbering level 0 dapat menjadi
+     * nomor soal.
+     */
+
+    return (
+        bagian === "pg" ||
+        bagian === "isian" ||
+        bagian === "uraian"
+    );
+
+}
+
+
+
+/* ================================================= */
+/* PARSER UTAMA */
+/* ================================================= */
+
+function parseSoal(
+    paragraphs
+) {
 
     const hasil = [];
+
 
     let bagian =
         null;
 
+
     let soalAktif =
         null;
 
-    let nomorTerakhir =
-        null;
 
+    /*
+     * Simpan soal yang sedang aktif.
+     */
 
     function simpanSoalAktif() {
 
-        if (!soalAktif) {
+        if (
+            !soalAktif
+        ) {
+
             return;
+
         }
 
 
-        /*
-         * Jangan simpan paragraf kosong
-         * sebagai soal.
-         */
-
-        const teks =
-            soalAktif.pertanyaan
-                .trim();
+        const pertanyaan =
+            normalisasiText(
+                soalAktif.pertanyaan
+            );
 
 
         if (
-            teks ||
+            pertanyaan ||
             soalAktif.images.length > 0
         ) {
 
-            hasil.push(
-                soalAktif
-            );
+            hasil.push({
+
+                nomor:
+                    soalAktif.nomor,
+
+                jenis:
+                    soalAktif.jenis,
+
+                pertanyaan:
+                    pertanyaan,
+
+                pilihan:
+                    soalAktif.pilihan,
+
+                images:
+                    soalAktif.images,
+
+                pilihanImages:
+                    soalAktif.pilihanImages
+
+            });
 
         }
 
@@ -1224,28 +1474,27 @@ function parseSoal(paragraphs) {
 
 
     paragraphs.forEach(
-        function(paragraph) {
+        function (paragraph) {
 
             const text =
                 paragraph.text;
 
 
             /*
-             * 1. Cek heading bagian
+             * =====================================
+             * CEK BAGIAN
+             * =====================================
              */
 
             const bagianBaru =
-                deteksiBagian(text);
+                deteksiBagian(
+                    text
+                );
 
 
             if (
                 bagianBaru === "kunci"
             ) {
-
-                /*
-                 * Kunci jawaban adalah
-                 * batas akhir soal.
-                 */
 
                 simpanSoalAktif();
 
@@ -1266,17 +1515,15 @@ function parseSoal(paragraphs) {
                 bagian =
                     bagianBaru;
 
-                nomorTerakhir =
-                    null;
-
                 return;
 
             }
 
 
             /*
-             * Kalau sudah masuk kunci,
-             * jangan baca apa pun lagi.
+             * =====================================
+             * SUDAH MASUK KUNCI
+             * =====================================
              */
 
             if (
@@ -1289,28 +1536,44 @@ function parseSoal(paragraphs) {
 
 
             /*
-             * Belum menemukan jenis soal.
+             * =====================================
+             * BELUM ADA BAGIAN
+             * =====================================
              */
 
-            if (!bagian) {
+            if (
+                !bagian
+            ) {
+
                 return;
+
             }
 
 
             /*
-             * 2. Cek nomor soal
+             * =====================================
+             * CEK NOMOR TERTULIS
+             *
+             * Contoh:
+             *
+             * 1. Bilangan ...
+             * =====================================
              */
 
             const nomor =
-                deteksiNomor(text);
+                deteksiNomor(
+                    text
+                );
 
 
-            if (nomor) {
+            /*
+             * Kalau nomor tertulis ditemukan,
+             * buat soal baru.
+             */
 
-                /*
-                 * Nomor baru berarti
-                 * soal baru.
-                 */
+            if (
+                nomor
+            ) {
 
                 simpanSoalAktif();
 
@@ -1326,16 +1589,18 @@ function parseSoal(paragraphs) {
                     pertanyaan:
                         nomor.isi,
 
-                    pilihan: {},
+                    pilihan:
+                        {},
 
                     images:
-                        [...paragraph.images]
+                        [
+                            ...paragraph.images
+                        ],
+
+                    pilihanImages:
+                        {}
 
                 };
-
-
-                nomorTerakhir =
-                    nomor.nomor;
 
 
                 return;
@@ -1343,8 +1608,80 @@ function parseSoal(paragraphs) {
             }
 
 
+
             /*
-             * 3. Cek pilihan A-D
+             * =====================================
+             * CEK NUMBERING OTOMATIS WORD
+             *
+             * Ini bagian penting yang baru.
+             * =====================================
+             */
+
+            if (
+                adalahNomorOtomatisSoal(
+                    paragraph,
+                    bagian
+                )
+            ) {
+
+                simpanSoalAktif();
+
+
+                /*
+                 * Nomor visual tidak tersedia
+                 * sebagai teks, jadi nomor dibuat
+                 * berdasarkan urutan soal dalam
+                 * bagian tersebut.
+                 */
+
+                const jumlahSebelumnya =
+                    hasil.filter(
+                        function (item) {
+
+                            return (
+                                item.jenis ===
+                                bagian
+                            );
+
+                        }
+                    ).length;
+
+
+                soalAktif = {
+
+                    nomor:
+                        jumlahSebelumnya + 1,
+
+                    jenis:
+                        bagian,
+
+                    pertanyaan:
+                        text,
+
+                    pilihan:
+                        {},
+
+                    images:
+                        [
+                            ...paragraph.images
+                        ],
+
+                    pilihanImages:
+                        {}
+
+                };
+
+
+                return;
+
+            }
+
+
+
+            /*
+             * =====================================
+             * CEK PILIHAN A-D
+             * =====================================
              */
 
             if (
@@ -1358,7 +1695,9 @@ function parseSoal(paragraphs) {
                     );
 
 
-                if (pilihan) {
+                if (
+                    pilihan
+                ) {
 
                     soalAktif.pilihan[
                         pilihan.huruf
@@ -1367,27 +1706,13 @@ function parseSoal(paragraphs) {
 
 
                     /*
-                     * Jika paragraf pilihan
-                     * memiliki gambar,
-                     * simpan sebagai gambar
-                     * pilihan.
+                     * Simpan gambar yang berada
+                     * pada paragraf pilihan.
                      */
 
                     if (
-                        paragraph.images.length
+                        paragraph.images.length > 0
                     ) {
-
-                        if (
-                            !soalAktif
-                                .pilihanImages
-                        ) {
-
-                            soalAktif
-                                .pilihanImages =
-                                {};
-
-                        }
-
 
                         soalAktif
                             .pilihanImages[
@@ -1407,24 +1732,30 @@ function parseSoal(paragraphs) {
             }
 
 
+
             /*
-             * 4. Teks lanjutan
+             * =====================================
+             * TEKS LANJUTAN SOAL
              *
              * Contoh:
              *
              * 2. Perhatikan gambar berikut!
              *
-             * [gambar]
+             * [GAMBAR]
              *
-             * Harga yang tertera pada
-             * gambar di atas dibaca ....
+             * Harga yang tertera ...
              *
-             * Semua tetap menjadi satu soal.
+             * Semua tetap satu soal.
+             * =====================================
              */
 
-            if (soalAktif) {
+            if (
+                soalAktif
+            ) {
 
-                if (text) {
+                if (
+                    text
+                ) {
 
                     soalAktif.pertanyaan +=
                         "\n" +
@@ -1434,7 +1765,7 @@ function parseSoal(paragraphs) {
 
 
                 if (
-                    paragraph.images.length
+                    paragraph.images.length > 0
                 ) {
 
                     soalAktif.images.push(
@@ -1456,48 +1787,7 @@ function parseSoal(paragraphs) {
     simpanSoalAktif();
 
 
-    /*
-     * Bersihkan data pilihan
-     * dan buang soal yang tidak valid.
-     */
-
-    return hasil
-        .filter(
-            function(soal) {
-
-                return (
-                    soal.pertanyaan.trim() !== ""
-                );
-
-            }
-        )
-        .map(
-            function(soal) {
-
-                return {
-
-                    nomor:
-                        soal.nomor,
-
-                    jenis:
-                        soal.jenis,
-
-                    pertanyaan:
-                        soal.pertanyaan.trim(),
-
-                    pilihan:
-                        soal.pilihan || {},
-
-                    images:
-                        soal.images || [],
-
-                    pilihanImages:
-                        soal.pilihanImages || {}
-
-                };
-
-            }
-        );
+    return hasil;
 
 }
 
@@ -1522,11 +1812,14 @@ function tampilkanPreview() {
             'Tidak ada soal yang ditemukan.' +
             '</div>';
 
+
         saveButton.style.display =
             "none";
 
+
         summary.style.display =
             "none";
+
 
         return;
 
@@ -1535,22 +1828,34 @@ function tampilkanPreview() {
 
     const jumlahPG =
         bankSoal.filter(
-            soal =>
-                soal.jenis === "pg"
+            function (soal) {
+
+                return soal.jenis ===
+                    "pg";
+
+            }
         ).length;
 
 
     const jumlahIsian =
         bankSoal.filter(
-            soal =>
-                soal.jenis === "isian"
+            function (soal) {
+
+                return soal.jenis ===
+                    "isian";
+
+            }
         ).length;
 
 
     const jumlahUraian =
         bankSoal.filter(
-            soal =>
-                soal.jenis === "uraian"
+            function (soal) {
+
+                return soal.jenis ===
+                    "uraian";
+
+            }
         ).length;
 
 
@@ -1580,25 +1885,31 @@ function tampilkanPreview() {
         "inline-block";
 
 
+
     /*
-     * Kelompokkan berdasarkan jenis.
+     * =====================================
+     * TAMPILKAN BERDASARKAN JENIS
+     * =====================================
      */
 
-    const kelompok =
-        [
-            {
-                jenis: "pg",
-                judul: "PILIHAN GANDA"
-            },
-            {
-                jenis: "isian",
-                judul: "ISIAN SINGKAT"
-            },
-            {
-                jenis: "uraian",
-                judul: "URAIAN"
-            }
-        ];
+    const kelompok = [
+
+        {
+            jenis: "pg",
+            judul: "PILIHAN GANDA"
+        },
+
+        {
+            jenis: "isian",
+            judul: "ISIAN SINGKAT"
+        },
+
+        {
+            jenis: "uraian",
+            judul: "URAIAN"
+        }
+
+    ];
 
 
     let nomorGlobal =
@@ -1606,11 +1917,11 @@ function tampilkanPreview() {
 
 
     kelompok.forEach(
-        function(kelompokData) {
+        function (kelompokData) {
 
             const daftar =
                 bankSoal.filter(
-                    function(soal) {
+                    function (soal) {
 
                         return soal.jenis ===
                             kelompokData.jenis;
@@ -1628,17 +1939,17 @@ function tampilkanPreview() {
             }
 
 
-            const title =
+            const sectionTitle =
                 document.createElement(
                     "div"
                 );
 
 
-            title.className =
+            sectionTitle.className =
                 "section-title";
 
 
-            title.textContent =
+            sectionTitle.textContent =
                 kelompokData.judul +
                 " • " +
                 daftar.length +
@@ -1646,12 +1957,12 @@ function tampilkanPreview() {
 
 
             preview.appendChild(
-                title
+                sectionTitle
             );
 
 
             daftar.forEach(
-                function(soal) {
+                function (soal) {
 
                     nomorGlobal++;
 
@@ -1666,6 +1977,10 @@ function tampilkanPreview() {
                         "question-card";
 
 
+                    /*
+                     * Header
+                     */
+
                     const header =
                         document.createElement(
                             "div"
@@ -1676,17 +1991,17 @@ function tampilkanPreview() {
                         "question-header";
 
 
-                    const nomor =
+                    const number =
                         document.createElement(
                             "span"
                         );
 
 
-                    nomor.className =
+                    number.className =
                         "question-number";
 
 
-                    nomor.textContent =
+                    number.textContent =
                         "Soal " +
                         nomorGlobal;
 
@@ -1708,7 +2023,7 @@ function tampilkanPreview() {
 
 
                     header.appendChild(
-                        nomor
+                        number
                     );
 
 
@@ -1720,6 +2035,7 @@ function tampilkanPreview() {
                     card.appendChild(
                         header
                     );
+
 
 
                     /*
@@ -1745,12 +2061,13 @@ function tampilkanPreview() {
                     );
 
 
+
                     /*
                      * Gambar pertanyaan
                      */
 
                     soal.images.forEach(
-                        function(src) {
+                        function (src) {
 
                             const img =
                                 document.createElement(
@@ -1761,8 +2078,10 @@ function tampilkanPreview() {
                             img.src =
                                 src;
 
+
                             img.className =
                                 "question-image";
+
 
                             img.alt =
                                 "Gambar soal";
@@ -1776,8 +2095,9 @@ function tampilkanPreview() {
                     );
 
 
+
                     /*
-                     * Pilihan
+                     * Pilihan A-D
                      */
 
                     if (
@@ -1791,7 +2111,7 @@ function tampilkanPreview() {
                             "C",
                             "D"
                         ].forEach(
-                            function(huruf) {
+                            function (huruf) {
 
                                 if (
                                     !Object
@@ -1832,13 +2152,13 @@ function tampilkanPreview() {
                                     huruf + ".";
 
 
-                                const text =
+                                const optionText =
                                     document.createElement(
                                         "span"
                                     );
 
 
-                                text.textContent =
+                                optionText.textContent =
                                     soal.pilihan[
                                         huruf
                                     ];
@@ -1850,13 +2170,14 @@ function tampilkanPreview() {
 
 
                                 option.appendChild(
-                                    text
+                                    optionText
                                 );
 
 
                                 card.appendChild(
                                     option
                                 );
+
 
 
                                 /*
@@ -1876,36 +2197,36 @@ function tampilkanPreview() {
                                     optionImages
                                 ) {
 
-                                    optionImages
-                                        .forEach(
-                                            function(
-                                                src
-                                            ) {
+                                    optionImages.forEach(
+                                        function (
+                                            src
+                                        ) {
 
-                                                const img =
-                                                    document
-                                                        .createElement(
-                                                            "img"
-                                                        );
-
-
-                                                img.src =
-                                                    src;
-
-                                                img.className =
-                                                    "question-image";
-
-                                                img.alt =
-                                                    "Gambar pilihan";
-
-
-                                                card
-                                                    .appendChild(
-                                                        img
+                                            const img =
+                                                document
+                                                    .createElement(
+                                                        "img"
                                                     );
 
-                                            }
-                                        );
+
+                                            img.src =
+                                                src;
+
+
+                                            img.className =
+                                                "question-image";
+
+
+                                            img.alt =
+                                                "Gambar pilihan";
+
+
+                                            card.appendChild(
+                                                img
+                                            );
+
+                                        }
+                                    );
 
                                 }
 
@@ -1927,15 +2248,19 @@ function tampilkanPreview() {
 
 
 
+    /*
+     * Pesan berhasil
+     */
+
     successBox.style.display =
         "block";
 
 
     successBox.innerHTML =
-        "✅ Berhasil membaca <strong>" +
+        "✅ File Word berhasil dibaca. " +
+        "Ditemukan <strong>" +
         bankSoal.length +
-        " soal</strong> dari file Word. " +
-        "Kop, petunjuk, dan bagian setelah KUNCI JAWABAN tidak dimasukkan ke preview.";
+        " soal</strong>.";
 
 }
 
@@ -1945,7 +2270,9 @@ function tampilkanPreview() {
 /* LABEL JENIS */
 /* ================================================= */
 
-function labelJenis(jenis) {
+function labelJenis(
+    jenis
+) {
 
     if (
         jenis === "pg"
@@ -1981,7 +2308,7 @@ function labelJenis(jenis) {
 
 
 /* ================================================= */
-/* SIMPAN BANK SOAL */
+/* SIMPAN */
 /* ================================================= */
 
 function simpanBankSoal() {
@@ -2021,7 +2348,9 @@ function simpanBankSoal() {
 /* ERROR */
 /* ================================================= */
 
-function tampilkanError(message) {
+function tampilkanError(
+    message
+) {
 
     errorBox.style.display =
         "block";
@@ -2053,7 +2382,9 @@ function tampilkanError(message) {
 /* ESCAPE HTML */
 /* ================================================= */
 
-function escapeHtml(text) {
+function escapeHtml(
+    text
+) {
 
     return String(text)
 
