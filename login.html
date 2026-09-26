@@ -3,8 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login Ujian - STS Online</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           LOGIN STS ONLINE
+           DESAIN KHUSUS HALAMAN LOGIN
+           ===================================================== */
+
+        .login-page {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 15px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(37, 99, 235, 0.14),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(16, 185, 129, 0.10),
+                    transparent 30%
+                ),
+                #f3f6fb;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* KARTU UTAMA */
+
+        .login-card {
+            position: relative;
+            overflow: hidden;
+
+            width: 100%;
+
+            padding: 38px 40px 32px;
+
+            background: #ffffff;
+
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 26px;
+
+            box-shadow:
+                0 25px 60px rgba(15, 23, 42, 0.12);
+        }
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            top: 0;
+
+            height: 5px;
+
+            background: linear-gradient(
+                90deg,
+                #1d4ed8,
+                #3b82f6,
+                #22c55e
+            );
+        }
+
+        /* LOGO */
+
+        .login-logo {
+            width: 72px;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 2px auto 16px;
+
+            background: linear-gradient(
+                135deg,
+                #1d4ed8,
+                #3b82f6
+            );
+
+            border-radius: 21px;
+
+            font-size: 34px;
+
+            box-shadow:
+                0 12px 25px rgba(37, 99, 235, 0.28);
+        }
+
+        /* JUDUL */
+
+        .login-card h1 {
+            margin: 0;
+
+            text-align: center;
+
+            font-size: 27px;
+            font-weight: 900;
+
+            letter-spacing: 0.8px;
+
+            color: #111827;
+        }
+
+        .school-name {
+            margin: 4px 0 16px;
+
+            text-align: center;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #64748b;
+        }
+
+        /* MODE UJIAN */
+
+        .mode-badge {
+            display: table;
+
+            margin: 0 auto;
+
+            padding: 8px 15px;
+
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+        }
+
+        .mode-gladi {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+
+            color: #15803d;
+        }
+
+        .mode-resmi {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+
+            color: #1d4ed8;
+        }
+
+        /* GARIS */
+
+        .login-divider {
+            height: 1px;
+
+            margin: 25px 0 23px;
+
+            background: #e5e7eb;
+        }
+
+        /* JUDUL FORM */
+
+        .login-card h2 {
+            margin: 0 0 4px;
+
+            font-size: 20px;
+            font-weight: 850;
+
+            color: #111827;
+        }
+
+        .login-description {
+            margin: 0 0 22px;
+
+            font-size: 13px;
+
+            color: #64748b;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            height: 49px;
+
+            padding: 0 14px;
+
+            background: #f8fafc;
+
+            border: 1px solid #dbe2ea;
+            border-radius: 11px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #111827;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-group input:hover {
+            border-color: #b8c4d3;
+            background: #ffffff;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, 0.10);
+        }
+
+        /* TOMBOL LOGIN */
+
+        .btn-login {
+            width: 100%;
+
+            height: 53px;
+
+            margin-top: 5px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #1d4ed8,
+                #2563eb,
+                #3b82f6
+            );
+
+            color: #ffffff;
+
+            font-size: 15px;
+            font-weight: 850;
+
+            letter-spacing: 0.3px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 9px 20px rgba(37, 99, 235, 0.28);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+
+            filter: brightness(1.05);
+
+            box-shadow:
+                0 13px 27px rgba(37, 99, 235, 0.36);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* TOMBOL KEMBALI */
+
+        .btn-back {
+            width: 100%;
+
+            height: 47px;
+
+            margin-top: 11px;
+
+            border: 1px solid #dbe2ea;
+            border-radius: 12px;
+
+            background: #ffffff;
+
+            color: #64748b;
+
+            font-size: 13px;
+            font-weight: 750;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #f8fafc;
+
+            border-color: #cbd5e1;
+
+            color: #334155;
+        }
+
+        /* INFORMASI */
+
+        .login-info {
+            margin-top: 21px;
+
+            padding: 14px 16px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e8edf3;
+
+            border-radius: 12px;
+
+            text-align: left;
+        }
+
+        .login-info strong {
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 12px;
+
+            color: #475569;
+        }
+
+        .login-info p {
+            margin: 0;
+
+            font-size: 12px;
+
+            line-height: 1.55;
+
+            color: #64748b;
+        }
+
+        /* COPYRIGHT */
+
+        .copyright {
+            margin-top: 18px;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE HP
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .login-page {
+                padding: 20px 13px;
+            }
+
+            .login-card {
+                padding: 32px 23px 27px;
+
+                border-radius: 22px;
+            }
+
+            .login-logo {
+                width: 64px;
+                height: 64px;
+
+                font-size: 30px;
+
+                border-radius: 18px;
+            }
+
+            .login-card h1 {
+                font-size: 24px;
+            }
+
+            .school-name {
+                font-size: 13px;
+            }
+
+            .login-divider {
+                margin: 22px 0 20px;
+            }
+
+            .login-card h2 {
+                font-size: 19px;
+            }
+        }
+    </style>
 </head>
 
 <body class="login-page">
@@ -18,7 +439,10 @@
             </div>
 
             <h1>STS ONLINE</h1>
-            <p class="school-name">SD Negeri 1 Jatipayak</p>
+
+            <p class="school-name">
+                SD Negeri 1 Jatipayak
+            </p>
 
             <div id="modeBadge" class="mode-badge">
                 🟢 GLADI / SIMULASI
@@ -27,56 +451,90 @@
             <div class="login-divider"></div>
 
             <h2>Login Peserta</h2>
+
             <p class="login-description">
-                Silakan isi data dengan benar untuk mengikuti ujian.
+                Silakan isi data berikut untuk memulai ujian.
             </p>
 
+
             <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
+
+                <label for="nama">
+                    Nama Lengkap
+                </label>
+
                 <input
                     type="text"
                     id="nama"
                     placeholder="Masukkan nama lengkap"
                     autocomplete="name"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="nis">NIS / Nomor Peserta</label>
+
+                <label for="nis">
+                    NIS / Nomor Peserta
+                </label>
+
                 <input
                     type="text"
                     id="nis"
                     placeholder="Masukkan NIS / nomor peserta"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="token">Token Ujian</label>
+
+                <label for="token">
+                    Token Ujian
+                </label>
+
                 <input
                     type="text"
                     id="token"
                     placeholder="Masukkan token ujian"
                     autocomplete="off"
                 >
+
             </div>
 
-            <button class="btn-login" onclick="mulaiLogin()">
-                🚀 MULAI UJIAN
+
+            <button
+                class="btn-login"
+                onclick="mulaiLogin()"
+            >
+                🚀 &nbsp; MULAI UJIAN
             </button>
 
-            <button class="btn-back" onclick="kembaliKeBeranda()">
-                ← Kembali ke Beranda
+
+            <button
+                class="btn-back"
+                onclick="kembaliKeBeranda()"
+            >
+                ← &nbsp; Kembali ke Beranda
             </button>
+
 
             <div class="login-info">
-                <strong>📌 Perhatian</strong>
+
+                <strong>
+                    📌 Perhatian
+                </strong>
+
                 <p>
                     Pastikan nama, NIS, dan token sudah benar
                     sebelum memulai ujian.
                 </p>
+
             </div>
 
         </div>
+
 
         <p class="copyright">
             © 2026 STS Online • SD Negeri 1 Jatipayak
@@ -84,7 +542,9 @@
 
     </div>
 
+
     <script src="script.js"></script>
+
 
     <script>
         const params = new URLSearchParams(window.location.search);
