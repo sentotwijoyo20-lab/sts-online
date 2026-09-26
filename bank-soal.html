@@ -607,9 +607,6 @@ async function bacaFileWord(file) {
 
         /* =====================================================
            AMBIL SEMUA PARAGRAF
-
-           BAGIAN INI TETAP DIPERTAHANKAN
-           AGAR PEMBACAAN GAMBAR TIDAK RUSAK.
         ===================================================== */
 
         const paragraphs =
@@ -654,9 +651,7 @@ async function bacaFileWord(file) {
 
 
         /* =====================================================
-           PARSER BARU
-
-           HANYA BAGIAN SOAL YANG DIBACA.
+           PARSER SOAL
         ===================================================== */
 
         const questions =
@@ -790,28 +785,117 @@ async function prosesParagraf(
 
 
 /* =========================================================
+   DETEKSI BAGIAN SOAL
+========================================================= */
+
+function deteksiBagian(text) {
+
+    const upper =
+        normalisasiSpasi(
+            text
+        ).toUpperCase();
+
+
+    /*
+     * BAGIAN I
+     *
+     * Bisa berbentuk:
+     * I. PILIHAN GANDA
+     * I. PILIHLAH JAWABAN...
+     * PILIHLAH JAWABAN YANG PALING TEPAT
+     */
+
+    if (
+        /^I[\.\)]\s*/i.test(upper) &&
+        !/^II[\.\)]/i.test(upper) &&
+        !/^III[\.\)]/i.test(upper)
+    ) {
+
+        return "I";
+
+    }
+
+
+    if (
+        (
+            upper.includes("PILIHLAH") ||
+            upper.includes("PILIHAN GANDA") ||
+            upper.includes("PILIH JAWABAN")
+        ) &&
+        (
+            upper.includes("JAWABAN") ||
+            upper.includes("PALING TEPAT")
+        )
+    ) {
+
+        return "I";
+
+    }
+
+
+    /*
+     * BAGIAN II
+     *
+     * Bisa berbentuk:
+     * II. ISIAN
+     * II. ISILAH TITIK-TITIK BERIKUT
+     * ISIAN SINGKAT
+     */
+
+    if (
+        /^II[\.\)]\s*/i.test(upper)
+    ) {
+
+        return "II";
+
+    }
+
+
+    if (
+        upper.includes("ISIAN SINGKAT") ||
+        upper.includes("ISILAH TITIK") ||
+        upper.includes("ISILAH")
+    ) {
+
+        return "II";
+
+    }
+
+
+    /*
+     * BAGIAN III
+     *
+     * Bisa berbentuk:
+     * III. URAIAN
+     * III. JAWABLAH PERTANYAAN
+     */
+
+    if (
+        /^III[\.\)]\s*/i.test(upper)
+    ) {
+
+        return "III";
+
+    }
+
+
+    if (
+        upper.includes("JAWABLAH PERTANYAAN") ||
+        upper.includes("URAIAN")
+    ) {
+
+        return "III";
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
    PARSER SOAL
-   VERSI BARU
-
-   ATURAN:
-
-   KOP / IDENTITAS
-   → DIABAIKAN
-
-   PETUNJUK / PERATURAN
-   → DIABAIKAN
-
-   I. PILIHAN GANDA
-   → MULAI SOAL
-
-   II. ISIAN
-   → SOAL
-
-   III. URAIAN
-   → SOAL
-
-   KUNCI JAWABAN
-   → BERHENTI MEMBACA SOAL
 ========================================================= */
 
 function parseSoalDariParagraf(
@@ -820,6 +904,10 @@ function parseSoalDariParagraf(
 
     let bagianAktif =
         null;
+
+
+    let urutanBagian =
+        0;
 
 
     let currentQuestion =
@@ -844,93 +932,99 @@ function parseSoalDariParagraf(
 
 
         /* =====================================================
+           LEWATI PARAGRAF KOSONG
+        ===================================================== */
+
+        if (
+            !text &&
+            item.images.length === 0
+        ) {
+
+            continue;
+
+        }
+
+
+        /* =====================================================
+           DETEKSI KUNCI JAWABAN
+
+           Tidak peduli apakah:
            KUNCI JAWABAN
+           Kunci Jawaban:
+           KUNCI JAWABAN :
+           KUNCI JAWABAN I. PILIHAN GANDA
 
-           Begitu menemukan bagian ini,
-           SEMUA nomor setelahnya tidak boleh
-           dianggap sebagai soal.
+           Semua dihentikan.
         ===================================================== */
 
         if (
-            /^KUNCI\s+JAWABAN\b/i.test(
+            upperText.includes("KUNCI") &&
+            upperText.includes("JAWABAN")
+        ) {
+
+            break;
+
+        }
+
+
+        /* =====================================================
+           DETEKSI BAGIAN
+        ===================================================== */
+
+        const bagianBaru =
+            deteksiBagian(
                 text
-            )
-        ) {
+            );
+
+
+        if (bagianBaru) {
+
+            const urutanBaru =
+                bagianBaru === "I"
+                    ? 1
+                    : bagianBaru === "II"
+                        ? 2
+                        : 3;
+
+
+            /*
+             * Jika bagian sudah berjalan lalu
+             * muncul bagian dengan nomor lebih kecil,
+             * berarti kemungkinan besar kita sudah
+             * masuk ke BAGIAN KUNCI JAWABAN.
+             *
+             * Contoh:
+             *
+             * I → II → III
+             *
+             * kemudian:
+             *
+             * I. Pilihan Ganda
+             *
+             * Itu bukan soal baru.
+             */
+
+            if (
+                urutanBagian > 0 &&
+                urutanBaru <= urutanBagian
+            ) {
+
+                break;
+
+            }
+
 
             bagianAktif =
-                "KEY";
+                bagianBaru;
+
+
+            urutanBagian =
+                urutanBaru;
+
 
             currentQuestion =
                 null;
 
-            continue;
-
-        }
-
-
-        /* =====================================================
-           BAGIAN I - PILIHAN GANDA
-        ===================================================== */
-
-        if (
-            /^I\.\s*PILIHAN\s+GANDA\b/i.test(
-                upperText
-            )
-        ) {
-
-            bagianAktif =
-                "I";
-
-            currentQuestion =
-                null;
-
-            continue;
-
-        }
-
-
-        /* =====================================================
-           BAGIAN II - ISIAN
-        ===================================================== */
-
-        if (
-            /^II\.\s*IS[Iİ]L?AH\b/i.test(
-                upperText
-            ) ||
-            /^II\.\s*ISIAN\b/i.test(
-                upperText
-            )
-        ) {
-
-            bagianAktif =
-                "II";
-
-            currentQuestion =
-                null;
-
-            continue;
-
-        }
-
-
-        /* =====================================================
-           BAGIAN III - URAIAN
-        ===================================================== */
-
-        if (
-            /^III\.\s*JAWABLAH\b/i.test(
-                upperText
-            ) ||
-            /^III\.\s*URAIAN\b/i.test(
-                upperText
-            )
-        ) {
-
-            bagianAktif =
-                "III";
-
-            currentQuestion =
-                null;
 
             continue;
 
@@ -940,13 +1034,16 @@ function parseSoalDariParagraf(
         /* =====================================================
            SEBELUM BAGIAN SOAL
 
-           KOP, IDENTITAS, PETUNJUK,
-           PERATURAN, DLL DIABAIKAN.
+           KOP
+           IDENTITAS
+           PETUNJUK
+           PERATURAN
+
+           SEMUANYA DIABAIKAN.
         ===================================================== */
 
         if (
-            bagianAktif === null ||
-            bagianAktif === "KEY"
+            bagianAktif === null
         ) {
 
             continue;
@@ -957,10 +1054,13 @@ function parseSoalDariParagraf(
         /* =====================================================
            DETEKSI NOMOR SOAL
 
-           Hanya aktif pada:
-           I
-           II
-           III
+           Format:
+           1. Soal
+           2. Soal
+
+           atau:
+           1) Soal
+           2) Soal
         ===================================================== */
 
         const match =
@@ -977,15 +1077,14 @@ function parseSoalDariParagraf(
                 );
 
 
-            /*
-             * Nomor 1–25 untuk bagian I
-             * Nomor 1–5 untuk bagian II
-             * Nomor 1–5 untuk bagian III
-             */
-
             let nomorValid =
                 false;
 
+
+            /*
+             * Bagian I:
+             * 1 - 25
+             */
 
             if (
                 bagianAktif === "I" &&
@@ -999,6 +1098,11 @@ function parseSoalDariParagraf(
             }
 
 
+            /*
+             * Bagian II:
+             * 1 - 5
+             */
+
             if (
                 bagianAktif === "II" &&
                 nomorSoal >= 1 &&
@@ -1010,6 +1114,11 @@ function parseSoalDariParagraf(
 
             }
 
+
+            /*
+             * Bagian III:
+             * 1 - 5
+             */
 
             if (
                 bagianAktif === "III" &&
@@ -1024,8 +1133,9 @@ function parseSoalDariParagraf(
 
 
             /*
-             * Jika nomor tidak sesuai dengan
-             * batas bagian, jangan membuat soal.
+             * Jika bukan nomor yang valid
+             * untuk bagian tersebut,
+             * jangan dibuat menjadi soal.
              */
 
             if (!nomorValid) {
@@ -1064,8 +1174,8 @@ function parseSoalDariParagraf(
 
 
             /*
-             * Isi setelah nomor langsung
-             * dimasukkan ke soal.
+             * Jika setelah nomor langsung
+             * ada teks, proses sebagai isi soal.
              */
 
             prosesIsiParagraf(
@@ -1082,13 +1192,14 @@ function parseSoalDariParagraf(
 
         /* =====================================================
            PARAGRAF LANJUTAN
-
-           Hanya dimasukkan jika memang
-           sudah berada di dalam sebuah soal.
         ===================================================== */
 
-        if (!currentQuestion) {
+        if (
+            !currentQuestion
+        ) {
+
             continue;
+
         }
 
 
@@ -1128,9 +1239,6 @@ function prosesIsiParagraf(
 
     /* =====================================================
        KUNCI JAWABAN INLINE
-
-       Contoh:
-       Kunci Jawaban: A
     ===================================================== */
 
     const keyMatch =
@@ -1161,18 +1269,7 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       CARI PILIHAN A-D
-
-       Bisa membaca:
-
-       A. Jawaban
-       B. Jawaban
-       C. Jawaban
-       D. Jawaban
-
-       maupun:
-
-       A. Jawaban B. Jawaban C. Jawaban D. Jawaban
+       DETEKSI PILIHAN A-D
     ===================================================== */
 
     const optionRegex =
@@ -1216,9 +1313,8 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       TIDAK ADA PILIHAN
-
-       → MASUK SEBAGAI TEKS SOAL
+       JIKA TIDAK ADA PILIHAN
+       → TEKS MASUK KE SOAL
     ===================================================== */
 
     if (
@@ -1249,8 +1345,8 @@ function prosesIsiParagraf(
 
 
     /* =====================================================
-       TEKS SEBELUM PILIHAN A
-       = TEKS PERTANYAAN
+       TEKS SEBELUM A
+       → TEKS PERTANYAAN
     ===================================================== */
 
     const beforeOptions =
@@ -1274,9 +1370,8 @@ function prosesIsiParagraf(
 
 
     /*
-     * Gambar yang terdapat pada
-     * paragraf yang sama tetap dianggap
-     * sebagai gambar pertanyaan.
+     * Gambar pada paragraf pilihan
+     * tetap diproses.
      */
 
     question.images.push(
@@ -1314,10 +1409,6 @@ function prosesIsiParagraf(
                 end
             ).trim();
 
-
-        /* =================================================
-           HAPUS TEKS KUNCI JIKA ADA
-        ================================================= */
 
         optionText =
             optionText.replace(
@@ -1409,13 +1500,6 @@ function tampilkanPreview(
 
     }
 
-
-    /* =====================================================
-       JUMLAH SOAL
-
-       SEKARANG HANYA QUESTIONS YANG
-       BERHASIL DIBUAT OLEH PARSER.
-    ===================================================== */
 
     count.textContent =
         questions.length +
@@ -1621,9 +1705,6 @@ function tampilkanPreview(
 
             /* =================================================
                KUNCI INLINE
-
-               Tetap dipertahankan jika memang
-               berada pada data soal.
             ================================================= */
 
             if (
