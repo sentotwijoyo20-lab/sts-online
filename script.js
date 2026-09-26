@@ -1,5 +1,4 @@
-```javascript
-function pilihUjian(mode) {
+﻿function pilihUjian(mode) {
 
     if (mode !== "gladi" && mode !== "resmi") {
         return;
@@ -126,4 +125,3 @@ function kembaliKeBeranda() {
         "index.html";
 
 }
-```
