@@ -1,0 +1,187 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Hasil Ujian - STS Online</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="result-container">
+
+    <div class="result-card">
+
+
+        <div class="result-icon">
+            🎉
+        </div>
+
+
+        <h1>
+            Ujian Selesai!
+        </h1>
+
+
+        <p class="school-name">
+            SD Negeri 1 Jatipayak
+        </p>
+
+
+        <div class="result-mode" id="mode">
+            🟢 GLADI / SIMULASI
+        </div>
+
+
+        <div class="student-result">
+
+            <p>
+                Nama Siswa
+            </p>
+
+            <strong id="nama">
+                -
+            </strong>
+
+        </div>
+
+
+        <div class="score-box">
+
+            <span>
+                Nilai Anda
+            </span>
+
+            <strong id="nilai">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="correct-box">
+
+            Jawaban benar:
+            <strong id="benar">
+                0
+            </strong>
+            dari
+            <strong>
+                5
+            </strong>
+            soal
+
+        </div>
+
+
+        <p class="result-message">
+
+            Terima kasih telah mengikuti ujian.
+            Tetap semangat belajar! 💪
+
+        </p>
+
+
+        <button
+            class="home-button"
+            onclick="kembali()">
+
+            🏠 KEMBALI KE HALAMAN UTAMA
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+const nama =
+    localStorage.getItem(
+        "namaSiswa"
+    ) || "Siswa";
+
+
+const nilai =
+    localStorage.getItem(
+        "nilaiSTS"
+    ) || 0;
+
+
+const benar =
+    localStorage.getItem(
+        "jumlahBenar"
+    ) || 0;
+
+
+const mode =
+    localStorage.getItem(
+        "modeUjian"
+    ) || "gladi";
+
+
+document.getElementById(
+    "nama"
+).textContent =
+    nama;
+
+
+document.getElementById(
+    "nilai"
+).textContent =
+    nilai;
+
+
+document.getElementById(
+    "benar"
+).textContent =
+    benar;
+
+
+if (mode === "resmi") {
+
+    document.getElementById(
+        "mode"
+    ).textContent =
+        "🔵 STS RESMI";
+
+} else {
+
+    document.getElementById(
+        "mode"
+    ).textContent =
+        "🟢 GLADI / SIMULASI";
+
+}
+
+
+function kembali() {
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```
