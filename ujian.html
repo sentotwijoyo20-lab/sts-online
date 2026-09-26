@@ -349,13 +349,60 @@
 
         #questionText {
 
-            margin: 0 0 25px;
+            margin: 0 0 18px;
 
             font-size: 20px;
 
             line-height: 1.6;
 
             color: #1e293b;
+
+        }
+
+
+
+        /* ===================================== */
+        /* GAMBAR SOAL */
+        /* ===================================== */
+
+        .question-images {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin: 0 0 25px;
+
+            width: 100%;
+
+        }
+
+
+        .question-images img {
+
+            display: block;
+
+            max-width: 100%;
+
+            max-height: 450px;
+
+            width: auto;
+
+            height: auto;
+
+            object-fit: contain;
+
+            margin: 0 auto;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+
+            background: white;
 
         }
 
@@ -947,6 +994,24 @@
             }
 
 
+            .question-images {
+
+                margin-bottom: 20px;
+
+            }
+
+
+            .question-images img {
+
+                max-height: 300px;
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
+
             .question-actions {
 
                 grid-template-columns: 1fr;
@@ -1063,6 +1128,14 @@
             <h2 id="questionText">
                 Memuat soal...
             </h2>
+
+
+            <!-- GAMBAR SOAL -->
+
+            <div
+                id="questionImages"
+                class="question-images">
+            </div>
 
 
             <div
@@ -1570,16 +1643,6 @@ function ambilPilihan(
     data
 ) {
 
-    /*
-        INI SESUAI FORMAT
-        bank-soal.html:
-
-        data.pilihan.A
-        data.pilihan.B
-        data.pilihan.C
-        data.pilihan.D
-    */
-
     if (
         !data ||
         !data.pilihan
@@ -1692,6 +1755,76 @@ function tampilkanSoal() {
         "questionText"
     ).textContent =
         data.pertanyaan || "";
+
+
+    /* ===================================== */
+    /* TAMPILKAN GAMBAR SOAL */
+    /* ===================================== */
+
+    const imageContainer =
+        document.getElementById(
+            "questionImages"
+        );
+
+
+    imageContainer.innerHTML = "";
+
+
+    const images =
+        Array.isArray(
+            data.images
+        )
+            ? data.images
+            : [];
+
+
+    images.forEach(
+        function(src, index) {
+
+            if (
+                !src ||
+                typeof src !== "string"
+            ) {
+
+                return;
+
+            }
+
+
+            const img =
+                document.createElement(
+                    "img"
+                );
+
+
+            img.src =
+                src;
+
+
+            img.alt =
+                "Gambar soal " +
+                (index + 1);
+
+
+            img.loading =
+                "lazy";
+
+
+            img.onerror =
+                function() {
+
+                    img.alt =
+                        "Gambar soal tidak dapat ditampilkan";
+
+                };
+
+
+            imageContainer.appendChild(
+                img
+            );
+
+        }
+    );
 
 
     const container =
@@ -2566,11 +2699,6 @@ function hitungNilai() {
             const jawaban =
                 jawabanPG[index] || "";
 
-
-            /*
-                Kunci pada parser lama
-                mungkin berupa A/B/C/D.
-            */
 
             if (
                 normalisasi(
