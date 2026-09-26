@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 
@@ -22,46 +23,39 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            background: #f1f5f9;
+            color: #1e293b;
         }
 
         .header {
-            background: white;
-            padding: 25px 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .header-inner {
-            max-width: 1100px;
-            margin: auto;
+            background: #173b7a;
+            color: white;
+            padding: 22px;
+            text-align: center;
         }
 
         .header h1 {
-            margin: 0;
-            color: #173b7a;
+            margin: 0 0 6px;
             font-size: 28px;
         }
 
         .header p {
-            margin: 6px 0 0;
-            color: #6b7280;
+            margin: 0;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
+            width: 95%;
+            max-width: 1200px;
+            margin: 25px auto;
         }
 
         .card {
             background: white;
             border-radius: 18px;
             padding: 25px;
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.07);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
         .card h2 {
@@ -69,149 +63,49 @@
             color: #173b7a;
         }
 
-        .upload-area {
-            border: 2px dashed #93c5fd;
+        .upload-box {
+            border: 2px dashed #2563eb;
             border-radius: 15px;
             padding: 35px 20px;
             text-align: center;
             background: #eff6ff;
         }
 
-        .upload-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
-
-        .upload-area p {
-            color: #6b7280;
-        }
-
-        .upload-button {
-            display: inline-block;
-            padding: 13px 22px;
-            background: #2563eb;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .upload-button:hover {
-            background: #1d4ed8;
-        }
-
-        #wordFile {
-            display: none;
-        }
-
-        .file-info {
-            display: none;
+        .upload-box input {
             margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            background: #f3f4f6;
-        }
-
-        .loading {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #eff6ff;
-            color: #1d4ed8;
-            font-weight: bold;
-        }
-
-        .error {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #fef2f2;
-            color: #b91c1c;
-        }
-
-        .success {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f0fdf4;
-            color: #15803d;
         }
 
         .summary {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-top: 20px;
         }
 
         .summary-box {
-            padding: 18px;
+            padding: 20px;
             border-radius: 14px;
             text-align: center;
             background: #f8fafc;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #e2e8f0;
         }
 
         .summary-box strong {
             display: block;
-            font-size: 28px;
+            font-size: 30px;
             margin-bottom: 5px;
             color: #173b7a;
         }
 
-        .summary-box span {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .preview-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .preview-title h2 {
-            margin: 0;
-        }
-
-        .save-button {
-            border: none;
-            padding: 12px 18px;
-            border-radius: 10px;
-            background: #16a34a;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .save-button:hover {
-            background: #15803d;
-        }
-
-        .section-title {
-            margin: 30px 0 15px;
-            padding: 12px 15px;
-            border-radius: 10px;
-            background: #f1f5f9;
-            color: #173b7a;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .question-card {
-            border: 1px solid #e5e7eb;
+        .preview-item {
+            border: 1px solid #e2e8f0;
             border-radius: 14px;
-            padding: 20px;
+            padding: 18px;
             margin-bottom: 15px;
-            background: white;
+            background: #fff;
         }
 
-        .question-header {
+        .preview-header {
             display: flex;
             justify-content: space-between;
             gap: 10px;
@@ -219,78 +113,111 @@
             flex-wrap: wrap;
         }
 
-        .question-number {
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
-            color: #173b7a;
         }
 
-        .question-type {
-            font-size: 13px;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: #eef2ff;
-            color: #4338ca;
+        .badge-pg {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-isian {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-uraian {
+            background: #fef3c7;
+            color: #b45309;
         }
 
         .question-text {
-            line-height: 1.7;
             font-size: 16px;
-            white-space: pre-wrap;
+            line-height: 1.6;
+            margin-bottom: 12px;
         }
 
-        .question-image {
-            max-width: 100%;
-            max-height: 350px;
-            display: block;
-            margin: 15px auto;
-            object-fit: contain;
-            border-radius: 8px;
+        .options {
+            display: grid;
+            gap: 7px;
         }
 
         .option {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 11px 13px;
-            margin-top: 8px;
-            border-radius: 10px;
+            padding: 9px 12px;
             background: #f8fafc;
-            line-height: 1.5;
+            border-radius: 8px;
         }
 
-        .option-letter {
+        .answer {
+            margin-top: 12px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            color: #166534;
             font-weight: bold;
-            min-width: 25px;
         }
 
-        .empty-preview {
-            padding: 40px 20px;
+        .empty {
             text-align: center;
-            color: #6b7280;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 13px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
         }
 
         @media (max-width: 700px) {
 
-            .container {
-                margin: 20px auto;
-                padding: 0 12px;
-            }
-
-            .card {
-                padding: 18px;
-            }
-
             .summary {
-                grid-template-columns: 1fr;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .question-card {
-                padding: 16px;
+                grid-template-columns: repeat(2, 1fr);
             }
 
         }
@@ -305,97 +232,64 @@
 
 <header class="header">
 
-    <div class="header-inner">
+    <h1>📚 BANK SOAL STS ONLINE</h1>
 
-        <h1>📚 BANK SOAL</h1>
-
-        <p>
-            STS Online • SD Negeri 1 Jatipayak
-        </p>
-
-    </div>
+    <p>
+        SD Negeri 1 Jatipayak
+    </p>
 
 </header>
 
 
-
-<main class="container">
-
-
-    <!-- ========================================= -->
-    <!-- IMPORT -->
-    <!-- ========================================= -->
-
-    <section class="card">
-
-        <h2>
-            📄 Import Soal dari Word
-        </h2>
+<div class="container">
 
 
-        <div class="upload-area">
+    <!-- UPLOAD -->
 
-            <div class="upload-icon">
-                📘
-            </div>
+    <div class="card">
 
-            <h3>
-                Pilih file Word (.docx)
-            </h3>
+        <h2>📄 Import Soal dari Word</h2>
 
-            <p>
-                Import dokumen Word untuk membaca soal
-                secara otomatis.
-            </p>
+        <p>
+            Upload file Word (.docx) yang berisi soal,
+            pilihan jawaban, dan kunci jawaban.
+        </p>
 
 
-            <label
-                class="upload-button"
-                for="wordFile">
+        <div class="upload-box">
 
-                📂 PILIH FILE WORD
+            <strong>
+                Pilih file Word
+            </strong>
 
-            </label>
-
+            <br>
 
             <input
                 type="file"
                 id="wordFile"
                 accept=".docx">
 
-        </div>
-
-
-        <div
-            id="fileInfo"
-            class="file-info">
-        </div>
-
-
-        <div
-            id="loading"
-            class="loading">
-
-            ⏳ Sedang membaca dan memproses soal...
+            <div
+                id="status"
+                class="status">
+            </div>
 
         </div>
 
-
-        <div
-            id="error"
-            class="error">
-        </div>
+    </div>
 
 
-        <div
-            id="success"
-            class="success">
-        </div>
 
+    <!-- RINGKASAN -->
 
-        <div
-            id="summary"
-            class="summary">
+    <div
+        id="summaryCard"
+        class="card"
+        style="display:none;">
+
+        <h2>📊 Hasil Pembacaan</h2>
+
+        <div class="summary">
 
             <div class="summary-box">
 
@@ -403,9 +297,7 @@
                     0
                 </strong>
 
-                <span>
-                    Pilihan Ganda
-                </span>
+                Pilihan Ganda
 
             </div>
 
@@ -416,9 +308,7 @@
                     0
                 </strong>
 
-                <span>
-                    Isian Singkat
-                </span>
+                Isian Singkat
 
             </div>
 
@@ -429,58 +319,56 @@
                     0
                 </strong>
 
-                <span>
-                    Uraian
-                </span>
+                Uraian
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <strong id="jumlahTotal">
+                    0
+                </strong>
+
+                Total Soal
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
 
-    <!-- ========================================= -->
     <!-- PREVIEW -->
-    <!-- ========================================= -->
 
-    <section class="card">
+    <div class="card">
 
-        <div class="preview-title">
-
-            <h2>
-                👀 Preview Soal
-            </h2>
-
-
-            <button
-                id="saveButton"
-                class="save-button"
-                style="display:none"
-                onclick="simpanBankSoal()">
-
-                💾 SIMPAN BANK SOAL
-
-            </button>
-
-        </div>
-
+        <h2>👀 Preview Soal</h2>
 
         <div id="preview">
 
-            <div class="empty-preview">
-
-                Belum ada soal yang diimport.
-
+            <div class="empty">
+                Silakan upload file Word terlebih dahulu.
             </div>
 
         </div>
 
-    </section>
+
+        <button
+            id="saveButton"
+            class="btn btn-success"
+            style="display:none;"
+            onclick="simpanBankSoal()">
+
+            💾 SIMPAN BANK SOAL
+
+        </button>
+
+    </div>
 
 
-</main>
+</div>
 
 
 
@@ -488,305 +376,420 @@
 
 
 /* ================================================= */
-/* VARIABEL */
+/* VARIABEL GLOBAL */
 /* ================================================= */
 
 let bankSoal = [];
 
-let gambarWord = {};
+let gambarBlob = [];
 
 
 
 /* ================================================= */
-/* ELEMEN */
+/* UPLOAD FILE */
 /* ================================================= */
 
-const wordFile =
-    document.getElementById("wordFile");
+document
+    .getElementById("wordFile")
+    .addEventListener(
+        "change",
+        async function(event) {
 
-const fileInfo =
-    document.getElementById("fileInfo");
+            const file =
+                event.target.files[0];
 
-const loading =
-    document.getElementById("loading");
-
-const errorBox =
-    document.getElementById("error");
-
-const successBox =
-    document.getElementById("success");
-
-const preview =
-    document.getElementById("preview");
-
-const summary =
-    document.getElementById("summary");
-
-const saveButton =
-    document.getElementById("saveButton");
-
-
-
-/* ================================================= */
-/* UPLOAD */
-/* ================================================= */
-
-wordFile.addEventListener(
-    "change",
-    async function () {
-
-        const file =
-            this.files[0];
-
-
-        if (!file) {
-            return;
-        }
-
-
-        resetPesan();
-
-
-        fileInfo.style.display =
-            "block";
-
-
-        fileInfo.innerHTML =
-            "📄 <strong>" +
-            escapeHtml(file.name) +
-            "</strong><br>" +
-            "📦 Ukuran: " +
-            formatUkuran(file.size);
-
-
-        loading.style.display =
-            "block";
-
-
-        try {
+            if (!file) {
+                return;
+            }
 
             await bacaFileWord(file);
 
-        } catch (error) {
+        }
+    );
 
-            console.error(
-                error
+
+
+/* ================================================= */
+/* BACA FILE WORD */
+/* ================================================= */
+
+async function bacaFileWord(file) {
+
+    const status =
+        document.getElementById("status");
+
+    status.className = "status";
+    status.style.display = "block";
+    status.textContent =
+        "⏳ Membaca file Word...";
+
+
+    try {
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+        const zip =
+            await JSZip.loadAsync(arrayBuffer);
+
+
+        const documentXml =
+            await zip
+                .file("word/document.xml")
+                .async("string");
+
+
+        let relsXml = "";
+
+        const relsFile =
+            zip.file(
+                "word/_rels/document.xml.rels"
             );
 
 
-            tampilkanError(
-                error.message ||
-                "File Word tidak dapat diproses."
+        if (relsFile) {
+
+            relsXml =
+                await relsFile.async("string");
+
+        }
+
+
+        gambarBlob =
+            await ambilGambar(
+                zip,
+                relsXml
             );
 
-        } finally {
 
-            loading.style.display =
-                "none";
+        const blok =
+            ekstrakBlokWord(
+                documentXml
+            );
+
+
+        bankSoal =
+            parseSoal(
+                blok
+            );
+
+
+        bankSoal =
+            bersihkanSoal(
+                bankSoal
+            );
+
+
+        penomoranUlang();
+
+
+        tampilkanRingkasan();
+
+        tampilkanPreview();
+
+
+        status.className =
+            "status success";
+
+        status.textContent =
+            "✅ File Word berhasil dibaca. " +
+            "Ditemukan " +
+            bankSoal.length +
+            " soal.";
+
+
+        document.getElementById(
+            "saveButton"
+        ).style.display =
+            bankSoal.length > 0
+                ? "inline-block"
+                : "none";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "❌ Gagal membaca file Word: " +
+            error.message;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* EKSTRAK BLOK WORD */
+/* ================================================= */
+
+function ekstrakBlokWord(xmlText) {
+
+    const parser =
+        new DOMParser();
+
+    const xml =
+        parser.parseFromString(
+            xmlText,
+            "application/xml"
+        );
+
+
+    const body =
+        xml.getElementsByTagName(
+            "w:body"
+        )[0];
+
+
+    if (!body) {
+        return [];
+    }
+
+
+    const hasil = [];
+
+
+    for (
+        const node of body.children
+    ) {
+
+
+        /* ----------------------------------------- */
+        /* PARAGRAF */
+        /* ----------------------------------------- */
+
+        if (
+            node.localName === "p"
+        ) {
+
+            const text =
+                ambilTextParagraph(
+                    node
+                );
+
+
+            const numbering =
+                ambilNumbering(
+                    node
+                );
+
+
+            const gambar =
+                ambilGambarDalamParagraph(
+                    node
+                );
+
+
+            hasil.push({
+
+                type: "paragraph",
+
+                text: text.trim(),
+
+                number: numbering.number,
+
+                numId: numbering.numId,
+
+                ilvl: numbering.ilvl,
+
+                images: gambar
+
+            });
+
+
+        }
+
+
+        /* ----------------------------------------- */
+        /* TABEL */
+        /* ----------------------------------------- */
+
+        else if (
+            node.localName === "tbl"
+        ) {
+
+            const text =
+                ambilTextTabel(
+                    node
+                );
+
+
+            hasil.push({
+
+                type: "table",
+
+                text: text.trim(),
+
+                number: null,
+
+                numId: null,
+
+                ilvl: null,
+
+                images: []
+
+            });
 
         }
 
     }
-);
 
 
-
-/* ================================================= */
-/* RESET PESAN */
-/* ================================================= */
-
-function resetPesan() {
-
-    errorBox.style.display =
-        "none";
-
-    successBox.style.display =
-        "none";
+    return hasil;
 
 }
 
 
 
 /* ================================================= */
-/* UKURAN FILE */
+/* AMBIL TEXT PARAGRAF */
 /* ================================================= */
 
-function formatUkuran(
-    bytes
-) {
+function ambilTextParagraph(node) {
 
-    if (
-        bytes < 1024
+    let hasil = "";
+
+
+    const texts =
+        node.getElementsByTagName(
+            "w:t"
+        );
+
+
+    for (
+        const t of texts
     ) {
 
-        return bytes + " B";
+        hasil +=
+            t.textContent;
 
     }
 
 
-    if (
-        bytes < 1024 * 1024
-    ) {
-
-        return (
-            bytes / 1024
-        ).toFixed(2) +
-        " KB";
-
-    }
-
-
-    return (
-        bytes /
-        (1024 * 1024)
-    ).toFixed(2) +
-    " MB";
+    return hasil;
 
 }
 
 
 
 /* ================================================= */
-/* BACA WORD */
+/* AMBIL TEXT TABEL */
 /* ================================================= */
 
-async function bacaFileWord(
-    file
-) {
+function ambilTextTabel(node) {
 
-    const buffer =
-        await file.arrayBuffer();
-
-
-    const zip =
-        await JSZip.loadAsync(
-            buffer
+    const rows =
+        node.getElementsByTagName(
+            "w:tr"
         );
 
 
-    const documentFile =
-        zip.file(
-            "word/document.xml"
-        );
+    const hasil = [];
 
 
-    if (!documentFile) {
+    for (
+        const row of rows
+    ) {
 
-        throw new Error(
-            "document.xml tidak ditemukan."
-        );
-
-    }
-
-
-    const documentXml =
-        await documentFile.async(
-            "string"
-        );
-
-
-    let relsXml =
-        "";
-
-
-    const relsFile =
-        zip.file(
-            "word/_rels/document.xml.rels"
-        );
-
-
-    if (relsFile) {
-
-        relsXml =
-            await relsFile.async(
-                "string"
+        const cells =
+            row.getElementsByTagName(
+                "w:tc"
             );
 
-    }
+
+        const isiBaris = [];
 
 
-    gambarWord =
-        await ambilGambar(
-            zip,
-            relsXml
-        );
+        for (
+            const cell of cells
+        ) {
+
+            isiBaris.push(
+                ambilTextParagraph(
+                    cell
+                )
+            );
+
+        }
 
 
-    const paragraphs =
-        ekstrakParagraphWord(
-            documentXml
-        );
-
-
-    bankSoal =
-        parseSoal(
-            paragraphs
-        );
-
-
-    /*
-     * ============================================
-     * FILTER AKHIR
-     *
-     * INI SANGAT PENTING.
-     *
-     * PG HARUS MEMILIKI PILIHAN A-D.
-     * ============================================
-     */
-
-    bankSoal =
-        bankSoal.filter(
-            function (soal) {
-
-                if (
-                    soal.jenis ===
-                    "pg"
-                ) {
-
-                    const jumlahPilihan =
-                        Object.keys(
-                            soal.pilihan
-                        ).length;
-
-
-                    return (
-                        jumlahPilihan >= 4
-                    );
-
-                }
-
-
-                return true;
-
-            }
-        );
-
-
-    /*
-     * Nomor dibuat ulang setelah filter.
-     */
-
-    penomoranUlang();
-
-
-    console.log(
-        "BANK SOAL FINAL:",
-        bankSoal
-    );
-
-
-    if (
-        bankSoal.length === 0
-    ) {
-
-        throw new Error(
-            "Tidak ditemukan soal yang valid."
+        hasil.push(
+            isiBaris.join(" ")
         );
 
     }
 
 
-    tampilkanPreview();
+    return hasil.join("\n");
+
+}
+
+
+
+/* ================================================= */
+/* NOMOR OTOMATIS WORD */
+/* ================================================= */
+
+function ambilNumbering(node) {
+
+    let numId = null;
+
+    let ilvl = null;
+
+
+    const numPr =
+        node.getElementsByTagName(
+            "w:numPr"
+        )[0];
+
+
+    if (numPr) {
+
+        const numIdNode =
+            numPr.getElementsByTagName(
+                "w:numId"
+            )[0];
+
+
+        const ilvlNode =
+            numPr.getElementsByTagName(
+                "w:ilvl"
+            )[0];
+
+
+        if (numIdNode) {
+
+            numId =
+                numIdNode.getAttribute(
+                    "w:val"
+                );
+
+        }
+
+
+        if (ilvlNode) {
+
+            ilvl =
+                ilvlNode.getAttribute(
+                    "w:val"
+                );
+
+        }
+
+    }
+
+
+    return {
+
+        numId,
+        ilvl,
+        number: null
+
+    };
 
 }
 
@@ -801,7 +804,7 @@ async function ambilGambar(
     relsXml
 ) {
 
-    const hasil = {};
+    const hasil = [];
 
 
     if (!relsXml) {
@@ -812,79 +815,79 @@ async function ambilGambar(
     const parser =
         new DOMParser();
 
-
-    const xml =
+    const rels =
         parser.parseFromString(
             relsXml,
             "application/xml"
         );
 
 
-    const rels =
-        Array.from(
-            xml.getElementsByTagName(
-                "Relationship"
-            )
+    const relationships =
+        rels.getElementsByTagName(
+            "Relationship"
         );
 
 
+    const mapping = {};
+
+
     for (
-        const rel of rels
+        const rel of relationships
     ) {
 
         const id =
-            rel.getAttribute(
-                "Id"
-            );
-
+            rel.getAttribute("Id");
 
         const target =
-            rel.getAttribute(
-                "Target"
-            );
+            rel.getAttribute("Target");
 
 
         if (
-            !id ||
-            !target ||
-            !target.includes(
+            id &&
+            target &&
+            target.includes(
                 "media/"
             )
         ) {
 
-            continue;
+            mapping[id] =
+                "word/" +
+                target.replace(
+                    /^.*media\//,
+                    "media/"
+                );
 
         }
 
-
-        const namaFile =
-            target
-                .split("/")
-                .pop();
+    }
 
 
-        const imageFile =
-            zip.file(
-                "word/media/" +
-                namaFile
-            );
+    for (
+        const [id, path]
+        of Object.entries(mapping)
+    ) {
 
+        const file =
+            zip.file(path);
 
-        if (!imageFile) {
+        if (!file) {
             continue;
         }
 
 
         const blob =
-            await imageFile.async(
+            await file.async(
                 "blob"
             );
 
 
-        hasil[id] =
-            URL.createObjectURL(
-                blob
-            );
+        hasil.push({
+
+            id: id,
+
+            blob: blob
+
+        });
 
     }
 
@@ -896,238 +899,42 @@ async function ambilGambar(
 
 
 /* ================================================= */
-/* EKSTRAK PARAGRAF WORD */
+/* GAMBAR DALAM PARAGRAF */
 /* ================================================= */
 
-function ekstrakParagraphWord(
-    xmlText
+function ambilGambarDalamParagraph(
+    node
 ) {
 
-    const parser =
-        new DOMParser();
+    const hasil = [];
 
 
-    const xml =
-        parser.parseFromString(
-            xmlText,
-            "application/xml"
+    const blips =
+        node.getElementsByTagName(
+            "a:blip"
         );
 
 
-    const paragraphs =
-        Array.from(
-            xml.getElementsByTagName(
-                "w:p"
-            )
-        );
+    for (
+        const blip of blips
+    ) {
 
-
-    return paragraphs.map(
-        function (p) {
-
-            let text = "";
-
-
-            const elements =
-                Array.from(
-                    p.getElementsByTagName(
-                        "*"
-                    )
-                );
-
-
-            elements.forEach(
-                function (element) {
-
-                    if (
-                        element.localName ===
-                        "t"
-                    ) {
-
-                        text +=
-                            element.textContent ||
-                            "";
-
-                    }
-
-
-                    if (
-                        element.localName ===
-                        "br"
-                    ) {
-
-                        text +=
-                            "\n";
-
-                    }
-
-
-                    if (
-                        element.localName ===
-                        "tab"
-                    ) {
-
-                        text +=
-                            "\t";
-
-                    }
-
-                }
+        const id =
+            blip.getAttribute(
+                "r:embed"
             );
 
 
-            let hasNumbering =
-                false;
+        if (id) {
 
-
-            let numId =
-                null;
-
-
-            let ilvl =
-                null;
-
-
-            const numPr =
-                p.getElementsByTagName(
-                    "w:numPr"
-                )[0];
-
-
-            if (numPr) {
-
-                hasNumbering =
-                    true;
-
-
-                const numIdNode =
-                    numPr.getElementsByTagName(
-                        "w:numId"
-                    )[0];
-
-
-                const ilvlNode =
-                    numPr.getElementsByTagName(
-                        "w:ilvl"
-                    )[0];
-
-
-                if (numIdNode) {
-
-                    numId =
-                        numIdNode.getAttribute(
-                            "w:val"
-                        );
-
-                }
-
-
-                if (ilvlNode) {
-
-                    ilvl =
-                        ilvlNode.getAttribute(
-                            "w:val"
-                        );
-
-                }
-
-            }
-
-
-            const images = [];
-
-
-            elements.forEach(
-                function (element) {
-
-                    const embed =
-                        element.getAttribute(
-                            "r:embed"
-                        );
-
-
-                    if (
-                        embed &&
-                        gambarWord[embed]
-                    ) {
-
-                        if (
-                            !images.includes(
-                                gambarWord[embed]
-                            )
-                        ) {
-
-                            images.push(
-                                gambarWord[embed]
-                            );
-
-                        }
-
-                    }
-
-                }
-            );
-
-
-            return {
-
-                text:
-                    normalisasiText(
-                        text
-                    ),
-
-                images:
-                    images,
-
-                hasNumbering:
-                    hasNumbering,
-
-                numId:
-                    numId,
-
-                ilvl:
-                    ilvl
-
-            };
+            hasil.push(id);
 
         }
-    );
 
-}
-
+    }
 
 
-/* ================================================= */
-/* NORMALISASI */
-/* ================================================= */
-
-function normalisasiText(
-    text
-) {
-
-    return String(text)
-
-        .replace(
-            /\u00A0/g,
-            " "
-        )
-
-        .replace(
-            /\u200B/g,
-            ""
-        )
-
-        .replace(
-            /[ \t]+/g,
-            " "
-        )
-
-        .replace(
-            / *\n */g,
-            "\n"
-        )
-
-        .trim();
+    return hasil;
 
 }
 
@@ -1137,21 +944,20 @@ function normalisasiText(
 /* DETEKSI BAGIAN */
 /* ================================================= */
 
-function deteksiBagian(
-    text
-) {
+function deteksiBagian(text) {
 
     const t =
-        normalisasiText(
-            text
-        )
-        .toUpperCase();
+        text
+            .toUpperCase()
+            .trim();
 
 
     if (
         t.includes(
             "KUNCI JAWABAN"
-        )
+        ) ||
+        t === "KUNCI" ||
+        t === "JAWABAN"
     ) {
 
         return "kunci";
@@ -1160,10 +966,10 @@ function deteksiBagian(
 
 
     if (
-        t === "PILIHAN GANDA" ||
         t.includes(
             "PILIHAN GANDA"
-        )
+        ) ||
+        t === "PG"
     ) {
 
         return "pg";
@@ -1172,10 +978,10 @@ function deteksiBagian(
 
 
     if (
-        t === "ISIAN SINGKAT" ||
         t.includes(
             "ISIAN SINGKAT"
-        )
+        ) ||
+        t === "ISIAN"
     ) {
 
         return "isian";
@@ -1184,9 +990,11 @@ function deteksiBagian(
 
 
     if (
-        t === "URAIAN" ||
         t.includes(
-            "SOAL URAIAN"
+            "URAIAN"
+        ) ||
+        t.includes(
+            "ESSAY"
         )
     ) {
 
@@ -1202,158 +1010,10 @@ function deteksiBagian(
 
 
 /* ================================================= */
-/* NOMOR */
+/* PARSE SOAL */
 /* ================================================= */
 
-function deteksiNomor(
-    text
-) {
-
-    const hasil =
-        normalisasiText(
-            text
-        ).match(
-            /^(\d+)[\.\)\-:]\s*(.*)$/s
-        );
-
-
-    if (!hasil) {
-
-        return null;
-
-    }
-
-
-    return {
-
-        nomor:
-            parseInt(
-                hasil[1],
-                10
-            ),
-
-        isi:
-            hasil[2].trim()
-
-    };
-
-}
-
-
-
-/* ================================================= */
-/* PILIHAN */
-/* ================================================= */
-
-function deteksiPilihan(
-    text
-) {
-
-    const hasil =
-        normalisasiText(
-            text
-        ).match(
-            /^([A-Da-d])[\.\)\:\-]\s*(.*)$/s
-        );
-
-
-    if (!hasil) {
-
-        return null;
-
-    }
-
-
-    return {
-
-        huruf:
-            hasil[1].toUpperCase(),
-
-        isi:
-            hasil[2].trim()
-
-    };
-
-}
-
-
-
-/* ================================================= */
-/* NUMBERING OTOMATIS */
-/* ================================================= */
-
-function adalahNomorOtomatisSoal(
-    paragraph,
-    bagian
-) {
-
-    if (
-        !paragraph.hasNumbering
-    ) {
-
-        return false;
-
-    }
-
-
-    if (
-        paragraph.ilvl !== null &&
-        paragraph.ilvl !== "0"
-    ) {
-
-        return false;
-
-    }
-
-
-    if (
-        !paragraph.text.trim()
-    ) {
-
-        return false;
-
-    }
-
-
-    if (
-        deteksiPilihan(
-            paragraph.text
-        )
-    ) {
-
-        return false;
-
-    }
-
-
-    if (
-        deteksiBagian(
-            paragraph.text
-        )
-    ) {
-
-        return false;
-
-    }
-
-
-    return (
-        bagian === "pg" ||
-        bagian === "isian" ||
-        bagian === "uraian"
-    );
-
-}
-
-
-
-/* ================================================= */
-/* PARSER */
-/* ================================================= */
-
-function parseSoal(
-    paragraphs
-) {
+function parseSoal(blok) {
 
     const hasil = [];
 
@@ -1362,417 +1022,667 @@ function parseSoal(
         null;
 
 
-    let soalAktif =
+    let aktif =
         null;
 
 
-    /*
-     * Menyimpan soal aktif.
-     */
+    for (
+        let i = 0;
+        i < blok.length;
+        i++
+    ) {
 
-    function simpanSoalAktif() {
+        const b =
+            blok[i];
+
+        const text =
+            b.text.trim();
+
 
         if (
-            !soalAktif
+            !text &&
+            b.images.length === 0
         ) {
 
-            return;
+            continue;
 
         }
 
 
-        const pertanyaan =
-            normalisasiText(
-                soalAktif.pertanyaan
+        /* ----------------------------------------- */
+        /* CEK JUDUL BAGIAN */
+        /* ----------------------------------------- */
+
+        const bagianBaru =
+            deteksiBagian(
+                text
             );
 
 
-        if (
-            pertanyaan ||
-            soalAktif.images.length > 0
-        ) {
-
-            hasil.push({
-
-                nomor:
-                    soalAktif.nomor,
-
-                jenis:
-                    soalAktif.jenis,
-
-                pertanyaan:
-                    pertanyaan,
-
-                pilihan:
-                    soalAktif.pilihan,
-
-                images:
-                    soalAktif.images,
-
-                pilihanImages:
-                    soalAktif.pilihanImages
-
-            });
-
-        }
-
-
-        soalAktif =
-            null;
-
-    }
-
-
-
-    paragraphs.forEach(
-        function (paragraph) {
-
-            const text =
-                paragraph.text;
-
-
-            /*
-             * =====================================
-             * HEADING
-             * =====================================
-             */
-
-            const bagianBaru =
-                deteksiBagian(
-                    text
-                );
+        if (bagianBaru) {
 
 
             if (
                 bagianBaru === "kunci"
             ) {
 
-                simpanSoalAktif();
+                /*
+                 * Begitu masuk KUNCI JAWABAN,
+                 * SEMUA isi setelahnya diabaikan.
+                 */
 
                 bagian =
                     "kunci";
 
-                return;
+                aktif =
+                    null;
+
+                break;
 
             }
 
 
-            if (
-                bagianBaru
-            ) {
+            bagian =
+                bagianBaru;
 
-                simpanSoalAktif();
+            aktif =
+                null;
 
-                bagian =
-                    bagianBaru;
-
-                return;
-
-            }
-
-
-            /*
-             * Jika benar-benar ada heading
-             * KUNCI JAWABAN, abaikan sisanya.
-             */
-
-            if (
-                bagian === "kunci"
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-             * =====================================
-             * NOMOR TERTULIS
-             * =====================================
-             */
-
-            const nomor =
-                deteksiNomor(
-                    text
-                );
-
-
-            /*
-             * =====================================
-             * NUMBERING OTOMATIS
-             * =====================================
-             */
-
-            const otomatis =
-                adalahNomorOtomatisSoal(
-                    paragraph,
-                    bagian
-                );
-
-
-            /*
-             * =====================================
-             * PILIHAN A-D
-             * =====================================
-             */
-
-            if (
-                soalAktif &&
-                bagian === "pg"
-            ) {
-
-                const pilihan =
-                    deteksiPilihan(
-                        text
-                    );
-
-
-                if (
-                    pilihan
-                ) {
-
-                    soalAktif.pilihan[
-                        pilihan.huruf
-                    ] =
-                        pilihan.isi;
-
-
-                    if (
-                        paragraph.images.length > 0
-                    ) {
-
-                        soalAktif
-                            .pilihanImages[
-                                pilihan.huruf
-                            ] =
-                            [
-                                ...paragraph.images
-                            ];
-
-                    }
-
-
-                    return;
-
-                }
-
-            }
-
-
-            /*
-             * =====================================
-             * NOMOR SOAL TERTULIS
-             * =====================================
-             */
-
-            if (
-                nomor
-            ) {
-
-                /*
-                 * Jangan membuat soal baru
-                 * jika nomor tersebut ternyata
-                 * adalah kunci PG.
-                 *
-                 * Kunci PG seperti:
-                 *
-                 * 26. D
-                 *
-                 * tidak mempunyai pilihan A-D.
-                 */
-
-                if (
-                    bagian === "pg" &&
-                    /^[A-Da-d]$/.test(
-                        nomor.isi
-                    )
-                ) {
-
-                    /*
-                     * Abaikan kunci.
-                     */
-
-                    return;
-
-                }
-
-
-                /*
-                 * Untuk Isian/Uraian, kita
-                 * gunakan nomor dan isi.
-                 */
-
-                simpanSoalAktif();
-
-
-                soalAktif = {
-
-                    nomor:
-                        nomor.nomor,
-
-                    jenis:
-                        bagian,
-
-                    pertanyaan:
-                        nomor.isi,
-
-                    pilihan:
-                        {},
-
-                    images:
-                        [
-                            ...paragraph.images
-                        ],
-
-                    pilihanImages:
-                        {}
-
-                };
-
-
-                return;
-
-            }
-
-
-            /*
-             * =====================================
-             * NOMOR OTOMATIS
-             * =====================================
-             */
-
-            if (
-                otomatis
-            ) {
-
-                /*
-                 * Jika PG dan isi hanya
-                 * A-D, itu kunci jawaban.
-                 */
-
-                if (
-                    bagian === "pg" &&
-                    /^[A-Da-d]$/.test(
-                        text
-                    )
-                ) {
-
-                    return;
-
-                }
-
-
-                /*
-                 * Kalau PG aktif sudah
-                 * mempunyai A-D lengkap,
-                 * lalu muncul paragraf otomatis
-                 * berisi satu huruf A-D,
-                 * abaikan.
-                 */
-
-                if (
-                    bagian === "pg" &&
-                    soalAktif &&
-                    Object.keys(
-                        soalAktif.pilihan
-                    ).length >= 4 &&
-                    /^[A-Da-d]$/.test(
-                        text
-                    )
-                ) {
-
-                    return;
-
-                }
-
-
-                simpanSoalAktif();
-
-
-                const jumlahSebelumnya =
-                    hasil.filter(
-                        function (item) {
-
-                            return (
-                                item.jenis ===
-                                bagian
-                            );
-
-                        }
-                    ).length;
-
-
-                soalAktif = {
-
-                    nomor:
-                        jumlahSebelumnya + 1,
-
-                    jenis:
-                        bagian,
-
-                    pertanyaan:
-                        text,
-
-                    pilihan:
-                        {},
-
-                    images:
-                        [
-                            ...paragraph.images
-                        ],
-
-                    pilihanImages:
-                        {}
-
-                };
-
-
-                return;
-
-            }
-
-
-            /*
-             * =====================================
-             * LANJUTAN TEKS SOAL
-             * =====================================
-             */
-
-            if (
-                soalAktif
-            ) {
-
-                if (
-                    text
-                ) {
-
-                    soalAktif.pertanyaan +=
-                        "\n" +
-                        text;
-
-                }
-
-
-                if (
-                    paragraph.images.length > 0
-                ) {
-
-                    soalAktif.images.push(
-                        ...paragraph.images
-                    );
-
-                }
-
-            }
+            continue;
 
         }
-    );
 
 
-    simpanSoalAktif();
+        if (
+            bagian === null ||
+            bagian === "kunci"
+        ) {
+
+            continue;
+
+        }
+
+
+        /* ----------------------------------------- */
+        /* DETEKSI NOMOR SOAL */
+        /* ----------------------------------------- */
+
+        const nomor =
+            deteksiNomorSoal(
+                text,
+                b
+            );
+
+
+        if (
+            nomor !== null
+        ) {
+
+
+            /*
+             * Soal baru.
+             */
+
+            aktif = {
+
+                jenis: bagian,
+
+                nomorAsli:
+                    nomor,
+
+                pertanyaan: "",
+
+                pilihan: {},
+
+                jawaban: "",
+
+                images: []
+
+            };
+
+
+            hasil.push(
+                aktif
+            );
+
+
+            /*
+             * Hapus nomor dari awal teks
+             * jika nomor ditulis sebagai teks.
+             */
+
+            const teksTanpaNomor =
+                hapusNomorAwal(
+                    text
+                );
+
+
+            if (
+                teksTanpaNomor
+            ) {
+
+                aktif.pertanyaan +=
+                    teksTanpaNomor;
+
+            }
+
+
+            if (
+                b.images.length
+            ) {
+
+                aktif.images.push(
+                    ...b.images
+                );
+
+            }
+
+
+            continue;
+
+        }
+
+
+        /*
+         * Jika belum ada soal aktif,
+         * abaikan teks.
+         */
+
+        if (!aktif) {
+            continue;
+        }
+
+
+        /* ----------------------------------------- */
+        /* PILIHAN A-D */
+        /* ----------------------------------------- */
+
+        const pilihan =
+            deteksiPilihan(
+                text
+            );
+
+
+        if (
+            pilihan
+        ) {
+
+            aktif.pilihan[
+                pilihan.huruf
+            ] =
+                pilihan.teks;
+
+            continue;
+
+        }
+
+
+        /* ----------------------------------------- */
+        /* TEKS TAMBAHAN SOAL */
+        /* ----------------------------------------- */
+
+        aktif.pertanyaan +=
+            (
+                aktif.pertanyaan
+                    ? " "
+                    : ""
+            ) +
+            text;
+
+
+        if (
+            b.images.length
+        ) {
+
+            aktif.images.push(
+                ...b.images
+            );
+
+        }
+
+    }
 
 
     return hasil;
+
+}
+
+
+
+/* ================================================= */
+/* DETEKSI NOMOR SOAL */
+/* ================================================= */
+
+function deteksiNomorSoal(
+    text,
+    blok
+) {
+
+
+    /*
+     * 1. Nomor literal:
+     *
+     * 1.
+     * 2)
+     * 3 -
+     */
+
+    const literal =
+        text.match(
+            /^(\d{1,3})\s*[\.\)\-:]\s*/
+        );
+
+
+    if (
+        literal
+    ) {
+
+        return Number(
+            literal[1]
+        );
+
+    }
+
+
+    /*
+     * 2. Nomor otomatis Word.
+     *
+     * Jangan menganggap semua numbering
+     * sebagai soal.
+     *
+     * Kita hanya menerimanya jika teks
+     * terlihat seperti isi soal, bukan
+     * satu huruf jawaban.
+     */
+
+    if (
+        blok.numId !== null &&
+        blok.ilvl !== null
+    ) {
+
+
+        const bersih =
+            text.trim();
+
+
+        /*
+         * D / C / B / A bukan soal.
+         */
+
+        if (
+            /^[ABCD]$/i.test(
+                bersih
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        /*
+         * Baris pilihan juga bukan soal.
+         */
+
+        if (
+            /^[ABCD][\.\)\:\-]\s+/i.test(
+                bersih
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        /*
+         * Harus mempunyai isi yang cukup.
+         */
+
+        if (
+            bersih.length < 8
+        ) {
+
+            return null;
+
+        }
+
+
+        return -1;
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* ================================================= */
+/* HAPUS NOMOR AWAL */
+/* ================================================= */
+
+function hapusNomorAwal(text) {
+
+    return text
+        .replace(
+            /^\d{1,3}\s*[\.\)\-:]\s*/,
+            ""
+        )
+        .trim();
+
+}
+
+
+
+/* ================================================= */
+/* DETEKSI PILIHAN */
+/* ================================================= */
+
+function deteksiPilihan(
+    text
+) {
+
+    const match =
+        text.match(
+            /^([ABCD])\s*[\.\)\:\-]\s*(.+)$/i
+        );
+
+
+    if (!match) {
+        return null;
+    }
+
+
+    return {
+
+        huruf:
+            match[1]
+                .toUpperCase(),
+
+        teks:
+            match[2].trim()
+
+    };
+
+}
+
+
+
+/* ================================================= */
+/* PEMBERSIHAN SOAL */
+/* ================================================= */
+
+function bersihkanSoal(
+    daftar
+) {
+
+    const hasil = [];
+
+
+    for (
+        const soal of daftar
+    ) {
+
+
+        soal.pertanyaan =
+            soal.pertanyaan
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+                .trim();
+
+
+        /*
+         * ==========================================
+         * PILIHAN GANDA
+         * ==========================================
+         *
+         * WAJIB memiliki:
+         *
+         * A
+         * B
+         * C
+         * D
+         *
+         * Jadi:
+         *
+         * Soal 26 = D
+         *
+         * otomatis dibuang.
+         */
+
+        if (
+            soal.jenis === "pg"
+        ) {
+
+
+            const lengkap =
+                ["A", "B", "C", "D"]
+                    .every(
+                        huruf =>
+                            soal.pilihan[
+                                huruf
+                            ] &&
+                            soal.pilihan[
+                                huruf
+                            ].trim() !== ""
+                    );
+
+
+            if (!lengkap) {
+                continue;
+            }
+
+
+            if (
+                soal.pertanyaan.length < 5
+            ) {
+                continue;
+            }
+
+
+            hasil.push(
+                soal
+            );
+
+
+            continue;
+
+        }
+
+
+        /*
+         * ==========================================
+         * ISIAN
+         * ==========================================
+         */
+
+        if (
+            soal.jenis === "isian"
+        ) {
+
+
+            /*
+             * Satu huruf / angka / nilai pendek
+             * tidak dianggap pertanyaan.
+             *
+             * Contoh:
+             *
+             * Ribuan
+             * 79.380
+             * 231
+             *
+             * akan dibuang.
+             */
+
+            if (
+                !terlihatSepertiPertanyaan(
+                    soal.pertanyaan
+                )
+            ) {
+
+                continue;
+
+            }
+
+
+            hasil.push(
+                soal
+            );
+
+
+            continue;
+
+        }
+
+
+        /*
+         * ==========================================
+         * URAIAN
+         * ==========================================
+         */
+
+        if (
+            soal.jenis === "uraian"
+        ) {
+
+
+            if (
+                !terlihatSepertiPertanyaan(
+                    soal.pertanyaan
+                )
+            ) {
+
+                continue;
+
+            }
+
+
+            hasil.push(
+                soal
+            );
+
+
+            continue;
+
+        }
+
+    }
+
+
+    return hasil;
+
+}
+
+
+
+/* ================================================= */
+/* CEK APAKAH TEKS BENAR-BENAR PERTANYAAN */
+/* ================================================= */
+
+function terlihatSepertiPertanyaan(
+    text
+) {
+
+    const t =
+        text
+            .trim();
+
+
+    if (!t) {
+        return false;
+    }
+
+
+    /*
+     * Jawaban yang sangat pendek.
+     */
+
+    if (
+        t.length <= 3
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Pola angka murni.
+     *
+     * Contoh:
+     * 231
+     * 79.380
+     */
+
+    if (
+        /^[\d\s.,+\-*\/²³⁴⁵^×÷=]+$/.test(
+            t
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Satu kata jawaban.
+     *
+     * Contoh:
+     * Ribuan
+     *
+     * Kita tetap mengizinkan pertanyaan
+     * pendek jika diakhiri tanda tanya.
+     */
+
+    const jumlahKata =
+        t.split(/\s+/).length;
+
+
+    if (
+        jumlahKata <= 2 &&
+        !/[?…]$/.test(t)
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Jika berakhir tanda tanya atau titik,
+     * sangat mungkin berupa pertanyaan.
+     */
+
+    if (
+        /[?…]$/.test(t)
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+     * Kalimat yang cukup panjang
+     * dianggap sebagai soal.
+     */
+
+    if (
+        t.length >= 15 &&
+        jumlahKata >= 3
+    ) {
+
+        return true;
+
+    }
+
+
+    return false;
 
 }
 
@@ -1784,20 +1694,105 @@ function parseSoal(
 
 function penomoranUlang() {
 
-    let nomor =
-        1;
+    let nomorPG = 1;
+
+    let nomorIsian = 1;
+
+    let nomorUraian = 1;
 
 
     bankSoal.forEach(
-        function (soal) {
+        function(soal) {
 
-            soal.nomor =
-                nomor;
 
-            nomor++;
+            if (
+                soal.jenis === "pg"
+            ) {
+
+                soal.nomor =
+                    nomorPG++;
+
+            }
+
+
+            else if (
+                soal.jenis === "isian"
+            ) {
+
+                soal.nomor =
+                    nomorIsian++;
+
+            }
+
+
+            else if (
+                soal.jenis === "uraian"
+            ) {
+
+                soal.nomor =
+                    nomorUraian++;
+
+            }
 
         }
     );
+
+}
+
+
+
+/* ================================================= */
+/* RINGKASAN */
+/* ================================================= */
+
+function tampilkanRingkasan() {
+
+    const pg =
+        bankSoal.filter(
+            s => s.jenis === "pg"
+        ).length;
+
+
+    const isian =
+        bankSoal.filter(
+            s => s.jenis === "isian"
+        ).length;
+
+
+    const uraian =
+        bankSoal.filter(
+            s => s.jenis === "uraian"
+        ).length;
+
+
+    document.getElementById(
+        "jumlahPG"
+    ).textContent =
+        pg;
+
+
+    document.getElementById(
+        "jumlahIsian"
+    ).textContent =
+        isian;
+
+
+    document.getElementById(
+        "jumlahUraian"
+    ).textContent =
+        uraian;
+
+
+    document.getElementById(
+        "jumlahTotal"
+    ).textContent =
+        bankSoal.length;
+
+
+    document.getElementById(
+        "summaryCard"
+    ).style.display =
+        "block";
 
 }
 
@@ -1809,558 +1804,178 @@ function penomoranUlang() {
 
 function tampilkanPreview() {
 
-    preview.innerHTML =
-        "";
+    const container =
+        document.getElementById(
+            "preview"
+        );
 
 
-    const jumlahPG =
-        bankSoal.filter(
-            function (soal) {
+    container.innerHTML = "";
 
-                return soal.jenis ===
-                    "pg";
-
-            }
-        ).length;
-
-
-    const jumlahIsian =
-        bankSoal.filter(
-            function (soal) {
-
-                return soal.jenis ===
-                    "isian";
-
-            }
-        ).length;
-
-
-    const jumlahUraian =
-        bankSoal.filter(
-            function (soal) {
-
-                return soal.jenis ===
-                    "uraian";
-
-            }
-        ).length;
-
-
-    document.getElementById(
-        "jumlahPG"
-    ).textContent =
-        jumlahPG;
-
-
-    document.getElementById(
-        "jumlahIsian"
-    ).textContent =
-        jumlahIsian;
-
-
-    document.getElementById(
-        "jumlahUraian"
-    ).textContent =
-        jumlahUraian;
-
-
-    summary.style.display =
-        "grid";
-
-
-    saveButton.style.display =
-        "inline-block";
-
-
-
-    /*
-     * ============================================
-     * KELOMPOK
-     * ============================================
-     */
-
-    const kelompok = [
-
-        {
-            jenis: "pg",
-            judul: "PILIHAN GANDA"
-        },
-
-        {
-            jenis: "isian",
-            judul: "ISIAN SINGKAT"
-        },
-
-        {
-            jenis: "uraian",
-            judul: "URAIAN"
-        }
-
-    ];
-
-
-    let nomorGlobal =
-        0;
-
-
-    kelompok.forEach(
-        function (kelompokData) {
-
-            const daftar =
-                bankSoal.filter(
-                    function (soal) {
-
-                        return soal.jenis ===
-                            kelompokData.jenis;
-
-                    }
-                );
-
-
-            if (
-                daftar.length === 0
-            ) {
-
-                return;
-
-            }
-
-
-            const sectionTitle =
-                document.createElement(
-                    "div"
-                );
-
-
-            sectionTitle.className =
-                "section-title";
-
-
-            sectionTitle.textContent =
-                kelompokData.judul +
-                " • " +
-                daftar.length +
-                " soal";
-
-
-            preview.appendChild(
-                sectionTitle
-            );
-
-
-            daftar.forEach(
-                function (soal) {
-
-                    nomorGlobal++;
-
-
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    card.className =
-                        "question-card";
-
-
-                    /*
-                     * HEADER
-                     */
-
-                    const header =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    header.className =
-                        "question-header";
-
-
-                    const number =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    number.className =
-                        "question-number";
-
-
-                    number.textContent =
-                        "Soal " +
-                        nomorGlobal;
-
-
-                    const type =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    type.className =
-                        "question-type";
-
-
-                    type.textContent =
-                        labelJenis(
-                            soal.jenis
-                        );
-
-
-                    header.appendChild(
-                        number
-                    );
-
-
-                    header.appendChild(
-                        type
-                    );
-
-
-                    card.appendChild(
-                        header
-                    );
-
-
-
-                    /*
-                     * PERTANYAAN
-                     */
-
-                    const questionText =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    questionText.className =
-                        "question-text";
-
-
-                    questionText.textContent =
-                        soal.pertanyaan;
-
-
-                    card.appendChild(
-                        questionText
-                    );
-
-
-
-                    /*
-                     * GAMBAR
-                     */
-
-                    soal.images.forEach(
-                        function (src) {
-
-                            const img =
-                                document.createElement(
-                                    "img"
-                                );
-
-
-                            img.src =
-                                src;
-
-
-                            img.className =
-                                "question-image";
-
-
-                            img.alt =
-                                "Gambar soal";
-
-
-                            card.appendChild(
-                                img
-                            );
-
-                        }
-                    );
-
-
-
-                    /*
-                     * PILIHAN
-                     */
-
-                    if (
-                        soal.jenis ===
-                        "pg"
-                    ) {
-
-                        [
-                            "A",
-                            "B",
-                            "C",
-                            "D"
-                        ].forEach(
-                            function (huruf) {
-
-                                if (
-                                    !Object
-                                        .prototype
-                                        .hasOwnProperty
-                                        .call(
-                                            soal.pilihan,
-                                            huruf
-                                        )
-                                ) {
-
-                                    return;
-
-                                }
-
-
-                                const option =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-
-                                option.className =
-                                    "option";
-
-
-                                const letter =
-                                    document.createElement(
-                                        "span"
-                                    );
-
-
-                                letter.className =
-                                    "option-letter";
-
-
-                                letter.textContent =
-                                    huruf + ".";
-
-
-                                const optionText =
-                                    document.createElement(
-                                        "span"
-                                    );
-
-
-                                optionText.textContent =
-                                    soal.pilihan[
-                                        huruf
-                                    ];
-
-
-                                option.appendChild(
-                                    letter
-                                );
-
-
-                                option.appendChild(
-                                    optionText
-                                );
-
-
-                                card.appendChild(
-                                    option
-                                );
-
-
-                                /*
-                                 * GAMBAR PILIHAN
-                                 */
-
-                                const optionImages =
-                                    soal
-                                        .pilihanImages &&
-                                    soal
-                                        .pilihanImages[
-                                            huruf
-                                        ];
-
-
-                                if (
-                                    optionImages
-                                ) {
-
-                                    optionImages.forEach(
-                                        function (
-                                            src
-                                        ) {
-
-                                            const img =
-                                                document
-                                                    .createElement(
-                                                        "img"
-                                                    );
-
-
-                                            img.src =
-                                                src;
-
-
-                                            img.className =
-                                                "question-image";
-
-
-                                            img.alt =
-                                                "Gambar pilihan";
-
-
-                                            card.appendChild(
-                                                img
-                                            );
-
-                                        }
-                                    );
-
-                                }
-
-                            }
-                        );
-
-                    }
-
-
-                    preview.appendChild(
-                        card
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /*
-     * ============================================
-     * PESAN
-     * ============================================
-     */
-
-    successBox.style.display =
-        "block";
-
-
-    successBox.innerHTML =
-        "✅ Berhasil membaca <strong>" +
-        bankSoal.length +
-        " soal</strong> dari file Word. " +
-        "Kop, petunjuk, dan kunci jawaban " +
-        "tidak dimasukkan ke preview.";
-
-}
-
-
-
-/* ================================================= */
-/* LABEL JENIS */
-/* ================================================= */
-
-function labelJenis(
-    jenis
-) {
-
-    if (
-        jenis === "pg"
-    ) {
-
-        return "Pilihan Ganda";
-
-    }
-
-
-    if (
-        jenis === "isian"
-    ) {
-
-        return "Isian Singkat";
-
-    }
-
-
-    if (
-        jenis === "uraian"
-    ) {
-
-        return "Uraian";
-
-    }
-
-
-    return "Soal";
-
-}
-
-
-
-/* ================================================= */
-/* SIMPAN */
-/* ================================================= */
-
-function simpanBankSoal() {
 
     if (
         bankSoal.length === 0
     ) {
 
-        alert(
-            "Belum ada soal untuk disimpan."
-        );
+        container.innerHTML =
+            '<div class="empty">' +
+            'Tidak ada soal yang berhasil ditemukan.' +
+            '</div>';
 
         return;
 
     }
 
 
-    localStorage.setItem(
-        "bankSoal",
-        JSON.stringify(
-            bankSoal
-        )
+    bankSoal.forEach(
+        function(soal) {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "preview-item";
+
+
+            let badgeClass =
+                "badge-pg";
+
+            let namaJenis =
+                "Pilihan Ganda";
+
+
+            if (
+                soal.jenis === "isian"
+            ) {
+
+                badgeClass =
+                    "badge-isian";
+
+                namaJenis =
+                    "Isian Singkat";
+
+            }
+
+
+            if (
+                soal.jenis === "uraian"
+            ) {
+
+                badgeClass =
+                    "badge-uraian";
+
+                namaJenis =
+                    "Uraian";
+
+            }
+
+
+            let html =
+
+                '<div class="preview-header">' +
+
+                    '<strong>' +
+
+                        'Soal ' +
+                        soal.nomor +
+
+                    '</strong>' +
+
+                    '<span class="badge ' +
+                    badgeClass +
+                    '">' +
+
+                        namaJenis +
+
+                    '</span>' +
+
+                '</div>' +
+
+
+                '<div class="question-text">' +
+
+                    escapeHtml(
+                        soal.pertanyaan
+                    ) +
+
+                '</div>';
+
+
+            /*
+             * Pilihan PG
+             */
+
+            if (
+                soal.jenis === "pg"
+            ) {
+
+                html +=
+                    '<div class="options">';
+
+
+                ["A","B","C","D"]
+                    .forEach(
+                        function(huruf) {
+
+                            html +=
+
+                                '<div class="option">' +
+
+                                    '<strong>' +
+                                    huruf +
+                                    '.</strong> ' +
+
+                                    escapeHtml(
+                                        soal.pilihan[
+                                            huruf
+                                        ]
+                                    ) +
+
+                                '</div>';
+
+                        }
+                    );
+
+
+                html +=
+                    '</div>';
+
+            }
+
+
+            if (
+                soal.jawaban
+            ) {
+
+                html +=
+
+                    '<div class="answer">' +
+
+                        'Kunci: ' +
+
+                        escapeHtml(
+                            soal.jawaban
+                        ) +
+
+                    '</div>';
+
+            }
+
+
+            item.innerHTML =
+                html;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
     );
-
-
-    alert(
-        "Bank soal berhasil disimpan.\n\n" +
-        "Jumlah soal: " +
-        bankSoal.length
-    );
-
-}
-
-
-
-/* ================================================= */
-/* ERROR */
-/* ================================================= */
-
-function tampilkanError(
-    message
-) {
-
-    errorBox.style.display =
-        "block";
-
-
-    errorBox.textContent =
-        "❌ " +
-        message;
-
-
-    preview.innerHTML =
-        '<div class="empty-preview">' +
-        'Tidak ada soal yang ditampilkan.' +
-        '</div>';
-
-
-    summary.style.display =
-        "none";
-
-
-    saveButton.style.display =
-        "none";
 
 }
 
@@ -2374,34 +1989,57 @@ function escapeHtml(
     text
 ) {
 
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(
+        text || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
+
+
+
+/* ================================================= */
+/* SIMPAN BANK SOAL */
+/* ================================================= */
+
+function simpanBankSoal() {
+
+    localStorage.setItem(
+        "bankSoalSTS",
+        JSON.stringify(
+            bankSoal
+        )
+    );
+
+
+    alert(
+        "✅ Bank soal berhasil disimpan.\n\n" +
+        "Total: " +
+        bankSoal.length +
+        " soal."
+    );
+
+}
+
 
 </script>
 
@@ -2409,3 +2047,4 @@ function escapeHtml(
 </body>
 
 </html>
+```
