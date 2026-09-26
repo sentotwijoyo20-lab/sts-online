@@ -538,6 +538,19 @@
             font-weight: 700;
         }
 
+        /* Pilihan dikunci setelah waktu habis */
+        .choice.locked {
+            cursor: not-allowed;
+            opacity: 0.72;
+        }
+
+        .choice.locked:hover {
+            background: #ffffff;
+            border-color: #dbe3ec;
+            transform: none;
+            box-shadow: none;
+        }
+
 
         /* =====================================================
            NAVIGASI
@@ -636,6 +649,12 @@
 
             box-shadow:
                 0 10px 20px rgba(37, 99, 235, 0.28);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
         }
 
 
@@ -755,6 +774,11 @@
             color: #92400e;
         }
 
+        .number-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+        }
+
 
         /* =====================================================
            KETERANGAN WARNA
@@ -850,6 +874,14 @@
 
             box-shadow:
                 0 10px 20px rgba(220, 38, 38, 0.28);
+        }
+
+        .btn-finish:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.75;
+            transform: none;
+            box-shadow: none;
         }
 
 
@@ -1444,6 +1476,7 @@
 
 
             <button
+                id="btnSelesai"
                 class="btn-finish"
                 onclick="selesaiUjian()"
             >
@@ -1506,7 +1539,6 @@
 
     <!-- =====================================================
          JAVASCRIPT UJIAN
-         FUNGSI DI PERTAHANKAN
          ===================================================== -->
 
     <script>
@@ -1755,7 +1787,7 @@
 
         /* =====================================================
            VARIABEL UJIAN
-        ===================================================== */
+           ===================================================== */
 
         let sekarang = 0;
 
@@ -1772,10 +1804,16 @@
                 ? 60 * 60
                 : 30 * 60;
 
+        /* Status apakah ujian sudah selesai karena waktu habis */
+        let waktuHabis = false;
+
+        /* Mencegah proses selesai dijalankan dua kali */
+        let ujianSelesai = false;
+
 
         /* =====================================================
            TAMPILKAN SOAL
-        ===================================================== */
+           ===================================================== */
 
         function tampilkanSoal() {
 
@@ -1828,6 +1866,15 @@
 
                     }
 
+                    /* Jika waktu habis, pilihan dikunci */
+                    if (waktuHabis) {
+
+                        label.classList.add(
+                            "locked"
+                        );
+
+                    }
+
 
                     label.innerHTML = `
 
@@ -1838,6 +1885,11 @@
                             ${
                                 jawaban[sekarang] === index
                                     ? "checked"
+                                    : ""
+                            }
+                            ${
+                                waktuHabis
+                                    ? "disabled"
                                     : ""
                             }
                         >
@@ -1864,6 +1916,12 @@
                     radio.addEventListener(
                         "change",
                         function () {
+
+                            /* Jangan izinkan perubahan setelah waktu habis */
+                            if (waktuHabis) {
+                                return;
+                            }
+
 
                             jawaban[sekarang] =
                                 Number(
@@ -1897,7 +1955,7 @@
 
         /* =====================================================
            STATUS JAWABAN
-        ===================================================== */
+           ===================================================== */
 
         function updateStatus() {
 
@@ -1905,6 +1963,19 @@
                 document.getElementById(
                     "statusJawaban"
                 );
+
+
+            if (waktuHabis) {
+
+                status.textContent =
+                    "🔒 Ujian selesai";
+
+                status.className =
+                    "answer-status status-empty";
+
+                return;
+
+            }
 
 
             if (ragu[sekarang]) {
@@ -1940,7 +2011,7 @@
 
         /* =====================================================
            TOMBOL
-        ===================================================== */
+           ===================================================== */
 
         function updateButtons() {
 
@@ -1953,6 +2024,12 @@
             const berikutnya =
                 document.getElementById(
                     "btnBerikutnya"
+                );
+
+
+            const raguButton =
+                document.getElementById(
+                    "btnRagu"
                 );
 
 
@@ -1975,14 +2052,31 @@
 
             }
 
+
+            /* Setelah waktu habis, navigasi dan ragu-ragu dikunci */
+            if (waktuHabis) {
+
+                sebelumnya.disabled = true;
+
+                berikutnya.disabled = true;
+
+                raguButton.disabled = true;
+
+            }
+
         }
 
 
         /* =====================================================
            SOAL SEBELUMNYA
-        ===================================================== */
+           ===================================================== */
 
         function soalSebelumnya() {
+
+            if (waktuHabis) {
+                return;
+            }
+
 
             if (sekarang > 0) {
 
@@ -1997,9 +2091,14 @@
 
         /* =====================================================
            SOAL BERIKUTNYA
-        ===================================================== */
+           ===================================================== */
 
         function soalBerikutnya() {
+
+            if (waktuHabis) {
+                return;
+            }
+
 
             if (
                 sekarang <
@@ -2017,9 +2116,14 @@
 
         /* =====================================================
            RAGU-RAGU
-        ===================================================== */
+           ===================================================== */
 
         function toggleRagu() {
+
+            if (waktuHabis) {
+                return;
+            }
+
 
             ragu[sekarang] =
                 !ragu[sekarang];
@@ -2031,7 +2135,7 @@
 
         /* =====================================================
            PANEL NOMOR SOAL
-        ===================================================== */
+           ===================================================== */
 
         function updatePanel() {
 
@@ -2088,15 +2192,27 @@
                     }
 
 
-                    tombol.onclick =
-                        function () {
+                    /*
+                     * Jika waktu habis,
+                     * nomor soal juga dikunci.
+                     */
+                    if (waktuHabis) {
 
-                            sekarang =
-                                index;
+                        tombol.disabled = true;
 
-                            tampilkanSoal();
+                    } else {
 
-                        };
+                        tombol.onclick =
+                            function () {
+
+                                sekarang =
+                                    index;
+
+                                tampilkanSoal();
+
+                            };
+
+                    }
 
 
                     panel.appendChild(
@@ -2111,7 +2227,7 @@
 
         /* =====================================================
            SIMPAN JAWABAN
-        ===================================================== */
+           ===================================================== */
 
         function simpanJawaban() {
 
@@ -2125,7 +2241,7 @@
 
         /* =====================================================
            TIMER
-        ===================================================== */
+           ===================================================== */
 
         function mulaiTimer() {
 
@@ -2136,6 +2252,11 @@
                 setInterval(
                     function () {
 
+                        if (waktuHabis) {
+                            return;
+                        }
+
+
                         waktuTersisa--;
 
                         tampilkanTimer();
@@ -2145,13 +2266,27 @@
                             waktuTersisa <= 0
                         ) {
 
+                            waktuTersisa = 0;
+
                             clearInterval(
                                 waktu
                             );
 
+                            waktuHabis = true;
+
+
+                            tampilkanTimer();
+
+
+                            /*
+                             * Kunci seluruh halaman ujian
+                             * sebelum menghitung nilai.
+                             */
+                            kunciUjian();
+
 
                             alert(
-                                "Waktu ujian telah habis. Jawaban akan diperiksa."
+                                "Waktu ujian telah habis. Ujian akan diselesaikan secara otomatis."
                             );
 
 
@@ -2213,11 +2348,186 @@
 
 
         /* =====================================================
-           SELESAI UJIAN
-        ===================================================== */
+           KUNCI UJIAN SETELAH WAKTU HABIS
+           ===================================================== */
+
+        function kunciUjian() {
+
+            waktuHabis = true;
+
+
+            /*
+             * Kunci semua input jawaban
+             */
+            const semuaRadio =
+                document.querySelectorAll(
+                    '#pilihanContainer input[type="radio"]'
+                );
+
+
+            semuaRadio.forEach(
+                radio => {
+
+                    radio.disabled = true;
+
+                }
+            );
+
+
+            /*
+             * Kunci tombol navigasi
+             */
+            document.getElementById(
+                "btnSebelumnya"
+            ).disabled = true;
+
+
+            document.getElementById(
+                "btnBerikutnya"
+            ).disabled = true;
+
+
+            document.getElementById(
+                "btnRagu"
+            ).disabled = true;
+
+
+            /*
+             * Kunci tombol selesai
+             */
+            const btnSelesai =
+                document.getElementById(
+                    "btnSelesai"
+                );
+
+
+            btnSelesai.disabled = true;
+
+
+            btnSelesai.textContent =
+                "🔒 UJIAN SELESAI";
+
+
+            /*
+             * Perbarui tampilan
+             */
+            tampilkanSoal();
+
+        }
+
+
+        /* =====================================================
+           SELESAI UJIAN MANUAL
+           ===================================================== */
 
         function selesaiUjian() {
 
+            /*
+             * Jika waktu sudah habis,
+             * jangan izinkan proses manual.
+             */
+            if (waktuHabis || ujianSelesai) {
+                return;
+            }
+
+
+            const belum =
+                jawaban.filter(
+                    x => x === null
+                ).length;
+
+
+            /*
+             * PENTING:
+             * Jika masih ada soal kosong,
+             * ujian TIDAK boleh diselesaikan.
+             */
+            if (belum > 0) {
+
+                document.getElementById(
+                    "pesanSelesai"
+                ).textContent =
+
+                    `Masih ada ${belum} soal yang belum dijawab. Silakan jawab semua soal terlebih dahulu sebelum menyelesaikan ujian.`;
+
+                document
+                    .getElementById(
+                        "modalSelesai"
+                    )
+                    .classList.add("show");
+
+                /*
+                 * Tombol konfirmasi disembunyikan
+                 * karena belum boleh selesai.
+                 */
+                document.querySelector(
+                    ".btn-confirm"
+                ).style.display = "none";
+
+                return;
+
+            }
+
+
+            /*
+             * Semua soal sudah dijawab.
+             * Sekarang baru boleh konfirmasi.
+             */
+            document.getElementById(
+                "pesanSelesai"
+            ).textContent =
+
+                "Semua soal sudah dijawab. Apakah kamu yakin ingin mengakhiri ujian?";
+
+
+            document.querySelector(
+                ".btn-confirm"
+            ).style.display = "block";
+
+
+            document
+                .getElementById(
+                    "modalSelesai"
+                )
+                .classList.add("show");
+
+        }
+
+
+        /* =====================================================
+           TUTUP MODAL
+           ===================================================== */
+
+        function tutupModal() {
+
+            document
+                .getElementById(
+                    "modalSelesai"
+                )
+                .classList.remove("show");
+
+
+            /*
+             * Pastikan tombol konfirmasi
+             * kembali normal untuk penggunaan berikutnya.
+             */
+            document.querySelector(
+                ".btn-confirm"
+            ).style.display = "block";
+
+        }
+
+
+        /* =====================================================
+           KONFIRMASI SELESAI
+           ===================================================== */
+
+        function konfirmasiSelesai() {
+
+            /*
+             * Jika masih ada soal kosong,
+             * tetap tidak boleh selesai.
+             */
             const belum =
                 jawaban.filter(
                     x => x === null
@@ -2230,40 +2540,24 @@
                     "pesanSelesai"
                 ).textContent =
 
-                    `Masih ada ${belum} soal yang belum dijawab. Apakah kamu yakin ingin mengakhiri ujian?`;
+                    `Masih ada ${belum} soal yang belum dijawab. Silakan jawab semua soal terlebih dahulu.`;
 
-            } else {
+                document.querySelector(
+                    ".btn-confirm"
+                ).style.display = "none";
 
-                document.getElementById(
-                    "pesanSelesai"
-                ).textContent =
-
-                    "Semua soal sudah dijawab. Apakah kamu yakin ingin mengakhiri ujian?";
+                return;
 
             }
 
 
-            document
-                .getElementById(
-                    "modalSelesai"
-                )
-                .classList.add("show");
-
-        }
+            if (waktuHabis || ujianSelesai) {
+                return;
+            }
 
 
-        function tutupModal() {
+            ujianSelesai = true;
 
-            document
-                .getElementById(
-                    "modalSelesai"
-                )
-                .classList.remove("show");
-
-        }
-
-
-        function konfirmasiSelesai() {
 
             clearInterval(waktu);
 
@@ -2274,9 +2568,19 @@
 
         /* =====================================================
            HITUNG NILAI
-        ===================================================== */
+           ===================================================== */
 
         function hitungNilai() {
+
+            if (ujianSelesai && !waktuHabis) {
+                /*
+                 * Sudah pernah diselesaikan manual.
+                 */
+            }
+
+
+            ujianSelesai = true;
+
 
             let benar = 0;
 
@@ -2357,7 +2661,7 @@
 
         /* =====================================================
            MULAI UJIAN
-        ===================================================== */
+           ===================================================== */
 
         tampilkanSoal();
 
