@@ -1,167 +1,105 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Login Siswa - STS Online</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Ujian - STS Online</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
+<body class="login-page">
 
-<body>
+    <div class="login-wrapper">
 
+        <div class="login-card">
 
-<div class="login-page">
+            <div class="login-logo">
+                🏫
+            </div>
 
+            <h1>STS ONLINE</h1>
+            <p class="school-name">SD Negeri 1 Jatipayak</p>
 
-    <div class="login-card">
+            <div id="modeBadge" class="mode-badge">
+                🟢 GLADI / SIMULASI
+            </div>
 
+            <div class="login-divider"></div>
 
-        <div class="login-icon">
-            👨‍🎓
+            <h2>Login Peserta</h2>
+            <p class="login-description">
+                Silakan isi data dengan benar untuk mengikuti ujian.
+            </p>
+
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama lengkap"
+                    autocomplete="name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="nis">NIS / Nomor Peserta</label>
+                <input
+                    type="text"
+                    id="nis"
+                    placeholder="Masukkan NIS / nomor peserta"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="token">Token Ujian</label>
+                <input
+                    type="text"
+                    id="token"
+                    placeholder="Masukkan token ujian"
+                    autocomplete="off"
+                >
+            </div>
+
+            <button class="btn-login" onclick="mulaiLogin()">
+                🚀 MULAI UJIAN
+            </button>
+
+            <button class="btn-back" onclick="kembaliKeBeranda()">
+                ← Kembali ke Beranda
+            </button>
+
+            <div class="login-info">
+                <strong>📌 Perhatian</strong>
+                <p>
+                    Pastikan nama, NIS, dan token sudah benar
+                    sebelum memulai ujian.
+                </p>
+            </div>
+
         </div>
 
-
-        <h2>
-            LOGIN SISWA
-        </h2>
-
-
-        <p class="school-name">
-            SD Negeri 1 Jatipayak
+        <p class="copyright">
+            © 2026 STS Online • SD Negeri 1 Jatipayak
         </p>
-
-
-        <div
-            id="modeBadge"
-            class="mode-badge mode-gladi">
-
-            🟢 GLADI / SIMULASI
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="nama">
-                Nama Lengkap
-            </label>
-
-            <input
-                id="nama"
-                type="text"
-                placeholder="Masukkan nama lengkap">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="nis">
-                NIS / Nomor Peserta
-            </label>
-
-            <input
-                id="nis"
-                type="text"
-                placeholder="Masukkan NIS / nomor peserta">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="token">
-                Token Ujian
-            </label>
-
-            <input
-                id="token"
-                type="text"
-                placeholder="Masukkan token ujian">
-
-        </div>
-
-
-        <button
-            class="login-button"
-            onclick="mulaiLogin()">
-
-            MASUK KE UJIAN
-
-        </button>
-
-
-        <button
-            class="back-button"
-            onclick="kembaliKeBeranda()">
-
-            ← Kembali ke Beranda
-
-        </button>
-
 
     </div>
 
-</div>
+    <script src="script.js"></script>
 
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get("mode") || "gladi";
 
-<script src="script.js"></script>
+        const badge = document.getElementById("modeBadge");
 
-
-<script>
-
-    /*
-       Membaca mode dari URL.
-    */
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const mode =
-        params.get("mode");
-
-
-    const badge =
-        document.getElementById(
-            "modeBadge"
-        );
-
-
-    if (mode === "resmi") {
-
-        badge.textContent =
-            "🔵 STS RESMI";
-
-        badge.className =
-            "mode-badge mode-resmi";
-
-    } else {
-
-        badge.textContent =
-            "🟢 GLADI / SIMULASI";
-
-        badge.className =
-            "mode-badge mode-gladi";
-
-    }
-
-</script>
-
+        if (mode === "resmi") {
+            badge.textContent = "🔵 STS RESMI";
+            badge.classList.add("mode-resmi");
+        } else {
+            badge.textContent = "🟢 GLADI / SIMULASI";
+            badge.classList.add("mode-gladi");
+        }
+    </script>
 
 </body>
-
 </html>
