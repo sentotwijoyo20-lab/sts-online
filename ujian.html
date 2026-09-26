@@ -12,340 +12,430 @@
 
     <title>Ruang Ujian - STS Online</title>
 
+
     <style>
 
         * {
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f3f6fb;
-            color: #1f2937;
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1e293b;
         }
 
-        button,
-        input,
-        textarea {
-            font-family: inherit;
-        }
 
-
-        /* =============================== */
+        /* ===================================== */
         /* HEADER */
-        /* =============================== */
+        /* ===================================== */
 
         .exam-header {
-            background: #173b7a;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #173b7a,
+                    #2563eb
+                );
+
             color: white;
 
-            padding: 16px 25px;
+            padding: 18px 25px;
 
-            display: grid;
-
-            grid-template-columns:
-                1fr auto auto;
+            display: flex;
 
             align-items: center;
 
-            gap: 25px;
+            justify-content: space-between;
+
+            gap: 20px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,.12);
+                0 5px 20px
+                rgba(23, 59, 122, 0.18);
+
         }
 
 
         .exam-header h1 {
-            margin: 0;
 
-            font-size: 24px;
+            margin: 0 0 4px;
+
+            font-size: 22px;
+
         }
 
 
         .exam-header p {
-            margin: 4px 0 0;
 
-            opacity: .85;
+            margin: 0;
 
-            font-size: 14px;
+            font-size: 13px;
+
+            opacity: 0.9;
+
         }
 
 
         .student-info {
+
             display: flex;
 
             flex-direction: column;
 
-            text-align: center;
+            align-items: center;
 
-            gap: 4px;
+            gap: 5px;
+
         }
 
 
         .student-info strong {
-            font-size: 16px;
+
+            font-size: 15px;
+
         }
 
 
         .student-info span {
-            font-size: 13px;
 
-            opacity: .9;
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            font-size: 12px;
+
         }
 
 
         .timer-box {
-            background: rgba(255,255,255,.12);
-
-            border-radius: 12px;
-
-            padding: 10px 16px;
 
             min-width: 125px;
 
+            padding: 10px 15px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.12);
+
             text-align: center;
+
         }
 
 
         .timer-box span {
+
             display: block;
 
-            font-size: 12px;
+            font-size: 11px;
 
-            opacity: .8;
+            opacity: 0.9;
 
             margin-bottom: 3px;
+
         }
 
 
         .timer-box strong {
+
             font-size: 22px;
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* MODE WARNING */
-        /* =============================== */
+        /* ===================================== */
 
         .mode-warning {
+
+            width: 94%;
+
             max-width: 1200px;
 
-            margin: 18px auto 0;
+            margin: 20px auto 0;
 
-            padding: 12px 18px;
+            padding: 13px 17px;
 
-            border-radius: 10px;
+            border-radius: 12px;
 
-            background: #fff7ed;
+            background: #eff6ff;
 
-            border: 1px solid #fed7aa;
+            border: 1px solid #bfdbfe;
 
-            color: #9a3412;
+            color: #1d4ed8;
 
-            font-size: 14px;
+            font-size: 13px;
+
+            text-align: center;
+
         }
 
 
 
-        /* =============================== */
-        /* SESI */
-        /* =============================== */
+        /* ===================================== */
+        /* SESSION */
+        /* ===================================== */
 
         .session-header {
+
+            width: 94%;
+
             max-width: 1200px;
 
-            margin: 18px auto;
-
-            background: white;
-
-            border-radius: 15px;
+            margin: 20px auto;
 
             padding: 20px;
 
+            background: white;
+
+            border-radius: 16px;
+
+            border: 1px solid #e2e8f0;
+
             box-shadow:
-                0 5px 20px rgba(0,0,0,.06);
+                0 5px 20px
+                rgba(15,23,42,0.05);
+
         }
 
 
         .session-header h2 {
-            margin: 0 0 6px;
+
+            margin: 0 0 7px;
 
             color: #173b7a;
 
-            font-size: 22px;
+            font-size: 21px;
+
         }
 
 
         .session-header p {
+
             margin: 0;
 
-            color: #6b7280;
+            color: #64748b;
 
             font-size: 14px;
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* LAYOUT */
-        /* =============================== */
+        /* ===================================== */
 
         .exam-layout {
+
+            width: 94%;
+
             max-width: 1200px;
 
-            margin: 0 auto 30px;
-
-            padding: 0 15px;
+            margin: 0 auto 40px;
 
             display: grid;
 
             grid-template-columns:
-                1fr 280px;
+                minmax(0, 1fr)
+                290px;
 
             gap: 20px;
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* QUESTION CARD */
-        /* =============================== */
+        /* ===================================== */
 
         .question-card {
+
             background: white;
 
             border-radius: 18px;
 
             padding: 25px;
 
+            border: 1px solid #e2e8f0;
+
             box-shadow:
-                0 5px 20px rgba(0,0,0,.06);
+                0 7px 25px
+                rgba(15,23,42,0.05);
+
         }
 
 
         .question-top {
-            display: flex;
 
-            justify-content: space-between;
+            display: flex;
 
             align-items: center;
 
-            margin-bottom: 20px;
+            justify-content: space-between;
 
             gap: 10px;
+
+            margin-bottom: 20px;
+
         }
 
 
         #questionNumber {
-            font-weight: bold;
+
+            font-weight: 700;
 
             color: #173b7a;
+
         }
 
 
         #questionStatus {
-            font-size: 13px;
 
-            padding: 6px 11px;
+            padding: 7px 12px;
 
             border-radius: 20px;
 
-            background: #f3f4f6;
-        }
+            font-size: 12px;
 
+            font-weight: 700;
 
-        .status-answered {
-            color: #15803d;
-
-            background: #f0fdf4 !important;
-        }
-
-
-        .status-doubt {
-            color: #a16207;
-
-            background: #fefce8 !important;
         }
 
 
         .status-empty {
-            color: #6b7280;
+
+            background: #f1f5f9;
+
+            color: #64748b;
+
+        }
+
+
+        .status-answered {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+        }
+
+
+        .status-doubt {
+
+            background: #fef3c7;
+
+            color: #b45309;
+
         }
 
 
         #questionText {
+
             margin: 0 0 25px;
 
-            font-size: 21px;
+            font-size: 20px;
 
             line-height: 1.6;
 
-            color: #111827;
+            color: #1e293b;
+
         }
 
 
 
-        /* =============================== */
-        /* PILIHAN PG */
-        /* =============================== */
+        /* ===================================== */
+        /* PILIHAN GANDA */
+        /* ===================================== */
 
         .options {
-            display: flex;
 
-            flex-direction: column;
+            display: grid;
 
             gap: 12px;
+
         }
 
 
         .option {
+
             display: flex;
 
-            align-items: center;
+            align-items: flex-start;
 
             gap: 12px;
 
-            border: 2px solid #e5e7eb;
-
-            border-radius: 12px;
+            width: 100%;
 
             padding: 15px;
 
+            border-radius: 12px;
+
+            border: 2px solid #e2e8f0;
+
+            background: #f8fafc;
+
             cursor: pointer;
 
-            transition: .2s;
+            transition:
+                0.2s ease;
 
-            background: white;
         }
 
 
         .option:hover {
+
             border-color: #93c5fd;
 
-            background: #f8fbff;
+            background: #eff6ff;
+
         }
 
 
         .option.selected {
+
             border-color: #2563eb;
 
             background: #eff6ff;
+
         }
 
 
         .option input {
-            display: none;
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+
         }
 
 
         .option-letter {
-            width: 36px;
 
-            height: 36px;
+            flex: 0 0 34px;
 
-            min-width: 36px;
+            width: 34px;
+
+            height: 34px;
 
             display: flex;
 
@@ -355,162 +445,388 @@
 
             border-radius: 50%;
 
-            background: #e5e7eb;
+            background: white;
 
-            font-weight: bold;
+            border: 1px solid #cbd5e1;
 
-            color: #374151;
+            color: #173b7a;
+
+            font-weight: 800;
+
         }
 
 
         .option.selected .option-letter {
+
             background: #2563eb;
 
+            border-color: #2563eb;
+
             color: white;
+
         }
 
 
         .option-text {
+
+            padding-top: 6px;
+
             line-height: 1.5;
 
-            font-size: 16px;
+            font-size: 15px;
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* ISIAN */
-        /* =============================== */
+        /* ===================================== */
 
         .short-answer {
+
             width: 100%;
 
             padding: 15px;
 
-            border: 2px solid #d1d5db;
+            border: 2px solid #e2e8f0;
 
             border-radius: 12px;
 
-            font-size: 17px;
+            font-size: 16px;
 
             outline: none;
+
         }
 
 
         .short-answer:focus {
+
             border-color: #2563eb;
 
             box-shadow:
-                0 0 0 3px rgba(37,99,235,.10);
+                0 0 0 3px
+                rgba(37,99,235,0.10);
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* URAIAN */
-        /* =============================== */
+        /* ===================================== */
 
         .essay-answer {
+
             width: 100%;
 
             min-height: 180px;
 
+            resize: vertical;
+
             padding: 15px;
 
-            border: 2px solid #d1d5db;
+            border: 2px solid #e2e8f0;
 
             border-radius: 12px;
 
-            resize: vertical;
+            font-family: inherit;
 
             font-size: 16px;
 
             line-height: 1.6;
 
             outline: none;
+
         }
 
 
         .essay-answer:focus {
+
             border-color: #2563eb;
 
             box-shadow:
-                0 0 0 3px rgba(37,99,235,.10);
+                0 0 0 3px
+                rgba(37,99,235,0.10);
+
         }
 
 
 
-        /* =============================== */
+        /* ===================================== */
         /* ACTION */
-        /* =============================== */
+        /* ===================================== */
 
         .question-actions {
-            display: flex;
 
-            justify-content: space-between;
+            display: grid;
 
-            align-items: center;
+            grid-template-columns:
+                1fr auto 1fr;
 
             gap: 10px;
 
             margin-top: 25px;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
         }
 
 
         .nav-button,
         .doubt-button {
+
             border: none;
 
-            border-radius: 10px;
+            border-radius: 11px;
 
-            padding: 12px 18px;
+            padding: 12px 16px;
+
+            font-weight: 700;
 
             cursor: pointer;
 
-            font-weight: bold;
         }
 
 
         .nav-button {
-            background: #173b7a;
+
+            background: #2563eb;
 
             color: white;
+
         }
 
 
         .nav-button:hover {
-            background: #102e61;
+
+            background: #1d4ed8;
+
         }
 
 
         .nav-button:disabled {
-            opacity: .4;
+
+            opacity: 0.4;
 
             cursor: not-allowed;
+
         }
 
 
         .doubt-button {
+
             background: #fef3c7;
 
-            color: #92400e;
+            color: #b45309;
+
         }
 
 
         .doubt-button.active {
-            background: #facc15;
 
-            color: #713f12;
+            background: #f59e0b;
+
+            color: white;
+
         }
 
 
 
-        /* =============================== */
-        /* FINISH */
-        /* =============================== */
+        /* ===================================== */
+        /* PANEL NOMOR */
+        /* ===================================== */
 
-        .finish-button,
-        .next-session-button {
+        .question-panel {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow:
+                0 7px 25px
+                rgba(15,23,42,0.05);
+
+            height: fit-content;
+
+        }
+
+
+        .question-panel h3 {
+
+            margin: 0 0 15px;
+
+            color: #173b7a;
+
+        }
+
+
+        .question-numbers {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 8px;
+
+        }
+
+
+        .number-button {
+
+            width: 100%;
+
+            aspect-ratio: 1;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            background: #f8fafc;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+        }
+
+
+        .number-button:hover {
+
+            border-color: #2563eb;
+
+        }
+
+
+        .number-button.current {
+
+            border: 3px solid #2563eb;
+
+        }
+
+
+        .number-button.answered {
+
+            background: #dcfce7;
+
+            border-color: #22c55e;
+
+            color: #166534;
+
+        }
+
+
+        .number-button.doubt {
+
+            background: #fef3c7;
+
+            border-color: #f59e0b;
+
+            color: #92400e;
+
+        }
+
+
+        .number-button.current.answered {
+
+            border-color: #2563eb;
+
+        }
+
+
+
+        /* ===================================== */
+        /* LEGEND */
+        /* ===================================== */
+
+        .legend {
+
+            margin-top: 20px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #e2e8f0;
+
+            display: grid;
+
+            gap: 9px;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+        }
+
+
+        .legend div {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+
+        .legend-box {
+
+            width: 15px;
+
+            height: 15px;
+
+            border-radius: 4px;
+
+            border: 1px solid #cbd5e1;
+
+            background: #f8fafc;
+
+        }
+
+
+        .legend-box.answered {
+
+            background: #dcfce7;
+
+            border-color: #22c55e;
+
+        }
+
+
+        .legend-box.doubt {
+
+            background: #fef3c7;
+
+            border-color: #f59e0b;
+
+        }
+
+
+        .legend-box.current {
+
+            border: 3px solid #2563eb;
+
+        }
+
+
+
+        /* ===================================== */
+        /* SESSION BUTTON */
+        /* ===================================== */
+
+        .session-button,
+        .finish-button {
+
             width: 100%;
 
             border: none;
@@ -519,275 +835,129 @@
 
             padding: 15px;
 
-            margin-top: 15px;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-
-        .next-session-button {
-            background: #2563eb;
+            margin-top: 20px;
 
             color: white;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
         }
 
 
-        .next-session-button:hover {
-            background: #1d4ed8;
+        .session-button {
+
+            background: #16a34a;
+
+        }
+
+
+        .session-button:hover {
+
+            background: #15803d;
+
         }
 
 
         .finish-button {
-            background: #15803d;
 
-            color: white;
+            background: #dc2626;
+
         }
 
 
         .finish-button:hover {
-            background: #166534;
+
+            background: #b91c1c;
+
         }
 
 
 
-        /* =============================== */
-        /* PANEL NOMOR */
-        /* =============================== */
-
-        .question-panel {
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 20px;
-
-            height: fit-content;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,.06);
-        }
-
-
-        .question-panel h3 {
-            margin-top: 0;
-
-            color: #173b7a;
-        }
-
-
-        .question-numbers {
-            display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap: 8px;
-        }
-
-
-        .number-button {
-            width: 42px;
-
-            height: 42px;
-
-            border: 2px solid #e5e7eb;
-
-            border-radius: 9px;
-
-            background: white;
-
-            cursor: pointer;
-
-            font-weight: bold;
-
-            color: #374151;
-        }
-
-
-        .number-button:hover {
-            border-color: #93c5fd;
-        }
-
-
-        .number-button.current {
-            border-color: #2563eb;
-
-            background: #eff6ff;
-
-            color: #2563eb;
-        }
-
-
-        .number-button.answered {
-            background: #dcfce7;
-
-            border-color: #86efac;
-
-            color: #166534;
-        }
-
-
-        .number-button.doubt {
-            background: #fef3c7;
-
-            border-color: #facc15;
-
-            color: #92400e;
-        }
-
-
-        .number-button.current.answered {
-            border-color: #2563eb;
-        }
-
-
-
-        /* =============================== */
-        /* LEGEND */
-        /* =============================== */
-
-        .legend {
-            margin-top: 20px;
-
-            padding-top: 15px;
-
-            border-top: 1px solid #e5e7eb;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 9px;
-
-            font-size: 13px;
-
-            color: #6b7280;
-        }
-
-
-        .legend div {
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-        }
-
-
-        .legend-box {
-            width: 15px;
-
-            height: 15px;
-
-            border-radius: 4px;
-
-            display: inline-block;
-
-            border: 1px solid #d1d5db;
-        }
-
-
-        .legend-box.answered {
-            background: #dcfce7;
-        }
-
-
-        .legend-box.doubt {
-            background: #fef3c7;
-        }
-
-
-        .legend-box.current {
-            background: #eff6ff;
-
-            border-color: #2563eb;
-        }
-
-
-        .legend-box.empty {
-            background: white;
-        }
-
-
-
-        /* =============================== */
-        /* MOBILE */
-        /* =============================== */
-
-        @media (max-width: 800px) {
+        /* ===================================== */
+        /* RESPONSIVE */
+        /* ===================================== */
+
+        @media (max-width: 850px) {
 
             .exam-header {
-                grid-template-columns: 1fr;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
 
                 text-align: center;
 
-                gap: 10px;
             }
 
-            .student-info {
-                align-items: center;
-            }
 
             .exam-layout {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .question-panel {
-                order: -1;
-            }
 
-            .question-numbers {
-                grid-template-columns:
-                    repeat(8, 1fr);
+                order: -1;
+
             }
 
         }
 
 
-        @media (max-width: 500px) {
+        @media (max-width: 550px) {
 
             .exam-header {
+
                 padding: 15px;
+
             }
+
 
             .exam-header h1 {
-                font-size: 20px;
+
+                font-size: 19px;
+
             }
 
-            .session-header {
-                margin: 12px;
 
-                padding: 16px;
+            .timer-box {
+
+                width: 100%;
+
             }
 
-            .exam-layout {
-                padding: 0 10px;
-            }
 
             .question-card {
+
                 padding: 18px;
+
             }
+
 
             #questionText {
-                font-size: 18px;
+
+                font-size: 17px;
+
             }
+
 
             .question-actions {
-                flex-wrap: wrap;
+
+                grid-template-columns: 1fr;
+
             }
 
-            .nav-button,
+
             .doubt-button {
-                flex: 1;
-            }
 
-            .question-numbers {
-                grid-template-columns:
-                    repeat(6, 1fr);
+                order: -1;
+
             }
 
         }
@@ -797,7 +967,7 @@
 </head>
 
 
-<body class="exam-page">
+<body>
 
 
 <header class="exam-header">
@@ -818,7 +988,7 @@
         </strong>
 
         <span id="modeUjian">
-            GLADI / SIMULASI
+            🟢 GLADI / SIMULASI
         </span>
 
     </div>
@@ -838,9 +1008,7 @@
 
 
 
-<div
-    id="modeWarning"
-    class="mode-warning">
+<div class="mode-warning" id="modeWarning">
 
     🟢 Mode GLADI / SIMULASI —
     Jawaban tidak memengaruhi nilai STS resmi.
@@ -856,8 +1024,11 @@
     </h2>
 
     <p id="sessionDescription">
-        Kerjakan soal pilihan ganda dengan memilih
-        salah satu jawaban A, B, C, atau D.
+
+        Kerjakan soal pilihan ganda
+        dengan memilih salah satu
+        jawaban A, B, C, atau D.
+
     </p>
 
 </section>
@@ -867,18 +1038,16 @@
 <main class="exam-layout">
 
 
-    <section class="question-area">
+    <section>
 
 
         <div class="question-card">
-
 
             <div class="question-top">
 
                 <span id="questionNumber">
                     Soal 1 dari 25
                 </span>
-
 
                 <span
                     id="questionStatus"
@@ -899,11 +1068,11 @@
             <div
                 id="answerContainer"
                 class="options">
+
             </div>
 
 
             <div class="question-actions">
-
 
                 <button
                     id="previousButton"
@@ -934,16 +1103,14 @@
 
                 </button>
 
-
             </div>
-
 
         </div>
 
 
         <button
             id="nextSessionButton"
-            class="next-session-button"
+            class="session-button"
             onclick="lanjutSesi()">
 
             LANJUT KE SESI BERIKUTNYA →
@@ -954,7 +1121,7 @@
         <button
             id="finishButton"
             class="finish-button"
-            onclick="konfirmasiSelesai()"
+            onclick="selesaiUjian()"
             style="display:none;">
 
             📝 SELESAI & KIRIM JAWABAN
@@ -967,7 +1134,6 @@
 
 
     <aside class="question-panel">
-
 
         <h3>
             Daftar Soal
@@ -983,29 +1149,43 @@
         <div class="legend">
 
             <div>
+
                 <span class="legend-box answered"></span>
+
                 Sudah dijawab
+
             </div>
 
+
             <div>
+
                 <span class="legend-box doubt"></span>
+
                 Ragu-ragu
+
             </div>
 
+
             <div>
+
                 <span class="legend-box current"></span>
+
                 Soal aktif
+
             </div>
 
+
             <div>
-                <span class="legend-box empty"></span>
+
+                <span class="legend-box"></span>
+
                 Belum dijawab
+
             </div>
 
         </div>
 
     </aside>
-
 
 </main>
 
@@ -1014,57 +1194,67 @@
 <script>
 
 
-/* ================================================= */
+/* ========================================= */
 /* DATA SISWA */
-/* ================================================= */
+/* ========================================= */
 
 const nama =
-    localStorage.getItem("namaSiswa") || "Siswa";
+    localStorage.getItem("namaSiswa")
+    || "Siswa";
+
 
 const mode =
-    localStorage.getItem("modeUjian") || "gladi";
+    localStorage.getItem("modeUjian")
+    || "gladi";
 
 
-document.getElementById("namaSiswa").textContent =
-    nama;
+document.getElementById(
+    "namaSiswa"
+).textContent = nama;
 
 
 if (mode === "resmi") {
 
-    document.getElementById("modeUjian").textContent =
+    document.getElementById(
+        "modeUjian"
+    ).textContent =
         "🔵 STS RESMI";
 
-    document.getElementById("modeWarning").textContent =
-        "🔵 Mode STS RESMI — Pastikan semua jawaban sudah benar sebelum mengirim.";
+
+    document.getElementById(
+        "modeWarning"
+    ).textContent =
+        "🔵 Mode STS RESMI — Pastikan Anda mengerjakan dengan teliti.";
+
 
 } else {
 
-    document.getElementById("modeUjian").textContent =
+    document.getElementById(
+        "modeUjian"
+    ).textContent =
         "🟢 GLADI / SIMULASI";
 
 }
 
 
 
-/* ================================================= */
-/* MEMBACA BANK SOAL */
-/* ================================================= */
+/* ========================================= */
+/* AMBIL BANK SOAL */
+/* ========================================= */
 
 let bankSoal = [];
+
 
 try {
 
     bankSoal =
         JSON.parse(
-            localStorage.getItem("bankSoalSTS")
+            localStorage.getItem(
+                "bankSoalSTS"
+            )
         ) || [];
 
 } catch (error) {
-
-    console.error(
-        "Bank soal gagal dibaca:",
-        error
-    );
 
     bankSoal = [];
 
@@ -1072,67 +1262,15 @@ try {
 
 
 
-/* ================================================= */
-/* MEMBAGI SOAL */
-/* ================================================= */
-
-function cariTipe(data) {
-
-    const nilai = (
-
-        data.tipe ??
-        data.type ??
-        data.jenis ??
-        data.kategori ??
-        data.bagian ??
-        ""
-
-    ).toString().toLowerCase();
-
-
-    if (
-        nilai.includes("pilihan") ||
-        nilai.includes("ganda") ||
-        nilai.includes("pg")
-    ) {
-
-        return "pg";
-
-    }
-
-
-    if (
-        nilai.includes("isian") ||
-        nilai.includes("singkat")
-    ) {
-
-        return "isian";
-
-    }
-
-
-    if (
-        nilai.includes("uraian") ||
-        nilai.includes("essay") ||
-        nilai.includes("esai")
-    ) {
-
-        return "uraian";
-
-    }
-
-
-    return "";
-
-}
-
-
+/* ========================================= */
+/* PISAHKAN SESI */
+/* ========================================= */
 
 let soalPG =
     bankSoal.filter(
-        function(data) {
+        function(soal) {
 
-            return cariTipe(data) === "pg";
+            return soal.jenis === "pg";
 
         }
     );
@@ -1140,9 +1278,9 @@ let soalPG =
 
 let soalIsian =
     bankSoal.filter(
-        function(data) {
+        function(soal) {
 
-            return cariTipe(data) === "isian";
+            return soal.jenis === "isian";
 
         }
     );
@@ -1150,9 +1288,9 @@ let soalIsian =
 
 let soalUraian =
     bankSoal.filter(
-        function(data) {
+        function(soal) {
 
-            return cariTipe(data) === "uraian";
+            return soal.jenis === "uraian";
 
         }
     );
@@ -1160,7 +1298,8 @@ let soalUraian =
 
 
 /*
-    Pengaman jika parser lama tidak menyimpan tipe.
+    Pengaman apabila data lama
+    tidak memiliki jenis.
 */
 
 if (
@@ -1171,27 +1310,36 @@ if (
 ) {
 
     soalPG =
-        bankSoal.slice(0, 25);
+        bankSoal.slice(
+            0,
+            25
+        );
+
 
     soalIsian =
-        bankSoal.slice(25, 30);
+        bankSoal.slice(
+            25,
+            30
+        );
+
 
     soalUraian =
-        bankSoal.slice(30, 35);
+        bankSoal.slice(
+            30,
+            35
+        );
 
 }
 
 
 
-/* ================================================= */
+/* ========================================= */
 /* SESI */
-/* ================================================= */
+/* ========================================= */
 
-const sesi = [
+const sesi = {
 
-    {
-        id: "pg",
-
+    pg: {
         nama:
             "📝 SESI 1 — PILIHAN GANDA",
 
@@ -1203,509 +1351,347 @@ const sesi = [
     },
 
 
-    {
-        id: "isian",
+    isian: {
 
         nama:
             "✏️ SESI 2 — ISIAN SINGKAT",
 
         deskripsi:
-            "Tuliskan jawaban singkat pada kotak yang tersedia.",
+            "Tuliskan jawaban singkat pada kotak jawaban.",
 
         data:
             soalIsian
     },
 
 
-    {
-        id: "uraian",
+    uraian: {
 
         nama:
-            "📖 SESI 3 — URAIAN",
+            "🖊️ SESI 3 — URAIAN",
 
         deskripsi:
-            "Tuliskan jawaban dengan jelas dan lengkap.",
+            "Tuliskan jawaban uraian dengan jelas dan lengkap.",
 
         data:
             soalUraian
+
     }
 
-];
+};
 
+
+let urutanSesi = [
+    "pg",
+    "isian",
+    "uraian"
+];
 
 
 let sesiSekarang = 0;
 
+
 let soalSekarang = 0;
 
-let soalRagu = [];
 
-let waktu =
-    mode === "resmi"
-        ? 60 * 60
-        : 30 * 60;
-
-
-
-/* ================================================= */
+/* ========================================= */
 /* JAWABAN */
-/* ================================================= */
+/* ========================================= */
 
 let jawabanPG =
-    JSON.parse(
-        localStorage.getItem("jawabanPG") || "[]"
+    bacaArray(
+        "jawabanPG",
+        soalPG.length
     );
 
 
 let jawabanIsian =
-    JSON.parse(
-        localStorage.getItem("jawabanIsian") || "[]"
+    bacaArray(
+        "jawabanIsian",
+        soalIsian.length
     );
 
 
 let jawabanUraian =
-    JSON.parse(
-        localStorage.getItem("jawabanUraian") || "[]"
+    bacaArray(
+        "jawabanUraian",
+        soalUraian.length
     );
 
 
+let raguPG =
+    [];
 
-/* ================================================= */
-/* MENDAPATKAN DATA SESI AKTIF */
-/* ================================================= */
 
-function dataAktif() {
+let raguIsian =
+    [];
 
-    return sesi[sesiSekarang].data;
+
+let raguUraian =
+    [];
+
+
+
+function bacaArray(
+    namaStorage,
+    jumlah
+) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(
+                    namaStorage
+                )
+            );
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            const hasil =
+                new Array(jumlah)
+                    .fill("");
+
+
+            data.forEach(
+                function(nilai, index) {
+
+                    if (
+                        index < jumlah
+                    ) {
+
+                        hasil[index] =
+                            nilai || "";
+
+                    }
+
+                }
+            );
+
+
+            return hasil;
+
+        }
+
+    } catch (error) {
+
+    }
+
+
+    return new Array(jumlah)
+        .fill("");
 
 }
 
 
 
+/* ========================================= */
+/* DATA SESI AKTIF */
+/* ========================================= */
+
+function sesiAktif() {
+
+    return sesi[
+        urutanSesi[
+            sesiSekarang
+        ]
+    ];
+
+}
+
+
+function jenisSesiAktif() {
+
+    return urutanSesi[
+        sesiSekarang
+    ];
+
+}
+
+
 function jawabanAktif() {
 
-    if (sesiSekarang === 0) {
+    const jenis =
+        jenisSesiAktif();
+
+
+    if (jenis === "pg") {
 
         return jawabanPG;
 
     }
 
-    if (sesiSekarang === 1) {
+
+    if (jenis === "isian") {
 
         return jawabanIsian;
 
     }
+
 
     return jawabanUraian;
 
 }
 
 
+function raguAktif() {
 
-function simpanJawabanAktif() {
-
-    if (sesiSekarang === 0) {
-
-        localStorage.setItem(
-            "jawabanPG",
-            JSON.stringify(jawabanPG)
-        );
-
-    }
+    const jenis =
+        jenisSesiAktif();
 
 
-    if (sesiSekarang === 1) {
+    if (jenis === "pg") {
 
-        localStorage.setItem(
-            "jawabanIsian",
-            JSON.stringify(jawabanIsian)
-        );
+        return raguPG;
 
     }
 
 
-    if (sesiSekarang === 2) {
+    if (jenis === "isian") {
 
-        localStorage.setItem(
-            "jawabanUraian",
-            JSON.stringify(jawabanUraian)
-        );
+        return raguIsian;
 
     }
+
+
+    return raguUraian;
 
 }
 
 
 
-/* ================================================= */
-/* MENCARI PILIHAN A-D */
-/* ================================================= */
+/* ========================================= */
+/* PILIHAN A-D */
+/* ========================================= */
 
-function ambilPilihan(data) {
-
-    /*
-        Fungsi ini sengaja dibuat fleksibel
-        agar bisa membaca berbagai bentuk
-        hasil parser Word.
-    */
-
-
-    const sumber = [
-
-        data.pilihan,
-
-        data.pilihanJawaban,
-
-        data.opsi,
-
-        data.options,
-
-        data.choices,
-
-        data.jawabanPilihan,
-
-        data.alternatif
-
-    ];
-
-
-    for (
-        let i = 0;
-        i < sumber.length;
-        i++
-    ) {
-
-        const nilai =
-            sumber[i];
-
-
-        if (
-            Array.isArray(nilai) &&
-            nilai.length >= 2
-        ) {
-
-            const hasil =
-                nilai
-                    .map(
-                        function(item) {
-
-                            if (
-                                typeof item ===
-                                "string"
-                            ) {
-
-                                return item.trim();
-
-                            }
-
-
-                            if (
-                                item &&
-                                typeof item ===
-                                "object"
-                            ) {
-
-                                return (
-
-                                    item.text ??
-                                    item.teks ??
-                                    item.value ??
-                                    item.isi ??
-                                    item.jawaban ??
-                                    item.label ??
-                                    ""
-
-                                ).toString().trim();
-
-                            }
-
-
-                            return "";
-
-                        }
-                    )
-                    .filter(Boolean);
-
-
-            if (
-                hasil.length >= 2
-            ) {
-
-                return hasil.slice(0, 4);
-
-            }
-
-        }
-
-    }
-
-
+function ambilPilihan(
+    data
+) {
 
     /*
-        Coba mencari pilihan dari field
-        A/B/C/D secara langsung.
+        INI SESUAI FORMAT
+        bank-soal.html:
+
+        data.pilihan.A
+        data.pilihan.B
+        data.pilihan.C
+        data.pilihan.D
     */
-
-    const hasilABCD = [
-
-        data.A ??
-        data.a ??
-        data.pilihanA ??
-        data.opsiA,
-
-        data.B ??
-        data.b ??
-        data.pilihanB ??
-        data.opsiB,
-
-        data.C ??
-        data.c ??
-        data.pilihanC ??
-        data.opsiC,
-
-        data.D ??
-        data.d ??
-        data.pilihanD ??
-        data.opsiD
-
-    ];
-
-
-    const pilihanABCD =
-        hasilABCD
-            .map(
-                function(item) {
-
-                    if (
-                        item === undefined ||
-                        item === null
-                    ) {
-
-                        return "";
-
-                    }
-
-                    return item
-                        .toString()
-                        .trim();
-
-                }
-            )
-            .filter(Boolean);
-
 
     if (
-        pilihanABCD.length >= 2
+        !data ||
+        !data.pilihan
     ) {
 
-        return pilihanABCD.slice(0, 4);
+        return [];
 
     }
 
 
+    return [
 
-    /*
-        Pemeriksaan terakhir:
-        mencari semua property object
-        yang berbentuk array string.
-    */
+        {
+            huruf: "A",
 
-    for (
-        const key in data
-    ) {
+            teks:
+                data.pilihan.A || ""
 
-        const nilai =
-            data[key];
+        },
 
+        {
+            huruf: "B",
 
-        if (
-            Array.isArray(nilai) &&
-            nilai.length >= 2
-        ) {
+            teks:
+                data.pilihan.B || ""
 
-            const hasil =
-                nilai
-                    .map(
-                        function(item) {
+        },
 
-                            if (
-                                typeof item ===
-                                "string"
-                            ) {
+        {
+            huruf: "C",
 
-                                return item.trim();
+            teks:
+                data.pilihan.C || ""
 
-                            }
+        },
 
+        {
+            huruf: "D",
 
-                            if (
-                                item &&
-                                typeof item ===
-                                "object"
-                            ) {
-
-                                return (
-
-                                    item.text ??
-                                    item.teks ??
-                                    item.value ??
-                                    item.isi ??
-                                    item.jawaban ??
-                                    item.label ??
-                                    ""
-
-                                ).toString().trim();
-
-                            }
-
-
-                            return "";
-
-                        }
-                    )
-                    .filter(Boolean);
-
-
-            if (
-                hasil.length >= 2 &&
-                hasil.length <= 4
-            ) {
-
-                return hasil;
-
-            }
+            teks:
+                data.pilihan.D || ""
 
         }
 
-    }
+    ].filter(
+        function(item) {
 
+            return item.teks.trim() !== "";
 
-    return [];
-
-}
-
-
-
-/* ================================================= */
-/* MENCARI KUNCI JAWABAN */
-/* ================================================= */
-
-function ambilKunci(data) {
-
-    return (
-
-        data.jawaban ??
-        data.kunci ??
-        data.kunciJawaban ??
-        data.answer ??
-        data.correctAnswer ??
-        ""
-
-    ).toString().trim();
+        }
+    );
 
 }
 
 
 
-/* ================================================= */
-/* MEMBERSIHKAN TEKS */
-/* ================================================= */
-
-function normalisasi(teks) {
-
-    return (
-        teks ?? ""
-    )
-    .toString()
-    .trim()
-    .replace(/\s+/g, " ")
-    .toLowerCase();
-
-}
-
-
-
-/* ================================================= */
-/* TAMPILKAN SESI */
-/* ================================================= */
-
-function tampilkanSesi() {
-
-    document.getElementById(
-        "sessionTitle"
-    ).textContent =
-        sesi[sesiSekarang].nama;
-
-
-    document.getElementById(
-        "sessionDescription"
-    ).textContent =
-        sesi[sesiSekarang].deskripsi;
-
-
-    soalSekarang = 0;
-
-    soalRagu = [];
-
-    tampilkanSoal();
-
-}
-
-
-
-/* ================================================= */
+/* ========================================= */
 /* TAMPILKAN SOAL */
-/* ================================================= */
+/* ========================================= */
 
 function tampilkanSoal() {
 
     const data =
-        dataAktif();
+        sesiAktif().data[
+            soalSekarang
+        ];
 
 
-    if (
-        data.length === 0
-    ) {
-
-        document.getElementById(
-            "questionText"
-        ).textContent =
-            "Belum ada soal pada sesi ini.";
-
-
-        document.getElementById(
-            "answerContainer"
-        ).innerHTML = "";
-
+    if (!data) {
 
         return;
 
     }
 
 
-    const soalData =
-        data[soalSekarang];
+    const jenis =
+        jenisSesiAktif();
+
+
+    const jawaban =
+        jawabanAktif();
+
+
+    const ragu =
+        raguAktif();
+
+
+    document.getElementById(
+        "sessionTitle"
+    ).textContent =
+        sesiAktif().nama;
+
+
+    document.getElementById(
+        "sessionDescription"
+    ).textContent =
+        sesiAktif().deskripsi;
 
 
     document.getElementById(
         "questionNumber"
     ).textContent =
-
         "Soal " +
         (soalSekarang + 1) +
         " dari " +
-        data.length;
+        sesiAktif().data.length;
 
 
     document.getElementById(
         "questionText"
     ).textContent =
-
-        soalData.pertanyaan ??
-        soalData.soal ??
-        soalData.question ??
-        soalData.text ??
-        "Soal tidak ditemukan.";
+        data.pertanyaan || "";
 
 
     const container =
@@ -1717,21 +1703,20 @@ function tampilkanSoal() {
     container.innerHTML = "";
 
 
-    const jawaban =
-        jawabanAktif();
 
+    /* ===================================== */
+    /* PILIHAN GANDA */
+    /* ===================================== */
 
-    /*
-        SESI 1 — PILIHAN GANDA
-    */
+    if (jenis === "pg") {
 
-    if (
-        sesiSekarang === 0
-    ) {
+        container.className =
+            "options";
+
 
         const pilihan =
             ambilPilihan(
-                soalData
+                data
             );
 
 
@@ -1743,137 +1728,116 @@ function tampilkanSoal() {
 
                 '<div style="' +
                 'padding:15px;' +
-                'border:1px solid #fecaca;' +
-                'background:#fef2f2;' +
                 'border-radius:10px;' +
-                'color:#b91c1c;">' +
+                'background:#fef2f2;' +
+                'color:#991b1b;">' +
 
-                '⚠️ Pilihan A-D belum dapat ' +
-                'dibaca dari data soal.' +
+                '⚠️ Pilihan A-D belum ' +
+                'dapat dibaca dari data soal.' +
 
                 '</div>';
 
-        } else {
+        }
 
 
-            pilihan.forEach(
-                function(pilihanItem, index) {
+        pilihan.forEach(
+            function(item) {
 
-
-                    const label =
-                        document.createElement(
-                            "label"
-                        );
-
-
-                    label.className =
-                        "option";
-
-
-                    if (
-                        normalisasi(
-                            jawaban[soalSekarang]
-                        ) ===
-                        normalisasi(
-                            pilihanItem
-                        )
-                    ) {
-
-                        label.classList.add(
-                            "selected"
-                        );
-
-                    }
-
-
-                    const huruf =
-                        String.fromCharCode(
-                            65 + index
-                        );
-
-
-                    label.innerHTML =
-
-                        '<input ' +
-                        'type="radio" ' +
-                        'name="jawaban" ' +
-                        'value="' +
-                        escapeHtml(
-                            pilihanItem
-                        ) +
-                        '">' +
-
-                        '<span ' +
-                        'class="option-letter">' +
-
-                        huruf +
-
-                        '</span>' +
-
-                        '<span ' +
-                        'class="option-text">' +
-
-                        escapeHtml(
-                            pilihanItem
-                        ) +
-
-                        '</span>';
-
-
-                    const radio =
-                        label.querySelector(
-                            "input"
-                        );
-
-
-                    radio.checked =
-
-                        normalisasi(
-                            jawaban[soalSekarang]
-                        ) ===
-                        normalisasi(
-                            pilihanItem
-                        );
-
-
-                    radio.addEventListener(
-                        "change",
-                        function() {
-
-                            jawabanPG[
-                                soalSekarang
-                            ] =
-                                pilihanItem;
-
-
-                            simpanJawabanAktif();
-
-                            tampilkanSoal();
-
-                        }
+                const label =
+                    document.createElement(
+                        "label"
                     );
 
 
-                    container.appendChild(
-                        label
+                label.className =
+                    "option";
+
+
+                if (
+                    jawaban[
+                        soalSekarang
+                    ] === item.huruf
+                ) {
+
+                    label.classList.add(
+                        "selected"
                     );
 
                 }
-            );
 
-        }
+
+                label.innerHTML =
+
+                    '<input ' +
+                    'type="radio" ' +
+                    'name="jawaban" ' +
+                    'value="' +
+                    item.huruf +
+                    '">' +
+
+                    '<span ' +
+                    'class="option-letter">' +
+
+                    item.huruf +
+
+                    '</span>' +
+
+                    '<span ' +
+                    'class="option-text">' +
+
+                    escapeHtml(
+                        item.teks
+                    ) +
+
+                    '</span>';
+
+
+                const radio =
+                    label.querySelector(
+                        "input"
+                    );
+
+
+                radio.addEventListener(
+                    "change",
+                    function() {
+
+                        jawaban[
+                            soalSekarang
+                        ] =
+                            item.huruf;
+
+
+                        simpanJawaban();
+
+                        tampilkanSoal();
+
+                    }
+                );
+
+
+                container.appendChild(
+                    label
+                );
+
+            }
+        );
 
     }
 
 
 
-    /*
-        SESI 2 — ISIAN
-    */
+    /* ===================================== */
+    /* ISIAN */
+    /* ===================================== */
 
     else if (
-        sesiSekarang === 1
+        jenis === "isian"
     ) {
+
+        container.className =
+            "";
+
 
         const input =
             document.createElement(
@@ -1894,7 +1858,7 @@ function tampilkanSoal() {
 
 
         input.value =
-            jawabanIsian[
+            jawaban[
                 soalSekarang
             ] || "";
 
@@ -1903,17 +1867,14 @@ function tampilkanSoal() {
             "input",
             function() {
 
-                jawabanIsian[
+                jawaban[
                     soalSekarang
                 ] =
                     input.value;
 
-
-                simpanJawabanAktif();
+                simpanJawaban();
 
                 updateStatus();
-
-                updateQuestionNumbers();
 
             }
         );
@@ -1927,11 +1888,15 @@ function tampilkanSoal() {
 
 
 
-    /*
-        SESI 3 — URAIAN
-    */
+    /* ===================================== */
+    /* URAIAN */
+    /* ===================================== */
 
     else {
+
+        container.className =
+            "";
+
 
         const textarea =
             document.createElement(
@@ -1944,11 +1909,11 @@ function tampilkanSoal() {
 
 
         textarea.placeholder =
-            "Tuliskan jawaban Anda dengan jelas dan lengkap...";
+            "Tuliskan jawaban uraian Anda di sini...";
 
 
         textarea.value =
-            jawabanUraian[
+            jawaban[
                 soalSekarang
             ] || "";
 
@@ -1957,17 +1922,14 @@ function tampilkanSoal() {
             "input",
             function() {
 
-                jawabanUraian[
+                jawaban[
                     soalSekarang
                 ] =
                     textarea.value;
 
-
-                simpanJawabanAktif();
+                simpanJawaban();
 
                 updateStatus();
-
-                updateQuestionNumbers();
 
             }
         );
@@ -1986,35 +1948,58 @@ function tampilkanSoal() {
 
     updateQuestionNumbers();
 
-}
-
-
-
-/* ================================================= */
-/* ESCAPE HTML */
-/* ================================================= */
-
-function escapeHtml(teks) {
-
-    return (
-        teks ?? ""
-    )
-    .toString()
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    updateSessionButtons();
 
 }
 
 
 
-/* ================================================= */
+/* ========================================= */
+/* SIMPAN JAWABAN */
+/* ========================================= */
+
+function simpanJawaban() {
+
+    localStorage.setItem(
+        "jawabanPG",
+        JSON.stringify(
+            jawabanPG
+        )
+    );
+
+
+    localStorage.setItem(
+        "jawabanIsian",
+        JSON.stringify(
+            jawabanIsian
+        )
+    );
+
+
+    localStorage.setItem(
+        "jawabanUraian",
+        JSON.stringify(
+            jawabanUraian
+        )
+    );
+
+}
+
+
+
+/* ========================================= */
 /* STATUS */
-/* ================================================= */
+/* ========================================= */
 
 function updateStatus() {
+
+    const jawaban =
+        jawabanAktif();
+
+
+    const ragu =
+        raguAktif();
+
 
     const status =
         document.getElementById(
@@ -2022,14 +2007,8 @@ function updateStatus() {
         );
 
 
-    const jawaban =
-        jawabanAktif()[
-            soalSekarang
-        ];
-
-
     if (
-        soalRagu.includes(
+        ragu.includes(
             soalSekarang
         )
     ) {
@@ -2040,10 +2019,16 @@ function updateStatus() {
         status.className =
             "status-doubt";
 
+    }
 
-    } else if (
-        jawaban &&
-        jawaban.toString().trim() !== ""
+
+    else if (
+        jawaban[
+            soalSekarang
+        ] &&
+        jawaban[
+            soalSekarang
+        ].trim() !== ""
     ) {
 
         status.textContent =
@@ -2052,8 +2037,10 @@ function updateStatus() {
         status.className =
             "status-answered";
 
+    }
 
-    } else {
+
+    else {
 
         status.textContent =
             "Belum dijawab";
@@ -2071,7 +2058,7 @@ function updateStatus() {
 
 
     if (
-        soalRagu.includes(
+        ragu.includes(
             soalSekarang
         )
     ) {
@@ -2080,60 +2067,27 @@ function updateStatus() {
             "active"
         );
 
+        doubtButton.textContent =
+            "🟡 Tandai Tidak Ragu";
+
     } else {
 
         doubtButton.classList.remove(
             "active"
         );
 
+        doubtButton.textContent =
+            "🟡 Ragu-ragu";
+
     }
 
 }
 
 
 
-/* ================================================= */
-/* RAGU-RAGU */
-/* ================================================= */
-
-function toggleRagu() {
-
-    if (
-        soalRagu.includes(
-            soalSekarang
-        )
-    ) {
-
-        soalRagu =
-            soalRagu.filter(
-                function(item) {
-
-                    return item !==
-                        soalSekarang;
-
-                }
-            );
-
-    } else {
-
-        soalRagu.push(
-            soalSekarang
-        );
-
-    }
-
-
-    updateStatus();
-
-    updateQuestionNumbers();
-
-}
-
-
-
-/* ================================================= */
+/* ========================================= */
 /* NAVIGASI */
-/* ================================================= */
+/* ========================================= */
 
 function soalSebelumnya() {
 
@@ -2153,13 +2107,13 @@ function soalSebelumnya() {
 
 function soalBerikutnya() {
 
-    const data =
-        dataAktif();
+    const jumlah =
+        sesiAktif().data.length;
 
 
     if (
         soalSekarang <
-        data.length - 1
+        jumlah - 1
     ) {
 
         soalSekarang++;
@@ -2172,9 +2126,51 @@ function soalBerikutnya() {
 
 
 
-/* ================================================= */
+/* ========================================= */
+/* RAGU-RAGU */
+/* ========================================= */
+
+function toggleRagu() {
+
+    const ragu =
+        raguAktif();
+
+
+    const posisi =
+        ragu.indexOf(
+            soalSekarang
+        );
+
+
+    if (
+        posisi !== -1
+    ) {
+
+        ragu.splice(
+            posisi,
+            1
+        );
+
+    } else {
+
+        ragu.push(
+            soalSekarang
+        );
+
+    }
+
+
+    updateStatus();
+
+    updateQuestionNumbers();
+
+}
+
+
+
+/* ========================================= */
 /* NOMOR SOAL */
-/* ================================================= */
+/* ========================================= */
 
 function updateQuestionNumbers() {
 
@@ -2188,16 +2184,19 @@ function updateQuestionNumbers() {
 
 
     const data =
-        dataAktif();
+        sesiAktif().data;
 
 
     const jawaban =
         jawabanAktif();
 
 
+    const ragu =
+        raguAktif();
+
+
     data.forEach(
         function(_, index) {
-
 
             const button =
                 document.createElement(
@@ -2231,7 +2230,6 @@ function updateQuestionNumbers() {
             if (
                 jawaban[index] &&
                 jawaban[index]
-                    .toString()
                     .trim() !== ""
             ) {
 
@@ -2243,9 +2241,7 @@ function updateQuestionNumbers() {
 
 
             if (
-                soalRagu.includes(
-                    index
-                )
+                ragu.includes(index)
             ) {
 
                 button.classList.add(
@@ -2277,14 +2273,14 @@ function updateQuestionNumbers() {
 
 
 
-/* ================================================= */
+/* ========================================= */
 /* NAVIGASI BUTTON */
-/* ================================================= */
+/* ========================================= */
 
 function updateNavigation() {
 
-    const data =
-        dataAktif();
+    const jumlah =
+        sesiAktif().data.length;
 
 
     document.getElementById(
@@ -2297,8 +2293,96 @@ function updateNavigation() {
         "nextButton"
     ).disabled =
         soalSekarang ===
-        data.length - 1;
+        jumlah - 1;
 
+}
+
+
+
+/* ========================================= */
+/* CEK SEMUA SUDAH DIJAWAB */
+/* ========================================= */
+
+function semuaSudahDijawab() {
+
+    const jawaban =
+        jawabanAktif();
+
+
+    return jawaban.every(
+        function(item) {
+
+            return (
+                typeof item === "string" &&
+                item.trim() !== ""
+            );
+
+        }
+    );
+
+}
+
+
+
+/* ========================================= */
+/* LANJUT SESI */
+/* ========================================= */
+
+function lanjutSesi() {
+
+    if (
+        !semuaSudahDijawab()
+    ) {
+
+        const lanjut =
+            confirm(
+
+                "Masih ada soal yang belum dijawab.\n\n" +
+
+                "Apakah Anda tetap ingin " +
+                "melanjutkan ke sesi berikutnya?"
+
+            );
+
+
+        if (!lanjut) {
+
+            return;
+
+        }
+
+    }
+
+
+    if (
+        sesiSekarang <
+        urutanSesi.length - 1
+    ) {
+
+        sesiSekarang++;
+
+        soalSekarang = 0;
+
+        tampilkanSoal();
+
+        window.scrollTo(
+            {
+                top: 0,
+                behavior: "smooth"
+            }
+        );
+
+    }
+
+}
+
+
+
+/* ========================================= */
+/* TOMBOL SESI / SELESAI */
+/* ========================================= */
+
+function updateSessionButtons() {
 
     const nextSession =
         document.getElementById(
@@ -2314,11 +2398,12 @@ function updateNavigation() {
 
     if (
         sesiSekarang <
-        sesi.length - 1
+        urutanSesi.length - 1
     ) {
 
         nextSession.style.display =
             "block";
+
 
         finish.style.display =
             "none";
@@ -2328,6 +2413,7 @@ function updateNavigation() {
         nextSession.style.display =
             "none";
 
+
         finish.style.display =
             "block";
 
@@ -2337,210 +2423,165 @@ function updateNavigation() {
 
 
 
-/* ================================================= */
-/* CEK SEMUA SUDAH DIJAWAB */
-/* ================================================= */
+/* ========================================= */
+/* SELESAI UJIAN */
+/* ========================================= */
 
-function cekSesiLengkap() {
+function selesaiUjian() {
 
-    const jawaban =
-        jawabanAktif();
+    const jumlahPG =
+        jawabanPG.filter(
+            function(item) {
 
+                return (
+                    item &&
+                    item.trim() !== ""
+                );
 
-    const data =
-        dataAktif();
-
-
-    for (
-        let i = 0;
-        i < data.length;
-        i++
-    ) {
-
-        if (
-            !jawaban[i] ||
-            jawaban[i]
-                .toString()
-                .trim() === ""
-        ) {
-
-            return false;
-
-        }
-
-    }
+            }
+        ).length;
 
 
-    return true;
+    const jumlahIsian =
+        jawabanIsian.filter(
+            function(item) {
 
-}
+                return (
+                    item &&
+                    item.trim() !== ""
+                );
+
+            }
+        ).length;
 
 
+    const jumlahUraian =
+        jawabanUraian.filter(
+            function(item) {
 
-/* ================================================= */
-/* LANJUT SESI */
-/* ================================================= */
+                return (
+                    item &&
+                    item.trim() !== ""
+                );
 
-function lanjutSesi() {
+            }
+        ).length;
 
-    if (
-        !cekSesiLengkap()
-    ) {
 
-        alert(
-            "Masih ada soal yang belum dijawab pada sesi ini.\n\n" +
-            "Silakan periksa kembali sebelum melanjutkan."
+    const yakin =
+        confirm(
+
+            "Apakah Anda yakin ingin " +
+            "mengakhiri ujian?\n\n" +
+
+            "Pilihan Ganda: " +
+            jumlahPG +
+            " terisi\n" +
+
+            "Isian Singkat: " +
+            jumlahIsian +
+            " terisi\n" +
+
+            "Uraian: " +
+            jumlahUraian +
+            " terisi\n\n" +
+
+            "Jawaban akan dikirim."
+
         );
+
+
+    if (!yakin) {
 
         return;
 
     }
 
 
-    if (
-        sesiSekarang <
-        sesi.length - 1
-    ) {
-
-        sesiSekarang++;
-
-        tampilkanSesi();
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
+    hitungNilai();
 
 }
 
 
 
-/* ================================================= */
-/* TIMER */
-/* ================================================= */
+/* ========================================= */
+/* NORMALISASI */
+/* ========================================= */
 
-function mulaiTimer() {
+function normalisasi(
+    teks
+) {
 
-    const timer =
-        document.getElementById(
-            "timer"
-        );
-
-
-    function tampilkanWaktu() {
-
-        const menit =
-            Math.floor(
-                waktu / 60
-            );
-
-
-        const detik =
-            waktu % 60;
-
-
-        timer.textContent =
-
-            String(menit)
-                .padStart(2, "0")
-
-            + ":" +
-
-            String(detik)
-                .padStart(2, "0");
-
-    }
-
-
-    tampilkanWaktu();
-
-
-    const interval =
-        setInterval(
-            function() {
-
-                waktu--;
-
-                tampilkanWaktu();
-
-
-                if (
-                    waktu <= 0
-                ) {
-
-                    clearInterval(
-                        interval
-                    );
-
-
-                    alert(
-                        "Waktu ujian telah habis. Jawaban akan dikirim."
-                    );
-
-
-                    kirimJawaban();
-
-                }
-
-            },
-            1000
-        );
-
-}
-
-
-
-/* ================================================= */
-/* NORMALISASI JAWABAN */
-/* ================================================= */
-
-function normalisasiJawaban(teks) {
-
-    return (
-        teks ?? ""
+    return String(
+        teks || ""
     )
-    .toString()
-    .trim()
+
     .toLowerCase()
-    .replace(/\s+/g, " ");
+
+    .replace(
+        /\s+/g,
+        " "
+    )
+
+    .trim();
 
 }
 
 
 
-/* ================================================= */
-/* NILAI PG */
-/* ================================================= */
+/* ========================================= */
+/* AMBIL KUNCI */
+/* ========================================= */
 
-function hitungBenarPG() {
+function ambilKunci(
+    data
+) {
 
-    let benar = 0;
+    return String(
+        data.jawaban || ""
+    ).trim();
+
+}
+
+
+
+/* ========================================= */
+/* HITUNG NILAI */
+/* ========================================= */
+
+function hitungNilai() {
+
+    let benarPG = 0;
 
 
     soalPG.forEach(
         function(data, index) {
 
-            const jawaban =
-                normalisasiJawaban(
-                    jawabanPG[index]
-                );
-
-
             const kunci =
-                normalisasiJawaban(
-                    ambilKunci(data)
+                ambilKunci(
+                    data
                 );
 
+
+            const jawaban =
+                jawabanPG[index] || "";
+
+
+            /*
+                Kunci pada parser lama
+                mungkin berupa A/B/C/D.
+            */
 
             if (
-                jawaban !== "" &&
-                kunci !== "" &&
-                jawaban === kunci
+                normalisasi(
+                    jawaban
+                ) ===
+                normalisasi(
+                    kunci
+                )
             ) {
 
-                benar++;
+                benarPG++;
 
             }
 
@@ -2548,148 +2589,35 @@ function hitungBenarPG() {
     );
 
 
-    return benar;
-
-}
-
-
-
-/* ================================================= */
-/* NILAI ISIAN */
-/* ================================================= */
-
-function hitungBenarIsian() {
-
-    let benar = 0;
+    let benarIsian = 0;
 
 
     soalIsian.forEach(
         function(data, index) {
 
+            const kunci =
+                normalisasi(
+                    data.jawaban
+                );
+
+
             const jawaban =
-                normalisasiJawaban(
+                normalisasi(
                     jawabanIsian[index]
                 );
 
 
-            const kunci =
-                normalisasiJawaban(
-                    ambilKunci(data)
-                );
-
-
             if (
-                jawaban === "" ||
-                kunci === ""
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-                Jika keduanya angka,
-                bandingkan sebagai angka.
-            */
-
-            const angkaJawaban =
-                Number(
-                    jawaban.replace(
-                        /[^\d.-]/g,
-                        ""
-                    )
-                );
-
-
-            const angkaKunci =
-                Number(
-                    kunci.replace(
-                        /[^\d.-]/g,
-                        ""
-                    )
-                );
-
-
-            if (
-                !isNaN(angkaJawaban) &&
-                !isNaN(angkaKunci) &&
-                /\d/.test(jawaban) &&
-                /\d/.test(kunci)
-            ) {
-
-                if (
-                    angkaJawaban ===
-                    angkaKunci
-                ) {
-
-                    benar++;
-
-                }
-
-            } else if (
+                jawaban !== "" &&
                 jawaban === kunci
             ) {
 
-                benar++;
+                benarIsian++;
 
             }
 
         }
     );
-
-
-    return benar;
-
-}
-
-
-
-/* ================================================= */
-/* SELESAI */
-/* ================================================= */
-
-function konfirmasiSelesai() {
-
-    const yakin =
-        confirm(
-
-            "Apakah Anda yakin ingin mengakhiri ujian?\n\n" +
-
-            "Pastikan semua jawaban sudah diperiksa.\n\n" +
-
-            "Jawaban yang sudah dikirim tidak dapat diubah."
-
-        );
-
-
-    if (
-        yakin
-    ) {
-
-        kirimJawaban();
-
-    }
-
-}
-
-
-
-/* ================================================= */
-/* KIRIM JAWABAN */
-/* ================================================= */
-
-function kirimJawaban() {
-
-    simpanJawabanAktif();
-
-
-    const benarPG =
-        hitungBenarPG();
-
-
-    const benarIsian =
-        hitungBenarIsian();
 
 
     const totalPG =
@@ -2704,88 +2632,253 @@ function kirimJawaban() {
         soalUraian.length;
 
 
-    const otomatisBenar =
-        benarPG +
-        benarIsian;
-
-
-    const otomatisSoal =
+    const totalOtomatis =
         totalPG +
         totalIsian;
 
 
-    const nilaiOtomatis =
+    const benarOtomatis =
+        benarPG +
+        benarIsian;
 
-        otomatisSoal > 0
 
-            ?
+    let nilaiOtomatis = 0;
 
+
+    if (
+        totalOtomatis > 0
+    ) {
+
+        nilaiOtomatis =
             Math.round(
                 (
-                    otomatisBenar /
-                    otomatisSoal
-                ) *
-                100
-            )
+                    benarOtomatis /
+                    totalOtomatis
+                ) * 100
+            );
 
-            :
-
-            0;
+    }
 
 
     localStorage.setItem(
         "nilaiSTS",
-        nilaiOtomatis
+        String(
+            nilaiOtomatis
+        )
     );
 
 
     localStorage.setItem(
         "jumlahBenar",
-        otomatisBenar
+        String(
+            benarOtomatis
+        )
     );
 
 
     localStorage.setItem(
-        "jumlahSoalOtomatis",
-        otomatisSoal
+        "jumlahBenarPG",
+        String(
+            benarPG
+        )
+    );
+
+
+    localStorage.setItem(
+        "jumlahBenarIsian",
+        String(
+            benarIsian
+        )
+    );
+
+
+    localStorage.setItem(
+        "jumlahSoalPG",
+        String(
+            totalPG
+        )
+    );
+
+
+    localStorage.setItem(
+        "jumlahSoalIsian",
+        String(
+            totalIsian
+        )
     );
 
 
     localStorage.setItem(
         "jumlahSoalUraian",
-        totalUraian
+        String(
+            totalUraian
+        )
     );
 
 
     localStorage.setItem(
         "nilaiOtomatisSTS",
-        nilaiOtomatis
+        String(
+            nilaiOtomatis
+        )
     );
 
 
     window.location.href =
         "hasil.html?mode=" +
-        mode;
+        encodeURIComponent(
+            mode
+        );
 
 }
 
 
 
-/* ================================================= */
+/* ========================================= */
+/* ESCAPE HTML */
+/* ========================================= */
+
+function escapeHtml(
+    text
+) {
+
+    return String(
+        text || ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* ========================================= */
+/* TIMER */
+/* ========================================= */
+
+let waktu =
+    mode === "resmi"
+        ? 60 * 60
+        : 30 * 60;
+
+
+let timerInterval;
+
+
+function mulaiTimer() {
+
+    const timer =
+        document.getElementById(
+            "timer"
+        );
+
+
+    function updateTimer() {
+
+        const menit =
+            Math.floor(
+                waktu / 60
+            );
+
+
+        const detik =
+            waktu % 60;
+
+
+        timer.textContent =
+
+            String(menit)
+                .padStart(
+                    2,
+                    "0"
+                )
+
+            + ":" +
+
+            String(detik)
+                .padStart(
+                    2,
+                    "0"
+                );
+
+
+        if (
+            waktu <= 0
+        ) {
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            alert(
+                "⏰ Waktu ujian telah habis. Jawaban akan dikirim."
+            );
+
+
+            hitungNilai();
+
+            return;
+
+        }
+
+
+        waktu--;
+
+    }
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+}
+
+
+
+/* ========================================= */
 /* MULAI */
-/* ================================================= */
+/* ========================================= */
 
 if (
     bankSoal.length === 0
 ) {
 
     alert(
-        "Bank soal belum tersedia. Silakan kembali dan impor soal terlebih dahulu."
+        "Bank soal belum tersedia. Silakan kembali ke Bank Soal dan simpan soal terlebih dahulu."
     );
 
 } else {
 
-    tampilkanSesi();
+    tampilkanSoal();
 
     mulaiTimer();
 
