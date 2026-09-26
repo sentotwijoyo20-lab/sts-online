@@ -1052,7 +1052,7 @@
         </strong>
 
         <span id="modeUjian">
-            ðŸŸ¢ GLADI / SIMULASI
+            🟢 GLADI / SIMULASI
         </span>
 
     </div>
@@ -1060,7 +1060,7 @@
 
     <div class="timer-box">
 
-        <span>â±ï¸ Sisa Waktu</span>
+        <span>⏱️ Sisa Waktu</span>
 
         <strong id="timer">
             30:00
@@ -1074,7 +1074,7 @@
 
 <div class="mode-warning" id="modeWarning">
 
-    ðŸŸ¢ Mode GLADI / SIMULASI â€”
+    🟢 Mode GLADI / SIMULASI —
     Jawaban tidak memengaruhi nilai STS resmi.
 
 </div>
@@ -1084,7 +1084,7 @@
 <section class="session-header">
 
     <h2 id="sessionTitle">
-        ðŸ“ SESI 1 â€” PILIHAN GANDA
+        📝 SESI 1 — PILIHAN GANDA
     </h2>
 
     <p id="sessionDescription">
@@ -1151,7 +1151,7 @@
                     class="nav-button"
                     onclick="soalSebelumnya()">
 
-                    â† Sebelumnya
+                    ← Sebelumnya
 
                 </button>
 
@@ -1161,7 +1161,7 @@
                     class="doubt-button"
                     onclick="toggleRagu()">
 
-                    ðŸŸ¡ Ragu-ragu
+                    🟡 Ragu-ragu
 
                 </button>
 
@@ -1171,7 +1171,7 @@
                     class="nav-button"
                     onclick="soalBerikutnya()">
 
-                    Berikutnya â†’
+                    Berikutnya →
 
                 </button>
 
@@ -1185,7 +1185,7 @@
             class="session-button"
             onclick="lanjutSesi()">
 
-            LANJUT KE SESI BERIKUTNYA â†’
+            LANJUT KE SESI BERIKUTNYA →
 
         </button>
 
@@ -1196,7 +1196,7 @@
             onclick="selesaiUjian()"
             style="display:none;">
 
-            ðŸ“ SELESAI & KIRIM JAWABAN
+            📝 SELESAI & KIRIM JAWABAN
 
         </button>
 
@@ -1290,13 +1290,13 @@ if (mode === "resmi") {
     document.getElementById(
         "modeUjian"
     ).textContent =
-        "ðŸ”µ STS RESMI";
+        "🔵 STS RESMI";
 
 
     document.getElementById(
         "modeWarning"
     ).textContent =
-        "ðŸ”µ Mode STS RESMI â€” Pastikan Anda mengerjakan dengan teliti.";
+        "🔵 Mode STS RESMI — Pastikan Anda mengerjakan dengan teliti.";
 
 
 } else {
@@ -1304,7 +1304,7 @@ if (mode === "resmi") {
     document.getElementById(
         "modeUjian"
     ).textContent =
-        "ðŸŸ¢ GLADI / SIMULASI";
+        "🟢 GLADI / SIMULASI";
 
 }
 
@@ -1413,7 +1413,7 @@ const sesi = {
 
     pg: {
         nama:
-            "ðŸ“ SESI 1 â€” PILIHAN GANDA",
+            "📝 SESI 1 — PILIHAN GANDA",
 
         deskripsi:
             "Kerjakan soal pilihan ganda dengan memilih salah satu jawaban A, B, C, atau D.",
@@ -1426,7 +1426,7 @@ const sesi = {
     isian: {
 
         nama:
-            "âœï¸ SESI 2 â€” ISIAN SINGKAT",
+            "✏️ SESI 2 — ISIAN SINGKAT",
 
         deskripsi:
             "Tuliskan jawaban singkat pada kotak jawaban.",
@@ -1439,7 +1439,7 @@ const sesi = {
     uraian: {
 
         nama:
-            "ðŸ–Šï¸ SESI 3 â€” URAIAN",
+            "🖊️ SESI 3 — URAIAN",
 
         deskripsi:
             "Tuliskan jawaban uraian dengan jelas dan lengkap.",
@@ -1864,7 +1864,7 @@ function tampilkanSoal() {
                 'background:#fef2f2;' +
                 'color:#991b1b;">' +
 
-                'âš ï¸ Pilihan A-D belum ' +
+                '⚠️ Pilihan A-D belum ' +
                 'dapat dibaca dari data soal.' +
 
                 '</div>';
@@ -2146,7 +2146,7 @@ function updateStatus() {
     ) {
 
         status.textContent =
-            "ðŸŸ¡ Ragu-ragu";
+            "🟡 Ragu-ragu";
 
         status.className =
             "status-doubt";
@@ -2164,7 +2164,7 @@ function updateStatus() {
     ) {
 
         status.textContent =
-            "âœ“ Sudah dijawab";
+            "✓ Sudah dijawab";
 
         status.className =
             "status-answered";
@@ -2200,7 +2200,7 @@ function updateStatus() {
         );
 
         doubtButton.textContent =
-            "ðŸŸ¡ Tandai Tidak Ragu";
+            "🟡 Tandai Tidak Ragu";
 
     } else {
 
@@ -2209,7 +2209,7 @@ function updateStatus() {
         );
 
         doubtButton.textContent =
-            "ðŸŸ¡ Ragu-ragu";
+            "🟡 Ragu-ragu";
 
     }
 
@@ -2962,7 +2962,7 @@ function mulaiTimer() {
 
 
             alert(
-                "â° Waktu ujian telah habis. Jawaban akan dikirim."
+                "⏰ Waktu ujian telah habis. Jawaban akan dikirim."
             );
 
 
@@ -3017,3 +3017,4 @@ if (
 </body>
 
 </html>
+
