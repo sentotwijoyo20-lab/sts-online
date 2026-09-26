@@ -6,6 +6,9 @@
 
     <title>Bank Soal - STS Online</title>
 
+    <!-- Library untuk membaca file DOCX -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -19,336 +22,245 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #0f4c81, #2563eb);
-            color: white;
-            padding: 22px 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 30px;
         }
 
         .header-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: auto;
         }
 
         .header h1 {
             margin: 0;
-            font-size: 28px;
+            font-size: 26px;
+            color: #1e3a8a;
         }
 
         .header p {
             margin: 6px 0 0;
-            opacity: 0.9;
+            color: #64748b;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 0 20px;
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .page-title h2 {
-            margin: 0;
-            font-size: 25px;
-        }
-
-        .page-title p {
-            margin: 6px 0 0;
-            color: #6b7280;
-        }
-
-        .btn-back {
-            border: none;
-            background: #e5e7eb;
-            color: #374151;
-            padding: 11px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-back:hover {
-            background: #d1d5db;
-        }
-
         .card {
-            background: white;
-            border-radius: 16px;
+            background: #ffffff;
+            border-radius: 18px;
             padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            margin-bottom: 22px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
         }
 
-        .card h3 {
+        .card h2 {
             margin-top: 0;
-            margin-bottom: 20px;
-            color: #111827;
+            color: #1e3a8a;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 7px;
-            color: #374151;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 9px;
-            padding: 11px 12px;
-            font-size: 15px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-        }
-
-        .option-row {
-            display: grid;
-            grid-template-columns: 45px 1fr;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .option-label {
-            background: #eff6ff;
-            color: #1d4ed8;
-            font-weight: bold;
+        .upload-area {
+            border: 2px dashed #94a3b8;
+            border-radius: 16px;
+            padding: 40px 20px;
             text-align: center;
-            padding: 10px;
-            border-radius: 8px;
+            background: #f8fafc;
+            transition: 0.2s;
         }
 
-        .answer-box {
-            background: #f9fafb;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
+        .upload-area:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
         }
 
-        .answer-box p {
-            margin-top: 0;
-            font-weight: bold;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .radio-item {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            cursor: pointer;
-        }
-
-        .radio-item input {
-            width: auto;
-        }
-
-        .btn-save {
-            margin-top: 20px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 13px 22px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .btn-save:hover {
-            background: #1d4ed8;
-        }
-
-        .filter-bar {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .soal-item {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 15px;
-            background: #fff;
-        }
-
-        .soal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
+        .upload-icon {
+            font-size: 50px;
             margin-bottom: 12px;
         }
 
-        .soal-number {
+        .upload-area h3 {
+            margin: 5px 0 10px;
+            font-size: 21px;
+        }
+
+        .upload-area p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 13px 20px;
+            font-size: 15px;
             font-weight: bold;
-            color: #2563eb;
+            cursor: pointer;
         }
 
-        .soal-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+        .btn-primary {
+            background: #2563eb;
+            color: white;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+        .btn-primary:hover {
+            background: #1d4ed8;
         }
 
-        .badge-mapel {
-            background: #dbeafe;
-            color: #1d4ed8;
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
         }
 
-        .badge-kelas {
-            background: #dcfce7;
-            color: #15803d;
+        .btn-secondary:hover {
+            background: #cbd5e1;
         }
 
-        .soal-text {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            white-space: pre-wrap;
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #eff6ff;
+            display: none;
         }
 
-        .pilihan-list {
-            display: grid;
-            gap: 8px;
+        .loading {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff7ed;
+            color: #9a3412;
         }
 
-        .pilihan {
-            padding: 9px 12px;
-            background: #f9fafb;
-            border-radius: 7px;
-            border: 1px solid #e5e7eb;
+        .error {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fef2f2;
+            color: #991b1b;
         }
 
-        .pilihan.benar {
-            background: #dcfce7;
-            border-color: #86efac;
+        .success {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f0fdf4;
             color: #166534;
-            font-weight: bold;
         }
 
-        .soal-footer {
+        .preview {
+            display: none;
+        }
+
+        .preview-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #e5e7eb;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
 
-        .jawaban-benar {
-            color: #15803d;
-            font-size: 14px;
-            font-weight: bold;
+        .preview-header h2 {
+            margin: 0;
         }
 
-        .btn-delete {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: none;
+        .question-count {
+            background: #dbeafe;
+            color: #1d4ed8;
             padding: 8px 13px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 20px;
             font-weight: bold;
         }
 
-        .btn-delete:hover {
-            background: #fecaca;
+        .question {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .question-title {
+            background: #f8fafc;
+            padding: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .question-body {
+            padding: 16px;
+        }
+
+        .question-text {
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .question-text img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 12px 0;
+        }
+
+        .option {
+            padding: 10px 12px;
+            margin: 7px 0;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .option-label {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .option img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 8px;
         }
 
         .empty {
             text-align: center;
-            padding: 40px 20px;
-            color: #6b7280;
+            color: #64748b;
+            padding: 30px;
         }
 
-        .empty-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
+        .bottom-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .count-box {
-            margin-bottom: 18px;
-            font-weight: bold;
-            color: #374151;
-        }
-
-        @media (max-width: 700px) {
-            .form-grid,
-            .filter-bar {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full {
-                grid-column: auto;
-            }
-
+        @media (max-width: 600px) {
             .header {
-                padding: 20px;
+                padding: 18px;
             }
 
             .container {
-                margin-top: 20px;
                 padding: 0 12px;
+                margin-top: 20px;
             }
 
             .card {
                 padding: 18px;
+                border-radius: 14px;
             }
 
-            .soal-header {
-                flex-direction: column;
+            .upload-area {
+                padding: 30px 15px;
             }
         }
     </style>
@@ -358,569 +270,967 @@
 
     <header class="header">
         <div class="header-inner">
-            <h1>🏫 STS ONLINE</h1>
-            <p>SD Negeri 1 Jatipayak</p>
+            <h1>📚 BANK SOAL</h1>
+            <p>STS Online • SD Negeri 1 Jatipayak</p>
         </div>
     </header>
 
     <main class="container">
 
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>📚 Bank Soal</h2>
-                <p>Kelola kumpulan soal untuk ujian.</p>
-            </div>
-
-            <button class="btn-back" onclick="kembali()">
-                ← Kembali
-            </button>
-        </div>
-
-
-        <!-- FORM TAMBAH SOAL -->
-
+        <!-- IMPORT WORD -->
         <section class="card">
 
-            <h3>➕ Tambah Soal Baru</h3>
+            <h2>📄 Import Soal dari Word</h2>
 
-            <div class="form-grid">
+            <div class="upload-area">
 
-                <div class="form-group">
-                    <label for="mapel">Mata Pelajaran</label>
+                <div class="upload-icon">📄</div>
 
-                    <select id="mapel">
-                        <option value="">-- Pilih Mata Pelajaran --</option>
-                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                        <option value="Matematika">Matematika</option>
-                        <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
-                        <option value="IPAS">IPAS</option>
-                        <option value="Seni">Seni</option>
-                        <option value="PJOK">PJOK</option>
-                        <option value="Bahasa Inggris">Bahasa Inggris</option>
-                    </select>
-                </div>
+                <h3>Pilih File Word</h3>
 
-
-                <div class="form-group">
-                    <label for="kelas">Kelas</label>
-
-                    <select id="kelas">
-                        <option value="">-- Pilih Kelas --</option>
-                        <option value="I">Kelas I</option>
-                        <option value="II">Kelas II</option>
-                        <option value="III">Kelas III</option>
-                        <option value="IV">Kelas IV</option>
-                        <option value="V">Kelas V</option>
-                        <option value="VI">Kelas VI</option>
-                    </select>
-                </div>
-
-
-                <div class="form-group full">
-                    <label for="pertanyaan">Pertanyaan</label>
-
-                    <textarea
-                        id="pertanyaan"
-                        placeholder="Tuliskan pertanyaan..."
-                    ></textarea>
-                </div>
-
-            </div>
-
-
-            <h3 style="margin-top:25px;">Pilihan Jawaban</h3>
-
-            <div class="option-row">
-                <div class="option-label">A</div>
+                <p>
+                    Pilih file Microsoft Word (.docx) dari komputer Anda.
+                    <br>
+                    File akan dibaca langsung di browser.
+                </p>
 
                 <input
-                    type="text"
-                    id="opsiA"
-                    placeholder="Pilihan jawaban A"
+                    type="file"
+                    id="wordFile"
+                    class="file-input"
+                    accept=".docx"
                 >
-            </div>
 
-
-            <div class="option-row">
-                <div class="option-label">B</div>
-
-                <input
-                    type="text"
-                    id="opsiB"
-                    placeholder="Pilihan jawaban B"
+                <button
+                    class="btn btn-primary"
+                    onclick="document.getElementById('wordFile').click()"
                 >
-            </div>
-
-
-            <div class="option-row">
-                <div class="option-label">C</div>
-
-                <input
-                    type="text"
-                    id="opsiC"
-                    placeholder="Pilihan jawaban C"
-                >
-            </div>
-
-
-            <div class="option-row">
-                <div class="option-label">D</div>
-
-                <input
-                    type="text"
-                    id="opsiD"
-                    placeholder="Pilihan jawaban D"
-                >
-            </div>
-
-
-            <div class="answer-box">
-
-                <p>Jawaban yang benar</p>
-
-                <div class="radio-group">
-
-                    <label class="radio-item">
-                        <input type="radio" name="jawaban" value="A">
-                        A
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="jawaban" value="B">
-                        B
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="jawaban" value="C">
-                        C
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="jawaban" value="D">
-                        D
-                    </label>
-
-                </div>
+                    📂 PILIH FILE WORD
+                </button>
 
             </div>
 
+            <div id="fileInfo" class="file-info"></div>
 
-            <button class="btn-save" onclick="simpanSoal()">
-                💾 Simpan Soal
-            </button>
+            <div id="loading" class="loading">
+                ⏳ Sedang membaca file Word...
+            </div>
+
+            <div id="error" class="error"></div>
+
+            <div id="success" class="success"></div>
 
         </section>
 
 
-        <!-- DAFTAR SOAL -->
+        <!-- PREVIEW -->
+        <section id="previewSection" class="card preview">
 
-        <section class="card">
+            <div class="preview-header">
 
-            <h3>📖 Daftar Soal</h3>
+                <h2>👁️ Preview Soal</h2>
 
-            <div class="filter-bar">
-
-                <select id="filterMapel" onchange="tampilkanSoal()">
-                    <option value="">Semua Mata Pelajaran</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                    <option value="Matematika">Matematika</option>
-                    <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
-                    <option value="IPAS">IPAS</option>
-                    <option value="Seni">Seni</option>
-                    <option value="PJOK">PJOK</option>
-                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                </select>
-
-
-                <select id="filterKelas" onchange="tampilkanSoal()">
-                    <option value="">Semua Kelas</option>
-                    <option value="I">Kelas I</option>
-                    <option value="II">Kelas II</option>
-                    <option value="III">Kelas III</option>
-                    <option value="IV">Kelas IV</option>
-                    <option value="V">Kelas V</option>
-                    <option value="VI">Kelas VI</option>
-                </select>
+                <div id="questionCount" class="question-count">
+                    0 Soal
+                </div>
 
             </div>
 
+            <div id="previewContent"></div>
 
-            <div id="jumlahSoal" class="count-box"></div>
+            <div class="bottom-actions">
 
-            <div id="daftarSoal"></div>
+                <button
+                    class="btn btn-primary"
+                    onclick="simpanBankSoal()"
+                >
+                    💾 SIMPAN KE BANK SOAL
+                </button>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="resetImport()"
+                >
+                    🔄 PILIH FILE LAIN
+                </button>
+
+            </div>
 
         </section>
 
     </main>
 
 
-    <script>
+<script>
 
-        const STORAGE_KEY = "bankSoalSTS";
+/* =========================================================
+   VARIABEL
+========================================================= */
+
+let hasilImport = [];
 
 
-        function ambilSoal() {
+/* =========================================================
+   EVENT PILIH FILE
+========================================================= */
 
-            const data = localStorage.getItem(STORAGE_KEY);
+document.getElementById("wordFile").addEventListener("change", function () {
 
-            if (!data) {
-                return [];
-            }
+    const file = this.files[0];
 
-            try {
-                return JSON.parse(data);
-            } catch (error) {
-                return [];
+    if (!file) {
+        return;
+    }
+
+    bacaFileWord(file);
+
+});
+
+
+/* =========================================================
+   BACA FILE DOCX
+========================================================= */
+
+async function bacaFileWord(file) {
+
+    sembunyikanPesan();
+
+    const loading = document.getElementById("loading");
+    const fileInfo = document.getElementById("fileInfo");
+
+    fileInfo.style.display = "block";
+
+    fileInfo.innerHTML =
+        "📄 <strong>File:</strong> " +
+        escapeHtml(file.name) +
+        "<br>" +
+        "📦 <strong>Ukuran:</strong> " +
+        formatBytes(file.size);
+
+    loading.style.display = "block";
+
+    try {
+
+        const arrayBuffer = await file.arrayBuffer();
+
+        const zip = await JSZip.loadAsync(arrayBuffer);
+
+        const documentFile = zip.file("word/document.xml");
+
+        if (!documentFile) {
+            throw new Error("Dokumen Word tidak memiliki document.xml.");
+        }
+
+        const documentXmlText = await documentFile.async("text");
+
+        const parser = new DOMParser();
+
+        const xml = parser.parseFromString(
+            documentXmlText,
+            "application/xml"
+        );
+
+        const parserError = xml.querySelector("parsererror");
+
+        if (parserError) {
+            throw new Error("Struktur XML Word tidak dapat dibaca.");
+        }
+
+        /*
+         * Baca relasi gambar
+         */
+        const rels = {};
+
+        const relsFile = zip.file(
+            "word/_rels/document.xml.rels"
+        );
+
+        if (relsFile) {
+
+            const relsText =
+                await relsFile.async("text");
+
+            const relsXml =
+                parser.parseFromString(
+                    relsText,
+                    "application/xml"
+                );
+
+            const relationshipNodes =
+                relsXml.getElementsByTagName("Relationship");
+
+            for (const rel of relationshipNodes) {
+
+                const id =
+                    rel.getAttribute("Id");
+
+                const target =
+                    rel.getAttribute("Target");
+
+                if (id && target) {
+
+                    rels[id] =
+                        target.replace(
+                            /^.*media\//,
+                            ""
+                        );
+
+                }
+
             }
         }
 
 
-        function simpanDataSoal(data) {
+        /*
+         * Baca gambar yang tertanam
+         */
+        const images = {};
 
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(data)
+        for (const filename of Object.keys(zip.files)) {
+
+            if (!filename.startsWith("word/media/")) {
+                continue;
+            }
+
+            const imageFile = zip.file(filename);
+
+            if (!imageFile) {
+                continue;
+            }
+
+            const blob =
+                await imageFile.async("blob");
+
+            const mime =
+                getImageMime(filename);
+
+            const dataUrl =
+                await blobToDataUrl(
+                    blob,
+                    mime
+                );
+
+            const shortName =
+                filename.replace(
+                    "word/media/",
+                    ""
+                );
+
+            images[shortName] = dataUrl;
+        }
+
+
+        /*
+         * Ambil semua paragraf Word
+         */
+        const paragraphs =
+            Array.from(
+                xml.getElementsByTagName("w:p")
+            );
+
+        const data = [];
+
+        for (const paragraph of paragraphs) {
+
+            const item =
+                await prosesParagraf(
+                    paragraph,
+                    rels,
+                    images
+                );
+
+            if (
+                item.text.trim() !== "" ||
+                item.images.length > 0
+            ) {
+                data.push(item);
+            }
+        }
+
+
+        /*
+         * Simpan hasil mentah
+         */
+        hasilImport = data;
+
+        loading.style.display = "none";
+
+        tampilkanPreview(data);
+
+        const jumlah =
+            data.filter(item =>
+                /^\s*\d+[\.\)]/.test(item.text)
+            ).length;
+
+        tampilkanSukses(
+            "File Word berhasil dibaca. " +
+            "Ditemukan " +
+            jumlah +
+            " bagian bernomor."
+        );
+
+    } catch (error) {
+
+        loading.style.display = "none";
+
+        tampilkanError(
+            "Gagal membaca file Word: " +
+            error.message
+        );
+
+        console.error(error);
+    }
+}
+
+
+/* =========================================================
+   PROSES PARAGRAF
+========================================================= */
+
+async function prosesParagraf(
+    paragraph,
+    rels,
+    images
+) {
+
+    let text = "";
+
+    const textNodes =
+        paragraph.getElementsByTagName("w:t");
+
+    for (const node of textNodes) {
+
+        text += node.textContent || "";
+    }
+
+
+    const imageElements = [];
+
+    const blips =
+        paragraph.getElementsByTagName("a:blip");
+
+    for (const blip of blips) {
+
+        const relationId =
+            blip.getAttribute(
+                "r:embed"
+            );
+
+        if (!relationId) {
+            continue;
+        }
+
+        const filename =
+            rels[relationId];
+
+        if (!filename) {
+            continue;
+        }
+
+        if (images[filename]) {
+
+            imageElements.push(
+                images[filename]
+            );
+        }
+    }
+
+
+    return {
+        text: text,
+        images: imageElements
+    };
+}
+
+
+/* =========================================================
+   TAMPILKAN PREVIEW
+========================================================= */
+
+function tampilkanPreview(data) {
+
+    const section =
+        document.getElementById(
+            "previewSection"
+        );
+
+    const content =
+        document.getElementById(
+            "previewContent"
+        );
+
+    const count =
+        document.getElementById(
+            "questionCount"
+        );
+
+    section.style.display = "block";
+
+    content.innerHTML = "";
+
+    /*
+     * Untuk tahap pertama:
+     * tampilkan isi Word apa adanya
+     * agar kita dapat melihat apakah struktur
+     * soal berhasil terbaca.
+     */
+
+    if (!data.length) {
+
+        content.innerHTML =
+            '<div class="empty">' +
+            "Tidak ada isi yang berhasil dibaca." +
+            "</div>";
+
+        count.textContent = "0 Soal";
+
+        return;
+    }
+
+
+    let nomor = 0;
+
+    let currentQuestion = null;
+
+    const questions = [];
+
+
+    for (const item of data) {
+
+        const match =
+            item.text.trim().match(
+                /^(\d+)[\.\)]\s*(.*)$/
+            );
+
+
+        if (match) {
+
+            nomor++;
+
+            currentQuestion = {
+                nomor: match[1],
+                text: match[2],
+                images: [...item.images],
+                options: []
+            };
+
+            questions.push(
+                currentQuestion
+            );
+
+            continue;
+        }
+
+
+        /*
+         * Jika bukan nomor soal,
+         * tetapi ada soal aktif,
+         * masukkan sebagai lanjutan.
+         */
+
+        if (currentQuestion) {
+
+            const optionMatch =
+                item.text.trim().match(
+                    /^([A-D])[\.\)]\s*(.*)$/i
+                );
+
+            if (optionMatch) {
+
+                currentQuestion.options.push({
+                    label:
+                        optionMatch[1]
+                        .toUpperCase(),
+
+                    text:
+                        optionMatch[2],
+
+                    images:
+                        [...item.images]
+                });
+
+            } else {
+
+                if (item.text.trim()) {
+
+                    currentQuestion.text +=
+                        " " +
+                        item.text.trim();
+                }
+
+                currentQuestion.images.push(
+                    ...item.images
+                );
+            }
+        }
+    }
+
+
+    /*
+     * Jika pola nomor belum berhasil,
+     * tampilkan semua paragraf.
+     */
+
+    if (questions.length === 0) {
+
+        tampilkanSemuaParagraf(
+            data,
+            content
+        );
+
+        count.textContent =
+            "Struktur perlu diproses";
+
+        return;
+    }
+
+
+    count.textContent =
+        questions.length +
+        " Soal";
+
+
+    questions.forEach(question => {
+
+        const box =
+            document.createElement("div");
+
+        box.className =
+            "question";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "question-title";
+
+        title.textContent =
+            "Soal " +
+            question.nomor;
+
+
+        const body =
+            document.createElement("div");
+
+        body.className =
+            "question-body";
+
+
+        const questionText =
+            document.createElement("div");
+
+        questionText.className =
+            "question-text";
+
+        questionText.textContent =
+            question.text;
+
+
+        body.appendChild(
+            questionText
+        );
+
+
+        question.images.forEach(src => {
+
+            const img =
+                document.createElement("img");
+
+            img.src = src;
+
+            questionText.appendChild(img);
+
+        });
+
+
+        question.options.forEach(option => {
+
+            const optionDiv =
+                document.createElement("div");
+
+            optionDiv.className =
+                "option";
+
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "option-label";
+
+            label.textContent =
+                option.label + ".";
+
+
+            optionDiv.appendChild(label);
+
+
+            const textSpan =
+                document.createElement("span");
+
+            textSpan.textContent =
+                " " + option.text;
+
+            optionDiv.appendChild(
+                textSpan
+            );
+
+
+            option.images.forEach(src => {
+
+                const img =
+                    document.createElement("img");
+
+                img.src = src;
+
+                optionDiv.appendChild(
+                    img
+                );
+
+            });
+
+
+            body.appendChild(
+                optionDiv
+            );
+
+        });
+
+
+        box.appendChild(title);
+
+        box.appendChild(body);
+
+        content.appendChild(box);
+
+    });
+
+
+    /*
+     * Simpan struktur sementara
+     */
+    hasilImport = questions;
+}
+
+
+/* =========================================================
+   TAMPILKAN SEMUA PARAGRAF
+========================================================= */
+
+function tampilkanSemuaParagraf(
+    data,
+    container
+) {
+
+    container.innerHTML = "";
+
+    data.forEach((item, index) => {
+
+        const box =
+            document.createElement("div");
+
+        box.className =
+            "question";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "question-title";
+
+        title.textContent =
+            "Bagian " +
+            (index + 1);
+
+
+        const body =
+            document.createElement("div");
+
+        body.className =
+            "question-body";
+
+
+        const text =
+            document.createElement("div");
+
+        text.className =
+            "question-text";
+
+        text.textContent =
+            item.text;
+
+
+        body.appendChild(text);
+
+
+        item.images.forEach(src => {
+
+            const img =
+                document.createElement("img");
+
+            img.src = src;
+
+            body.appendChild(img);
+
+        });
+
+
+        box.appendChild(title);
+
+        box.appendChild(body);
+
+        container.appendChild(box);
+
+    });
+}
+
+
+/* =========================================================
+   SIMPAN BANK SOAL
+========================================================= */
+
+function simpanBankSoal() {
+
+    if (
+        !hasilImport ||
+        hasilImport.length === 0
+    ) {
+
+        alert(
+            "Belum ada soal yang dapat disimpan."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "bankSoal",
+        JSON.stringify(
+            hasilImport
+        )
+    );
+
+
+    tampilkanSukses(
+        "✅ Soal berhasil disimpan ke Bank Soal browser."
+    );
+
+
+    alert(
+        "Soal berhasil disimpan ke Bank Soal."
+    );
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetImport() {
+
+    hasilImport = [];
+
+    document.getElementById(
+        "wordFile"
+    ).value = "";
+
+    document.getElementById(
+        "previewSection"
+    ).style.display = "none";
+
+    document.getElementById(
+        "fileInfo"
+    ).style.display = "none";
+
+    sembunyikanPesan();
+}
+
+
+/* =========================================================
+   PESAN
+========================================================= */
+
+function sembunyikanPesan() {
+
+    document.getElementById(
+        "loading"
+    ).style.display = "none";
+
+    document.getElementById(
+        "error"
+    ).style.display = "none";
+
+    document.getElementById(
+        "success"
+    ).style.display = "none";
+}
+
+
+function tampilkanError(message) {
+
+    const element =
+        document.getElementById(
+            "error"
+        );
+
+    element.textContent =
+        "❌ " + message;
+
+    element.style.display =
+        "block";
+}
+
+
+function tampilkanSukses(message) {
+
+    const element =
+        document.getElementById(
+            "success"
+        );
+
+    element.textContent =
+        message;
+
+    element.style.display =
+        "block";
+}
+
+
+/* =========================================================
+   IMAGE MIME
+========================================================= */
+
+function getImageMime(filename) {
+
+    const extension =
+        filename
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const mimeTypes = {
+
+        jpg: "image/jpeg",
+
+        jpeg: "image/jpeg",
+
+        png: "image/png",
+
+        gif: "image/gif",
+
+        bmp: "image/bmp",
+
+        webp: "image/webp",
+
+        svg: "image/svg+xml"
+
+    };
+
+
+    return (
+        mimeTypes[extension] ||
+        "application/octet-stream"
+    );
+}
+
+
+/* =========================================================
+   BLOB → DATA URL
+========================================================= */
+
+function blobToDataUrl(
+    blob,
+    mime
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                () => {
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
+
+            reader.onerror =
+                reject;
+
+            reader.readAsDataURL(
+                new Blob(
+                    [blob],
+                    { type: mime }
+                )
             );
 
         }
-
-
-        function simpanSoal() {
-
-            const mapel =
-                document.getElementById("mapel").value;
-
-            const kelas =
-                document.getElementById("kelas").value;
-
-            const pertanyaan =
-                document.getElementById("pertanyaan").value.trim();
-
-            const opsiA =
-                document.getElementById("opsiA").value.trim();
-
-            const opsiB =
-                document.getElementById("opsiB").value.trim();
-
-            const opsiC =
-                document.getElementById("opsiC").value.trim();
-
-            const opsiD =
-                document.getElementById("opsiD").value.trim();
-
-
-            const jawabanElement =
-                document.querySelector(
-                    'input[name="jawaban"]:checked'
-                );
-
-
-            if (mapel === "") {
-                alert("Silakan pilih mata pelajaran.");
-                return;
-            }
-
-
-            if (kelas === "") {
-                alert("Silakan pilih kelas.");
-                return;
-            }
-
-
-            if (pertanyaan === "") {
-                alert("Silakan isi pertanyaan.");
-                return;
-            }
-
-
-            if (
-                opsiA === "" ||
-                opsiB === "" ||
-                opsiC === "" ||
-                opsiD === ""
-            ) {
-                alert("Semua pilihan jawaban A-D harus diisi.");
-                return;
-            }
-
-
-            if (!jawabanElement) {
-                alert("Silakan tentukan jawaban yang benar.");
-                return;
-            }
-
-
-            const soal = {
-
-                id: Date.now(),
-
-                mapel: mapel,
-
-                kelas: kelas,
-
-                pertanyaan: pertanyaan,
-
-                pilihan: {
-
-                    A: opsiA,
-
-                    B: opsiB,
-
-                    C: opsiC,
-
-                    D: opsiD
-
-                },
-
-                jawaban: jawabanElement.value
-
-            };
-
-
-            const data = ambilSoal();
-
-            data.push(soal);
-
-            simpanDataSoal(data);
-
-
-            alert("Soal berhasil disimpan.");
-
-
-            bersihkanForm();
-
-            tampilkanSoal();
-
-        }
-
-
-        function bersihkanForm() {
-
-            document.getElementById("mapel").value = "";
-
-            document.getElementById("kelas").value = "";
-
-            document.getElementById("pertanyaan").value = "";
-
-            document.getElementById("opsiA").value = "";
-
-            document.getElementById("opsiB").value = "";
-
-            document.getElementById("opsiC").value = "";
-
-            document.getElementById("opsiD").value = "";
-
-
-            const radios =
-                document.querySelectorAll(
-                    'input[name="jawaban"]'
-                );
-
-
-            radios.forEach(function(radio) {
-
-                radio.checked = false;
-
-            });
-
-        }
-
-
-        function tampilkanSoal() {
-
-            const data = ambilSoal();
-
-            const filterMapel =
-                document.getElementById("filterMapel").value;
-
-            const filterKelas =
-                document.getElementById("filterKelas").value;
-
-
-            const hasil = data.filter(function(soal) {
-
-                const cocokMapel =
-                    filterMapel === "" ||
-                    soal.mapel === filterMapel;
-
-                const cocokKelas =
-                    filterKelas === "" ||
-                    soal.kelas === filterKelas;
-
-                return cocokMapel && cocokKelas;
-
-            });
-
-
-            const jumlahSoal =
-                document.getElementById("jumlahSoal");
-
-
-            jumlahSoal.textContent =
-                "Total soal: " + hasil.length;
-
-
-            const container =
-                document.getElementById("daftarSoal");
-
-
-            if (hasil.length === 0) {
-
-                container.innerHTML = `
-                    <div class="empty">
-                        <div class="empty-icon">📚</div>
-                        <div>Belum ada soal.</div>
-                    </div>
-                `;
-
-                return;
-
-            }
-
-
-            container.innerHTML = "";
-
-
-            hasil.forEach(function(soal, index) {
-
-                const item =
-                    document.createElement("div");
-
-                item.className = "soal-item";
-
-
-                item.innerHTML = `
-
-                    <div class="soal-header">
-
-                        <div class="soal-number">
-                            Soal ${index + 1}
-                        </div>
-
-                        <div class="soal-meta">
-
-                            <span class="badge badge-mapel">
-                                ${escapeHTML(soal.mapel)}
-                            </span>
-
-                            <span class="badge badge-kelas">
-                                Kelas ${escapeHTML(soal.kelas)}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="soal-text">
-                        ${escapeHTML(soal.pertanyaan)}
-                    </div>
-
-
-                    <div class="pilihan-list">
-
-                        <div class="pilihan ${soal.jawaban === "A" ? "benar" : ""}">
-                            A. ${escapeHTML(soal.pilihan.A)}
-                        </div>
-
-                        <div class="pilihan ${soal.jawaban === "B" ? "benar" : ""}">
-                            B. ${escapeHTML(soal.pilihan.B)}
-                        </div>
-
-                        <div class="pilihan ${soal.jawaban === "C" ? "benar" : ""}">
-                            C. ${escapeHTML(soal.pilihan.C)}
-                        </div>
-
-                        <div class="pilihan ${soal.jawaban === "D" ? "benar" : ""}">
-                            D. ${escapeHTML(soal.pilihan.D)}
-                        </div>
-
-                    </div>
-
-
-                    <div class="soal-footer">
-
-                        <div class="jawaban-benar">
-                            ✓ Jawaban benar: ${soal.jawaban}
-                        </div>
-
-                        <button
-                            class="btn-delete"
-                            onclick="hapusSoal(${soal.id})"
-                        >
-                            🗑 Hapus
-                        </button>
-
-                    </div>
-
-                `;
-
-
-                container.appendChild(item);
-
-            });
-
-        }
-
-
-        function hapusSoal(id) {
-
-            const konfirmasi =
-                confirm(
-                    "Apakah Anda yakin ingin menghapus soal ini?"
-                );
-
-
-            if (!konfirmasi) {
-                return;
-            }
-
-
-            const data = ambilSoal();
-
-
-            const hasil =
-                data.filter(function(soal) {
-
-                    return soal.id !== id;
-
-                });
-
-
-            simpanDataSoal(hasil);
-
-            tampilkanSoal();
-
-        }
-
-
-        function escapeHTML(text) {
-
-            return String(text)
-
-                .replace(/&/g, "&amp;")
-
-                .replace(/</g, "&lt;")
-
-                .replace(/>/g, "&gt;")
-
-                .replace(/"/g, "&quot;")
-
-                .replace(/'/g, "&#039;");
-
-        }
-
-
-        function kembali() {
-
-            window.location.href = "index.html";
-
-        }
-
-
-        tampilkanSoal();
-
-    </script>
+    );
+}
+
+
+/* =========================================================
+   FORMAT UKURAN FILE
+========================================================= */
+
+function formatBytes(bytes) {
+
+    if (bytes === 0) {
+        return "0 Bytes";
+    }
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const i =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(1024, i)
+            ).toFixed(2)
+        ) +
+        " " +
+        units[i]
+    );
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+}
+
+</script>
 
 </body>
 </html>
