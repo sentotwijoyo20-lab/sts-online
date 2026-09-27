@@ -2393,24 +2393,54 @@ function simpanJawaban() {
 
 function updateStatus() {
 
-    const jawaban =
-        jawabanAktif();
-
-
-    const ragu =
-        raguAktif();
-
-
     const status =
         document.getElementById(
             "questionStatus"
         );
 
+    const data =
+        sesiAktif().data[soalSekarang];
+
+    const currentJawaban =
+        jawaban[soalSekarang];
+
+    let sudahDijawab = false;
+
+
+    /* ================================= */
+    /* CEK JAWABAN SESUAI JENIS SOAL */
+    /* ================================= */
 
     if (
-        ragu.includes(
-            soalSekarang
-        )
+        data.jenis === "uraian" &&
+        currentJawaban &&
+        typeof currentJawaban === "object"
+    ) {
+
+        sudahDijawab =
+            Object.values(currentJawaban)
+                .some(function(nilai) {
+
+                    return String(nilai || "")
+                        .trim() !== "";
+
+                });
+
+    } else {
+
+        sudahDijawab =
+            typeof currentJawaban === "string" &&
+            currentJawaban.trim() !== "";
+
+    }
+
+
+    /* ================================= */
+    /* STATUS RAGU-RAGU */
+    /* ================================= */
+
+    if (
+        ragu[soalSekarang]
     ) {
 
         status.textContent =
@@ -2419,16 +2449,9 @@ function updateStatus() {
         status.className =
             "status-doubt";
 
-    }
 
-
-    else if (
-        jawaban[
-            soalSekarang
-        ] &&
-        jawaban[
-            soalSekarang
-        ].trim() !== ""
+    } else if (
+        sudahDijawab
     ) {
 
         status.textContent =
@@ -2437,47 +2460,14 @@ function updateStatus() {
         status.className =
             "status-answered";
 
-    }
 
-
-    else {
+    } else {
 
         status.textContent =
             "Belum dijawab";
 
         status.className =
             "status-empty";
-
-    }
-
-
-    const doubtButton =
-        document.getElementById(
-            "doubtButton"
-        );
-
-
-    if (
-        ragu.includes(
-            soalSekarang
-        )
-    ) {
-
-        doubtButton.classList.add(
-            "active"
-        );
-
-        doubtButton.textContent =
-            "🟡 Tandai Tidak Ragu";
-
-    } else {
-
-        doubtButton.classList.remove(
-            "active"
-        );
-
-        doubtButton.textContent =
-            "🟡 Ragu-ragu";
 
     }
 
