@@ -2393,24 +2393,64 @@ function simpanJawaban() {
 
 function updateStatus() {
 
-    const jawaban =
-        jawabanAktif();
-
-
-    const ragu =
-        raguAktif();
-
-
     const status =
         document.getElementById(
             "questionStatus"
         );
 
+    const currentJawaban =
+        jawaban[soalSekarang];
+
+    let sudahDijawab = false;
+
+
+    /* ================================= */
+    /* JAWABAN URAIAN */
+    /* ================================= */
 
     if (
-        ragu.includes(
-            soalSekarang
-        )
+        currentJawaban &&
+        typeof currentJawaban === "object"
+    ) {
+
+        sudahDijawab =
+            Object.values(
+                currentJawaban
+            ).some(
+                function(nilai) {
+
+                    return (
+                        String(
+                            nilai || ""
+                        ).trim() !== ""
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ================================= */
+    /* JAWABAN PG / ISIAN */
+    /* ================================= */
+
+    else if (
+        typeof currentJawaban === "string"
+    ) {
+
+        sudahDijawab =
+            currentJawaban.trim() !== "";
+
+    }
+
+
+    /* ================================= */
+    /* STATUS RAGU-RAGU */
+    /* ================================= */
+
+    if (
+        ragu[soalSekarang]
     ) {
 
         status.textContent =
@@ -2423,12 +2463,7 @@ function updateStatus() {
 
 
     else if (
-        jawaban[
-            soalSekarang
-        ] &&
-        jawaban[
-            soalSekarang
-        ].trim() !== ""
+        sudahDijawab
     ) {
 
         status.textContent =
@@ -2450,44 +2485,7 @@ function updateStatus() {
 
     }
 
-
-    const doubtButton =
-        document.getElementById(
-            "doubtButton"
-        );
-
-
-    if (
-        ragu.includes(
-            soalSekarang
-        )
-    ) {
-
-        doubtButton.classList.add(
-            "active"
-        );
-
-        doubtButton.textContent =
-            "🟡 Tandai Tidak Ragu";
-
-    } else {
-
-        doubtButton.classList.remove(
-            "active"
-        );
-
-        doubtButton.textContent =
-            "🟡 Ragu-ragu";
-
-    }
-
 }
-
-
-
-/* ========================================= */
-/* NAVIGASI */
-/* ========================================= */
 
 function soalSebelumnya() {
 
