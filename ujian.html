@@ -2393,54 +2393,24 @@ function simpanJawaban() {
 
 function updateStatus() {
 
+    const jawaban =
+        jawabanAktif();
+
+
+    const ragu =
+        raguAktif();
+
+
     const status =
         document.getElementById(
             "questionStatus"
         );
 
-    const data =
-        sesiAktif().data[soalSekarang];
-
-    const currentJawaban =
-        jawaban[soalSekarang];
-
-    let sudahDijawab = false;
-
-
-    /* ================================= */
-    /* CEK JAWABAN SESUAI JENIS SOAL */
-    /* ================================= */
 
     if (
-        data.jenis === "uraian" &&
-        currentJawaban &&
-        typeof currentJawaban === "object"
-    ) {
-
-        sudahDijawab =
-            Object.values(currentJawaban)
-                .some(function(nilai) {
-
-                    return String(nilai || "")
-                        .trim() !== "";
-
-                });
-
-    } else {
-
-        sudahDijawab =
-            typeof currentJawaban === "string" &&
-            currentJawaban.trim() !== "";
-
-    }
-
-
-    /* ================================= */
-    /* STATUS RAGU-RAGU */
-    /* ================================= */
-
-    if (
-        ragu[soalSekarang]
+        ragu.includes(
+            soalSekarang
+        )
     ) {
 
         status.textContent =
@@ -2449,9 +2419,16 @@ function updateStatus() {
         status.className =
             "status-doubt";
 
+    }
 
-    } else if (
-        sudahDijawab
+
+    else if (
+        jawaban[
+            soalSekarang
+        ] &&
+        jawaban[
+            soalSekarang
+        ].trim() !== ""
     ) {
 
         status.textContent =
@@ -2460,14 +2437,47 @@ function updateStatus() {
         status.className =
             "status-answered";
 
+    }
 
-    } else {
+
+    else {
 
         status.textContent =
             "Belum dijawab";
 
         status.className =
             "status-empty";
+
+    }
+
+
+    const doubtButton =
+        document.getElementById(
+            "doubtButton"
+        );
+
+
+    if (
+        ragu.includes(
+            soalSekarang
+        )
+    ) {
+
+        doubtButton.classList.add(
+            "active"
+        );
+
+        doubtButton.textContent =
+            "🟡 Tandai Tidak Ragu";
+
+    } else {
+
+        doubtButton.classList.remove(
+            "active"
+        );
+
+        doubtButton.textContent =
+            "🟡 Ragu-ragu";
 
     }
 
@@ -2819,216 +2829,76 @@ function updateSessionButtons() {
 
 function selesaiUjian() {
 
-    const sesi =
-        sesiAktif();
-
-    const data =
-        sesi.data;
-
-    const jawaban =
-        jawabanAktif();
-
-
-    /* ================================= */
-    /* HITUNG PG */
-    /* ================================= */
-
-    let jumlahBenarPG = 0;
-
-    data.forEach(
-        function(soalData, index) {
-
-            if (
-                soalData.jenis === "pg"
-            ) {
-
-                const jawabanSiswa =
-                    jawaban[index];
-
-                const kunci =
-                    soalData.jawaban;
-
-                if (
-                    typeof jawabanSiswa === "string" &&
-                    jawabanSiswa.trim() !== "" &&
-                    normalisasi(jawabanSiswa) ===
-                    normalisasi(kunci)
-                ) {
-
-                    jumlahBenarPG++;
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /* ================================= */
-    /* HITUNG ISIAN */
-    /* ================================= */
-
-    let jumlahBenarIsian = 0;
-
-    data.forEach(
-        function(soalData, index) {
-
-            if (
-                soalData.jenis === "isian"
-            ) {
-
-                const jawabanSiswa =
-                    jawaban[index];
-
-                const kunci =
-                    soalData.jawaban;
-
-                if (
-                    typeof jawabanSiswa === "string" &&
-                    jawabanSiswa.trim() !== "" &&
-                    normalisasi(jawabanSiswa) ===
-                    normalisasi(kunci)
-                ) {
-
-                    jumlahBenarIsian++;
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /* ================================= */
-    /* URAIAN BELUM DINILAI AI */
-    /* ================================= */
-
-    let jumlahUraian =
-        data.filter(
-            function(soalData) {
+    const jumlahPG =
+        jawabanPG.filter(
+            function(item) {
 
                 return (
-                    soalData.jenis === "uraian"
+                    item &&
+                    item.trim() !== ""
                 );
 
             }
         ).length;
 
 
-    /* ================================= */
-    /* TOTAL SOAL OTOMATIS */
-    /* ================================= */
-
-    const jumlahSoalPG =
-        data.filter(
+    const jumlahIsian =
+        jawabanIsian.filter(
             function(item) {
-                return item.jenis === "pg";
+
+                return (
+                    item &&
+                    item.trim() !== ""
+                );
+
             }
         ).length;
 
 
-    const jumlahSoalIsian =
-        data.filter(
+    const jumlahUraian =
+        jawabanUraian.filter(
             function(item) {
-                return item.jenis === "isian";
+
+                return (
+                    item &&
+                    item.trim() !== ""
+                );
+
             }
         ).length;
 
 
-    const jumlahSoalUraian =
-        jumlahUraian;
+    const yakin =
+        confirm(
+
+            "Apakah Anda yakin ingin " +
+            "mengakhiri ujian?\n\n" +
+
+            "Pilihan Ganda: " +
+            jumlahPG +
+            " terisi\n" +
+
+            "Isian Singkat: " +
+            jumlahIsian +
+            " terisi\n" +
+
+            "Uraian: " +
+            jumlahUraian +
+            " terisi\n\n" +
+
+            "Jawaban akan dikirim."
+
+        );
 
 
-    const jumlahBenar =
-        jumlahBenarPG +
-        jumlahBenarIsian;
+    if (!yakin) {
+
+        return;
+
+    }
 
 
-    const jumlahOtomatis =
-        jumlahSoalPG +
-        jumlahSoalIsian;
-
-
-    const nilai =
-        jumlahOtomatis > 0
-            ? Math.round(
-                (
-                    jumlahBenar /
-                    jumlahOtomatis
-                ) * 100
-            )
-            : 0;
-
-
-    /* ================================= */
-    /* SIMPAN HASIL */
-    /* ================================= */
-
-    localStorage.setItem(
-        "nilaiSTS",
-        String(nilai)
-    );
-
-    localStorage.setItem(
-        "jumlahBenar",
-        String(jumlahBenar)
-    );
-
-    localStorage.setItem(
-        "jumlahBenarPG",
-        String(jumlahBenarPG)
-    );
-
-    localStorage.setItem(
-        "jumlahBenarIsian",
-        String(jumlahBenarIsian)
-    );
-
-    localStorage.setItem(
-        "jumlahSoalPG",
-        String(jumlahSoalPG)
-    );
-
-    localStorage.setItem(
-        "jumlahSoalIsian",
-        String(jumlahSoalIsian)
-    );
-
-    localStorage.setItem(
-        "jumlahSoalUraian",
-        String(jumlahSoalUraian)
-    );
-
-    localStorage.setItem(
-        "nilaiOtomatisSTS",
-        String(nilai)
-    );
-
-
-    /* ================================= */
-    /* SIMPAN STATUS SELESAI */
-    /* ================================= */
-
-    localStorage.setItem(
-        "ujianSelesai",
-        "true"
-    );
-
-
-    /* ================================= */
-    /* MASUK KE HASIL */
-    /* ================================= */
-
-    const mode =
-        localStorage.getItem(
-            "modeUjian"
-        ) || "gladi";
-
-
-    window.location.href =
-        "hasil.html?mode=" + mode;
+    hitungNilai();
 
 }
 
