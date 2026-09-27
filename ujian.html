@@ -2628,27 +2628,31 @@ function updateStatus() {
         );
 
 
-    if (
-        ragu.includes(
-            soalSekarang
-        )
-    ) {
+    if (doubtButton) {
 
-        doubtButton.classList.add(
-            "active"
-        );
+        if (
+            ragu.includes(
+                soalSekarang
+            )
+        ) {
 
-        doubtButton.textContent =
-            "🟡 Tandai Tidak Ragu";
+            doubtButton.classList.add(
+                "active"
+            );
 
-    } else {
+            doubtButton.textContent =
+                "🟡 Tandai Tidak Ragu";
 
-        doubtButton.classList.remove(
-            "active"
-        );
+        } else {
 
-        doubtButton.textContent =
-            "🟡 Ragu-ragu";
+            doubtButton.classList.remove(
+                "active"
+            );
+
+            doubtButton.textContent =
+                "🟡 Ragu-ragu";
+
+        }
 
     }
 
