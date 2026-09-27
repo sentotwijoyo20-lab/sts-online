@@ -1702,6 +1702,41 @@ function ambilPilihan(
 /* TAMPILKAN SOAL */
 /* ========================================= */
 
+
+/* ============================================================
+   MESIN JUMLAH SOAL DINAMIS
+   ============================================================ */
+
+function hitungJumlahSoalDinamis() {
+
+    const jumlahPG =
+        Array.isArray(soalPG)
+            ? soalPG.length
+            : 0;
+
+    const jumlahIsian =
+        Array.isArray(soalIsian)
+            ? soalIsian.length
+            : 0;
+
+    const jumlahUraian =
+        Array.isArray(soalUraian)
+            ? soalUraian.length
+            : 0;
+
+    const totalSoal =
+        jumlahPG +
+        jumlahIsian +
+        jumlahUraian;
+
+    return {
+        jumlahPG,
+        jumlahIsian,
+        jumlahUraian,
+        totalSoal
+    };
+}
+
 function tampilkanSoal() {
 
     const data =
@@ -3011,10 +3046,365 @@ if (
 
 }
 
+
+
+/* ================================= */
+/* RENDERER URAIAN SUBBAGIAN FINAL */
+/* ================================= */
+
+
+function renderUraianDenganSubbagian(data) {
+
+    const container =
+        document.getElementById("options");
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const kunci =
+        String(data.jawaban || "").trim();
+
+    let bagian = [];
+
+
+    /* Gambar 1, Gambar 2, dst */
+
+    const gambarRegex =
+        /Gambar\s+(\d+)\s*:/gi;
+
+    const gambar = [];
+
+    let match;
+
+    while (
+        (match = gambarRegex.exec(kunci)) !== null
+    ) {
+
+        gambar.push({
+
+            nomor: match[1],
+
+            index: match.index,
+
+            akhir:
+                match.index +
+                match[0].length
+
+        });
+
+    }
+
+
+    if (gambar.length > 0) {
+
+        gambar.forEach(
+            function(item, index) {
+
+                const akhir =
+                    index <
+                    gambar.length - 1
+                        ? gambar[index + 1].index
+                        : kunci.length;
+
+
+                const jawaban =
+                    kunci
+                        .slice(
+                            item.akhir,
+                            akhir
+                        )
+                        .replace(
+                            /^[;,\s]+/,
+                            ""
+                        )
+                        .replace(
+                            /[;,\s]+$/,
+                            ""
+                        )
+                        .trim();
+
+
+                bagian.push({
+
+                    kode:
+                        "gambar" +
+                        item.nomor,
+
+                    label:
+                        "Gambar " +
+                        item.nomor,
+
+                    jawaban:
+                        jawaban
+
+                });
+
+            }
+        );
+
+    }
+
+
+    /* a, b, c, dst */
+
+    if (bagian.length === 0) {
+
+        const hurufRegex =
+            /(?:^|[;,]\s*)([a-z])\.\s*/gi;
+
+        const huruf = [];
+
+        let hm;
+
+        while (
+            (hm = hurufRegex.exec(kunci)) !== null
+        ) {
+
+            huruf.push({
+
+                kode:
+                    hm[1].toUpperCase(),
+
+                index:
+                    hm.index,
+
+                akhir:
+                    hm.index +
+                    hm[0].length
+
+            });
+
+        }
+
+
+        if (huruf.length > 0) {
+
+            huruf.forEach(
+                function(item, index) {
+
+                    const akhir =
+                        index <
+                        huruf.length - 1
+                            ? huruf[index + 1].index
+                            : kunci.length;
+
+
+                    const jawaban =
+                        kunci
+                            .slice(
+                                item.akhir,
+                                akhir
+                            )
+                            .replace(
+                                /^[,;\s]+/,
+                                ""
+                            )
+                            .replace(
+                                /[,;\s]+$/,
+                                ""
+                            )
+                            .trim();
+
+
+                    bagian.push({
+
+                        kode:
+                            item.kode,
+
+                        label:
+                            item.kode,
+
+                        jawaban:
+                            jawaban
+
+                    });
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* Tanpa subbagian */
+
+    if (bagian.length === 0) {
+
+        bagian.push({
+
+            kode:
+                "utama",
+
+            label:
+                "Jawaban",
+
+            jawaban:
+                kunci
+
+        });
+
+    }
+
+
+    /* Ambil jawaban lama */
+
+    let jawabanUraian = [];
+
+    try {
+
+        jawabanUraian =
+            JSON.parse(
+                localStorage.getItem(
+                    "jawabanUraian"
+                )
+            ) || [];
+
+    }
+    catch (error) {
+
+        jawabanUraian = [];
+
+    }
+
+
+    if (
+        !jawabanUraian[soalSekarang] ||
+        typeof jawabanUraian[soalSekarang]
+            !== "object"
+    ) {
+
+        jawabanUraian[soalSekarang] = {};
+
+    }
+
+
+    /* Buat semua kotak */
+
+    bagian.forEach(
+        function(item) {
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+            wrapper.className =
+                "uraian-subbagian";
+
+            wrapper.style.marginBottom =
+                "20px";
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+            label.textContent =
+                item.label;
+
+            label.style.fontWeight =
+                "700";
+
+            label.style.marginBottom =
+                "8px";
+
+
+            const textarea =
+                document.createElement(
+                    "textarea"
+                );
+
+            textarea.className =
+                "uraian-answer";
+
+            textarea.rows =
+                5;
+
+            textarea.placeholder =
+                "Tuliskan jawaban " +
+                item.label +
+                " di sini...";
+
+            textarea.style.width =
+                "100%";
+
+            textarea.style.boxSizing =
+                "border-box";
+
+            textarea.style.padding =
+                "14px";
+
+            textarea.style.borderRadius =
+                "10px";
+
+            textarea.style.border =
+                "1px solid #d1d5db";
+
+            textarea.style.fontSize =
+                "16px";
+
+
+            textarea.value =
+                jawabanUraian[
+                    soalSekarang
+                ][item.kode] || "";
+
+
+            textarea.addEventListener(
+                "input",
+                function() {
+
+                    jawabanUraian[
+                        soalSekarang
+                    ][item.kode] =
+                        textarea.value;
+
+
+                    localStorage.setItem(
+                        "jawabanUraian",
+                        JSON.stringify(
+                            jawabanUraian
+                        )
+                    );
+
+                }
+            );
+
+
+            wrapper.appendChild(
+                label
+            );
+
+            wrapper.appendChild(
+                textarea
+            );
+
+            container.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
+
+    console.log(
+        "SUBBAGIAN URAIAN:",
+        bagian
+    );
+
+}
 </script>
 
 
 </body>
 
 </html>
+
+
+
 
