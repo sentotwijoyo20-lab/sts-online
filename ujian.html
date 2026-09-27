@@ -1026,7 +1026,219 @@
 
         }
 
-    </style>
+    
+
+/* =============================== */
+/* TRANSISI SESI UJIAN */
+/* =============================== */
+
+.session-transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+}
+
+.session-transition-overlay.show {
+    display: flex;
+}
+
+.session-transition-card {
+    width: 100%;
+    max-width: 560px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    padding: 38px 32px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.22);
+
+    animation: sessionCardIn 0.35s ease;
+}
+
+.session-transition-icon {
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    font-size: 42px;
+}
+
+.session-transition-progress {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    margin-bottom: 14px;
+
+    border-radius: 20px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+.session-transition-card h2 {
+    margin: 0 0 10px;
+
+    color: #173b7a;
+
+    font-size: 27px;
+}
+
+.session-transition-card p {
+    margin: 0 auto 20px;
+
+    max-width: 430px;
+
+    color: #64748b;
+
+    line-height: 1.6;
+
+    font-size: 15px;
+}
+
+.session-transition-count {
+    margin: 18px auto 25px;
+
+    padding: 14px 20px;
+
+    max-width: 250px;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    font-weight: 700;
+}
+
+.session-transition-actions {
+    display: flex;
+
+    gap: 12px;
+
+    justify-content: center;
+}
+
+.session-transition-actions button {
+    min-height: 48px;
+
+    padding: 0 22px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.session-transition-actions button:hover {
+    transform: translateY(-2px);
+}
+
+.session-back-button {
+    border: 1px solid #dbe3ef;
+
+    background: #ffffff;
+
+    color: #475569;
+}
+
+.session-next-button {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.22);
+}
+
+.session-next-button:hover {
+    box-shadow:
+        0 12px 25px rgba(37, 99, 235, 0.30);
+}
+
+@keyframes sessionCardIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .session-transition-card {
+        padding: 30px 20px;
+
+        border-radius: 20px;
+    }
+
+    .session-transition-icon {
+        width: 70px;
+        height: 70px;
+
+        font-size: 34px;
+    }
+
+    .session-transition-card h2 {
+        font-size: 23px;
+    }
+
+    .session-transition-actions {
+        flex-direction: column;
+    }
+
+    .session-transition-actions button {
+        width: 100%;
+    }
+
+}
+</style>
 
 </head>
 
@@ -1183,7 +1395,7 @@
         <button
             id="nextSessionButton"
             class="session-button"
-            onclick="lanjutSesi()">
+            onclick="lanjutDariTransisiSesi()">
 
             LANJUT KE SESI BERIKUTNYA →
 
@@ -2520,6 +2732,26 @@ function soalBerikutnya() {
 
         tampilkanSoal();
 
+        return;
+    }
+
+
+    /* =============================== */
+    /* SOAL TERAKHIR SESI */
+    /* =============================== */
+
+    if (sesiSekarang === 0) {
+
+        tampilkanTransisiSesi(1);
+
+    } else if (sesiSekarang === 1) {
+
+        tampilkanTransisiSesi(2);
+
+    } else {
+
+        tampilkanTransisiSesi(3);
+
     }
 
 }
@@ -2689,16 +2921,18 @@ function updateNavigation() {
         soalSekarang === 0;
 
 
+    /*
+     * Tombol Berikutnya tetap aktif pada soal terakhir.
+     * Jika sudah berada di soal terakhir, fungsi
+     * soalBerikutnya() akan membuka transisi sesi.
+     */
+
     document.getElementById(
         "nextButton"
     ).disabled =
-        soalSekarang ===
-        jumlah - 1;
+        false;
 
 }
-
-
-
 /* ========================================= */
 /* CEK SEMUA SUDAH DIJAWAB */
 /* ========================================= */
@@ -3721,12 +3955,209 @@ if (data.subbagian.length === 0) {
     );
 
 }
+
+/* =============================== */
+/* TRANSISI SESI */
+/* =============================== */
+
+function tampilkanTransisiSesi(sesi) {
+
+    const overlay =
+        document.getElementById("sessionTransition");
+
+    const icon =
+        document.getElementById("sessionTransitionIcon");
+
+    const progress =
+        document.getElementById("sessionTransitionProgress");
+
+    const title =
+        document.getElementById("sessionTransitionTitle");
+
+    const message =
+        document.getElementById("sessionTransitionMessage");
+
+    const count =
+        document.getElementById("sessionTransitionCount");
+
+    const nextButton =
+        document.querySelector(".session-next-button");
+
+
+    if (!overlay) {
+        return;
+    }
+
+
+    if (sesi === 1) {
+
+        icon.textContent = "🎓";
+
+        progress.textContent =
+            "SESI 1 DARI 3";
+
+        title.textContent =
+            "Sesi 1 Selesai";
+
+        message.textContent =
+            "Pilihan Ganda telah selesai dikerjakan. Pastikan seluruh jawaban sudah diperiksa sebelum melanjutkan.";
+
+        count.textContent =
+            "25 soal telah dikerjakan";
+
+        nextButton.textContent =
+            "Lanjut ke Sesi 2 →";
+
+    }
+
+
+    else if (sesi === 2) {
+
+        icon.textContent = "📝";
+
+        progress.textContent =
+            "SESI 2 DARI 3";
+
+        title.textContent =
+            "Sesi 2 Selesai";
+
+        message.textContent =
+            "Isian Singkat telah selesai dikerjakan. Pastikan jawaban sudah diperiksa sebelum melanjutkan.";
+
+        count.textContent =
+            "5 soal telah dikerjakan";
+
+        nextButton.textContent =
+            "Lanjut ke Sesi 3 →";
+
+    }
+
+
+    else {
+
+        icon.textContent = "🎉";
+
+        progress.textContent =
+            "SESI 3 DARI 3";
+
+        title.textContent =
+            "Ujian Selesai";
+
+        message.textContent =
+            "Semua bagian ujian telah dikerjakan. Periksa kembali jawaban sebelum mengirim ujian.";
+
+        count.textContent =
+            "5 soal uraian";
+
+        nextButton.textContent =
+            "Kirim Jawaban →";
+
+    }
+
+
+    overlay.classList.add("show");
+
+}
+
+
+function tutupTransisiSesi() {
+
+    const overlay =
+        document.getElementById("sessionTransition");
+
+    if (overlay) {
+        overlay.classList.remove("show");
+    }
+
+}
+
+
+function lanjutDariTransisiSesi() {
+
+    /*
+     * Untuk tahap ini tombol hanya menutup
+     * layar transisi.
+     *
+     * Perpindahan sesi sebenarnya akan kita
+     * hubungkan setelah tampilan selesai diuji.
+     */
+
+    tutupTransisiSesi();
+
+}
+
 </script>
 
+
+<!-- SESSION TRANSITION UI -->
+
+<div
+    id="sessionTransition"
+    class="session-transition-overlay">
+
+    <div class="session-transition-card">
+
+        <div
+            id="sessionTransitionIcon"
+            class="session-transition-icon">
+            🎓
+        </div>
+
+        <div
+            id="sessionTransitionProgress"
+            class="session-transition-progress">
+            SESI 1 DARI 3
+        </div>
+
+        <h2 id="sessionTransitionTitle">
+            Sesi 1 Selesai
+        </h2>
+
+        <p id="sessionTransitionMessage">
+            Pilihan Ganda telah selesai dikerjakan.
+            Pastikan seluruh jawaban sudah diperiksa
+            sebelum melanjutkan.
+        </p>
+
+        <div
+            id="sessionTransitionCount"
+            class="session-transition-count">
+            25 soal telah dikerjakan
+        </div>
+
+        <div class="session-transition-actions">
+
+            <button
+                type="button"
+                class="session-back-button"
+                onclick="tutupTransisiSesi()">
+
+                ← Periksa Kembali
+
+            </button>
+
+            <button
+                type="button"
+                class="session-next-button"
+                onclick="lanjutDariTransisiSesi()">
+
+                Lanjut ke Sesi 2 →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 
 </html>
+
+
+
+
 
 
 
