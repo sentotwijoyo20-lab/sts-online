@@ -3067,6 +3067,96 @@ function renderUraianDenganSubbagian(data) {
     const kunci =
         String(data.jawaban || "").trim();
 
+/* PAKSA PEMBAGIAN URAIAN DARI KUNCI JAWABAN */
+data.subbagian = [];
+
+const gambarMatches = [
+    ...kunci.matchAll(/Gambar\s+(\d+)\s*:/gi)
+];
+
+if (gambarMatches.length > 0) {
+
+    gambarMatches.forEach((m, i) => {
+
+        const mulai = m.index + m[0].length;
+
+        const selesai =
+            i < gambarMatches.length - 1
+                ? gambarMatches[i + 1].index
+                : kunci.length;
+
+        data.subbagian.push({
+
+            kode: "gambar" + m[1],
+
+            label: "Gambar " + m[1],
+
+            jawaban:
+                kunci
+                    .slice(mulai, selesai)
+                    .replace(/^[;,\s]+/, "")
+                    .replace(/[;,\s]+$/, "")
+                    .trim()
+
+        });
+
+    });
+
+}
+
+else {
+
+    const hurufMatches = [
+        ...kunci.matchAll(/(?:^|[;,]\s*)([a-z])\.\s*/gi)
+    ];
+
+    if (hurufMatches.length > 0) {
+
+        hurufMatches.forEach((m, i) => {
+
+            const mulai =
+                m.index + m[0].length;
+
+            const selesai =
+                i < hurufMatches.length - 1
+                    ? hurufMatches[i + 1].index
+                    : kunci.length;
+
+            data.subbagian.push({
+
+                kode: m[1].toUpperCase(),
+
+                label: m[1].toUpperCase(),
+
+                jawaban:
+                    kunci
+                        .slice(mulai, selesai)
+                        .replace(/^[;,\s]+/, "")
+                        .replace(/[;,\s]+$/, "")
+                        .trim()
+
+            });
+
+        });
+
+    }
+
+}
+
+if (data.subbagian.length === 0) {
+
+    data.subbagian.push({
+
+        kode: "utama",
+
+        label: "Jawaban",
+
+        jawaban: kunci
+
+    });
+
+}
+
     let bagian = [];
 
 
