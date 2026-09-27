@@ -2061,42 +2061,207 @@ function tampilkanSoal() {
 
     else {
 
-        container.className =
-            "";
+        container.className = "";
+
+        const kunci =
+            String(data.jawaban || "").trim();
+
+        let bagian = [];
+
+        /* ============================== */
+        /* Gambar 1, Gambar 2, dst */
+        /* ============================== */
+
+        const gambar =
+            [...kunci.matchAll(/Gambar\s+(\d+)\s*:/gi)];
+
+        if (gambar.length > 0) {
+
+            gambar.forEach(function(item, index) {
+
+                const mulai =
+                    item.index + item[0].length;
+
+                const selesai =
+                    index < gambar.length - 1
+                        ? gambar[index + 1].index
+                        : kunci.length;
+
+                bagian.push({
+
+                    kode: "gambar" + item[1],
+
+                    label: "Gambar " + item[1],
+
+                    kunci:
+                        kunci
+                            .slice(mulai, selesai)
+                            .replace(/^[;,\s]+/, "")
+                            .replace(/[;,\s]+$/, "")
+                            .trim()
+
+                });
+
+            });
+
+        }
+
+        /* ============================== */
+        /* a, b, c, dst */
+        /* ============================== */
+
+        else {
+
+            const huruf =
+                [...kunci.matchAll(
+                    /(?:^|[;,]\s*)([a-z])\.\s*/gi
+                )];
+
+            if (huruf.length > 0) {
+
+                huruf.forEach(function(item, index) {
+
+                    const mulai =
+                        item.index + item[0].length;
+
+                    const selesai =
+                        index < huruf.length - 1
+                            ? huruf[index + 1].index
+                            : kunci.length;
+
+                    bagian.push({
+
+                        kode:
+                            item[1].toUpperCase(),
+
+                        label:
+                            item[1].toUpperCase(),
+
+                        kunci:
+                            kunci
+                                .slice(mulai, selesai)
+                                .replace(/^[;,\s]+/, "")
+                                .replace(/[;,\s]+$/, "")
+                                .trim()
+
+                    });
+
+                });
+
+            }
+
+        }
+
+        /* ============================== */
+        /* Jika memang hanya satu jawaban */
+        /* ============================== */
+
+        if (bagian.length === 0) {
+
+            bagian.push({
+
+                kode: "utama",
+
+                label: "Jawaban",
+
+                kunci: kunci
+
+            });
+
+        }
 
 
-        const textarea =
-            document.createElement(
-                "textarea"
+        /* ============================== */
+        /* Pastikan data jawaban berupa object */
+        /* ============================== */
+
+        if (
+            !jawaban[
+                soalSekarang
+            ] ||
+            typeof jawaban[
+                soalSekarang
+            ] !== "object"
+        ) {
+
+            jawaban[
+                soalSekarang
+            ] = {};
+
+        }
+
+
+        /* ============================== */
+        /* BUAT SEMUA KOTAK JAWABAN */
+        /* ============================== */
+
+        bagian.forEach(function(item) {
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.style.marginBottom = "20px";
+
+
+            const label =
+                document.createElement("div");
+
+            label.textContent =
+                item.label;
+
+            label.style.fontWeight =
+                "700";
+
+            label.style.marginBottom =
+                "8px";
+
+
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.className =
+                "essay-answer";
+
+            textarea.placeholder =
+                "Tuliskan jawaban " +
+                item.label +
+                " di sini...";
+
+
+            textarea.value =
+                jawaban[
+                    soalSekarang
+                ][item.kode] || "";
+
+
+            textarea.addEventListener(
+                "input",
+                function() {
+
+                    jawaban[
+                        soalSekarang
+                    ][item.kode] =
+                        textarea.value;
+
+                    simpanJawaban();
+
+                    updateStatus();
+
+                }
             );
 
 
-        textarea.className =
-            "essay-answer";
+            wrapper.appendChild(label);
 
+            wrapper.appendChild(textarea);
 
-        textarea.placeholder =
-            "Tuliskan jawaban uraian Anda di sini...";
+            container.appendChild(wrapper);
 
+        });
 
-        textarea.value =
-            jawaban[
-                soalSekarang
-            ] || "";
+    }
 
-
-        textarea.addEventListener(
-            "input",
-            function() {
-
-                jawaban[
-                    soalSekarang
-                ] =
-                    textarea.value;
-
-                simpanJawaban();
-
-                updateStatus();
+    updateStatus();
 
             }
         );
