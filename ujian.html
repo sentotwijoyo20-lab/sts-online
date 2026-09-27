@@ -1744,21 +1744,15 @@ function tampilkanSoal() {
             soalSekarang
         ];
 
-
     if (!data) {
-
         return;
-
     }
-
 
     const jenis =
         jenisSesiAktif();
 
-
     const jawaban =
         jawabanAktif();
-
 
     const ragu =
         raguAktif();
@@ -1792,7 +1786,7 @@ function tampilkanSoal() {
 
 
     /* ===================================== */
-    /* TAMPILKAN GAMBAR SOAL */
+    /* GAMBAR SOAL */
     /* ===================================== */
 
     const imageContainer =
@@ -1800,14 +1794,11 @@ function tampilkanSoal() {
             "questionImages"
         );
 
-
     imageContainer.innerHTML = "";
 
 
     const images =
-        Array.isArray(
-            data.images
-        )
+        Array.isArray(data.images)
             ? data.images
             : [];
 
@@ -1819,16 +1810,12 @@ function tampilkanSoal() {
                 !src ||
                 typeof src !== "string"
             ) {
-
                 return;
-
             }
 
 
             const img =
-                document.createElement(
-                    "img"
-                );
+                document.createElement("img");
 
 
             img.src =
@@ -1853,9 +1840,7 @@ function tampilkanSoal() {
                 };
 
 
-            imageContainer.appendChild(
-                img
-            );
+            imageContainer.appendChild(img);
 
         }
     );
@@ -1882,26 +1867,18 @@ function tampilkanSoal() {
 
 
         const pilihan =
-            ambilPilihan(
-                data
-            );
+            ambilPilihan(data);
 
 
-        if (
-            pilihan.length === 0
-        ) {
+        if (pilihan.length === 0) {
 
             container.innerHTML =
-
                 '<div style="' +
                 'padding:15px;' +
                 'border-radius:10px;' +
                 'background:#fef2f2;' +
                 'color:#991b1b;">' +
-
-                '⚠️ Pilihan A-D belum ' +
-                'dapat dibaca dari data soal.' +
-
+                '⚠️ Pilihan A-D belum dapat dibaca dari data soal.' +
                 '</div>';
 
         }
@@ -1911,9 +1888,7 @@ function tampilkanSoal() {
             function(item) {
 
                 const label =
-                    document.createElement(
-                        "label"
-                    );
+                    document.createElement("label");
 
 
                 label.className =
@@ -1921,9 +1896,8 @@ function tampilkanSoal() {
 
 
                 if (
-                    jawaban[
-                        soalSekarang
-                    ] === item.huruf
+                    jawaban[soalSekarang] ===
+                    item.huruf
                 ) {
 
                     label.classList.add(
@@ -1934,35 +1908,23 @@ function tampilkanSoal() {
 
 
                 label.innerHTML =
-
-                    '<input ' +
-                    'type="radio" ' +
+                    '<input type="radio" ' +
                     'name="jawaban" ' +
                     'value="' +
                     item.huruf +
                     '">' +
 
-                    '<span ' +
-                    'class="option-letter">' +
-
+                    '<span class="option-letter">' +
                     item.huruf +
-
                     '</span>' +
 
-                    '<span ' +
-                    'class="option-text">' +
-
-                    escapeHtml(
-                        item.teks
-                    ) +
-
+                    '<span class="option-text">' +
+                    escapeHtml(item.teks) +
                     '</span>';
 
 
                 const radio =
-                    label.querySelector(
-                        "input"
-                    );
+                    label.querySelector("input");
 
 
                 radio.addEventListener(
@@ -1974,7 +1936,6 @@ function tampilkanSoal() {
                         ] =
                             item.huruf;
 
-
                         simpanJawaban();
 
                         tampilkanSoal();
@@ -1983,9 +1944,7 @@ function tampilkanSoal() {
                 );
 
 
-                container.appendChild(
-                    label
-                );
+                container.appendChild(label);
 
             }
         );
@@ -1998,18 +1957,13 @@ function tampilkanSoal() {
     /* ISIAN */
     /* ===================================== */
 
-    else if (
-        jenis === "isian"
-    ) {
+    else if (jenis === "isian") {
 
-        container.className =
-            "";
+        container.className = "";
 
 
         const input =
-            document.createElement(
-                "input"
-            );
+            document.createElement("input");
 
 
         input.type =
@@ -2047,133 +2001,194 @@ function tampilkanSoal() {
         );
 
 
-        container.appendChild(
-            input
-        );
+        container.appendChild(input);
 
     }
 
 
 
     /* ===================================== */
-    /* URAIAN */
+    /* URAIAN DINAMIS */
     /* ===================================== */
 
-    else {
+    else if (jenis === "uraian") {
 
         container.className = "";
 
+
         const kunci =
-            String(data.jawaban || "").trim();
+            String(
+                data.jawaban || ""
+            ).trim();
+
 
         let bagian = [];
 
-        /* ============================== */
+
+        /* --------------------------------- */
         /* Gambar 1, Gambar 2, dst */
-        /* ============================== */
+        /* --------------------------------- */
 
-        const gambar =
-            [...kunci.matchAll(/Gambar\s+(\d+)\s*:/gi)];
+        const gambarMatches = [
+            ...kunci.matchAll(
+                /Gambar\s+(\d+)\s*:/gi
+            )
+        ];
 
-        if (gambar.length > 0) {
 
-            gambar.forEach(function(item, index) {
+        if (
+            gambarMatches.length > 0
+        ) {
 
-                const mulai =
-                    item.index + item[0].length;
-
-                const selesai =
-                    index < gambar.length - 1
-                        ? gambar[index + 1].index
-                        : kunci.length;
-
-                bagian.push({
-
-                    kode: "gambar" + item[1],
-
-                    label: "Gambar " + item[1],
-
-                    kunci:
-                        kunci
-                            .slice(mulai, selesai)
-                            .replace(/^[;,\s]+/, "")
-                            .replace(/[;,\s]+$/, "")
-                            .trim()
-
-                });
-
-            });
-
-        }
-
-        /* ============================== */
-        /* a, b, c, dst */
-        /* ============================== */
-
-        else {
-
-            const huruf =
-                [...kunci.matchAll(
-                    /(?:^|[;,]\s*)([a-z])\.\s*/gi
-                )];
-
-            if (huruf.length > 0) {
-
-                huruf.forEach(function(item, index) {
+            gambarMatches.forEach(
+                function(item, index) {
 
                     const mulai =
-                        item.index + item[0].length;
+                        item.index +
+                        item[0].length;
+
 
                     const selesai =
-                        index < huruf.length - 1
-                            ? huruf[index + 1].index
+                        index <
+                        gambarMatches.length - 1
+                            ? gambarMatches[
+                                index + 1
+                              ].index
                             : kunci.length;
+
 
                     bagian.push({
 
                         kode:
-                            item[1].toUpperCase(),
+                            "gambar" +
+                            item[1],
 
                         label:
-                            item[1].toUpperCase(),
+                            "Gambar " +
+                            item[1],
 
                         kunci:
                             kunci
-                                .slice(mulai, selesai)
-                                .replace(/^[;,\s]+/, "")
-                                .replace(/[;,\s]+$/, "")
+                                .slice(
+                                    mulai,
+                                    selesai
+                                )
+                                .replace(
+                                    /^[;,\s]+/,
+                                    ""
+                                )
+                                .replace(
+                                    /[;,\s]+$/,
+                                    ""
+                                )
                                 .trim()
 
                     });
 
-                });
+                }
+            );
+
+        }
+
+
+
+        /* --------------------------------- */
+        /* a, b, c, dst */
+        /* --------------------------------- */
+
+        else {
+
+            const hurufMatches = [
+                ...kunci.matchAll(
+                    /(?:^|[;,]\s*)([a-z])\.\s*/gi
+                )
+            ];
+
+
+            if (
+                hurufMatches.length > 0
+            ) {
+
+                hurufMatches.forEach(
+                    function(item, index) {
+
+                        const mulai =
+                            item.index +
+                            item[0].length;
+
+
+                        const selesai =
+                            index <
+                            hurufMatches.length - 1
+                                ? hurufMatches[
+                                    index + 1
+                                  ].index
+                                : kunci.length;
+
+
+                        bagian.push({
+
+                            kode:
+                                item[1].toUpperCase(),
+
+                            label:
+                                item[1].toUpperCase(),
+
+                            kunci:
+                                kunci
+                                    .slice(
+                                        mulai,
+                                        selesai
+                                    )
+                                    .replace(
+                                        /^[;,\s]+/,
+                                        ""
+                                    )
+                                    .replace(
+                                        /[;,\s]+$/,
+                                        ""
+                                    )
+                                    .trim()
+
+                        });
+
+                    }
+                );
 
             }
 
         }
 
-        /* ============================== */
-        /* Jika memang hanya satu jawaban */
-        /* ============================== */
 
-        if (bagian.length === 0) {
+
+        /* --------------------------------- */
+        /* Uraian tanpa subbagian */
+        /* --------------------------------- */
+
+        if (
+            bagian.length === 0
+        ) {
 
             bagian.push({
 
-                kode: "utama",
+                kode:
+                    "utama",
 
-                label: "Jawaban",
+                label:
+                    "Jawaban",
 
-                kunci: kunci
+                kunci:
+                    kunci
 
             });
 
         }
 
 
-        /* ============================== */
-        /* Pastikan data jawaban berupa object */
-        /* ============================== */
+
+        /* --------------------------------- */
+        /* Pastikan jawaban uraian object */
+        /* --------------------------------- */
 
         if (
             !jawaban[
@@ -2191,84 +2206,139 @@ function tampilkanSoal() {
         }
 
 
-        /* ============================== */
-        /* BUAT SEMUA KOTAK JAWABAN */
-        /* ============================== */
 
-        bagian.forEach(function(item) {
+        /* --------------------------------- */
+        /* BUAT SEMUA KOTAK */
+        /* --------------------------------- */
 
-            const wrapper =
-                document.createElement("div");
+        bagian.forEach(
+            function(item) {
 
-            wrapper.style.marginBottom = "20px";
-
-
-            const label =
-                document.createElement("div");
-
-            label.textContent =
-                item.label;
-
-            label.style.fontWeight =
-                "700";
-
-            label.style.marginBottom =
-                "8px";
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            const textarea =
-                document.createElement("textarea");
-
-            textarea.className =
-                "essay-answer";
-
-            textarea.placeholder =
-                "Tuliskan jawaban " +
-                item.label +
-                " di sini...";
+                wrapper.className =
+                    "uraian-subbagian";
 
 
-            textarea.value =
-                jawaban[
-                    soalSekarang
-                ][item.kode] || "";
+                wrapper.style.marginBottom =
+                    "20px";
 
 
-            textarea.addEventListener(
-                "input",
-                function() {
+                const label =
+                    document.createElement(
+                        "div"
+                    );
 
+
+                label.textContent =
+                    item.label;
+
+
+                label.style.fontWeight =
+                    "700";
+
+
+                label.style.marginBottom =
+                    "8px";
+
+
+                const textarea =
+                    document.createElement(
+                        "textarea"
+                    );
+
+
+                textarea.className =
+                    "essay-answer";
+
+
+                textarea.rows =
+                    5;
+
+
+                textarea.placeholder =
+                    "Tuliskan jawaban " +
+                    item.label +
+                    " di sini...";
+
+
+                textarea.style.width =
+                    "100%";
+
+
+                textarea.style.boxSizing =
+                    "border-box";
+
+
+                textarea.style.padding =
+                    "14px";
+
+
+                textarea.style.borderRadius =
+                    "10px";
+
+
+                textarea.style.border =
+                    "1px solid #d1d5db";
+
+
+                textarea.style.fontSize =
+                    "16px";
+
+
+                textarea.value =
                     jawaban[
                         soalSekarang
-                    ][item.kode] =
-                        textarea.value;
-
-                    simpanJawaban();
-
-                    updateStatus();
-
-                }
-            );
+                    ][
+                        item.kode
+                    ] || "";
 
 
-            wrapper.appendChild(label);
+                textarea.addEventListener(
+                    "input",
+                    function() {
 
-            wrapper.appendChild(textarea);
+                        jawaban[
+                            soalSekarang
+                        ][
+                            item.kode
+                        ] =
+                            textarea.value;
 
-            container.appendChild(wrapper);
 
-        });
+                        simpanJawaban();
 
-    }
+                        updateStatus();
 
-    updateStatus();
+                    }
+                );
+
+
+                wrapper.appendChild(
+                    label
+                );
+
+
+                wrapper.appendChild(
+                    textarea
+                );
+
+
+                container.appendChild(
+                    wrapper
+                );
 
             }
         );
 
 
-        container.appendChild(
-            textarea
+        console.log(
+            "URAIAN BAGIAN:",
+            bagian
         );
 
     }
@@ -2283,8 +2353,6 @@ function tampilkanSoal() {
     updateSessionButtons();
 
 }
-
-
 
 /* ========================================= */
 /* SIMPAN JAWABAN */
