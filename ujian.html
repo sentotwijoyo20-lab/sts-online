@@ -2819,76 +2819,216 @@ function updateSessionButtons() {
 
 function selesaiUjian() {
 
-    const jumlahPG =
-        jawabanPG.filter(
-            function(item) {
+    const sesi =
+        sesiAktif();
+
+    const data =
+        sesi.data;
+
+    const jawaban =
+        jawabanAktif();
+
+
+    /* ================================= */
+    /* HITUNG PG */
+    /* ================================= */
+
+    let jumlahBenarPG = 0;
+
+    data.forEach(
+        function(soalData, index) {
+
+            if (
+                soalData.jenis === "pg"
+            ) {
+
+                const jawabanSiswa =
+                    jawaban[index];
+
+                const kunci =
+                    soalData.jawaban;
+
+                if (
+                    typeof jawabanSiswa === "string" &&
+                    jawabanSiswa.trim() !== "" &&
+                    normalisasi(jawabanSiswa) ===
+                    normalisasi(kunci)
+                ) {
+
+                    jumlahBenarPG++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* ================================= */
+    /* HITUNG ISIAN */
+    /* ================================= */
+
+    let jumlahBenarIsian = 0;
+
+    data.forEach(
+        function(soalData, index) {
+
+            if (
+                soalData.jenis === "isian"
+            ) {
+
+                const jawabanSiswa =
+                    jawaban[index];
+
+                const kunci =
+                    soalData.jawaban;
+
+                if (
+                    typeof jawabanSiswa === "string" &&
+                    jawabanSiswa.trim() !== "" &&
+                    normalisasi(jawabanSiswa) ===
+                    normalisasi(kunci)
+                ) {
+
+                    jumlahBenarIsian++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* ================================= */
+    /* URAIAN BELUM DINILAI AI */
+    /* ================================= */
+
+    let jumlahUraian =
+        data.filter(
+            function(soalData) {
 
                 return (
-                    item &&
-                    item.trim() !== ""
+                    soalData.jenis === "uraian"
                 );
 
             }
         ).length;
 
 
-    const jumlahIsian =
-        jawabanIsian.filter(
+    /* ================================= */
+    /* TOTAL SOAL OTOMATIS */
+    /* ================================= */
+
+    const jumlahSoalPG =
+        data.filter(
             function(item) {
-
-                return (
-                    item &&
-                    item.trim() !== ""
-                );
-
+                return item.jenis === "pg";
             }
         ).length;
 
 
-    const jumlahUraian =
-        jawabanUraian.filter(
+    const jumlahSoalIsian =
+        data.filter(
             function(item) {
-
-                return (
-                    item &&
-                    item.trim() !== ""
-                );
-
+                return item.jenis === "isian";
             }
         ).length;
 
 
-    const yakin =
-        confirm(
-
-            "Apakah Anda yakin ingin " +
-            "mengakhiri ujian?\n\n" +
-
-            "Pilihan Ganda: " +
-            jumlahPG +
-            " terisi\n" +
-
-            "Isian Singkat: " +
-            jumlahIsian +
-            " terisi\n" +
-
-            "Uraian: " +
-            jumlahUraian +
-            " terisi\n\n" +
-
-            "Jawaban akan dikirim."
-
-        );
+    const jumlahSoalUraian =
+        jumlahUraian;
 
 
-    if (!yakin) {
-
-        return;
-
-    }
+    const jumlahBenar =
+        jumlahBenarPG +
+        jumlahBenarIsian;
 
 
-    hitungNilai();
+    const jumlahOtomatis =
+        jumlahSoalPG +
+        jumlahSoalIsian;
+
+
+    const nilai =
+        jumlahOtomatis > 0
+            ? Math.round(
+                (
+                    jumlahBenar /
+                    jumlahOtomatis
+                ) * 100
+            )
+            : 0;
+
+
+    /* ================================= */
+    /* SIMPAN HASIL */
+    /* ================================= */
+
+    localStorage.setItem(
+        "nilaiSTS",
+        String(nilai)
+    );
+
+    localStorage.setItem(
+        "jumlahBenar",
+        String(jumlahBenar)
+    );
+
+    localStorage.setItem(
+        "jumlahBenarPG",
+        String(jumlahBenarPG)
+    );
+
+    localStorage.setItem(
+        "jumlahBenarIsian",
+        String(jumlahBenarIsian)
+    );
+
+    localStorage.setItem(
+        "jumlahSoalPG",
+        String(jumlahSoalPG)
+    );
+
+    localStorage.setItem(
+        "jumlahSoalIsian",
+        String(jumlahSoalIsian)
+    );
+
+    localStorage.setItem(
+        "jumlahSoalUraian",
+        String(jumlahSoalUraian)
+    );
+
+    localStorage.setItem(
+        "nilaiOtomatisSTS",
+        String(nilai)
+    );
+
+
+    /* ================================= */
+    /* SIMPAN STATUS SELESAI */
+    /* ================================= */
+
+    localStorage.setItem(
+        "ujianSelesai",
+        "true"
+    );
+
+
+    /* ================================= */
+    /* MASUK KE HASIL */
+    /* ================================= */
+
+    const mode =
+        localStorage.getItem(
+            "modeUjian"
+        ) || "gladi";
+
+
+    window.location.href =
+        "hasil.html?mode=" + mode;
 
 }
 
