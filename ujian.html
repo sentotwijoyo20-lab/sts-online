@@ -4074,15 +4074,17 @@ function tutupTransisiSesi() {
 
 function lanjutDariTransisiSesi() {
 
-    /*
-     * Untuk tahap ini tombol hanya menutup
-     * layar transisi.
-     *
-     * Perpindahan sesi sebenarnya akan kita
-     * hubungkan setelah tampilan selesai diuji.
-     */
-
     tutupTransisiSesi();
+
+    if (sesiSekarang === 2) {
+
+        kirimJawaban();
+
+        return;
+
+    }
+
+    lanjutSesi();
 
 }
 
@@ -4154,6 +4156,7 @@ function lanjutDariTransisiSesi() {
 </body>
 
 </html>
+
 
 
 
